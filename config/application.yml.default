@@ -6,10 +6,19 @@ defaults: &defaults
 
 production:
   <<: *defaults
+  default_url_options: 
+    host:  localhost
+    port:  3000
 
 development:
   <<: *defaults
+  default_url_options: 
+    host:  localhost
+    port:  3000
   neat_setting: 800
 
 test:
+  default_url_options: 
+    host:  localhost
+    port:  3000
   <<: *defaults
