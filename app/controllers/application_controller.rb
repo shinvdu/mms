@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_action :authenticate_user!
 
       # for seo 
     def set_seo_meta(title = '',meta_keywords = '', meta_description = '')
@@ -43,4 +44,17 @@ class ApplicationController < ActionController::Base
     	flash[:danger] = msg
     end
 
+
+  protected
+
+  def current_user
+    @current_user
+  end
+
+  private
+
+  def authenticate_user!
+    :authenticate_account!
+    @current_user = current_account.id
+  end
 end

@@ -34,6 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'mysql2'
+gem 'inherited_resources'
 # YAML配置信息
 gem 'settingslogic'
 
@@ -46,5 +47,7 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'annotate_models'
 end
 
