@@ -1,0 +1,15 @@
+defaults: &defaults
+  mms:
+    name:  多媒体管理系统
+  title: 多媒体管理系统
+  cool: mms
+
+production:
+  <<: *defaults
+
+development:
+  <<: *defaults
+  neat_setting: 800
+
+test:
+  <<: *defaults

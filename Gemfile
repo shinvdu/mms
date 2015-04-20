@@ -34,6 +34,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'mysql2'
+# YAML配置信息
+gem 'settingslogic'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
