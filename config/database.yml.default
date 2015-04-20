@@ -13,7 +13,7 @@ development:
   <<: *default
   database: mms
   username: root
-  password: 879650225
+  password: xxxxxx
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -23,12 +23,12 @@ test:
   <<: *default
   database: mms
   username: root
-  password: xxx
+  password: H0tmail!8
   host: localhost 
 
 production:
   <<: *default
   database: mms
   username: root
-  password: xxxx
+  password: H0tmail!8
   host: localhost
