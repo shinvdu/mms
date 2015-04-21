@@ -28,6 +28,9 @@ ActiveRecord::Schema.define(version: 20150420080326) do
     t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.integer  "failed_attempts",        limit: 4,   default: 0,  null: false
+    t.datetime "locked_at"
+    t.integer  "user_id",                limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
