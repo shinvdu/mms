@@ -20,3 +20,4 @@
 class15.iml
 config/database.yml
 config/application.yml
+vendor/bundle/ruby
