@@ -1,8 +1,7 @@
 class Account < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
+  devise :database_authenticatable, :registerable,  :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
   attr_accessor :login
   
   def self.find_for_database_authentication(warden_conditions)
@@ -33,5 +32,6 @@ end
 # last_sign_in_ip        varchar(255)         true            false  
 # created_at             datetime             true            false  
 # updated_at             datetime             true            false  
+# user_info_id           int(11)              true            false  
 #
 #------------------------------------------------------------------------------
