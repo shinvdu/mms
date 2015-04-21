@@ -55,4 +55,8 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def authenticate_user!
+    :authenticate_account!
+    @current_user = current_account.user_info if current_account
+  end
 end

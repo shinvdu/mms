@@ -33,5 +33,6 @@ end
 # last_sign_in_ip        varchar(255)         true            false  
 # created_at             datetime             true            false  
 # updated_at             datetime             true            false  
+# user_info_id           int(11)              true            false  
 #
 #------------------------------------------------------------------------------

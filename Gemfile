@@ -34,7 +34,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'mysql2'
-gem 'inherited_resources'
 # YAML配置信息
 gem 'settingslogic'
 

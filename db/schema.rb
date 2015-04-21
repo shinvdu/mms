@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420080326) do
+ActiveRecord::Schema.define(version: 20150420120333) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -30,10 +30,18 @@ ActiveRecord::Schema.define(version: 20150420080326) do
     t.datetime "confirmation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_info_id",           limit: 4
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
   add_index "accounts", ["username"], name: "index_accounts_on_username", unique: true, using: :btree
+
+  create_table "user_infos", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.text     "note",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
 end
