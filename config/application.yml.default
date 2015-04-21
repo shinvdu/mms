@@ -28,6 +28,9 @@ development:
     password:  "xxx"
     authentication:  plain
     ssl:  true
+  default_url_options: 
+    host:  localhost
+    port:  3000
   neat_setting: 800
 
 test:
