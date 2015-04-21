@@ -20,4 +20,5 @@
 class15.iml
 config/database.yml
 config/application.yml
-/Gemfile.lock
+Gemfile.lock
+vendor/bundle/ruby

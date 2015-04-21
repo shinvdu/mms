@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   # get 'file_data/upload'
 
   get 'home/index'
-  devise_for :accounts#, controllers: { sessions: "users/sessions" }
+  devise_for :accounts, controllers: { registrations: "user/registrations" }
   root 'home#index'
   match ':controller/:action', :via => :all
   resources :file_data

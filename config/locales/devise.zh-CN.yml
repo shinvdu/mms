@@ -1,0 +1,60 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+zh-CN:
+  devise:
+    confirmations:
+      confirmed: "您的帐号已经激活，请登录。"
+      send_instructions: "稍后，您将收到一封帐号激活的电子邮件。"
+      send_paranoid_instructions: "该邮件地址已经注册注册，系统将发送一封帐号激活的电子邮件到您的邮箱，请查收。"
+    failure:
+      already_authenticated: "您已经登录。"
+      inactive: "您还没有激活帐户。"
+      invalid: "无效的%{authentication_keys}或者密码。"
+      locked: "您的帐号已被锁定。"
+      last_attempt: "你还有一次机会，如果尝试失败，帐户暂时会被锁。"
+      not_found_in_database: "无效的 %{authentication_keys} 或者密码。"
+      timeout: "您的会话过期。请重新登录以继续。"
+      unauthenticated: "请登录帐号，若无帐号，请注册新帐号"
+      unconfirmed: "请先激活您的邮箱地址。"
+    mailer:
+      confirmation_instructions:
+        subject: "激活注册邮箱"
+      reset_password_instructions:
+        subject: "帐号重置密码"
+      unlock_instructions:
+        subject: "帐号解锁申请"
+    omniauth_callbacks:
+      failure: " 第三方%{kind} 登陆过程异常\"%{reason}\"，请重试。"
+      success: "使用%{kind}帐号成功登陆。"
+    passwords:
+      no_token: "访问拒绝，请登录"
+      send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+      updated: "您的密码已修改成功，请重新登录。"
+      updated_not_active: "密码已经成功修改。"
+    registrations:
+      destroyed: "您已经成功退出帐号"
+      signed_up: "您的帐号已注册成功，如无意外，您将收到一封帐号激活的邮件。"
+      signed_up_but_inactive: "帐号成功登录，请您先激活你的帐号。"
+      signed_up_but_locked: "帐号成功登录，您的帐号已经被锁定"
+      signed_up_but_unconfirmed: "系统已经发送帐号激活的邮件到您的邮箱，请您登录邮箱激活帐号"
+      update_needs_confirmation: "帐号信息已经更新，请登录邮箱激活帐号"
+      updated: "帐号信息更新成功。"
+    sessions:
+      signed_in: "帐号登录成功。"
+      signed_out: "帐号成功退出。"
+      already_signed_out: "帐号成功退出。"
+    unlocks:
+      send_instructions: "您将收到一封帐号解锁的邮件。"
+      send_paranoid_instructions: "如果你的帐号己经存在， 稍后，你会收到如何解锁的邮件。"
+      unlocked: "您的帐号已经解锁，请登录。"
+  errors:
+    messages:
+      already_confirmed: "已经成功激活，请登录。"
+      confirmation_period_expired: "激活已经超过 %{period}，已失效,请重新申请"
+      expired: "己经过期，请再请求一个。"
+      not_found: "不存在。"
+      not_locked: "没有被锁定。"
+      not_saved:
+        one: "有 1 个错误发生导致「%{resource}」无法被保存。"
+        other: "有 %{count} 个错误发生导致「%{resource}」无法被保存。"
