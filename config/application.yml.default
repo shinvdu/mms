@@ -9,16 +9,37 @@ production:
   default_url_options: 
     host:  localhost
     port:  3000
+  email: 
+    address:  smtp.exmail.qq.com
+    port:  465
+    domain:  qq.com
+    user:  silas@kanda.cn.com
+    password:  "xxx"
+    authentication:  plain
+    ssl:  true
 
 development:
   <<: *defaults
-  default_url_options: 
-    host:  localhost
-    port:  3000
+  email: 
+    address:  smtp.exmail.qq.com
+    port:  465
+    domain:  qq.com
+    user:  silas@kanda.cn.com
+    password:  "xxx"
+    authentication:  plain
+    ssl:  true
   neat_setting: 800
 
 test:
+  <<: *defaults
   default_url_options: 
     host:  localhost
     port:  3000
-  <<: *defaults
+  email: 
+    address:  smtp.exmail.qq.com
+    port:  465
+    domain:  qq.com
+    user:  silas@kanda.cn.com
+    password:  "xxxx"
+    authentication:  plain
+    ssl:  true

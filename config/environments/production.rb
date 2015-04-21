@@ -78,4 +78,19 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = { host: Settings.default_url_options.host, port:  Settings.default_url_options.port }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.smtp_settings = {
+      :address => Settings.email.address,
+      :port => Settings.email.port,
+      :domain => Settings.email.port,
+      :user_name => Settings.email.user,
+      :password => Settings.email.password,
+      authentication: 'plain',
+      ssl: true,
+  }
+
 end
