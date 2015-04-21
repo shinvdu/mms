@@ -3,6 +3,7 @@ class Account < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,  :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:login]
   attr_accessor :login
+  belongs_to :user, foreign_key: :user_id
   
   def self.find_for_database_authentication(warden_conditions)
   	conditions = warden_conditions.dup
