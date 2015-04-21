@@ -3,6 +3,8 @@ class Account < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  belongs_to :user_info
+  accepts_nested_attributes_for :user_info, :allow_destroy => true
 end
 
 #------------------------------------------------------------------------------
@@ -23,5 +25,6 @@ end
 # last_sign_in_ip        varchar(255)         true            false  
 # created_at             datetime             true            false  
 # updated_at             datetime             true            false  
+# user_info_id           int(11)              true            false  
 #
 #------------------------------------------------------------------------------

@@ -1,0 +1,8 @@
+<h1>FileData#upload</h1>
+<p>Find me in app/views/file_data/upload.html.erb</p>
+
+
+<%= form_for :fileData, :html => {:multipart => true}, :url => file_data_path(:fileData) do |f| %>
+    <%= f.file_field :myfile %>
+    <%= f.submit "Upload" %>
+<% end %>

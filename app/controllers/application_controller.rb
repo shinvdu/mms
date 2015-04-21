@@ -55,6 +55,6 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     :authenticate_account!
-    @current_user = current_account.id
+    @current_user = current_account.user_info if current_account
   end
 end

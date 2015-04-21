@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  # get 'file_data/upload'
+
   get 'home/index'
   devise_for :accounts#, controllers: { sessions: "users/sessions" }
   root 'home#index'
+  match ':controller/:action', :via => :all
+  resources :file_data
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
