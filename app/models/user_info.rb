@@ -1,5 +1,6 @@
 class UserInfo < ActiveRecord::Base
   has_one :account
+  has_many :user_videos, :foreign_key => :owner_id
 end
 
 #------------------------------------------------------------------------------

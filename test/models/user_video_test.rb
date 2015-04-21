@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FileDataControllerTest < ActionController::TestCase
+class UserVideoTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
