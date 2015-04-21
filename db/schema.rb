@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420080326) do
+ActiveRecord::Schema.define(version: 20150421121739) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -38,5 +38,29 @@ ActiveRecord::Schema.define(version: 20150420080326) do
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
   add_index "accounts", ["username"], name: "index_accounts_on_username", unique: true, using: :btree
+
+  create_table "users", primary_key: "uid", force: :cascade do |t|
+    t.string   "nicename",          limit: 255
+    t.integer  "role",              limit: 4
+    t.integer  "sex",               limit: 4
+    t.integer  "really_name",       limit: 4
+    t.datetime "birthday"
+    t.string   "signature",         limit: 255
+    t.integer  "avar",              limit: 4
+    t.string   "location",          limit: 255
+    t.string   "self_introduction", limit: 255
+    t.string   "token",             limit: 255
+    t.string   "scret_key",         limit: 255
+    t.string   "mobile",            limit: 255
+    t.string   "wechat",            limit: 255
+    t.string   "qq",                limit: 255
+    t.string   "weibo",             limit: 255
+    t.string   "twitter_id",        limit: 255
+    t.string   "facebook",          limit: 255
+    t.string   "website",           limit: 255
+    t.string   "note",              limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
 end
