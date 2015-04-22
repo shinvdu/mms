@@ -5,9 +5,9 @@ class CreateUserVideos < ActiveRecord::Migration
       t.integer :original_video_id
       t.integer :mini_video_id
       t.integer :logo_id
-      t.string :videoName
-      t.string :fileName #uploaded file
-      t.string :extName  #uploaded file
+      t.string :video_name
+      t.string :file_name #uploaded file
+      t.string :ext_name  #uploaded file
       t.integer :duration
       t.integer :status
 

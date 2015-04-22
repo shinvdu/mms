@@ -13,8 +13,8 @@ class UserVideosController < ApplicationController
   end
 
   def create
-    userVideo = UserVideo.new(current_user, params[:fileData][:videoName], params[:fileData][:video])
-    userVideo.save!
+    user_video = UserVideo.new(current_user, params[:file_data][:video_name], params[:file_data][:video])
+    user_video.save!
 
     respond_to do |format|
       format.html {redirect_to user_videos_path}
@@ -23,8 +23,8 @@ class UserVideosController < ApplicationController
   end
 
   def destroy
-    userVideo = UserVideo.find(params[:id])
-    userVideo.destroy
+    user_video = UserVideo.find(params[:id])
+    user_video.destroy
     redirect_to user_videos_path
   end
 

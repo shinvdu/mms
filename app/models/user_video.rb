@@ -11,9 +11,9 @@ class UserVideo < ActiveRecord::Base
   def initialize(owner, videoName, video)
     super()
     self.owner = owner
-    self.videoName = videoName
-    self.fileName = video.original_filename
-    self.extName = File.extname(self.fileName)
+    self.video_name = videoName
+    self.file_name = video.original_filename
+    self.ext_name = File.extname(self.file_name)
 
     videoDetail = VideoDetail.new(self, video)
     self.original_video = videoDetail

@@ -25,5 +25,6 @@ end
 # publish_stop    time                 true            false  
 # created_at      datetime             false           false  
 # updated_at      datetime             false           false  
+# status          int(11)              true            false  
 #
 #------------------------------------------------------------------------------

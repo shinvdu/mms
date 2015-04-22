@@ -8,7 +8,7 @@ class VideoDetail < ActiveRecord::Base
     super()
     self.user_video = userVideo
     self.uuid = UUIDTools::UUID.random_create
-    self.uri = File.join('original_video', "#{self.uuid}.#{userVideo.extName}")
+    self.uri = File.join('original_video', "#{self.uuid}.#{userVideo.ext_name}")
     self.video = video
 
     fetchVideoInfo(video)

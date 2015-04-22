@@ -17,7 +17,7 @@
         <% @videos.each do |video| %>
         <tr>
             <td><%= video.id %></td>
-            <td><%= video.fileName %></td>
+            <td><%= video.file_name %></td>
             <td><%= video.status %></td>
             <td><%= link_to 'e', user_video_path(video) %></td>
             <td><%= button_to 'x', user_video_path(video), :method => :delete %></td>
