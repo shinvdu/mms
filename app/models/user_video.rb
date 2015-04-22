@@ -20,7 +20,7 @@ class UserVideo < ActiveRecord::Base
     videoDetail.save!
     self.status = @@STATUS_UPLOADED
     # TODO build MTS task and then modify status
-    self.status = @@GET_LOW_RATE
+    self.status = @@GOT_LOW_RATE
   end
 
   def GOT_LOW_RATE?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422113327) do
+ActiveRecord::Schema.define(version: 20150422080719) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -44,9 +44,9 @@ ActiveRecord::Schema.define(version: 20150422113327) do
     t.integer  "original_video_id", limit: 4
     t.integer  "mini_video_id",     limit: 4
     t.integer  "logo_id",           limit: 4
-    t.string   "videoName",         limit: 255
-    t.string   "fileName",          limit: 255
-    t.string   "extName",           limit: 255
+    t.string   "video_name",        limit: 255
+    t.string   "file_name",         limit: 255
+    t.string   "ext_name",          limit: 255
     t.integer  "duration",          limit: 4
     t.integer  "status",            limit: 4
     t.datetime "created_at",                    null: false
@@ -116,9 +116,9 @@ ActiveRecord::Schema.define(version: 20150422113327) do
     t.boolean  "published",       limit: 1
     t.time     "publish_start"
     t.time     "publish_stop"
+    t.integer  "status",          limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
-    t.integer  "status",          limit: 4
   end
 
 end
