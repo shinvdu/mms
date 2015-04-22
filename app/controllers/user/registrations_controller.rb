@@ -11,6 +11,12 @@ class User::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
+    user = User.new
+    account = current_account
+    if not account.nil?
+      account.user = user 
+      account.save
+    end
   end
 
   # GET /resource/edit
