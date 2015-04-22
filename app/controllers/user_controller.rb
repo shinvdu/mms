@@ -1,29 +1,34 @@
 class UserController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_account!
+      # 只能操作自己的帐户, 第一个用户为超级用户,  例外
+  before_action :restrict_user, only: [:show, :edit, :update,  :destroy]
+    # 只有超级用户才有手动创建用户的权限 
+  before_action :restrict_create_user, only: [:create, :index]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
+  # GET /user
+  # GET /user.json
   def index
-    @users = User.all
+    # @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
+  # GET /user/1
+  # GET /user/1.json
   def show
+
   end
 
-  # GET /users/new
+  # GET /user/new
   def new
     @user = User.new
   end
 
-  # GET /users/1/edit
+  # GET /user/1/edit
   def edit
   end
 
-  # POST /users
-  # POST /users.json
+  # POST /user
+  # POST /user.json
   def create
     @user = User.new(user_params)
 
@@ -65,7 +70,30 @@ class UserController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+      @user = User.find(params[:id]) if @user.nil?
+    end
+
+    def restrict_user
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+          return
+      end
+      # 只能操作自己的帐户
       @user = User.find(params[:id])
+      if @current_user.uid != @user.uid
+        redirect_to :root 
+        return
+      end
+    end
+
+    # 只有超级用户才有手动创建用户的权限
+    def restrict_create_user
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      else
+        redirect_to :root 
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
