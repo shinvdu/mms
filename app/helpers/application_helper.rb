@@ -15,4 +15,8 @@ module ApplicationHelper
 		  flash_messages.join("\n").html_safe
 	end
 
+	def current_user
+		@current_user
+	end
+
 end

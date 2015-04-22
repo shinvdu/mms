@@ -36,6 +36,10 @@ gem 'devise'
 gem 'mysql2'
 # YAML配置信息
 gem 'settingslogic'
+# aliyun OSS
+gem 'rest-client'
+gem 'carrierwave-aliyun'
+gem 'uuidtools'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

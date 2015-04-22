@@ -21,6 +21,7 @@ end
 # Name                   SQL Type             Null    Default Primary
 # ---------------------- -------------------- ------- ------- -------
 # id                     int(11)              false           true   
+# username               varchar(255)         false           false  
 # email                  varchar(255)         false           false  
 # encrypted_password     varchar(255)         false           false  
 # reset_password_token   varchar(255)         true            false  
@@ -31,6 +32,9 @@ end
 # last_sign_in_at        datetime             true            false  
 # current_sign_in_ip     varchar(255)         true            false  
 # last_sign_in_ip        varchar(255)         true            false  
+# confirmation_token     varchar(255)         true            false  
+# confirmed_at           datetime             true            false  
+# confirmation_sent_at   datetime             true            false  
 # created_at             datetime             true            false  
 # updated_at             datetime             true            false  
 # user_info_id           int(11)              true            false  

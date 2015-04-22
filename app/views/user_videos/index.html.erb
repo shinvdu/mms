@@ -1,0 +1,24 @@
+<h1>UserVideos#index</h1>
+<p>Find me in app/views/user_videos/index.html.erb</p>
+
+
+<%= link_to 'upload video', new_user_video_path %>
+<table>
+    <thead>
+        <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @videos.each do |video| %>
+        <tr>
+            <td><%= video.id %></td>
+            <td>img</td>
+            <td><%= link_to 'e', user_video_path(video) %></td>
+            <td><%= button_to 'x', user_video_path(video), :method => :delete %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   get 'home/index'
   devise_for :accounts, controllers: { registrations: "user/registrations" }
   root 'home#index'
-  match ':controller/:action', :via => :all
+  # match ':controller/:action', :via => :all
   resources :file_data
+  resources :user_videos
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

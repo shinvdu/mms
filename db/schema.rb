@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20150421121739) do
     t.integer  "user_id",                limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_info_id",           limit: 4
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
@@ -61,6 +62,21 @@ ActiveRecord::Schema.define(version: 20150421121739) do
     t.string   "note",              limit: 255
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "video_details", force: :cascade do |t|
+    t.string   "uuid",          limit: 255
+    t.string   "uri",           limit: 255
+    t.string   "format",        limit: 255
+    t.string   "md5",           limit: 255
+    t.string   "rate",          limit: 255
+    t.integer  "size",          limit: 4
+    t.integer  "duration",      limit: 4
+    t.integer  "status",        limit: 4
+    t.integer  "user_video_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "video",         limit: 255
   end
 
 end
