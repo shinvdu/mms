@@ -5,6 +5,14 @@ Rails.application.routes.draw do
   devise_for :accounts, controllers: { registrations: "user/registrations" }
   root 'home#index'
   # match ':controller/:action', :via => :all
+  resources :user do
+    member do
+        get 'short'
+        post 'toggle'
+    end
+  end
+  
+
   resources :file_data
   resources :user_videos
 
