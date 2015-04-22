@@ -35,8 +35,10 @@ end
 # confirmation_token     varchar(255)         true            false  
 # confirmed_at           datetime             true            false  
 # confirmation_sent_at   datetime             true            false  
+# failed_attempts        int(11)              false   0       false  
+# locked_at              datetime             true            false  
+# user_id                int(11)              true            false  
 # created_at             datetime             true            false  
 # updated_at             datetime             true            false  
-# user_info_id           int(11)              true            false  
 #
 #------------------------------------------------------------------------------

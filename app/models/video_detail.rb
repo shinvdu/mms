@@ -33,9 +33,6 @@ end
 # Name          SQL Type             Null    Default Primary
 # ------------- -------------------- ------- ------- -------
 # id            int(11)              false           true   
-# videoName     varchar(255)         true            false  
-# fileName      varchar(255)         true            false  
-# extName       varchar(255)         true            false  
 # uuid          varchar(255)         true            false  
 # uri           varchar(255)         true            false  
 # format        varchar(255)         true            false  

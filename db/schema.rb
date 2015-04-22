@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421121739) do
+ActiveRecord::Schema.define(version: 20150422113327) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(version: 20150421121739) do
     t.datetime "updated_at",                    null: false
   end
 
+  create_table "video_cut_points", force: :cascade do |t|
+    t.float    "start_time",    limit: 24
+    t.float    "stop_time",     limit: 24
+    t.boolean  "user_created",  limit: 1
+    t.integer  "user_video_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "video_details", force: :cascade do |t|
     t.string   "uuid",          limit: 255
     t.string   "uri",           limit: 255
@@ -90,6 +99,26 @@ ActiveRecord::Schema.define(version: 20150421121739) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.string   "video",         limit: 255
+  end
+
+  create_table "video_fragments", force: :cascade do |t|
+    t.integer  "video_product_group_id", limit: 4
+    t.integer  "video_cut_point_id",     limit: 4
+    t.integer  "order",                  limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  create_table "video_product_groups", force: :cascade do |t|
+    t.integer  "owner_id",        limit: 4
+    t.integer  "user_video_id",   limit: 4
+    t.integer  "video_config_id", limit: 4
+    t.boolean  "published",       limit: 1
+    t.time     "publish_start"
+    t.time     "publish_stop"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "status",          limit: 4
   end
 
 end
