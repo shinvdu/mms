@@ -14,8 +14,10 @@
     <tbody>
         <% @videos.each do |video| %>
         <tr>
-            <td>1</td>
+            <td><%= video.id %></td>
             <td>img</td>
+            <td><%= link_to 'e', user_video_path(video) %></td>
+            <td><%= button_to 'x', user_video_path(video), :method => :delete %></td>
         </tr>
         <% end %>
     </tbody>

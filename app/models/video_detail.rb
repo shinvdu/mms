@@ -4,18 +4,20 @@ class VideoDetail < ActiveRecord::Base
 
   require 'fileutils'
 
-  def processUploadedFile(uploadedFile)
-    self.fileName = uploadedFile.original_filename
-    self.extName = File.extname(self.fileName)
+  def initialize(userVideo, video)
+    super()
+    self.user_video = userVideo
     self.uuid = UUIDTools::UUID.random_create
+    self.uri = File.join('original_video', "#{self.uuid}.#{userVideo.extName}")
+    self.video = video
 
-    uploader = VideoUploader.new
-    uploader.store_dir = File.join('original_video', self.uuid)
-    uploader.store!(uploadedFile)
-    self.uri = File.join(uploader.store_dir, self.fileName)
+    fetchVideoInfo(video)
+  end
 
-    fetchVideoInfo(fileName)
-    self.video = fileName
+  def destroy
+    remove_video!
+    save
+    super
   end
 
   private
@@ -31,7 +33,9 @@ end
 # Name          SQL Type             Null    Default Primary
 # ------------- -------------------- ------- ------- -------
 # id            int(11)              false           true   
-# name          varchar(255)         true            false  
+# videoName     varchar(255)         true            false  
+# fileName      varchar(255)         true            false  
+# extName       varchar(255)         true            false  
 # uuid          varchar(255)         true            false  
 # uri           varchar(255)         true            false  
 # format        varchar(255)         true            false  

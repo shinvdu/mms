@@ -1,9 +1,6 @@
 class CreateVideoDetails < ActiveRecord::Migration
   def change
     create_table :video_details do |t|
-      t.string :videoName
-      t.string :fileName
-      t.string :extName
       t.string :uuid
       t.string :uri
       t.string :format

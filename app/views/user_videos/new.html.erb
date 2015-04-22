@@ -1,7 +1,7 @@
 <h1>UserVideos#new</h1>
 <p>Find me in app/views/user_videos/new.html.erb</p>
 
-<%= form_for :fileData, :html =>{:multipart => true}, :url => user_videos_path(:fileData) do |f| %>
+<%= form_for :fileData, :html =>{:multipart => true}, :url => user_videos_path(:fileData, format: :html) do |f| %>
     <%= f.text_field :fileType, :value => 'original_video' %>
     <%= f.file_field :video %>
     <%= f.submit 'Upload' %>

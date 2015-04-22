@@ -67,6 +67,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     :authenticate_account!
     # @current_user = current_account.user_info if current_account.present?
+    UserInfo.new.save! if UserInfo.last.nil?
     @current_user = UserInfo.last
   end
 end

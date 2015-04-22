@@ -2,6 +2,19 @@ class UserVideo < ActiveRecord::Base
   has_many :videos, :class_name => 'VideoDetail', :dependent => :destroy
   belongs_to :owner, :class_name => 'UserInfo', :foreign_key => :owner_id
   belongs_to :original_video, :class_name => 'VideoDetail'
+
+  def initialize(owner, videoName, video)
+    super()
+    self.owner = owner
+    self.videoName = videoName
+    self.fileName = video.original_filename
+    self.extName = File.extname(self.fileName)
+
+    videoDetail = VideoDetail.new(self, video)
+    self.original_video = videoDetail
+    videoDetail.save!
+
+  end
 end
 
 #------------------------------------------------------------------------------

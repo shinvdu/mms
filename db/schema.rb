@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(version: 20150421084657) do
     t.integer  "original_video_id", limit: 4
     t.integer  "mini_video_id",     limit: 4
     t.integer  "logo_id",           limit: 4
-    t.string   "name",              limit: 255
+    t.string   "videoName",         limit: 255
+    t.string   "fileName",          limit: 255
+    t.string   "extName",           limit: 255
     t.integer  "duration",          limit: 4
     t.integer  "status",            limit: 4
     t.datetime "created_at",                    null: false
@@ -57,9 +59,6 @@ ActiveRecord::Schema.define(version: 20150421084657) do
   end
 
   create_table "video_details", force: :cascade do |t|
-    t.string   "videoName",     limit: 255
-    t.string   "fileName",      limit: 255
-    t.string   "extName",       limit: 255
     t.string   "uuid",          limit: 255
     t.string   "uri",           limit: 255
     t.string   "format",        limit: 255
