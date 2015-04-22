@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  owner_id: 1
+  user_video_id: 1
+  video_config_id: 1
+  published: false
+  publish_start: 2015-04-22 16:04:44
+  publish_stop: 2015-04-22 16:04:44
+
+two:
+  owner_id: 1
+  user_video_id: 1
+  video_config_id: 1
+  published: false
+  publish_start: 2015-04-22 16:04:44
+  publish_stop: 2015-04-22 16:04:44

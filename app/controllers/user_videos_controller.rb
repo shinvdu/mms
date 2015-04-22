@@ -1,5 +1,5 @@
 class UserVideosController < ApplicationController
-  before_action :authenticate_user!, :check_login
+  before_action :authenticate_account!, :check_login
   def index
     @videos = current_user.user_videos
   end
@@ -9,12 +9,12 @@ class UserVideosController < ApplicationController
   end
 
   def show
-    @userVideo = UserVideo.find(params[:id])
+    @user_video = UserVideo.find(params[:id])
   end
 
   def create
-    uv = UserVideo.new(current_user, params[:fileData][:videoName], params[:fileData][:video])
-    uv.save!
+    user_video = UserVideo.new(current_user, params[:file_data][:video_name], params[:file_data][:video])
+    user_video.save!
 
     respond_to do |format|
       format.html {redirect_to user_videos_path}
@@ -23,8 +23,8 @@ class UserVideosController < ApplicationController
   end
 
   def destroy
-    userVideo = UserVideo.find(params[:id])
-    userVideo.destroy
+    user_video = UserVideo.find(params[:id])
+    user_video.destroy
     redirect_to user_videos_path
   end
 

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # get 'file_data/upload'
+  get 'video_product_groups/create'
 
   get 'home/index'
   devise_for :accounts, controllers: { registrations: "user/registrations" }
@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   
 
   resources :file_data
-  resources :user_videos
+  resources :user_videos do
+    resource :video_product_group, :controller => 'video_product_groups'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
