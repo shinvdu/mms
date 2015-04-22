@@ -16,7 +16,7 @@
 		<%= notice_message %>
 	</div>
 
-<% if current_user %>
+<% if current_account %>
     <%= link_to('登出', destroy_account_session_path, :method => :delete) %> |
     <%= link_to('修改密碼', edit_registration_path(:account)) %>
 <% else %>

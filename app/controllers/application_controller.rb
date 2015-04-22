@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
 
   protected
 
@@ -55,7 +56,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user
+    @user
   end
 
   protected
@@ -65,7 +66,6 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    # :authenticate_account!
     @user = current_account.user if current_account
   end
 end
