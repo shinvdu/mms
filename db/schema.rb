@@ -33,12 +33,25 @@ ActiveRecord::Schema.define(version: 20150421121739) do
     t.integer  "user_id",                limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_info_id",           limit: 4
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
   add_index "accounts", ["username"], name: "index_accounts_on_username", unique: true, using: :btree
+
+  create_table "user_videos", force: :cascade do |t|
+    t.integer  "owner_id",          limit: 4
+    t.integer  "original_video_id", limit: 4
+    t.integer  "mini_video_id",     limit: 4
+    t.integer  "logo_id",           limit: 4
+    t.string   "videoName",         limit: 255
+    t.string   "fileName",          limit: 255
+    t.string   "extName",           limit: 255
+    t.integer  "duration",          limit: 4
+    t.integer  "status",            limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
   create_table "users", primary_key: "uid", force: :cascade do |t|
     t.string   "nicename",          limit: 255

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   devise_for :accounts, controllers: { registrations: "user/registrations" }
   root 'home#index'
   # match ':controller/:action', :via => :all
-  resources :user do
+  resources :user,  :as => :users do
     member do
         get 'short'
         post 'toggle'
