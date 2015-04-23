@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423073729) do
+ActiveRecord::Schema.define(version: 20150423075839) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150423073729) do
 
   create_table "logos", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.integer  "uid",        limit: 4
+    t.integer  "user_id",    limit: 4
     t.string   "uri",        limit: 255
     t.integer  "width",      limit: 4
     t.integer  "height",     limit: 4
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150423073729) do
 
   create_table "players", force: :cascade do |t|
     t.string   "name",          limit: 255
-    t.integer  "uid",           limit: 4
+    t.integer  "user_id",       limit: 4
     t.string   "color",         limit: 255
     t.integer  "logo",          limit: 4
     t.string   "logo_position", limit: 255

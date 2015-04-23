@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
     self.primary_key = "uid"
     has_one :account
+    has_one :logo
     has_many :user_videos, :foreign_key => :owner_id
 
 end
