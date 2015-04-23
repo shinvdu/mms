@@ -55,7 +55,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    Digest::SHA1.hexdigest(original_filename) if original_filename
+    Digest::SHA1.hexdigest(original_filename) << '.' << original_filename.split('.').last  if original_filename
   end
 
 end
