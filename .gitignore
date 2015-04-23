@@ -23,3 +23,4 @@ config/application.yml
 Gemfile.lock
 vendor/bundle/ruby
 Gemfile.lock
+public/uploads/logo
