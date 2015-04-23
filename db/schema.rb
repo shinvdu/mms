@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423075839) do
+ActiveRecord::Schema.define(version: 20150423094707) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150423075839) do
     t.string   "name",          limit: 255
     t.integer  "user_id",       limit: 4
     t.string   "color",         limit: 255
-    t.integer  "logo",          limit: 4
+    t.integer  "logo_id",       limit: 4
     t.string   "logo_position", limit: 255
     t.integer  "autoplay",      limit: 4
     t.integer  "share",         limit: 4
