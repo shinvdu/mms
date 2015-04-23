@@ -21,7 +21,9 @@
   </div>
   <div class="field">
     <%= f.label :uri %><br>
-    <%= f.text_field :uri %>
+    <%= image_tag(@logo.uri) if @logo.uri? %>
+    <%= f.file_field :uri %>
+    <%= f.hidden_field :uri_cache %>
   </div>
   <div class="field">
     <%= f.label :width %><br>
