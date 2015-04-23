@@ -24,15 +24,15 @@ class LogoUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
   #原图片
-  process :resize_to_fit => [200, 200]
+  process :resize_to_fit => [Settings.logo.origin.width, Settings.logo.origin.height]
   #thumb
   version :thumb do
-    process :resize_to_fill => [50,50]
+    process :resize_to_fill => [Settings.logo.small.width,Settings.logo.small.width]
   end
   
   #normal
   version :normal do
-    process :resize_to_fill => [100,100]
+    process :resize_to_fill => [Settings.logo.normal.width,Settings.logo.normal.width]
   end
   # Process files as they are uploaded:
   # process :scale => [200, 300]
