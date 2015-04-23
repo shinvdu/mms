@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Logos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Uid</th>
+      <th>Uri</th>
+      <th>Width</th>
+      <th>Height</th>
+      <th>Filemime</th>
+      <th>Filesize</th>
+      <th>Origname</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @logos.each do |logo| %>
+      <tr>
+        <td><%= logo.name %></td>
+        <td><%= logo.uid %></td>
+        <td><%= logo.uri %></td>
+        <td><%= logo.width %></td>
+        <td><%= logo.height %></td>
+        <td><%= logo.filemime %></td>
+        <td><%= logo.filesize %></td>
+        <td><%= logo.origname %></td>
+        <td><%= link_to 'Show', logo %></td>
+        <td><%= link_to 'Edit', edit_logo_path(logo) %></td>
+        <td><%= link_to 'Destroy', logo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Logo', new_logo_path %>

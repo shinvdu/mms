@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422080719) do
+ActiveRecord::Schema.define(version: 20150423073119) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -38,6 +38,19 @@ ActiveRecord::Schema.define(version: 20150422080719) do
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
   add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
   add_index "accounts", ["username"], name: "index_accounts_on_username", unique: true, using: :btree
+
+  create_table "logos", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "uid",        limit: 4
+    t.string   "uri",        limit: 255
+    t.integer  "width",      limit: 4
+    t.integer  "height",     limit: 4
+    t.string   "filemime",   limit: 255
+    t.integer  "filesize",   limit: 4
+    t.string   "origname",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "user_videos", force: :cascade do |t|
     t.integer  "owner_id",          limit: 4

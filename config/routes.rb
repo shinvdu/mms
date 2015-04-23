@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :logos
   get 'video_product_groups/create'
 
   get 'home/index'

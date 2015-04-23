@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @logo.name %>
+</p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @logo.uid %>
+</p>
+
+<p>
+  <strong>Uri:</strong>
+  <%= @logo.uri %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @logo.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @logo.height %>
+</p>
+
+<p>
+  <strong>Filemime:</strong>
+  <%= @logo.filemime %>
+</p>
+
+<p>
+  <strong>Filesize:</strong>
+  <%= @logo.filesize %>
+</p>
+
+<p>
+  <strong>Origname:</strong>
+  <%= @logo.origname %>
+</p>
+
+<%= link_to 'Edit', edit_logo_path(@logo) %> |
+<%= link_to 'Back', logos_path %>
