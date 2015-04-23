@@ -16,6 +16,13 @@
     <%= f.text_field :nicename %>
   </div>
   <div class="field">
+
+    <%= f.label :avar %><br>
+    <%= image_tag(@user.avar_url) if @user.avar? %>
+    <%= f.file_field :avar %>
+     <%= f.hidden_field :avar_cache %>
+  </div>
+  <div class="field">
     <%= f.label :birthday %><br>
     <%= f.datetime_select :birthday %>
   </div>

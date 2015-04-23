@@ -4,6 +4,9 @@
   <strong>uid:</strong>
   <%= @user.uid %>
 </p>
+<p>
+    <%= image_tag(@user.avar_url) if @user.avar? %>
+</p>
 
 
 <%= link_to 'Edit', edit_user_path(@current_user) %> |
