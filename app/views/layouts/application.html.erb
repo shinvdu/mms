@@ -49,8 +49,8 @@
   <div class="col-md-3">
 <div class="list-group">
   <a href="/" class="list-group-item active"> 首页</a>
-  <a href="<%=  user_path(@current_user) %>" class="list-group-item">我的主页</a>
-  <a href="<%=  edit_user_path(@current_user) %>" class="list-group-item">个人资料设置</a>
+  <a href="<%=  current_user && user_path(@current_user) %>" class="list-group-item">我的主页</a>
+  <a href="<%=  current_user && edit_user_path(@current_user) %>" class="list-group-item">个人资料设置</a>
     <%= link_to('修改密码', edit_registration_path(:account), :class => "list-group-item") %> 
     <%= link_to('登出', destroy_account_session_path, :method => :delete, :class => "list-group-item") %> 
 </div> 
