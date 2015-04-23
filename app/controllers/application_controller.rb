@@ -59,6 +59,16 @@ class ApplicationController < ActionController::Base
     @user
   end
 
+  def only_root
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      else
+        redirect_to :root 
+      end
+    end
+
+
   protected
 
   def check_login

@@ -1,10 +1,13 @@
 class PlayersController < ApplicationController
+  before_action :authenticate_account!, except: [:show] # 匿名用户也可以加载播放器设置
   before_action :set_player, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_player, only: [:edit, :update,  :destroy]
+  before_action :only_root, only: [:index]
 
   # GET /players
   # GET /players.json
   def index
-    @players = Player.all
+    # @players = Player.all
   end
 
   # GET /players/1
@@ -63,6 +66,18 @@ class PlayersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def restrict_player
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      end
+      # 只能操作自己的player
+      if @current_user.uid != @player.user_id
+        redirect_to :root 
+        return
+      end
+    end
+
     def set_player
       @player = Player.find(params[:id])
     end
