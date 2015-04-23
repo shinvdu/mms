@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423094707) do
+ActiveRecord::Schema.define(version: 20150423125827) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20150423094707) do
     t.integer  "really_name",       limit: 4
     t.datetime "birthday"
     t.string   "signature",         limit: 255
-    t.integer  "avar",              limit: 4
+    t.string   "avar",              limit: 255
     t.string   "location",          limit: 255
     t.string   "self_introduction", limit: 255
     t.string   "token",             limit: 255

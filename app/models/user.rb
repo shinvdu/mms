@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
     has_one :logo
     has_many :player
     has_many :user_videos, :foreign_key => :owner_id
-
+    mount_uploader :avar, AvatarUploader
 end
 
 #------------------------------------------------------------------------------
