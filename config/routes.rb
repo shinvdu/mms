@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'video_product_groups/create'
-
   get 'home/index'
   devise_for :accounts, controllers: { registrations: "user/registrations" }
   root 'home#index'
@@ -11,9 +9,9 @@ Rails.application.routes.draw do
         post 'toggle'
     end
   end
-  
 
-  resources :file_data
+  resources :video_details
+
   resources :user_videos do
     resource :video_product_group, :controller => 'video_product_groups'
   end

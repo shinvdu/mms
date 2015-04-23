@@ -23,3 +23,6 @@ config/application.yml
 Gemfile.lock
 vendor/bundle/ruby
 Gemfile.lock
+bin
+public/uploads
+db/schema.rb

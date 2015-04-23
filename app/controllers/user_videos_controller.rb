@@ -1,5 +1,6 @@
 class UserVideosController < ApplicationController
   before_action :authenticate_account!, :check_login
+
   def index
     @videos = current_user.user_videos
   end
@@ -17,8 +18,8 @@ class UserVideosController < ApplicationController
     user_video.save!
 
     respond_to do |format|
-      format.html {redirect_to user_videos_path}
-      format.json { render :json => 'succeed'}
+      format.html { redirect_to user_videos_path }
+      format.json { render :json => 'succeed' }
     end
   end
 
