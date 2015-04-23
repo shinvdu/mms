@@ -26,4 +26,5 @@ Gemfile.lock
 public/uploads/logo
 public/uploads/
 bin
+public/uploads
 db/schema.rb

@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   end
   resources :players
   resources :logos
-  get 'video_product_groups/create'
 
   get 'home/index'
   devise_for :accounts, controllers: { registrations: "user/registrations" }
