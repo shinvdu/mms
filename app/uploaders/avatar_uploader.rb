@@ -23,7 +23,17 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
-
+  #原图片
+  process :resize_to_fit => [Settings.avar.origin.width, Settings.avar.origin.height]
+  #thumb
+  version :thumb do
+    process :resize_to_fill => [Settings.avar.small.width,Settings.avar.small.width]
+  end
+  
+  #normal
+  version :normal do
+    process :resize_to_fill => [Settings.avar.normal.width,Settings.avar.normal.width]
+  end
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   #
@@ -38,14 +48,14 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_white_list
-  #   %w(jpg jpeg gif png)
-  # end
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    Digest::SHA1.hexdigest(original_filename) << '.' << original_filename.split('.').last  if original_filename
+  end
 
 end
