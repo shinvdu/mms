@@ -1,0 +1,61 @@
+<%= form_for(@player) do |f| %>
+  <% if @player.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
+
+      <ul>
+      <% @player.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :uid %><br>
+    <%= f.number_field :uid %>
+  </div>
+  <div class="field">
+    <%= f.label :color %><br>
+    <%= f.text_field :color %>
+  </div>
+  <div class="field">
+    <%= f.label :logo %><br>
+    <%= f.number_field :logo %>
+  </div>
+  <div class="field">
+    <%= f.label :logo_position %><br>
+    <%= f.text_field :logo_position %>
+  </div>
+  <div class="field">
+    <%= f.label :autoplay %><br>
+    <%= f.number_field :autoplay %>
+  </div>
+  <div class="field">
+    <%= f.label :share %><br>
+    <%= f.number_field :share %>
+  </div>
+  <div class="field">
+    <%= f.label :full_screen %><br>
+    <%= f.number_field :full_screen %>
+  </div>
+  <div class="field">
+    <%= f.label :width %><br>
+    <%= f.number_field :width %>
+  </div>
+  <div class="field">
+    <%= f.label :height %><br>
+    <%= f.number_field :height %>
+  </div>
+  <div class="field">
+    <%= f.label :data %><br>
+    <%= f.text_area :data %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

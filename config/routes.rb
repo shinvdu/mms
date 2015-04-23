@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :players
   resources :logos
   get 'video_product_groups/create'
 

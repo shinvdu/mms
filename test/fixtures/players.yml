@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  uid: 1
+  color: MyString
+  logo: 1
+  logo_position: MyString
+  autoplay: 1
+  share: 1
+  full_screen: 1
+  width: 1
+  height: 1
+  data: MyText
+
+two:
+  name: MyString
+  uid: 1
+  color: MyString
+  logo: 1
+  logo_position: MyString
+  autoplay: 1
+  share: 1
+  full_screen: 1
+  width: 1
+  height: 1
+  data: MyText

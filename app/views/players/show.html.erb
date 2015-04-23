@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @player.name %>
+</p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @player.uid %>
+</p>
+
+<p>
+  <strong>Color:</strong>
+  <%= @player.color %>
+</p>
+
+<p>
+  <strong>Logo:</strong>
+  <%= @player.logo %>
+</p>
+
+<p>
+  <strong>Logo position:</strong>
+  <%= @player.logo_position %>
+</p>
+
+<p>
+  <strong>Autoplay:</strong>
+  <%= @player.autoplay %>
+</p>
+
+<p>
+  <strong>Share:</strong>
+  <%= @player.share %>
+</p>
+
+<p>
+  <strong>Full screen:</strong>
+  <%= @player.full_screen %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @player.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @player.height %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @player.data %>
+</p>
+
+<%= link_to 'Edit', edit_player_path(@player) %> |
+<%= link_to 'Back', players_path %>

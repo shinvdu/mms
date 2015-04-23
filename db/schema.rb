@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423073119) do
+ActiveRecord::Schema.define(version: 20150423073729) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -50,6 +50,22 @@ ActiveRecord::Schema.define(version: 20150423073119) do
     t.string   "origname",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string   "name",          limit: 255
+    t.integer  "uid",           limit: 4
+    t.string   "color",         limit: 255
+    t.integer  "logo",          limit: 4
+    t.string   "logo_position", limit: 255
+    t.integer  "autoplay",      limit: 4
+    t.integer  "share",         limit: 4
+    t.integer  "full_screen",   limit: 4
+    t.integer  "width",         limit: 4
+    t.integer  "height",        limit: 4
+    t.text     "data",          limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "user_videos", force: :cascade do |t|
