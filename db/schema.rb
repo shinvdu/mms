@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424070917) do
+ActiveRecord::Schema.define(version: 20150424073150) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -47,6 +47,19 @@ ActiveRecord::Schema.define(version: 20150424070917) do
     t.integer  "filesize",   limit: 4
     t.string   "uri",        limit: 255
     t.text     "ad_word",    limit: 65535
+    t.text     "data",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "advertise_strategies", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "user_id",    limit: 4
+    t.integer  "front_ad",   limit: 4
+    t.integer  "end_ad",     limit: 4
+    t.integer  "pause_ad",   limit: 4
+    t.integer  "float_ad",   limit: 4
+    t.integer  "scroll_ad",  limit: 4
     t.text     "data",       limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false

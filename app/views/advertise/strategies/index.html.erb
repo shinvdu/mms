@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Advertise Strategies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+      <th>Front ad</th>
+      <th>End ad</th>
+      <th>Pause ad</th>
+      <th>Float ad</th>
+      <th>Scroll ad</th>
+      <th>Data</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @advertise_strategies.each do |advertise_strategy| %>
+      <tr>
+        <td><%= advertise_strategy.name %></td>
+        <td><%= advertise_strategy.user_id %></td>
+        <td><%= advertise_strategy.front_ad %></td>
+        <td><%= advertise_strategy.end_ad %></td>
+        <td><%= advertise_strategy.pause_ad %></td>
+        <td><%= advertise_strategy.float_ad %></td>
+        <td><%= advertise_strategy.scroll_ad %></td>
+        <td><%= advertise_strategy.data %></td>
+        <td><%= link_to 'Show', advertise_strategy %></td>
+        <td><%= link_to 'Edit', edit_advertise_strategy_path(advertise_strategy) %></td>
+        <td><%= link_to 'Destroy', advertise_strategy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Strategy', new_advertise_strategy_path %>

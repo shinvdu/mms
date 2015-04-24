@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   namespace :advertise do
+    resources :strategies
+  end
+  namespace :advertise do
     resources :resources
   end
   resources :players
