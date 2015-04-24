@@ -1,10 +1,12 @@
 class Advertise::StrategiesController < ApplicationController
+  before_action :authenticate_account!#, except: [:show]  
   before_action :set_advertise_strategy, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_advertise_strategy, only: [:index, :show, :edit, :update,  :destroy]
 
   # GET /advertise/strategies
   # GET /advertise/strategies.json
   def index
-    @advertise_strategies = Advertise::Strategy.all
+    # @advertise_strategies = Advertise::Strategy.all
   end
 
   # GET /advertise/strategies/1
@@ -65,6 +67,18 @@ class Advertise::StrategiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_advertise_strategy
       @advertise_strategy = Advertise::Strategy.find(params[:id])
+    end
+    
+    def restrict_advertise_strategy
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      end
+      # 只能操作自己的player
+      if @current_user.uid != @advertise_strategy.user_id
+        redirect_to :root 
+        return
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

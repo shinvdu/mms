@@ -1,5 +1,5 @@
 class LogosController < ApplicationController
-  before_action :authenticate_account!, except: [:show] # 
+  before_action :authenticate_account!#, except: [:show]  
   before_action :set_logo, only: [:show, :edit, :update, :destroy]
   before_action :restrict_logo, only: [:index, :edit, :update,  :destroy]
 

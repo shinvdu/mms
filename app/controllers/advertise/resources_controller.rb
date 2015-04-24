@@ -1,10 +1,12 @@
 class Advertise::ResourcesController < ApplicationController
+  before_action :authenticate_account!#, except: [:show]  
   before_action :set_advertise_resource, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_advertise_resource, only: [:index, :show, :edit, :update,  :destroy]
 
   # GET /advertise/resources
   # GET /advertise/resources.json
   def index
-    @advertise_resources = Advertise::Resource.all
+    # @advertise_resources = Advertise::Resource.all
   end
 
   # GET /advertise/resources/1
@@ -65,6 +67,18 @@ class Advertise::ResourcesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_advertise_resource
       @advertise_resource = Advertise::Resource.find(params[:id])
+    end    
+
+    def restrict_advertise_resource
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      end
+      # 只能操作自己的player
+      if @current_user.uid != @advertise_resource.user_id
+        redirect_to :root 
+        return
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
