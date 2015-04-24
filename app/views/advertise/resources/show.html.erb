@@ -28,7 +28,7 @@
 <p>
   <strong>Uri:</strong>
     <%= image_tag(@advertise_resource.uri_url) if @advertise_resource.uri?  && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
-    <%= video_tag(@advertise_resource.uri_url, :controls => true) if @advertise_resource.uri?  && @advertise_resource.file_type &&  @advertise_resource.file_type == 'video' %>
+    <%= video_tag(@advertise_resource.uri_url, :size => "320x240", :controls => true) if @advertise_resource.uri?  && @advertise_resource.file_type &&  @advertise_resource.file_type == 'video' %>
   <%= @advertise_resource.uri %>
 </p>
 

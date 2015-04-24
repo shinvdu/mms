@@ -7,10 +7,17 @@
   <meta charset='utf-8' />
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
 <%= favicon_link_tag 'favicon.ico' %>
+  <link href="/player1/video-js.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+  <script src="/player1/video.js"></script>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  
+  <script>
+    videojs.options.flash.swf = "video-js.swf";
+  </script>
   <%= csrf_meta_tags %>
   <style type="text/css">
   body { padding-top: 70px; }
