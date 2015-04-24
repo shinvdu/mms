@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @advertise_resource.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @advertise_resource.user_id %>
+</p>
+
+<p>
+  <strong>File type:</strong>
+  <%= @advertise_resource.file_type %>
+</p>
+
+<p>
+  <strong>Ad type:</strong>
+  <%= @advertise_resource.ad_type %>
+</p>
+
+<p>
+  <strong>Filesize:</strong>
+  <%= @advertise_resource.filesize %>
+</p>
+
+<p>
+  <strong>Uri:</strong>
+  <%= @advertise_resource.uri %>
+</p>
+
+<p>
+  <strong>Ad word:</strong>
+  <%= @advertise_resource.ad_word %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @advertise_resource.data %>
+</p>
+
+<%= link_to 'Edit', edit_advertise_resource_path(@advertise_resource) %> |
+<%= link_to 'Back', advertise_resources_path %>

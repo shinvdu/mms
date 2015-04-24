@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Advertise Resources</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>User</th>
+      <th>File type</th>
+      <th>Ad type</th>
+      <th>Filesize</th>
+      <th>Uri</th>
+      <th>Ad word</th>
+      <th>Data</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @advertise_resources.each do |advertise_resource| %>
+      <tr>
+        <td><%= advertise_resource.name %></td>
+        <td><%= advertise_resource.user_id %></td>
+        <td><%= advertise_resource.file_type %></td>
+        <td><%= advertise_resource.ad_type %></td>
+        <td><%= advertise_resource.filesize %></td>
+        <td><%= advertise_resource.uri %></td>
+        <td><%= advertise_resource.ad_word %></td>
+        <td><%= advertise_resource.data %></td>
+        <td><%= link_to 'Show', advertise_resource %></td>
+        <td><%= link_to 'Edit', edit_advertise_resource_path(advertise_resource) %></td>
+        <td><%= link_to 'Destroy', advertise_resource, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Resource', new_advertise_resource_path %>

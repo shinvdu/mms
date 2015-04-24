@@ -1,0 +1,49 @@
+<%= form_for(@advertise_resource) do |f| %>
+  <% if @advertise_resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@advertise_resource.errors.count, "error") %> prohibited this advertise_resource from being saved:</h2>
+
+      <ul>
+      <% @advertise_resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :file_type %><br>
+    <%= f.text_field :file_type %>
+  </div>
+  <div class="field">
+    <%= f.label :ad_type %><br>
+    <%= f.text_field :ad_type %>
+  </div>
+  <div class="field">
+    <%= f.label :filesize %><br>
+    <%= f.number_field :filesize %>
+  </div>
+  <div class="field">
+    <%= f.label :uri %><br>
+    <%= f.text_field :uri %>
+  </div>
+  <div class="field">
+    <%= f.label :ad_word %><br>
+    <%= f.text_area :ad_word %>
+  </div>
+  <div class="field">
+    <%= f.label :data %><br>
+    <%= f.text_area :data %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :advertise do
+    resources :resources
+  end
   resources :players
   resources :logos
   get 'video_product_groups/create'
@@ -8,7 +11,7 @@ Rails.application.routes.draw do
   root 'home#index'
   # match ':controller/:action', :via => :all
   resources :user,  :as => :users do
-    member do
+    collection do
         get 'short'
         post 'toggle'
     end

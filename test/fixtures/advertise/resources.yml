@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  user_id: 1
+  file_type: MyString
+  ad_type: MyString
+  filesize: 1
+  uri: MyString
+  ad_word: MyText
+  data: MyText
+
+two:
+  name: MyString
+  user_id: 1
+  file_type: MyString
+  ad_type: MyString
+  filesize: 1
+  uri: MyString
+  ad_word: MyText
+  data: MyText
