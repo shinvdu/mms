@@ -1,0 +1,7 @@
+<h1>VideoDetails#index</h1>
+<p>Find me in app/views/video_details/index.html.erb</p>
+
+<%= form_for :file_data, :html =>{:multipart => true}, :url => video_detail_path(3), :method => :put do |f| %>
+    <%= f.file_field :video %>
+    <%= f.submit 'Upload' %>
+<% end %>

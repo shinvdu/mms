@@ -23,8 +23,8 @@ end
 # published       tinyint(1)           true            false  
 # publish_start   time                 true            false  
 # publish_stop    time                 true            false  
+# status          int(11)              true            false  
 # created_at      datetime             false           false  
 # updated_at      datetime             false           false  
-# status          int(11)              true            false  
 #
 #------------------------------------------------------------------------------

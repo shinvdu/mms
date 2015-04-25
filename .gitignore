@@ -25,3 +25,5 @@ vendor/bundle/ruby
 Gemfile.lock
 public/uploads/logo
 public/uploads/
+bin
+db/schema.rb

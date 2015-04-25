@@ -16,8 +16,9 @@ class UserVideo < ActiveRecord::Base
     self.ext_name = File.extname(self.file_name)
 
     videoDetail = VideoDetail.new(self, video)
-    self.original_video = videoDetail
     videoDetail.save!
+    videoDetail.fetch_video_info_and_upload
+    self.original_video = videoDetail
     self.status = @@STATUS_UPLOADED
     # TODO build MTS task and then modify status
     self.status = @@GOT_LOW_RATE
@@ -38,9 +39,9 @@ end
 # original_video_id int(11)              true            false  
 # mini_video_id     int(11)              true            false  
 # logo_id           int(11)              true            false  
-# videoName         varchar(255)         true            false  
-# fileName          varchar(255)         true            false  
-# extName           varchar(255)         true            false  
+# video_name        varchar(255)         true            false  
+# file_name         varchar(255)         true            false  
+# ext_name          varchar(255)         true            false  
 # duration          int(11)              true            false  
 # status            int(11)              true            false  
 # created_at        datetime             false           false  
