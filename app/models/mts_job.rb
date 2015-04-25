@@ -1,12 +1,17 @@
 class MtsJob < ActiveRecord::Base
+  scope :not_finished, -> { where(['status in (?, ?)', STATUS_SUBMITTED, STATUS_PROCESSING]) }
 
-  STATUS_PROCESSING = 1
-  STATUS_FINISHED = 2
+  STATUS_SUBMITTED = 1
+  STATUS_PROCESSING = 2
+  STATUS_FINISHED = 3
+  STATUS_CANCELD = 4
+  STATUS_FAILED = 5
+  STATUS_MISSING = 6
 
-  def initialize(request_id)
+  def initialize(job_id)
     super()
-    self.request_id = request_id
-    self.status = STATUS_PROCESSING
+    self.job_id = job_id
+    self.status = STATUS_SUBMITTED
   end
 end
 

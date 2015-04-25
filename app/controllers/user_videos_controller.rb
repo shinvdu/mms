@@ -14,6 +14,11 @@ class UserVideosController < ApplicationController
   end
 
   def create
+    if params[:file_data].blank?
+      session[:return_to] ||= request.referer
+      redirect_to session.delete(:return_to)
+      return
+    end
     video_name = params[:file_data][:video_name]
     video = params[:file_data][:video]
     user_video = UserVideo.new(current_user, video_name, video)

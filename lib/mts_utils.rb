@@ -161,7 +161,9 @@ module MTSUtils
       }
       url = generate_url(params)
       res = JSON.parse execute(url)
-      return res['RequestId'], res['JobList']['Job'].map{|job|AliyunJob.new job}, res['NonExistJids']['string']
+      non_exist_jids = []
+      non_exist_jids = res['NonExistJids']['string'] if res['NonExistJids'].present?
+      return res['RequestId'], res['JobList']['Job'].map{|job|AliyunJob.new job}, non_exist_jids
     end
 
     def search_job
@@ -336,4 +338,13 @@ module MTSUtils
       end
     end
   end
+
+  module Status
+    SUBMITTED = 'Submitted'
+    TRANSCODING = 'Transcoding'
+    TRANSCODE_SUCCESS = 'TranscodeSuccess'
+    TRANSCODE_FAIL = 'TranscodeFail'
+    TRANSCODE_CANCELLED = 'TranscodeCancelled'
+  end
+
 end

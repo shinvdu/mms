@@ -12,7 +12,7 @@ class UserVideo < ActiveRecord::Base
   STATUS_EDITABLE = 60
   STATUS_TRANSCODING = 70
 
-  include VideoWorker::UserVideoWorker
+  include MTSWorker::UserVideoWorker
 
   def initialize(owner, videoName, video)
     super()

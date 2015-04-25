@@ -9,7 +9,7 @@ class VideoDetail < ActiveRecord::Base
     super()
     self.user_video = user_video
     self.uuid = UUIDTools::UUID.random_create
-    self.uri = File.join('original_video', "#{self.uuid}#{user_video.ext_name}")
+    self.uri = File.join('original_video', self.uuid, "#{self.uuid}#{user_video.ext_name}")
 
     # TODO save file to file server
     temp_path = Rails.root.join("public/uploads", self.uri)
