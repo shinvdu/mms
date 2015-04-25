@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424073150) do
+ActiveRecord::Schema.define(version: 20150424182232) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -65,6 +65,22 @@ ActiveRecord::Schema.define(version: 20150424073150) do
     t.datetime "updated_at",               null: false
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   limit: 4,     default: 0, null: false
+    t.integer  "attempts",   limit: 4,     default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
   create_table "logos", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.integer  "user_id",    limit: 4
@@ -76,6 +92,16 @@ ActiveRecord::Schema.define(version: 20150424073150) do
     t.string   "origname",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "mts_jobs", force: :cascade do |t|
+    t.string   "type",        limit: 255
+    t.string   "request_id",  limit: 255
+    t.integer  "status",      limit: 4
+    t.time     "finish_time"
+    t.integer  "target_id",   limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "players", force: :cascade do |t|
@@ -93,30 +119,15 @@ ActiveRecord::Schema.define(version: 20150424073150) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   limit: 4,     default: 0, null: false
-    t.integer  "attempts",   limit: 4,     default: 0, null: false
-    t.text     "handler",    limit: 65535,             null: false
-    t.text     "last_error", limit: 65535
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by",  limit: 255
-    t.string   "queue",      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "user_videos", force: :cascade do |t|
     t.integer  "owner_id",          limit: 4
     t.integer  "original_video_id", limit: 4
     t.integer  "mini_video_id",     limit: 4
     t.integer  "logo_id",           limit: 4
-    t.string   "videoName",         limit: 255
-    t.string   "fileName",          limit: 255
-    t.string   "extName",           limit: 255
+    t.string   "video_name",        limit: 255
+    t.string   "file_name",         limit: 255
+    t.string   "ext_name",          limit: 255
     t.integer  "duration",          limit: 4
     t.integer  "status",            limit: 4
     t.datetime "created_at",                    null: false

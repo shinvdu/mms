@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  # protect_from_forgery with: :exception
+  protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :current_user
 
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @user
+    @current_user
   end
 
   def only_root
@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def check_login
-    redirect_to :root if @user.nil?
+    redirect_to :root if @current_user.nil?
   end
 
   def current_user

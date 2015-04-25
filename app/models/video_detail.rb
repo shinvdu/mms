@@ -1,7 +1,6 @@
 class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   mount_uploader :video, VideoUploader
-  has_one :video_processor_configuration
 
   require 'fileutils'
   require 'uuidtools'
@@ -12,7 +11,7 @@ class VideoDetail < ActiveRecord::Base
     self.uuid = UUIDTools::UUID.random_create
     self.uri = File.join('original_video', "#{self.uuid}#{user_video.ext_name}")
 
-    # save file temporarily
+    # TODO save file to file server
     temp_path = Rails.root.join("public/uploads", self.uri)
     dir = File.dirname(temp_path)
     FileUtils.makedirs(dir) if !File.directory?(dir)
@@ -25,18 +24,6 @@ class VideoDetail < ActiveRecord::Base
     super
   end
 
-  def fetch_video_info_and_upload
-    local_path = Rails.root.join("public/uploads", self.uri)
-    File.open(local_path) do |file|
-      # fetch video info
-      # ...
-
-      self.video = file
-      self.save!
-    end
-    FileUtils.remove(local_path)
-  end
-  handle_asynchronously :fetch_video_info_and_upload
 end
 
 #------------------------------------------------------------------------------

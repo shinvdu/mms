@@ -3,10 +3,16 @@ class UserVideo < ActiveRecord::Base
   has_many :video_cut_points
   belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id
   belongs_to :original_video, :class_name => 'VideoDetail'
-  attr_accessor :STATUS_UPLOADED, :GOT_LOW_RATE
 
-  @@STATUS_UPLOADED = 1
-  @@GOT_LOW_RATE = 2
+  STATUS_PREUPLOADED = 10
+  STATUS_UPLOADED = 20
+  STATUS_GOT_META = 30
+  STATUS_GOT_LOW_RATE = 40
+  STATUS_PRETRANSCODING = 50
+  STATUS_EDITABLE = 60
+  STATUS_TRANSCODING = 70
+
+  include VideoWorker::UserVideoWorker
 
   def initialize(owner, videoName, video)
     super()
@@ -17,15 +23,13 @@ class UserVideo < ActiveRecord::Base
 
     videoDetail = VideoDetail.new(self, video)
     videoDetail.save!
-    videoDetail.fetch_video_info_and_upload
     self.original_video = videoDetail
-    self.status = @@STATUS_UPLOADED
-    # TODO build MTS task and then modify status
-    self.status = @@GOT_LOW_RATE
+    self.status = STATUS_PREUPLOADED
+    fetch_video_info_and_upload
   end
 
   def GOT_LOW_RATE?
-    self.status == @@GOT_LOW_RATE
+    self.status == GOT_LOW_RATE
   end
 end
 

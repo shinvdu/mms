@@ -18,6 +18,7 @@ module Class15
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += %W(#{config.root}/app/mms)
     config.autoload_paths += %W(#{config.root}/app/uploaders)
+    config.autoload_paths += %W(#{config.root}/app/workers)
 
     config.active_job.queue_adapter = :delayed_job
 

@@ -14,8 +14,11 @@ class UserVideosController < ApplicationController
   end
 
   def create
-    user_video = UserVideo.new(current_user, params[:file_data][:video_name], params[:file_data][:video])
+    video_name = params[:file_data][:video_name]
+    video = params[:file_data][:video]
+    user_video = UserVideo.new(current_user, video_name, video)
     user_video.save!
+    video.close
 
     respond_to do |format|
       format.html { redirect_to user_videos_path }
