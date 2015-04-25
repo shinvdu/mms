@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @transcoding.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @transcoding.user_id %>
+</p>
+
+<p>
+  <strong>Output format:</strong>
+  <%= @transcoding.output_format %>
+</p>
+
+<p>
+  <strong>Quality:</strong>
+  <%= @transcoding.quality %>
+</p>
+
+<p>
+  <strong>Speed:</strong>
+  <%= @transcoding.speed %>
+</p>
+
+<p>
+  <strong>Audio encode:</strong>
+  <%= @transcoding.audio_encode %>
+</p>
+
+<p>
+  <strong>Audio sample rate:</strong>
+  <%= @transcoding.audio_sample_rate %>
+</p>
+
+<p>
+  <strong>Audio code rate:</strong>
+  <%= @transcoding.audio_code_rate %>
+</p>
+
+<p>
+  <strong>Video line scan:</strong>
+  <%= @transcoding.video_line_scan %>
+</p>
+
+<p>
+  <strong>H w percent:</strong>
+  <%= @transcoding.h_w_percent %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @transcoding.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @transcoding.height %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @transcoding.data %>
+</p>
+
+<%= link_to 'Edit', edit_transcoding_path(@transcoding) %> |
+<%= link_to 'Back', transcodings_path %>
