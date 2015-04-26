@@ -71,10 +71,10 @@ class TagsRelationshipsController < ApplicationController
         return
       end
       # 只能操作自己的player
-      # if @current_user.uid != @tag.user_id
-      #   redirect_to :root 
-      #   return
-      # end
+      if @current_user.uid != @tags_relationship.user_id
+        redirect_to :root 
+        return
+      end
     end   
 
     # Never trust parameters from the scary internet, only allow the white list through.
