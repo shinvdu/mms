@@ -1,7 +1,7 @@
 class TagsRelationshipsController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
   before_action :set_tags_relationship, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_tag_operation, only: [:show, :create, :destroy]
+  before_action :restrict_tag_operation, only: [:show, :destroy]
 
   # GET /tags_relationships
   # GET /tags_relationships.json
@@ -17,12 +17,24 @@ class TagsRelationshipsController < ApplicationController
   # GET /tags_relationships/new
   def new
     @tags_relationship = TagsRelationship.new
+    logger.info 'jsot ote st'
   end
 
   # POST /tags_relationships
   # POST /tags_relationships.json
   def create
     @tags_relationship = TagsRelationship.new(tags_relationship_params)
+    ##
+    @tag = Tag.find @tags_relationship.tag_id
+    @user_video = UserVideo.find @tags_relationship.user_video_id
+
+      # 第一个用户为超级用户
+    if @current_user.uid == 1
+      # 只允许增加自己的视频和检签关系
+    elsif not (@tag && @user_video &&  (@tag.user_id = @current_user.uid) && (@user_video.owner_id = @current_user.uid))
+      redirect_to :root 
+      return
+    end
 
     respond_to do |format|
       if @tags_relationship.save
