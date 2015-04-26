@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Transcoding Strategy Relationships</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Transcoding</th>
+      <th>Transcoding strategy</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @transcoding_strategy_relationships.each do |transcoding_strategy_relationship| %>
+      <tr>
+        <td><%= transcoding_strategy_relationship.transcoding_id %></td>
+        <td><%= transcoding_strategy_relationship.transcoding_strategy_id %></td>
+        <td><%= transcoding_strategy_relationship.user_id %></td>
+        <td><%= link_to 'Show', transcoding_strategy_relationship %></td>
+        <td><%= link_to 'Edit', edit_transcoding_strategy_relationship_path(transcoding_strategy_relationship) %></td>
+        <td><%= link_to 'Destroy', transcoding_strategy_relationship, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Transcoding strategy relationship', new_transcoding_strategy_relationship_path %>
