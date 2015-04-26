@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
     has_many :strategy
     has_many :transcoding
     has_many :transcoding_strategy
+    has_many :transcoding_strategy_relationships
     has_many :tag
     has_many :tags_relationship
     has_many :user_videos, :foreign_key => :owner_id
