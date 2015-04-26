@@ -1,10 +1,12 @@
 class TagsController < ApplicationController
+  before_action :authenticate_account!#, except: [:show]  
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_tag, only: [:index, :show,  :edit, :update,  :destroy]
 
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    # @tags = Tag.all
   end
 
   # GET /tags/1
@@ -66,6 +68,18 @@ class TagsController < ApplicationController
     def set_tag
       @tag = Tag.find(params[:id])
     end
+
+    def restrict_tag
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      end
+      # 只能操作自己的player
+      if @current_user.uid != @tag.user_id
+        redirect_to :root 
+        return
+      end
+    end   
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params

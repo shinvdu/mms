@@ -67,7 +67,8 @@ Gclass TranscodingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_transcoding
       @transcoding = Transcoding.find(params[:id])
-      
+    end
+    
      def restrict_transcoding
       # 第一个用户为超级用户
       if @current_user.uid == 1
