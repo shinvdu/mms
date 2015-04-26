@@ -1,0 +1,2 @@
+module TranscodingStrategiesHelper
+end

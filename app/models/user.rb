@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
     has_many :resource
     has_many :strategy
     has_many :transcoding
+    has_many :transcoding_strategy
     has_many :user_videos, :foreign_key => :owner_id
     mount_uploader :avar, AvatarUploader
 end

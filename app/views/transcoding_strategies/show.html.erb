@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @transcoding_strategy.name %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @transcoding_strategy.user_id %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @transcoding_strategy.data %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @transcoding_strategy.note %>
+</p>
+
+<%= link_to 'Edit', edit_transcoding_strategy_path(@transcoding_strategy) %> |
+<%= link_to 'Back', transcoding_strategies_path %>

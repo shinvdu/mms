@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :transcoding_strategies
   resources :transcodings
   namespace :advertise do
     resources :strategies
