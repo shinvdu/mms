@@ -1,4 +1,4 @@
-class TranscodingsController < ApplicationController
+Gclass TranscodingsController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
   before_action :set_transcoding, only: [:show, :edit, :update, :destroy]
   before_action :restrict_transcoding, only: [:index, :show,  :edit, :update,  :destroy]
@@ -78,7 +78,7 @@ class TranscodingsController < ApplicationController
         redirect_to :root 
         return
       end
-    end   end
+    end   
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transcoding_params

@@ -1,10 +1,12 @@
 class TranscodingStrategiesController < ApplicationController
+  before_action :authenticate_account!#, except: [:show]  
   before_action :set_transcoding_strategy, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_transcoding_strategies, only: [:index, :show,  :edit, :update,  :destroy]
 
   # GET /transcoding_strategies
   # GET /transcoding_strategies.json
   def index
-    @transcoding_strategies = TranscodingStrategy.all
+    # @transcoding_strategies = TranscodingStrategy.all
   end
 
   # GET /transcoding_strategies/1
@@ -66,6 +68,18 @@ class TranscodingStrategiesController < ApplicationController
     def set_transcoding_strategy
       @transcoding_strategy = TranscodingStrategy.find(params[:id])
     end
+
+    def restrict_transcoding_strategies
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      end
+      # transcoding_strategy
+      if @current_user.uid != @transcoding_strategy.user_id
+        redirect_to :root 
+        return
+      end
+    end   
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transcoding_strategy_params
