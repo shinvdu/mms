@@ -1,11 +1,13 @@
 class TagsRelationshipsController < ApplicationController
+  before_action :authenticate_account!#, except: [:show]  
   before_action :set_tags_relationship, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_tag_operation, only: [:show, :create, :destroy]
 
   # GET /tags_relationships
   # GET /tags_relationships.json
-  def index
-    @tags_relationships = TagsRelationship.all
-  end
+  # def index
+  #   # @tags_relationships = TagsRelationship.all
+  # end
 
   # GET /tags_relationships/1
   # GET /tags_relationships/1.json
@@ -15,10 +17,6 @@ class TagsRelationshipsController < ApplicationController
   # GET /tags_relationships/new
   def new
     @tags_relationship = TagsRelationship.new
-  end
-
-  # GET /tags_relationships/1/edit
-  def edit
   end
 
   # POST /tags_relationships
@@ -37,19 +35,19 @@ class TagsRelationshipsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tags_relationships/1
-  # PATCH/PUT /tags_relationships/1.json
-  def update
-    respond_to do |format|
-      if @tags_relationship.update(tags_relationship_params)
-        format.html { redirect_to @tags_relationship, notice: 'Tags relationship was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tags_relationship }
-      else
-        format.html { render :edit }
-        format.json { render json: @tags_relationship.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # # PATCH/PUT /tags_relationships/1
+  # # PATCH/PUT /tags_relationships/1.json
+  # def update
+  #   respond_to do |format|
+  #     if @tags_relationship.update(tags_relationship_params)
+  #       format.html { redirect_to @tags_relationship, notice: 'Tags relationship was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @tags_relationship }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @tags_relationship.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /tags_relationships/1
   # DELETE /tags_relationships/1.json
@@ -66,6 +64,18 @@ class TagsRelationshipsController < ApplicationController
     def set_tags_relationship
       @tags_relationship = TagsRelationship.find(params[:id])
     end
+# restrict_tag_operation
+    def restrict_tag_operation
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      end
+      # 只能操作自己的player
+      # if @current_user.uid != @tag.user_id
+      #   redirect_to :root 
+      #   return
+      # end
+    end   
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tags_relationship_params
