@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tags_relationships
   resources :tags
   resources :transcoding_strategies
   resources :transcodings
