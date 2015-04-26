@@ -1,10 +1,12 @@
 class TranscodingsController < ApplicationController
+  before_action :authenticate_account!#, except: [:show]  
   before_action :set_transcoding, only: [:show, :edit, :update, :destroy]
+  before_action :restrict_transcoding, only: [:index, :show,  :edit, :update,  :destroy]
 
   # GET /transcodings
   # GET /transcodings.json
   def index
-    @transcodings = Transcoding.all
+    # @transcodings = Transcoding.all
   end
 
   # GET /transcodings/1
@@ -65,7 +67,18 @@ class TranscodingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_transcoding
       @transcoding = Transcoding.find(params[:id])
-    end
+      
+     def restrict_transcoding
+      # 第一个用户为超级用户
+      if @current_user.uid == 1
+        return
+      end
+      # 只能操作自己的player
+      if @current_user.uid != @transcoding.user_id
+        redirect_to :root 
+        return
+      end
+    end   end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transcoding_params
