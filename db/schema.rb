@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425100432) do
+ActiveRecord::Schema.define(version: 20150425130257) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "username",               limit: 255, default: "", null: false
@@ -123,14 +123,32 @@ ActiveRecord::Schema.define(version: 20150425100432) do
     t.datetime "updated_at",                  null: false
   end
 
+  create_table "transcodings", force: :cascade do |t|
+    t.string   "name",              limit: 255
+    t.integer  "user_id",           limit: 4
+    t.string   "output_format",     limit: 255
+    t.string   "quality",           limit: 255
+    t.string   "speed",             limit: 255
+    t.string   "audio_encode",      limit: 255
+    t.string   "audio_sample_rate", limit: 255
+    t.string   "audio_code_rate",   limit: 255
+    t.integer  "video_line_scan",   limit: 4
+    t.integer  "h_w_percent",       limit: 4
+    t.integer  "width",             limit: 4
+    t.integer  "height",            limit: 4
+    t.text     "data",              limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
   create_table "user_videos", force: :cascade do |t|
     t.integer  "owner_id",          limit: 4
     t.integer  "original_video_id", limit: 4
     t.integer  "mini_video_id",     limit: 4
     t.integer  "logo_id",           limit: 4
-    t.string   "video_name",        limit: 255
-    t.string   "file_name",         limit: 255
-    t.string   "ext_name",          limit: 255
+    t.string   "videoName",         limit: 255
+    t.string   "fileName",          limit: 255
+    t.string   "extName",           limit: 255
     t.integer  "duration",          limit: 4
     t.integer  "status",            limit: 4
     t.datetime "created_at",                    null: false
