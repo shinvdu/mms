@@ -6,11 +6,12 @@
 <table>
     <thead>
         <tr>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
+            <th>id</th>
+            <th>file name</th>
+            <th>status</th>
+            <th>edit</th>
+            <th>remove</th>
+            <th>mini video url</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
             <td><%= video.status %></td>
             <td><%= link_to 'e', user_video_path(video) %></td>
             <td><%= button_to 'x', user_video_path(video), :method => :delete %></td>
+            <td><%= make_url 'preview', video %></td>
         </tr>
         <% end %>
     </tbody>

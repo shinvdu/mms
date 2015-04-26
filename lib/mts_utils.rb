@@ -106,8 +106,15 @@ module MTSUtils
       return res['RequestId'], AliyunMetaInfoJob.new(res['MetaInfoJob'])
     end
 
-    def query_meta_info_list_job
-
+    def query_meta_info_list_job(job_ids)
+      params = {'Action' => 'QueryMetaInfoJobList',
+                'JobIds' => job_ids.join(',')
+      }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      non_exist_job_ids = []
+      non_exist_job_ids = res['NonExistJobIds']['String'] if res['NonExistJobIds'].present?
+      return res['RequestId'], res['MetaInfoJobList']['MetaInfoJob'].map{|job|AliyunMetaInfoJob.new job}, non_exist_job_ids
     end
   end
 
@@ -161,9 +168,9 @@ module MTSUtils
       }
       url = generate_url(params)
       res = JSON.parse execute(url)
-      non_exist_jids = []
-      non_exist_jids = res['NonExistJids']['string'] if res['NonExistJids'].present?
-      return res['RequestId'], res['JobList']['Job'].map{|job|AliyunJob.new job}, non_exist_jids
+      non_exist_job_ids = []
+      non_exist_job_ids = res['NonExistJobIds']['String'] if res['NonExistJobIds'].present?
+      return res['RequestId'], res['JobList']['Job'].map{|job|AliyunJob.new job}, non_exist_job_ids
     end
 
     def search_job
@@ -345,6 +352,9 @@ module MTSUtils
     TRANSCODE_SUCCESS = 'TranscodeSuccess'
     TRANSCODE_FAIL = 'TranscodeFail'
     TRANSCODE_CANCELLED = 'TranscodeCancelled'
+    ANALYZING = 'Analyzing'
+    SUCCESS = 'Success'
+    FAIL = 'Fail'
   end
 
 end
