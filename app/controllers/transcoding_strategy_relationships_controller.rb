@@ -29,7 +29,7 @@ class TranscodingStrategyRelationshipsController < ApplicationController
       # 第一个用户为超级用户
     if @current_user.uid == 1
       # 只允许增加自己的视频和检签关系
-    elsif not (@transcoding && @transcoding_strategy &&  (@transcoding.user_id = @current_user.uid) && (@transcoding_strategy.user_id = @current_user.uid))
+    elsif not (@transcoding && @transcoding_strategy &&  (@transcoding.user_id == @current_user.uid) && (@transcoding_strategy.user_id == @current_user.uid))
       redirect_to :root 
       return
     end
