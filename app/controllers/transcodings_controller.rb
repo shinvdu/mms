@@ -1,4 +1,4 @@
-Gclass TranscodingsController < ApplicationController
+class TranscodingsController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
   before_action :set_transcoding, only: [:show, :edit, :update, :destroy]
   before_action :restrict_transcoding, only: [:index, :show,  :edit, :update,  :destroy]

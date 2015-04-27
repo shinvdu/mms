@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>User</th>
       <th>Desc</th>
       <th>Note</th>
       <th colspan="3"></th>
@@ -17,7 +16,6 @@
     <% @tags.each do |tag| %>
       <tr>
         <td><%= tag.name %></td>
-        <td><%= tag.user_id %></td>
         <td><%= tag.desc %></td>
         <td><%= tag.note %></td>
         <td><%= link_to 'Show', tag %></td>
