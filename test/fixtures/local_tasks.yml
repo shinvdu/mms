@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  target_id: 1
+  finish_time: 2015-04-27 11:34:19
+  message: MyString
+  prediction_time: 2015-04-27 11:34:19
+  percent: 1
+  group_id: 1
+  dependency_id: 1
+
+two:
+  status: 1
+  target_id: 1
+  finish_time: 2015-04-27 11:34:19
+  message: MyString
+  prediction_time: 2015-04-27 11:34:19
+  percent: 1
+  group_id: 1
+  dependency_id: 1

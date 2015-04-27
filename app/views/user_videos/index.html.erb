@@ -5,25 +5,29 @@
 <%= link_to 'upload video', new_user_video_path %>
 <table>
     <thead>
-        <tr>
-            <th>id</th>
-            <th>file name</th>
-            <th>status</th>
-            <th>edit</th>
-            <th>remove</th>
-            <th>mini video url</th>
-        </tr>
+    <tr>
+        <th>id</th>
+        <th>file name</th>
+        <th>status</th>
+        <th>edit</th>
+        <th>remove</th>
+        <th>mini video url</th>
+    </tr>
     </thead>
     <tbody>
-        <% @videos.each do |video| %>
+    <% @videos.each do |video| %>
         <tr>
             <td><%= video.id %></td>
             <td><%= video.file_name %></td>
             <td><%= video.status %></td>
             <td><%= link_to 'e', user_video_path(video) %></td>
             <td><%= button_to 'x', user_video_path(video), :method => :delete %></td>
-            <td><%= make_url 'preview', video %></td>
+            <td>
+                <% if video.GOT_LOW_RATE? %>
+                    <%= link_to 'preview', get_preview_path(video) %>
+                <% end %>
+            </td>
         </tr>
-        <% end %>
+    <% end %>
     </tbody>
 </table>

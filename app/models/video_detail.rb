@@ -5,11 +5,20 @@ class VideoDetail < ActiveRecord::Base
   require 'fileutils'
   require 'uuidtools'
 
+  module STATUS
+    PROCESSING = 10
+    NONE = 20
+    ONLY_LOCAL = 30
+    ONLY_REMOTE = 40
+    BOTH = 50
+  end
+
   def initialize(user_video, video)
     super()
     self.user_video = user_video
     self.uuid = UUIDTools::UUID.random_create
     self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
+    self.status = STATUS::ONLY_LOCAL
 
     # TODO save file to file server
     temp_path = Rails.root.join("public/uploads", self.uri)

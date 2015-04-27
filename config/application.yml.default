@@ -61,9 +61,10 @@ development:
     mts:
       mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
       pipeline_id: ff91fad66cff4bb894511d98575c2078
-      scheduled_queue: scheduled
+      scheduled_queue: mts_query_scheduled
   file_server:
     dir: public/uploads
+    video_cut_scheduled_queue: fs_video_cut_scheduled
 
 test:
   <<: *defaults

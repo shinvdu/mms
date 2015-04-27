@@ -1,13 +1,5 @@
 class VideoCutPoint < ActiveRecord::Base
   belongs_to :user_video
-
-  def self.create_from_json(json)
-    video_cut_point = VideoCutPoint.new
-    video_cut_point.from_json(json)
-    video_cut_point.user_created = true
-    video_cut_point.save!
-    video_cut_point
-  end
 end
 
 #------------------------------------------------------------------------------
@@ -22,5 +14,6 @@ end
 # user_video_id int(11)              true            false  
 # created_at    datetime             false           false  
 # updated_at    datetime             false           false  
+# name          varchar(255)         true            false  
 #
 #------------------------------------------------------------------------------

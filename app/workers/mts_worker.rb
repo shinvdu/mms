@@ -6,14 +6,15 @@ module MTSWorker
       video_detail = self.original_video
       local_path = Rails.root.join(Settings.file_server.dir, video_detail.uri)
       File.open(local_path) do |file|
+        # TODO get MD5 for original video
         video_detail.video = file
+        video_detail.status = VideoDetail::STATUS::BOTH
         video_detail.save!
-        self.status = UserVideo::STATUS_UPLOADED
+        self.status = UserVideo::STATUS::UPLOADED
       end
       create_fetch_video_info_job(video_detail)
       create_minimal_video_job(self)
-      self.status = UserVideo::STATUS_PRETRANSCODING
-      # TODO get MD5 for original video
+      self.status = UserVideo::STATUS::PRETRANSCODING
     end
 
     handle_asynchronously :fetch_video_info_and_upload
@@ -44,27 +45,8 @@ module MTSWorker
     end
   end
 
-
-  class ScheduledWorker
+  module Scheduled
     include MTSUtils::All
-
-    def auto_query_loop
-      if Delayed::Job.where(:queue => Settings.aliyun.mts.scheduled_queue).size <= 1
-        auto_query_loop
-      end
-      begin
-        query_mini_transcoding_jobs
-      rescue Exception => e
-        puts e, e.backtrace
-      end
-      begin
-        query_meta_info_list_job
-      rescue Exception => e
-        puts e, e.backtrace
-      end
-    end
-
-    handle_asynchronously :auto_query_loop, :queue => Settings.aliyun.mts.scheduled_queue, :run_at => Proc.new { 5.seconds.from_now }
 
     def query_meta_info_list_job
       jobs = MetaInfoJob.not_finished
@@ -129,7 +111,7 @@ module MTSWorker
               job.status = MtsJob::STATUS::FINISHED
               job.finish_time = Time.now
               user_video = job.target
-              user_video.status = UserVideo::STATUS_GOT_LOW_RATE
+              user_video.status = UserVideo::STATUS::GOT_LOW_RATE
               user_video.mini_video.uri = user_video.original_video.uri.split('.').insert(-2, Settings.aliyun.oss.mini_suffix).join('.')
               user_video.save!
             when MTSUtils::Status::TRANSCODE_FAIL
