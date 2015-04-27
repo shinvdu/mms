@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>MMS</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+  </head>
+  <body>
+    <div class="header">
+      <div class="title">
+	<a class="header-brand text-white" href="#">MMS</a>
+	<span class="text-purple">www.mz.com</span>
+      </div><!--
+	      --><div class="user-options text-gray">
+	<div class="user-name">
+	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	  <span>MMS</span>
+	</div>
+	<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <div class="content">
+      <nav class="navbar">
+	<form class="navbar-form navbar-right" role="search">
+          <div class="form-group right-inner-addon">
+            <input type="search" class="form-control" placeholder="视频搜索">
+	    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </div>
+	</form>
+	<ul class="nav nav-pills" role="tablist">
+	  <li role="presentation">
+	    <a href="index.html" role="tab">
+	      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+	      首页
+	    </a>
+	  </li>
+	  <li class="active" role="presentation">
+	    <a href="#" role="tab">
+	      <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+	      视频管理
+	    </a>
+	  </li>
+	  <li role="presentation">
+	    <a href="advertisement.html" role="tab">
+	      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+	      广告管理
+	    </a>
+	  </li>
+	  <li role="presentation">
+	    <a href="player.html" role="tab">
+	      <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+	      点播播放器
+	    </a>
+	  </li>
+	  <li role="presentation">
+	    <a href="system.html" role="tab">
+	      <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
+	      系统管理
+	    </a>
+	  </li>
+	</ul>
+      </nav>
+
+      <nav class="nav-tab">
+	<ul class="nav-square clearfix">
+	  <li class="current">
+	    <a href="#video-upload">
+	      <span class="square"></span>
+	      上传视频
+	    </a>
+	  </li>
+	  <li>
+	    <a href="#video-list">
+	      <span class="square"></span>
+	      视频列表
+	    </a>
+	  </li>
+	  <li>
+	    <a href="#video-transcoding-template">
+	      <span class="square"></span>
+	      转码模板
+	    </a>
+	  </li>
+	  <li>
+	    <a href="#video-transcoding-solution">
+	      <span class="square"></span>
+	      转码方案
+	    </a>
+	  </li>
+	</ul>
+      </nav>
+
+      <div class="tab-panel current" id="video-upload"></div>
+      
+      <div class="tab-panel" id="video-list">
+      	<table class="table table-hover panel-table">
+	  <thead>
+	    <tr>
+	      <th>视频名称</th>
+	      <th>视频分类</th>
+	      <th>转码方案</th>
+	      <th>文件大小</th>
+	      <th>上传时间</th>
+	      <th>状态</th>
+	      <th>操作</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>sjdjjdcks.mov</td>
+	      <td>
+		<select class="form-control">
+		  <option>分类1</option>
+		  <option>分类2</option>
+		  <option>分类3</option>
+		</select>
+	      </td>
+	      <td>
+	      	<select class="form-control">
+		  <option>方案1</option>
+		  <option>方案2</option>
+		  <option>方案3</option>
+		</select>
+	      </td>
+	      <td>100MB</td>
+	      <td>2015/04/26 17:31</td>
+	      <td>等待上传</td>
+	      <td>
+		<a href="#">上传</a>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+	<div class="panel-footer">
+	  <button type="button" class="btn btn-purple">选择文件</button>
+	  <button type="button" class="btn btn-green">上传文件</button>
+	</div>
+      </div>
+      
+      <div class="tab-panel" id="video-transcoding-template">
+	<div class="panel-header clearfix">
+	  <select class="pull-right btn-select btn-select-white">
+	    <option>转码模板</option>
+	    <option>转码模板</option>
+	    <option>转码模板</option>
+	  </select>
+	  <form class="pull-right" role="search">
+            <div class="form-group right-inner-addon">
+              <input type="search" class="form-control" placeholder="模版名称/用户名">
+	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </div>
+	  </form>
+	  <select class="btn-select btn-select-green">
+	    <option>添加转码模板</option>
+	    <option>添加转码模板</option>
+	    <option>添加转码模板</option>
+	  </select>
+	</div>
+        <table class="table table-hover panel-table">
+	  <thead>
+	    <tr>
+	      <th>ID</th>
+	      <th>模板名称</th>
+	      <th>模板类型</th>
+	      <th>创建用户</th>
+	      <th>创建时间</th>
+	      <th>最后修改时间</th>
+	      <th>操作</th>
+	      <th>备注</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>1234567</td>
+	      <td>高清_1080P_5M</td>
+	      <td>
+		<select class="form-control">
+		  <option>转码模板</option>
+		  <option>转码模板</option>
+		  <option>转码模板</option>
+		</select>
+	      </td>
+	      <td>xiao2</td>
+	      <td>2015/04/26 17:30</td>
+	      <td>2015/04/26 17:31</td>
+	      <td>
+		<a href="#">修改</a>
+		<a href="#">删除</a>
+	      </td>
+	      <td>1 231456</td>
+	    </tr>
+	  </tbody>
+	</table>
+	<div class="panel-footer">
+	  <nav class="panel-table-pagination">
+	    <ul class="pagination">
+	      <li>
+		<a href="#" aria-label="Previous">
+		  <span aria-hidden="true">&laquo;</span>
+		</a>
+	      </li>
+	      <li class="active"><a href="#">1</a></li>
+	      <li><a href="#">2</a></li>
+	      <li><a href="#">3</a></li>
+	      <li><a href="#">4</a></li>
+	      <li><a href="#">5</a></li>
+	      <li>
+		<a href="#" aria-label="Next">
+		  <span aria-hidden="true">&raquo;</span>
+		</a>
+	      </li>
+	    </ul>
+	  </nav>
+	</div>
+      </div>
+      
+      <div class="tab-panel" id="video-transcoding-solution">
+      	<div class="panel-header clearfix">
+	  <select class="pull-right btn-select btn-select-white">
+	    <option>转码模板</option>
+	    <option>转码模板</option>
+	    <option>转码模板</option>
+	  </select>
+	  <form class="pull-right" role="search">
+            <div class="form-group right-inner-addon">
+              <input type="search" class="form-control" placeholder="模版名称/用户名">
+	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </div>
+	  </form>
+	</div>
+        <table class="table table-hover panel-table">
+	  <thead>
+	    <tr>
+	      <th>ID</th>
+	      <th>模板方案</th>
+	      <th>转码模板</th>
+	      <th>创建用户</th>
+	      <th>创建时间</th>
+	      <th>最后修改时间</th>
+	      <th>操作</th>
+	      <th>备注</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>1234567</td>
+	      <td>平行教室转码方案</td>
+	      <td>转码模板1，转码模板2</td>
+	      <td>xiao2</td>
+	      <td>2015/04/26 17:30</td>
+	      <td>2015/04/26 17:31</td>
+	      <td>
+		<a href="#">修改</a>
+		<a href="#">删除</a>
+	      </td>
+	      <td>1 231456</td>
+	    </tr>
+	  </tbody>
+	</table>
+	<div class="panel-footer">
+	  <nav class="panel-table-pagination">
+	    <ul class="pagination">
+	      <li>
+		<a href="#" aria-label="Previous">
+		  <span aria-hidden="true">&laquo;</span>
+		</a>
+	      </li>
+	      <li class="active"><a href="#">1</a></li>
+	      <li><a href="#">2</a></li>
+	      <li><a href="#">3</a></li>
+	      <li><a href="#">4</a></li>
+	      <li><a href="#">5</a></li>
+	      <li>
+		<a href="#" aria-label="Next">
+		  <span aria-hidden="true">&raquo;</span>
+		</a>
+	      </li>
+	    </ul>
+	  </nav>
+	</div>
+      </div>
+      
+    </div>
+
+    <div class="footer">
+      <div class="footer-links">
+	<div class="link-list">
+	  <div class="link-list-header">
+	    <a href="#">未谷技术</a>
+	  </div>
+	  <ul>
+	    <li><a href="#">视频管理</a></li>
+	    <li><a href="player.html">点播播放器</a></li>
+	    <li><a href="advertisement.html">广告管理</a></li>
+	    <li><a href="system.html">系统管理</a></li>
+	    <li><a href="#">用户协议</a></li>
+	  </ul>
+	</div><!--
+		--><div class="link-list">
+	  <div class="link-list-header">
+	    <a href="#">帮助中心</a>
+	  </div>
+	  <ul>
+	    <li><a href="#">平台</a></li>
+	  </ul>
+	</div>
+      </div><!--
+	      --><div class="footer-info">
+	<div class="footer-bar">
+	  <div class="short-line"></div>
+	  <a href="#">关于我们</a>
+	</div>
+	<div class="footer-bar">
+	  <div class="short-line"></div>
+	  <p>copyright &copy; 2015上海未谷信息技术有限公司</p>
+	  <p>沪ICP 备案 xxxxxxx</p>
+	</div>
+      </div>
+    </div>
+
+    <script src="js/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
