@@ -7,17 +7,6 @@
     <tr>
       <th>Name</th>
       <th>User</th>
-      <th>Output format</th>
-      <th>Quality</th>
-      <th>Speed</th>
-      <th>Audio encode</th>
-      <th>Audio sample rate</th>
-      <th>Audio code rate</th>
-      <th>Video line scan</th>
-      <th>H w percent</th>
-      <th>Width</th>
-      <th>Height</th>
-      <th>Data</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -27,17 +16,6 @@
       <tr>
         <td><%= transcoding.name %></td>
         <td><%= transcoding.user_id %></td>
-        <td><%= transcoding.output_format %></td>
-        <td><%= transcoding.quality %></td>
-        <td><%= transcoding.speed %></td>
-        <td><%= transcoding.audio_encode %></td>
-        <td><%= transcoding.audio_sample_rate %></td>
-        <td><%= transcoding.audio_code_rate %></td>
-        <td><%= transcoding.video_line_scan %></td>
-        <td><%= transcoding.h_w_percent %></td>
-        <td><%= transcoding.width %></td>
-        <td><%= transcoding.height %></td>
-        <td><%= transcoding.data %></td>
         <td><%= link_to 'Show', transcoding %></td>
         <td><%= link_to 'Edit', edit_transcoding_path(transcoding) %></td>
         <td><%= link_to 'Destroy', transcoding, method: :delete, data: { confirm: 'Are you sure?' } %></td>

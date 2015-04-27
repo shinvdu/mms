@@ -1,1 +1,1 @@
-json.extract! @transcoding, :id, :name, :user_id, :output_format, :quality, :speed, :audio_encode, :audio_sample_rate, :audio_code_rate, :video_line_scan, :h_w_percent, :width, :height, :data, :created_at, :updated_at
+json.extract! @transcoding, :id, :name, :user_id, :created_at, :updated_at
