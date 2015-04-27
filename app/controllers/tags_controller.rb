@@ -1,7 +1,8 @@
 class TagsController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
-  before_action :set_tag, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_tag, only: [:index, :show,  :edit, :update,  :destroy]
+  before_action :set_tag, only: [:show,  :destroy]
+  # 只有超级用户可以删除
+  before_action :restrict_tag_only_root, only: [:destroy]
 
   # GET /tags
   # GET /tags.json
@@ -19,10 +20,6 @@ class TagsController < ApplicationController
     @tag = Tag.new
   end
 
-  # GET /tags/1/edit
-  def edit
-  end
-
   # POST /tags
   # POST /tags.json
   def create
@@ -34,20 +31,6 @@ class TagsController < ApplicationController
         format.json { render :show, status: :created, location: @tag }
       else
         format.html { render :new }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /tags/1
-  # PATCH/PUT /tags/1.json
-  def update
-    respond_to do |format|
-      if @tag.update(tag_params)
-        format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tag }
-      else
-        format.html { render :edit }
         format.json { render json: @tag.errors, status: :unprocessable_entity }
       end
     end
@@ -69,13 +52,11 @@ class TagsController < ApplicationController
       @tag = Tag.find(params[:id])
     end
 
-    def restrict_tag
+    def restrict_tag_only_root
       # 第一个用户为超级用户
       if @current_user.uid == 1
         return
-      end
-      # 只能操作自己的player
-      if @current_user.uid != @tag.user_id
+      else
         redirect_to :root 
         return
       end
