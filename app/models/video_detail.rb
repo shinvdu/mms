@@ -1,13 +1,14 @@
 class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
+  belongs_to :transcoding
   mount_uploader :video, VideoUploader
 
   require 'fileutils'
   require 'uuidtools'
 
   module STATUS
-    PROCESSING = 10
-    NONE = 20
+    # NONE = 10
+    PROCESSING = 20
     ONLY_LOCAL = 30
     ONLY_REMOTE = 40
     BOTH = 50
@@ -21,7 +22,7 @@ class VideoDetail < ActiveRecord::Base
     self.status = STATUS::ONLY_LOCAL
 
     # TODO save file to file server
-    temp_path = Rails.root.join("public/uploads", self.uri)
+    temp_path = Rails.root.join(Settings.file_server.dir, self.uri)
     dir = File.dirname(temp_path)
     FileUtils.makedirs(dir) if !File.directory?(dir)
     FileUtils.mv(video.path, temp_path)
@@ -31,6 +32,14 @@ class VideoDetail < ActiveRecord::Base
     remove_video!
     save
     super
+  end
+
+  def ONLY_REMOTE?
+    self.status == STATUS::ONLY_REMOTE
+  end
+
+  def PROCESSING?
+    self.status == STATUS::PROCESSING
   end
 
 end

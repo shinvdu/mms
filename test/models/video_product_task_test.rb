@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VideoProductTaskGroupTest < ActiveSupport::TestCase
+class VideoProductTaskTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

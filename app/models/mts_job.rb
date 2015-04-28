@@ -1,5 +1,6 @@
 class MtsJob < ActiveRecord::Base
   scope :not_finished, -> { where(['status in (?, ?)', STATUS::SUBMITTED, STATUS::PROCESSING]) }
+  before_save :default_values
 
   module STATUS
     SUBMITTED = 1
@@ -10,10 +11,8 @@ class MtsJob < ActiveRecord::Base
     MISSING = 6
   end
 
-  def initialize(job_id)
-    super()
-    self.job_id = job_id
-    self.status = STATUS::SUBMITTED
+  def default_values
+    self.status ||= STATUS::SUBMITTED
   end
 end
 

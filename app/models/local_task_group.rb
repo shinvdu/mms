@@ -1,4 +1,9 @@
 class LocalTaskGroup < ActiveRecord::Base
+  module STATUS
+    NOT_STARTED = 10
+    PROCESSING = 20
+    FINISHED = 30
+  end
 end
 
 #------------------------------------------------------------------------------

@@ -6,21 +6,11 @@ class ScheduledWorker
       mts_query_loop
     end
     safe_exception do
-      query_mini_transcoding_jobs
+      query_transcoding_jobs
     end
     safe_exception do
       query_meta_info_list_job
     end
-    # begin
-    #   query_mini_transcoding_jobs
-    # rescue Exception => e
-    #   puts e, e.backtrace
-    # end
-    # begin
-    #   query_meta_info_list_job
-    # rescue Exception => e
-    #   puts e, e.backtrace
-    # end
   end
 
   handle_asynchronously :mts_query_loop, :queue => Settings.aliyun.mts.scheduled_queue, :run_at => Proc.new { 5.seconds.from_now }

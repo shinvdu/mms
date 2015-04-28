@@ -5,7 +5,7 @@ class UserVideo < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
-  has_one :default_transcoding_strategy, :class_name => 'TranscodingStrategy', :foreign_key => :transcoding_strategy_id
+  belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
 
   module STATUS
     PREUPLOADED = 10

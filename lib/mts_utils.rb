@@ -20,18 +20,11 @@ module MTSUtils
     require 'uuidtools'
 
     def generate_url(options = {})
-      # TODO config
-      @host = 'mts.aliyuncs.com'
-      @aliyun_access_id = '1cnDtYk8fMS0lyoM'
-      @aliyun_access_key = 'PR6H6WIq4gqun4BJ5bwWQQt5BUO5su'
       @SEPARATOR = '&'
       @EQUAL = '='
       @HTTP_METHOD = 'POST'
       paramaters = {
-          'AccessKeyId' => @aliyun_access_id,
-          # 'Action' => 'QueryMediaList',
-          # 'MediaIds' => '88c6ca184c0e47098a5b665e2a126797',
-          # 'partner_id' => 'top-sdk-java-20150211',
+          'AccessKeyId' => Settings.aliyun.access_id,
           'Version' => '2014-06-18',
           'Timestamp' => gmtdate,
           'SignatureMethod' => 'HMAC-SHA1',
@@ -51,7 +44,7 @@ module MTSUtils
       end
       string_to_sign.concat percent_encode(canonicalized_query_string[1..-1])
 
-      h_mac_key = @aliyun_access_key + @SEPARATOR
+      h_mac_key = Settings.aliyun.access_key + @SEPARATOR
       digest = OpenSSL::Digest.new('sha1')
       h = OpenSSL::HMAC.digest(digest, h_mac_key, string_to_sign)
       h = Base64.encode64(h).strip()
@@ -62,7 +55,7 @@ module MTSUtils
         query.concat "#{@SEPARATOR}#{percent_encode(k)}#{@EQUAL}#{percent_encode(v)}"
       end
       query = query[1..-1]
-      "http://#{@host}/?#{query}"
+      "http://#{Settings.aliyun.mts.host}/?#{query}"
     end
 
     def gmtdate

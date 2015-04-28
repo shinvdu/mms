@@ -3,30 +3,26 @@ class VideoProduct < ActiveRecord::Base
   has_many :video_product_fragments, -> { order('order') }
   belongs_to :video_detail
   belongs_to :transcoding
+  before_save :default_values
 
   module STATUS
     NOT_STARTED = 10
-    DOWNLOADING = 20
-    PROCESSING = 30
-    UPLOADING = 40
-    FINISHED = 50
+    WAIT_FOR_DEPENDENCY = 20
+    DOWNLOADING = 30
+    PROCESSING = 40
+    UPLOADING = 50
+    FINISHED = 60
   end
 
-  def initialize(group, transcoding)
-    self.video_product_group = group
-    self.transcoding = transcoding
+  def make_video_product_task
+    VideoProductGroupTaskGroup.new(:target => self.video_product_group)
+    VideoProductTask.new(:target => self)
   end
 
-  # include LocalVideoWorker::VideoProductWorker
+  handle_asynchronously :make_video_product_task
 
-  def make_fragment
-    group = self.video_product_group
-    task_group = VideoProductTaskGroup.new(:target => self)
-    group.video_fragments.each do |frag, idx|
-      product_fragment = VideoProductFragment.new(:video_product => self, :video_fragment => frag, :order => idx)
-      product_fragment.start_cut_task(task_group)
-    end
-    self.status = STATUS::NOT_STARTED
+  def default_values
+    self.status ||= STATUS::NOT_STARTED
   end
 end
 
