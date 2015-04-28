@@ -19,7 +19,106 @@
     <%= f.label :user_id %><br>
     <%= f.number_field :user_id %>
   </div>
+  <div class="field">
+    <%= f.label :容器格式 %><br>
+    <%= f.select :container, %w{ mp4 flv }, {:prompt => "format..."} %>
+    <p>容器格式,支持flv、mp4、ts、m3u8</p>
+  </div>
+    <div class="field">
+    <%= f.label :编解码格式 %><br>
+    <%= f.select :video_codec, %w{ H.264 }, {:prompt => "编解码格式..."} %>
+    <p>编解码格式,默认值为H.264</p>
+  </div>
+    <div class="field">
+    <%= f.label :编码级别 %><br>
+    <%= f.select :video_profile, %w{ baseline  main high}, {:prompt => "编码级别..."} %>
+    <p>编码级别,支持baseline、main、high,默认值high
+baseline:针对移动设备
+main:针对标准分辨率设备
+high:针对高分辨率设备</p>
+  </div>
+    <div class="field">
+    <%= f.label :视频平均码率 %><br>
+    <%= f.number_field :video_bitrate %>
+    <p>视频平均码率,值范围[10,50000],单位Kbps</p>
+  </div>
+    <div class="field">
+    <%= f.label :"码率-质量控制因子" %><br>
+    <%= f.number_field :video_crf %>
+    <p>码率-质量控制因子,值范围[0 51],默认值26;如果设置了
+Crf,则Bitrate的设置失效。</p>
+  </div>
+    <div class="field">
+    <%= f.label :宽 %><br>
+    <%= f.number_field :width %>
+    <p>宽,默认值是视频原始宽度,值范围[128,4096],单位px</p>
+  </div>
+    <div class="field">
+    <%= f.label :高 %><br>
+    <%= f.number_field :height %>
+    <p>高,默认值是视频原始高度,值范围[128,4096],单位px</p>
+  </div>
+    <div class="field">
+    <%= f.label :帧率 %><br>
+    <%= f.number_field :video_fps %>
+    <p>帧率,默认值取输入文件帧率,当输入文件帧率超过60时取60,值范围(0,60]</p>
+  </div>
+    <div class="field">
+    <%= f.label :关键帧间最大帧数 %><br>
+    <%= f.number_field :video_gop %>
+    <p>关键帧间最大帧数,值范围[1,1080000],默认值250</p>
+  </div>
+    <div class="field">
+    <%= f.label :视频算法器预置 %><br>
+    <%= f.select :video_preset, %w{ veryfast  fast medium slow slower veryslow }, {:prompt => "视频算法器预置..."} %>
+    <p>视频算法器预置,支持veryfast、fast、medium、slow、slower、veryslow,默认值slow</p>
+  </div>
+    <div class="field">
+    <%= f.label :扫描模式 %><br>
+    <%= f.select :video_scanmode, %w{ interlaced  progressive}, {:prompt => "扫描模式..."} %>
+    <p>扫描模式,支持interlaced、progressive</p>
+  </div>
+    <div class="field">
+    <%= f.label :缓冲区大小 %><br>
+    <%= f.number_field :video_gop %>
+    <p>关键帧间最大帧数,值范围[1,1080000],默认值250</p>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+<!-- 
+| id                    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name                  | varchar(255) | YES  |     | NULL    |                |
+| user_id               | int(11)      | YES  |     | NULL    |                |
+| container             | varchar(255) | YES  |     | NULL    |                |
+| video_profile         | varchar(255) | YES  |     | NULL    |                |
+| video_preset          | varchar(255) | YES  |     | NULL    |                |
+| audio_codec           | varchar(255) | YES  |     | NULL    |                |
+| audio_samplerate      | int(11)      | YES  |     | NULL    |                |
+| audio_bitrate         | int(11)      | YES  |     | NULL    |                |
+| video_line_scan       | int(11)      | YES  |     | NULL    |                |
+| h_w_percent           | int(11)      | YES  |     | NULL    |                |
+| width                 | int(11)      | YES  |     | NULL    |                |
+| height                | int(11)      | YES  |     | NULL    |                |
+| data                  | text         | YES  |     | NULL    |                |
+| created_at            | datetime     | NO   |     | NULL    |                |
+| updated_at            | datetime     | NO   |     | NULL    |                |
+| video_codec           | int(11)      | YES  |     | NULL    |                |
+| video_bitrate         | int(11)      | YES  |     | NULL    |                |
+| video_crf             | int(11)      | YES  |     | NULL    |                |
+| video_fps             | int(11)      | YES  |     | NULL    |                |
+| video_gop             | int(11)      | YES  |     | NULL    |                |
+| video_scanmode        | varchar(255) | YES  |     | NULL    |                |
+| video_bufsize         | int(11)      | YES  |     | NULL    |                |
+| video_maxrate         | int(11)      | YES  |     | NULL    |                |
+| video_bitrate_bnd_max | int(11)      | YES  |     | NULL    |                |
+| audio_channels        | int(11)      | YES  |     | NULL    |                |
+| state                 | varchar(255) | YES  |     | NULL    |                |
+| aliyun_template_id    | varchar(255) | YES  |     | NULL    |                |
+| video_bitrate_bnd_min | int(11)      | YES  |     | NULL    |                |
+| disabled              | int(11)      | YES  |     | NULL    |                |
++-----------------------+--------------+------+-----+---------+----------------+
+
+ -->

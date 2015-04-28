@@ -227,11 +227,11 @@ module MTSUtils
           "Height": transcoding.height,
           "Fps": transcoding.video_fps,
           "Gop": transcoding.video_gop,
-          "Preset": transcoding.video_codec,
+          "Preset": transcoding.video_preset,
           "ScanMode": transcoding.video_scanmode,
           "Bufsize": transcoding.video_bufsize,
           "Maxrate": transcoding.video_maxrate,
-          'BitrateBnd' => {"Max": transcoding.video_bitrate_bnd_max, "Min": transcoding.video_bitrate_bnd_min}.to_json
+          'BitrateBnd' => {"Max": transcoding.video_bitrate_bnd_max, "Min": transcoding.video_bitrate_bnd_min}
           }.to_json,
         'state' => transcoding.state
       }.select { |k, v| v.present? }
