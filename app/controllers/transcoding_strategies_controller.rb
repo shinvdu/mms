@@ -30,6 +30,7 @@ class TranscodingStrategiesController < ApplicationController
   # POST /transcoding_strategies.json
   def create
     @transcoding_strategy = TranscodingStrategy.new(transcoding_strategy_params)
+    @transcoding_strategy[:user] = current_user
 
     respond_to do |format|
       if @transcoding_strategy.save
