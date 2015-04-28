@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :admin , :as => :admin do
+    get 'users' => 'user#users'
+    get 'index' => 'user#users'
+    get '/' => 'user#users'
+  end
   resources :transcoding_strategy_relationships
   resources :tags_relationships
   resources :tags

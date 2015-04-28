@@ -1,0 +1,90 @@
+<nav class="nav-tab">
+	<ul class="nav-square clearfix">
+	  <li class="current">
+	    <a href="#manage-user">
+	      <span class="square"></span>
+	      用户管理
+	    </a>
+	  </li>
+	  <li class="">
+	    <a href="#manage-permission">
+	      <span class="square"></span>
+	      权限管理
+	    </a>
+	  </li>
+	  <li class="">
+	    <a href="#manage-api">
+	      <span class="square"></span>
+	      API管理
+	    </a>
+	  </li>
+	  <li class="">
+	    <a href="#manage-log">
+	      <span class="square"></span>
+	      操作日志
+	    </a>
+	  </li>
+	</ul>
+      </nav>
+      <div class="tab-panel current" id="manage-user">
+      	<div class="panel-header clearfix">
+	  <form class="pull-right" role="search">
+            <div class="form-group right-inner-addon">
+              <input class="form-control" placeholder="模版名称/用户名" type="search">
+	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </div>
+	  </form>
+	  <button type="button" class="btn btn-green">添加</button>
+	  <button type="button" class="btn btn-blue">编辑</button>
+	  <button type="button" class="btn btn-gray">删除</button>
+	</div>
+        <table class="table table-hover panel-table">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>编号</th>
+	      <th>用户名称</th>
+	      <th>登录IP</th>
+	      <th>最后登陆时间</th>
+	      <th>操作</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>
+		<input type="checkbox">
+	      </td>
+	      <td>1234566</td>
+	      <td>xiao2</td>
+	      <td>211.211.211.211</td>
+	      <td>2015/04/26 17:30</td>
+	      <td>
+		<a href="#">修改</a>
+		<a href="#">删除</a>
+		<a href="#">冻结</a>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+	<div class="panel-footer">
+	  <nav class="panel-table-pagination">
+	    <ul class="pagination">
+	      <li>
+		<a href="#" aria-label="Previous">
+		  <span aria-hidden="true">«</span>
+		</a>
+	      </li>
+	      <li class="active"><a href="#">1</a></li>
+	      <li><a href="#">2</a></li>
+	      <li><a href="#">3</a></li>
+	      <li><a href="#">4</a></li>
+	      <li><a href="#">5</a></li>
+	      <li>
+		<a href="#" aria-label="Next">
+		  <span aria-hidden="true">»</span>
+		</a>
+	      </li>
+	    </ul>
+	  </nav>
+	</div>
+      </div>
