@@ -1,5 +1,8 @@
 class TranscodingsController < ApplicationController
   before_action :authenticate_account! #, except: [:show]
+  before_action  only: [:create, :update] do 
+    set_user_id('transcoding')
+  end
   before_action :set_transcoding, only: [:show, :edit, :update, :destroy]
   before_action :restrict_transcoding, only: [:show, :edit, :update, :destroy]
 
@@ -44,6 +47,7 @@ class TranscodingsController < ApplicationController
   # PATCH/PUT /transcodings/1
   # PATCH/PUT /transcodings/1.json
   def update
+    # params[:transcoding][:user_id]
     respond_to do |format|
       if @transcoding.update(transcoding_params)
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully updated.' }
@@ -87,4 +91,5 @@ class TranscodingsController < ApplicationController
   def transcoding_params
     params.require(:transcoding).permit(:name, :user_id, :container, :video_profile, :video_preset, :audio_codec, :audio_samplerate, :audio_bitrate, :video_line_scan, :h_w_percent, :width, :height, :data, :video_codec, :video_bitrate, :video_crf, :video_fps, :video_gop, :video_scanmode, :video_bufsize, :video_bitratebnd, :audio_channels, :state, :aliyun_template_id, :created_at, :updated_at, :video_maxrate, :video_bitrate_bnd_max, :video_bitrate_bnd_min)
   end
+
 end
