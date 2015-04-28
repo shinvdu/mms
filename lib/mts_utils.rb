@@ -207,7 +207,37 @@ module MTSUtils
   end
 
   module Template
-    def add_template
+    def add_template(transcoding)
+      params = {
+        'Action' => 'AddTemplate',
+        'Name' => transcoding.name,
+        'Container' => {"Format": transcoding.container},
+        'Audio' => {
+          "Codec":  transcoding.audio_codec,
+          "Samplerate": transcoding.audio_samplerate,
+          "Bitrate": transcoding.audio_bitrate,
+          "Channels": transcoding.audio_channels
+          }.to_json,
+        'Video' => {
+          "Codec": transcoding.video_codec,
+          "Profile": transcoding.video_profile,
+          "Bitrate": transcoding.video_bitrate,
+          "Crf": transcoding.video_crf,
+          "Width": transcoding.width,
+          "Height": transcoding.height,
+          "Fps": transcoding.video_fps,
+          "Gop": transcoding.video_gop,
+          "Preset": transcoding.video_codec,
+          "ScanMode": transcoding.video_scanmode,
+          "Bufsize": transcoding.video_bufsize,
+          "Maxrate": transcoding.video_maxrate,
+          'BitrateBnd' => {"Max": transcoding.video_bitrate_bnd_max, "Min": transcoding.video_bitrate_bnd_min}.to_json
+          }.to_json,
+        'state' => transcoding.state
+      }.select { |k, v| v.present? }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      return res['RequestId'], AliyunTemplate.new(res['Template'])
 
     end
 
@@ -345,6 +375,77 @@ module MTSUtils
       end
     end
   end
+
+  class AliyunViedo
+    attr_accessor :codec, :profile, :bitrate, :crf , :width, :height, :fps, :gop, :preset, :scanmode, :bufsize, :maxrate, :bitratebnd
+    def initialize(var)
+      if var.is_a? Hash
+        @codec = var['Codec']
+        @profile = var['Profile']
+        @bitrate = var['Bitrate']
+        @crf = var['Crf']
+        @width = var['Width']
+        @height = var['Height']
+        @fps = var['Fps']
+        @gop = var['Gop']
+        @preset = var['Preset']
+        @scanmode = var['ScanMode']
+        @bufsize = var['Bufsize']
+        @maxrate = var['Maxrate']
+        @bitratebnd = AliyunBitrateBnd.new var['BitrateBnd']
+      end
+    end
+  end
+
+  class AliyunBitrateBnd
+    attr_accessor :max, :min
+    def initialize(var)
+      if var.is_a? Hash
+        @max = var['Max']
+        @min = var['Min']
+      end
+    end
+  end
+
+  class AliyunAudio
+    attr_accessor :codec, :samplerate, :bitrate, :channels 
+
+    def initialize(var)
+      if var.is_a? Hash
+        @codec = var['Codec']
+        @samplerate = var['Samplerate']
+        @bitrate = var['Bitrate']
+        @channels = var['Channels']
+      end
+    end
+  end
+
+  class AliyunTemplate
+    attr_accessor :id, :name, :container, :audio, :video, :state  
+
+    def initialize(var)
+      if var.is_a? Hash
+        @id = var['Id']
+        @name = var['Name']
+        @container = AliyunContainer.new var['Container']
+        @audio = AliyunContainer.new var['Audio']
+        @video = AliyunContainer.new var['Video']
+        @state = var['State']
+      end
+    end
+  end
+
+  class AliyunContainer
+    attr_accessor :format
+
+    def initialize(var)
+      if var.is_a? Hash
+        @format = var['Format']
+      end
+    end
+  end
+
+
 
   module Status
     SUBMITTED = 'Submitted'
