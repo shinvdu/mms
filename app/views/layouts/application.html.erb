@@ -5,14 +5,18 @@
   <meta name="keywords" content="<%= @meta_keywords %>" />
   <meta name="description" content="<%= @meta_description %>" />
   <meta charset='utf-8' />
-  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
 <%= favicon_link_tag 'favicon.ico' %>
-  <link href="/player1/video-js.css" rel="stylesheet" type="text/css">
   <!-- video.js must be in the <head> for older IEs to work. -->
-  <script src="/player1/video.js"></script>
 
   <%= stylesheet_link_tag    'style', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'site', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+  <!--
+  <link href="/mms/css/main.css" rel="stylesheet" type="text/css">
+  <link href="/player1/video-js.css" rel="stylesheet" type="text/css">
+  <script src="/mms/js/app.js"></script>
+-->
+  <script src="/player1/video.js"></script>
   
   <script>
     videojs.options.flash.swf = "video-js.swf";

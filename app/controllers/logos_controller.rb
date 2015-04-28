@@ -1,5 +1,8 @@
 class LogosController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
+  before_action  only: [:create, :update] do 
+    set_user_id('logo')
+  end
   before_action :set_logo, only: [:show, :edit, :update, :destroy]
   before_action :restrict_logo, only: [:index, :edit, :update,  :destroy]
 
@@ -84,6 +87,6 @@ class LogosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def logo_params
-      params.require(:logo).permit(:name, :uid, :uri, :width, :height, :filemime, :filesize, :origname)
+      params.require(:logo).permit(:name, :user_id, :uri, :width, :height, :filemime, :filesize, :origname)
     end
 end

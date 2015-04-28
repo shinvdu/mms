@@ -1,5 +1,8 @@
 class PlayersController < ApplicationController
   before_action :authenticate_account!, except: [:show] # 匿名用户也可以加载播放器设置
+  before_action  only: [:create, :update] do 
+    set_user_id('player')
+  end
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   before_action :restrict_player, only: [:edit, :update,  :destroy]
   before_action :only_root, only: [:index]
@@ -84,6 +87,6 @@ class PlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def player_params
-      params.require(:player).permit(:name, :uid, :color, :logo, :logo_position, :autoplay, :share, :full_screen, :width, :height, :data)
+      params.require(:player).permit(:name, :user_id, :color, :logo_id, :logo_position, :autoplay, :share, :full_screen, :width, :height, :data)
     end
 end

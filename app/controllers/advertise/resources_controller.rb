@@ -1,5 +1,9 @@
 class Advertise::ResourcesController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
+  before_action  only: [:create, :update] do 
+    set_user_id('advertise_resource')
+  end
+
   before_action :set_advertise_resource, only: [:show, :edit, :update, :destroy]
   before_action :restrict_advertise_resource, only: [:index, :show, :edit, :update,  :destroy]
 
