@@ -1,12 +1,6 @@
-class VideoProductTaskGroup < LocalTaskGroup
-  belongs_to :target, :class_name => 'VideoProduct'
+class VideoProductGroupTaskGroup < LocalTaskGroup
+  belongs_to :target, :class_name => 'VideoProductGroup'
   before_save :default_values
-
-  module STATUS
-    NOT_STARTED = 10
-    PROCESSING = 20
-    FINISHED = 30
-  end
 
   def default_values
     self.status ||= STATUS::NOT_STARTED
@@ -14,7 +8,7 @@ class VideoProductTaskGroup < LocalTaskGroup
 end
 
 #------------------------------------------------------------------------------
-# VideoProductTaskGroup
+# VideoProductGroupTaskGroup
 #
 # Name            SQL Type             Null    Default Primary
 # --------------- -------------------- ------- ------- -------

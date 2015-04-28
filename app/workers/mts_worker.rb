@@ -13,7 +13,7 @@ module MTSWorker
         self.status = UserVideo::STATUS::UPLOADED
       end
       create_fetch_video_info_job(video_detail)
-      create_minimal_video_job(self)
+      create_transcoding_video_job
       self.status = UserVideo::STATUS::PRETRANSCODING
     end
 
@@ -21,28 +21,61 @@ module MTSWorker
 
     def create_fetch_video_info_job(video_detail)
       request_id, meta_info_job = submit_meta_info_job(Settings.aliyun.oss.bucket, video_detail.uri)
-      MetaInfoJob.new(meta_info_job.job_id, self).save!
+      MetaInfoJob.create(:job_id => meta_info_job.job_id, :target => self)
     end
 
-    def create_minimal_video_job(user_video)
-      video_detail = user_video.original_video
-      output_object_uri = video_detail.uri.split('.').insert(-2, Settings.aliyun.oss.mini_suffix).join('.')
+    # def create_minimal_video_job
+    #   video_detail = self.original_video
+    #   output_object_uri = video_detail.uri.split('.').insert(-2, Settings.aliyun.oss.mini_suffix).join('.')
+    #   request_id, job_result = submit_job(Settings.aliyun.oss.bucket,
+    #                                       video_detail.uri,
+    #                                       output_object_uri,
+    #                                       Settings.aliyun.mts.mini_template_id,
+    #                                       Settings.aliyun.mts.pipeline_id)
+    #   if job_result.success
+    #     mini_video_detail = video_detail.dup
+    #     self.mini_video = mini_video_detail
+    #     mini_video_detail.user_video = self
+    #     mini_video_detail.uri = output_object_uri
+    #     mini_video_detail.video = nil
+    #     mini_video_detail.save!
+    #     self.save!
+    #     TranscodeJob.create(:job_id => job_result.job.job_id, :target => mini_video_detail)
+    #   end
+    # end
+
+    def create_transcoding_video_job(transcoding = nil)
+      video_detail = self.original_video
+      template_id = transcoding.nil? ? Settings.aliyun.mts.mini_template_id : transcoding.aliyun_template_id
+      suffix = transcoding.nil? ? Settings.file_server.mini_suffix : transcoding.id.to_s
+      output_object_uri = video_detail.uri.split('.').insert(-2, suffix).join('.')
       request_id, job_result = submit_job(Settings.aliyun.oss.bucket,
                                           video_detail.uri,
                                           output_object_uri,
-                                          Settings.aliyun.mts.mini_template_id,
+                                          template_id,
                                           Settings.aliyun.mts.pipeline_id)
       if job_result.success
-        mini_video_detail = video_detail.dup
-        user_video.mini_video = mini_video_detail
-        mini_video_detail.user_video = video_detail.user_video
-        mini_video_detail.uri = output_object_uri
-        mini_video_detail.video = nil
-        mini_video_detail.save!
-        user_video.save!
-        MiniTranscodeJob.new(job_result.job.job_id, self).save!
+        transcoded_video_detail = video_detail.dup
+        self.mini_video = transcoded_video_detail if transcoding.nil?
+        transcoded_video_detail.user_video = self
+        transcoded_video_detail.uri = output_object_uri
+        transcoded_video_detail.video = nil
+        transcoded_video_detail.save!
+        self.save!
+        TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
       end
     end
+  end
+
+  module TranscodingWorker
+    include MTSUtils::All
+
+    def upload
+      request_id, res_template = add_template(self)
+      self.aliyun_template_id = res_template.id
+      self.save!
+    end
+    handle_asynchronously :upload
   end
 
   module Scheduled
@@ -94,8 +127,8 @@ module MTSWorker
       end
     end
 
-    def query_mini_transcoding_jobs
-      jobs = MiniTranscodeJob.not_finished
+    def query_transcoding_jobs
+      jobs = TranscodeJob.not_finished
       job_map = Hash[jobs.collect { |j| [j.job_id, j] }]
       job_ids = jobs.map { |j| j.job_id }
       job_ids.each_slice(10).each do |ids|
@@ -110,9 +143,9 @@ module MTSWorker
             when MTSUtils::Status::TRANSCODE_SUCCESS
               job.status = MtsJob::STATUS::FINISHED
               job.finish_time = Time.now
-              user_video = job.target
+              user_video = job.target.user_video
               user_video.status = UserVideo::STATUS::GOT_LOW_RATE
-              user_video.mini_video.uri = user_video.original_video.uri.split('.').insert(-2, Settings.aliyun.oss.mini_suffix).join('.')
+              user_video.mini_video.uri = user_video.original_video.uri.split('.').insert(-2, Settings.file_server.mini_suffix).join('.')
               user_video.save!
             when MTSUtils::Status::TRANSCODE_FAIL
               job.status = MtsJob::STATUS::FAILED

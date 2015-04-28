@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :video_details
+  # resources :video_details
 
   resources :user_videos do
     resource :video_product_group, :controller => 'video_product_groups'

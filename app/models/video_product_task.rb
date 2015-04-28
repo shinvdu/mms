@@ -1,20 +1,9 @@
-class VideoFragmentTask < LocalTask
-  belongs_to :target, :class_name => 'VideoProductFragment'
-  belongs_to :dependency, :class_name => 'VideoDetail'
-
-  def initialize(group, target, dependency)
-    self.local_task_group = group
-    self.target = target
-    self.dependency = dependency
-  end
-
-  def process
-
-  end
+class VideoProductTask < LocalTask
+  belongs_to :target, :class_name => 'VideoProduct'
 end
 
 #------------------------------------------------------------------------------
-# VideoFragmentTask
+# VideoProductTask
 #
 # Name                SQL Type             Null    Default Primary
 # ------------------- -------------------- ------- ------- -------

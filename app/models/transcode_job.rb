@@ -1,10 +1,5 @@
 class TranscodeJob < MtsJob
-  # belongs_to :target, :class_name => 'VideoProduct', :foreign_key => :target_id
-  #
-  # def initialize(job_id, video_product)
-  #   super(job_id)
-  #   self.target = video_product
-  # end
+  belongs_to :target, :class_name => 'VideoDetail', :foreign_key => :target_id
 end
 
 #------------------------------------------------------------------------------

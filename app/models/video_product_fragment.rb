@@ -12,18 +12,18 @@ class VideoProductFragment < ActiveRecord::Base
     UPLOADED = 50
   end
 
-  # def initialize(product, fragment, order)
-  #   self.video_product = product
-  #   self.video_fragment = fragment
-  #   self.order = order
-  #   self.status = STATUS::NOT_STARTED
-  # end
+  def produce(dependent_video)
+    start_time = 0
+    stop_time = 1
+    input_path = File.join(Settings.file_server.dir, dependent_video.uri)
+    fragment_dir = File.join(Settings.file_server.dir, 'fragments')
+    output_path = File.join(fragment_dir, self.id)
+    # TODO video slice
+    puts '     =======  haha ======== slicing ========     '
 
-  def start_cut_task(group)
-    dependent_video = VideoDetail.find_by_user_video_and_transcoding(self.video_product.video_product_group.user_video,
-                                                                     self.video_product.transcoding)
-    task = VideoFragmentTask.new(:local_task_group => group, :target => self, :dependency => dependent_video)
-    task.save!
+    fragment_video = dependent_video.dup
+    fragment_video.uri = dependent_video.uri.split('.').insert(-2, self.id).join('.')
+    fragment_video.video = nil#TODO
   end
 
   def default_values

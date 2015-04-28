@@ -1,6 +1,7 @@
 class TranscodingStrategy < ActiveRecord::Base
   belongs_to :user
-  has_many :transcoding_strategy_relationship
+  has_many :transcoding_strategy_relationships
+  has_many :transcodings, :through => :transcoding_strategy_relationships, :source => :transcoding
 end
 
 #------------------------------------------------------------------------------

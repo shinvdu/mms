@@ -5,7 +5,7 @@ class UserVideo < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
-  has_one :default_transcoding_strategy, :class_name => 'TranscodingStrategy', :foreign_key => :transcoding_strategy_id
+  belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
 
   module STATUS
     PREUPLOADED = 10
@@ -40,22 +40,23 @@ end
 #------------------------------------------------------------------------------
 # UserVideo
 #
-# Name                    SQL Type             Null    Default Primary
-# ----------------------- -------------------- ------- ------- -------
-# id                      int(11)              false           true   
-# owner_id                int(11)              true            false  
-# original_video_id       int(11)              true            false  
-# mini_video_id           int(11)              true            false  
-# logo_id                 int(11)              true            false  
-# video_name              varchar(255)         true            false  
-# file_name               varchar(255)         true            false  
-# ext_name                varchar(255)         true            false  
-# duration                int(11)              true            false  
-# status                  int(11)              true            false  
-# created_at              datetime             false           false  
-# updated_at              datetime             false           false  
-# width                   int(11)              true            false  
-# height                  int(11)              true            false  
-# transcoding_strategy_id int(11)              true            false  
+# Name                            SQL Type             Null    Default Primary
+# ------------------------------- -------------------- ------- ------- -------
+# id                              int(11)              false           true   
+# owner_id                        int(11)              true            false  
+# original_video_id               int(11)              true            false  
+# mini_video_id                   int(11)              true            false  
+# logo_id                         int(11)              true            false  
+# video_name                      varchar(255)         true            false  
+# file_name                       varchar(255)         true            false  
+# ext_name                        varchar(255)         true            false  
+# duration                        int(11)              true            false  
+# status                          int(11)              true            false  
+# created_at                      datetime             false           false  
+# updated_at                      datetime             false           false  
+# width                           int(11)              true            false  
+# height                          int(11)              true            false  
+# transcoding_strategy_id         int(11)              true            false  
+# default_transcoding_strategy_id int(11)              true            false  
 #
 #------------------------------------------------------------------------------
