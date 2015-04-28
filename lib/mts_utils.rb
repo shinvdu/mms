@@ -211,7 +211,7 @@ module MTSUtils
       params = {
         'Action' => 'AddTemplate',
         'Name' => transcoding.name,
-        'Container' => {"Format": transcoding.container},
+        'Container' => {"Format": transcoding.container}.to_json,
         'Audio' => {
           "Codec":  transcoding.audio_codec,
           "Samplerate": transcoding.audio_samplerate,
