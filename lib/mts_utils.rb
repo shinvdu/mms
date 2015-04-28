@@ -249,8 +249,14 @@ module MTSUtils
 
     end
 
-    def delete_template
-
+    def delete_template(transcoding)
+      params = {
+        'Action' => 'DeleteTemplate',
+        'TemplateId' => transcoding.aliyun_template_id,
+      }.select { |k, v| v.present? }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      return res['RequestId'], res['TemplateId']
     end
 
     def update_template
