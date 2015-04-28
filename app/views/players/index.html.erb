@@ -1,47 +1,79 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Players</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Uid</th>
-      <th>Color</th>
-      <th>Logo</th>
-      <th>Logo position</th>
-      <th>Autoplay</th>
-      <th>Share</th>
-      <th>Full screen</th>
-      <th>Width</th>
-      <th>Height</th>
-      <th>Data</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @players.each do |player| %>
+<nav class="nav-tab">
+  <ul class="nav-square clearfix">
+    <li class="current">
+      <a href="#add-player">
+        <span class="square"></span>
+        新增播放器
+      </a>
+    </li>
+    <li>
+      <a href="#manage-player">
+        <span class="square"></span>
+        播放器管理
+      </a>
+    </li>
+    <li>
+      <a href="#logo">
+        <span class="square"></span>
+        LOGO
+      </a>
+    </li>
+    <li>
+      <a href="#upload-logo">
+        <span class="square"></span>
+        上传LOGO
+      </a>
+    </li>
+  </ul>
+      </nav>
+<div class="tab-panel current" id="add-player">
+  <div class="panel-header clearfix">
+    <button type="button" class="btn btn-green">添加播放器</button>
+  </div>
+  <table class="table table-hover panel-table">
+    <thead>
       <tr>
-        <td><%= player.name %></td>
-        <td><%= player.user_id %></td>
-        <td><%= player.color %></td>
-        <td><%= player.logo %></td>
-        <td><%= player.logo_position %></td>
-        <td><%= player.autoplay %></td>
-        <td><%= player.share %></td>
-        <td><%= player.full_screen %></td>
-        <td><%= player.width %></td>
-        <td><%= player.height %></td>
-        <td><%= player.data %></td>
-        <td><%= link_to 'Show', player %></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-        <td><%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>播放器名称</th>
+        <th>播放器ID</th>
+        <th>创建人</th>
+        <th>创建时间</th>
+        <th>操作</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
+    </thead>
+    <tbody>
+      <tr>
+        <td>播放器名字123</td>
+        <td>1234567890QWER</td>
+        <td>xiao2</td>
+        <td>2015/04/26 17:31</td>
+        <td>
+    <a href="#">预览</a>
+    <a href="#">修改</a>
+    <a href="#">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="panel-footer">
+    <nav class="panel-table-pagination">
+      <ul class="pagination">
+        <li>
+    <a href="#" aria-label="Previous">
+      <span aria-hidden="true">«</span>
+    </a>
+        </li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+    <a href="#" aria-label="Next">
+      <span aria-hidden="true">»</span>
+    </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+      </div>
 <%= link_to 'New Player', new_player_path %>

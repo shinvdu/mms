@@ -1,41 +1,111 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Advertise Strategies</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th>Front ad</th>
-      <th>End ad</th>
-      <th>Pause ad</th>
-      <th>Float ad</th>
-      <th>Scroll ad</th>
-      <th>Data</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @advertise_strategies.each do |advertise_strategy| %>
+<nav class="nav-tab">
+  <ul class="nav-square clearfix">
+    <li class="current">
+      <a href="#advertisement-solution">
+        <span class="square"></span>
+        广告方案
+      </a>
+    </li>
+    <li>
+      <a href="#advertisement-resource">
+        <span class="square"></span>
+        广告资源
+      </a>
+    </li>
+  </ul>
+      </nav>
+      
+<div class="tab-panel current" id="advertisement-solution">
+  <div class="panel-header clearfix">
+    <form class="pull-right" role="search">
+            <div class="form-group right-inner-addon">
+              <input class="form-control" placeholder="广告方案名称" type="search">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </div>
+    </form>
+    <button type="button" class="btn btn-green">添加广告方案</button>
+  </div>
+  <table class="table table-hover panel-table">
+    <thead>
       <tr>
-        <td><%= advertise_strategy.name %></td>
-        <td><%= advertise_strategy.user_id %></td>
-        <td><%= advertise_strategy.front_ad %></td>
-        <td><%= advertise_strategy.end_ad %></td>
-        <td><%= advertise_strategy.pause_ad %></td>
-        <td><%= advertise_strategy.float_ad %></td>
-        <td><%= advertise_strategy.scroll_ad %></td>
-        <td><%= advertise_strategy.data %></td>
-        <td><%= link_to 'Show', advertise_strategy %></td>
-        <td><%= link_to 'Edit', edit_advertise_strategy_path(advertise_strategy) %></td>
-        <td><%= link_to 'Destroy', advertise_strategy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>编号</th>
+        <th>广告资源</th>
+        <th>片头广告</th>
+        <th>片尾广告</th>
+        <th>暂停广告</th>
+        <th>悬浮广告</th>
+        <th>滚动字幕</th>
+        <th>操作</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
+    </thead>
+    <tbody>
+      <tr>
+        <td>1234567</td>
+        <td>奥美国际广告方案</td>
+        <td>
+    <select class="form-control">
+      <option>广告资源1</option>
+      <option>广告资源2</option>
+      <option>广告资源3</option>
+    </select>
+        </td>
+        <td>
+    <select class="form-control">
+      <option>广告资源1</option>
+      <option>广告资源2</option>
+      <option>广告资源3</option>
+    </select>
+        </td>
+        <td>
+    <select class="form-control">
+      <option>广告资源1</option>
+      <option>广告资源2</option>
+      <option>广告资源3</option>
+    </select>
+        </td>
+        <td>
+    <select class="form-control">
+      <option>广告资源1</option>
+      <option>广告资源2</option>
+      <option>广告资源3</option>
+    </select>
+        </td>
+        <td>
+    <select class="form-control">
+      <option>广告资源1</option>
+      <option>广告资源2</option>
+      <option>广告资源3</option>
+    </select>
+        </td>
+        <td>
+    <a href="#">修改</a>
+    <a href="#">删除</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="panel-footer">
+    <nav class="panel-table-pagination">
+      <ul class="pagination">
+        <li>
+    <a href="#" aria-label="Previous">
+      <span aria-hidden="true">«</span>
+    </a>
+        </li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+    <a href="#" aria-label="Next">
+      <span aria-hidden="true">»</span>
+    </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+      </div>
 <br>
 
 <%= link_to 'New Strategy', new_advertise_strategy_path %>
