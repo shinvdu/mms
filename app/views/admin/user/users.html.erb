@@ -50,20 +50,22 @@
 	    </tr>
 	  </thead>
 	  <tbody>
+	  	<% @users.each do |user | %>
 	    <tr>
 	      <td>
 		<input type="checkbox">
 	      </td>
-	      <td>1234566</td>
-	      <td>xiao2</td>
-	      <td>211.211.211.211</td>
-	      <td>2015/04/26 17:30</td>
+	      <td><%= user.id %></td>
+	      <td><%=  user && user.account && user.account.username %></td>
+	      <td><%=  user && user.account && user.account.last_sign_in_ip %></td>
+	      <td><%=  user && user.account && user.account.last_sign_in_at %></td>
 	      <td>
 		<a href="#">修改</a>
 		<a href="#">删除</a>
 		<a href="#">冻结</a>
 	      </td>
 	    </tr>
+	    <% end %>
 	  </tbody>
 	</table>
 	<div class="panel-footer">
