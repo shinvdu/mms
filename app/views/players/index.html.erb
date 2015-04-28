@@ -41,17 +41,19 @@
       </tr>
     </thead>
     <tbody>
+      <% @players.each do |player|  %>
       <tr>
-        <td>播放器名字123</td>
+        <td><%= player.name %></td>
         <td>1234567890QWER</td>
-        <td>xiao2</td>
-        <td>2015/04/26 17:31</td>
+        <td><%= player.user && player.user.nicename %></td>
+        <td><%=  player.created_at %></td>
         <td>
-    <a href="#">预览</a>
-    <a href="#">修改</a>
-    <a href="#">删除</a>
+    <%= link_to '预览', player %>
+     <%= link_to '修改', edit_player_path(player) %>
+     <td><%= link_to '删除', player, method: :delete, data: { confirm: '你确定要删除?' } %></td>
         </td>
       </tr>
+      <% end %>
     </tbody>
   </table>
   <div class="panel-footer">
