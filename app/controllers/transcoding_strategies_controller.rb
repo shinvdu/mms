@@ -1,12 +1,12 @@
 class TranscodingStrategiesController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
   before_action :set_transcoding_strategy, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_transcoding_strategies, only: [:index, :show,  :edit, :update,  :destroy]
+  before_action :restrict_transcoding_strategies, only: [:show,  :edit, :update,  :destroy]
 
   # GET /transcoding_strategies
   # GET /transcoding_strategies.json
   def index
-    # @transcoding_strategies = TranscodingStrategy.all
+    @transcoding_strategies = TranscodingStrategy.visiable(current_user.uid)
   end
 
   # GET /transcoding_strategies/1

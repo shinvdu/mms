@@ -2,6 +2,7 @@ class TranscodingStrategy < ActiveRecord::Base
   belongs_to :user
   has_many :transcoding_strategy_relationships
   has_many :transcodings, :through => :transcoding_strategy_relationships, :source => :transcoding
+  scope :visiable, -> (uid) { where(['user_id in (?, ?)', Settings.admin_id, uid]) }
 end
 
 #------------------------------------------------------------------------------

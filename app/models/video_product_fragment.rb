@@ -16,11 +16,9 @@ class VideoProductFragment < ActiveRecord::Base
     start_time = 0
     stop_time = 1
     input_path = File.join(Settings.file_server.dir, dependent_video.uri)
-    fragment_dir = File.join(Settings.file_server.dir, 'fragments')
-    output_path = File.join(fragment_dir, self.id)
-    # TODO video slice
-    puts '     =======  haha ======== slicing ========     '
-
+    output_path = input_path.split('/').insert(-2, 'fragment').join('/').split('.').insert(-2, self.id).join('.')
+    # video slice
+    `ffmpeg -ss 00:00:02 -i #{input_path} -t 00:00:04 -vcodec copy -acodec copy -y #{output_path}`
     fragment_video = dependent_video.dup
     fragment_video.uri = dependent_video.uri.split('.').insert(-2, self.id).join('.')
     fragment_video.video = nil#TODO
