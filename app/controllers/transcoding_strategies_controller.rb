@@ -1,5 +1,8 @@
 class TranscodingStrategiesController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
+  before_action  only: [:create, :update] do 
+    set_user_id('transcoding_strategy')
+  end
   before_action :set_transcoding_strategy, only: [:show, :edit, :update, :destroy]
   before_action :restrict_transcoding_strategies, only: [:show,  :edit, :update,  :destroy]
 

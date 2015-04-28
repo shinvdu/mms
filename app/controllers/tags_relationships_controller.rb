@@ -1,5 +1,8 @@
 class TagsRelationshipsController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
+  before_action  only: [:create, :update] do 
+    set_user_id('tags_relationship')
+  end
   before_action :set_tags_relationship, only: [:show, :edit, :update, :destroy]
   before_action :restrict_tag_operation, only: [:show, :destroy]
 
@@ -91,6 +94,6 @@ class TagsRelationshipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tags_relationship_params
-      params.require(:tags_relationship).permit(:tag_id, :user_video_id)
+      params.require(:tags_relationship).permit(:tag_id, :user_video_id, :user_id)
     end
 end

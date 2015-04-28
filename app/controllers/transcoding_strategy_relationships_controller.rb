@@ -1,5 +1,8 @@
 class TranscodingStrategyRelationshipsController < ApplicationController
   before_action :authenticate_account!#, except: [:show]  
+  before_action  only: [:create, :update] do 
+    set_user_id('transcoding_strategy_relationship')
+  end
   before_action :set_transcoding_strategy_relationship, only: [:show, :edit, :update, :destroy]
   before_action :restrict_transcoding_strategy_operation, only: [:show, :destroy]
 
