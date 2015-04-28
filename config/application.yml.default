@@ -3,6 +3,7 @@ defaults: &defaults
     name:  多媒体管理系统
   title: 多媒体管理系统
   cool: mms
+  admin_id: 1
   logo: 
     origin:  
       width: 200 
