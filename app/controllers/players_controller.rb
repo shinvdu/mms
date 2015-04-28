@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
   # GET /players
   # GET /players.json
   def index
-    # @players = Player.all
+    @players = Player.where(user_id: current_user.uid)
   end
 
   # GET /players/1

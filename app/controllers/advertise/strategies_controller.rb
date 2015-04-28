@@ -9,7 +9,7 @@ class Advertise::StrategiesController < ApplicationController
   # GET /advertise/strategies
   # GET /advertise/strategies.json
   def index
-    # @advertise_strategies = Advertise::Strategy.all
+    @advertise_strategies = Advertise::Strategy.where(user_id: current_user.uid)
   end
 
   # GET /advertise/strategies/1
