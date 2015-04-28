@@ -55,10 +55,6 @@ class ApplicationController < ActionController::Base
     flash[:danger] = msg
   end
 
-  def current_user
-    @current_user
-  end
-
   def only_root
       # 第一个用户为超级用户
       if @current_user.uid == 1

@@ -1,12 +1,12 @@
 class TranscodingsController < ApplicationController
-  before_action :authenticate_account!#, except: [:show]  
+  before_action :authenticate_account! #, except: [:show]
   before_action :set_transcoding, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_transcoding, only: [:index, :show,  :edit, :update,  :destroy]
+  before_action :restrict_transcoding, only: [:show, :edit, :update, :destroy]
 
   # GET /transcodings
   # GET /transcodings.json
   def index
-    # @transcodings = Transcoding.all
+    @transcodings = Transcoding.visiable(current_user.uid)
   end
 
   # GET /transcodings/1
@@ -57,33 +57,33 @@ class TranscodingsController < ApplicationController
   # DELETE /transcodings/1
   # DELETE /transcodings/1.json
   def destroy
-    @transcoding.destroy
-    respond_to do |format|
-      format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # @transcoding.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transcoding
-      @transcoding = Transcoding.find(params[:id])
-    end
-    
-     def restrict_transcoding
-      # 第一个用户为超级用户
-      if @current_user.uid == 1
-        return
-      end
-      # 只能操作自己的player
-      if @current_user.uid != @transcoding.user_id
-        redirect_to :root 
-        return
-      end
-    end   
+  # Use callbacks to share common setup or constraints between actions.
+  def set_transcoding
+    @transcoding = Transcoding.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def transcoding_params
-      params.require(:transcoding).permit(:name, :user_id, :container, :video_profile, :video_preset, :audio_codec, :audio_samplerate, :audio_bitrate, :video_line_scan, :h_w_percent, :width, :height, :data, :video_codec, :video_bitrate, :video_crf, :video_fps, :video_gop, :video_scanmode, :video_bufsize, :video_bitratebnd, :audio_channels, :state, :aliyun_template_id, :created_at, :updated_at)
+  def restrict_transcoding
+    # 第一个用户为超级用户
+    if @current_user.uid == 1
+      return
     end
+    # 只能操作自己的player
+    if @current_user.uid != @transcoding.user_id
+      redirect_to :root
+      return
+    end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def transcoding_params
+    params.require(:transcoding).permit(:name, :user_id, :container, :video_profile, :video_preset, :audio_codec, :audio_samplerate, :audio_bitrate, :video_line_scan, :h_w_percent, :width, :height, :data, :video_codec, :video_bitrate, :video_crf, :video_fps, :video_gop, :video_scanmode, :video_bufsize, :video_bitratebnd, :audio_channels, :state, :aliyun_template_id, :created_at, :updated_at)
+  end
 end

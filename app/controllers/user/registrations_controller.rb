@@ -2,7 +2,7 @@ class User::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 
-  # GET /resource/sign_up
+# GET /resource/sign_up
   def new
     super
     logger.info 'informational message'
@@ -11,10 +11,10 @@ class User::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    user = User.new
     account = current_account
-    if not account.nil?
-      account.user = user 
+    if account.present?
+      user = User.new
+      account.user = user
       account.save
     end
   end
@@ -63,5 +63,11 @@ class User::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     super(resource)
+  end
+
+  private
+
+  def account_params
+    params.require(:account).permit(:username, :email, :password, :password_confirmation)
   end
 end

@@ -1,6 +1,7 @@
 class Transcoding < ActiveRecord::Base
   belongs_to :user
   has_many :transcoding_strategy_relationship
+  scope :visiable, -> (uid) { where(['user_id in (?, ?)', Settings.admin_id, uid]) }
 
   include MTSWorker::TranscodingWorker
 end
