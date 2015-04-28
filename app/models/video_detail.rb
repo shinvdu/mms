@@ -47,23 +47,25 @@ end
 #------------------------------------------------------------------------------
 # VideoDetail
 #
-# Name          SQL Type             Null    Default Primary
-# ------------- -------------------- ------- ------- -------
-# id            int(11)              false           true   
-# uuid          varchar(255)         true            false  
-# uri           varchar(255)         true            false  
-# format        varchar(255)         true            false  
-# md5           varchar(255)         true            false  
-# rate          varchar(255)         true            false  
-# size          int(11)              true            false  
-# duration      int(11)              true            false  
-# status        int(11)              true            false  
-# user_video_id int(11)              true            false  
-# created_at    datetime             false           false  
-# updated_at    datetime             false           false  
-# video         varchar(255)         true            false  
-# width         int(11)              true            false  
-# height        int(11)              true            false  
-# fps           int(11)              true            false  
+# Name           SQL Type             Null    Default Primary
+# -------------- -------------------- ------- ------- -------
+# id             int(11)              false           true   
+# uuid           varchar(255)         true            false  
+# uri            varchar(255)         true            false  
+# format         varchar(255)         true            false  
+# md5            varchar(255)         true            false  
+# rate           varchar(255)         true            false  
+# size           int(11)              true            false  
+# duration       int(11)              true            false  
+# status         int(11)              true            false  
+# user_video_id  int(11)              true            false  
+# created_at     datetime             false           false  
+# updated_at     datetime             false           false  
+# video          varchar(255)         true            false  
+# width          int(11)              true            false  
+# height         int(11)              true            false  
+# fps            int(11)              true            false  
+# transcoding_id int(11)              true            false  
+# fragment       tinyint(1)           true    0       false  
 #
 #------------------------------------------------------------------------------

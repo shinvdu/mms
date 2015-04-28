@@ -67,6 +67,17 @@ module MTSWorker
     end
   end
 
+  module TranscodingWorker
+    include MTSUtils::All
+
+    def upload
+      request_id, res_template = add_template(self)
+      self.aliyun_template_id = res_template.id
+      self.save!
+    end
+    handle_asynchronously :upload
+  end
+
   module Scheduled
     include MTSUtils::All
 

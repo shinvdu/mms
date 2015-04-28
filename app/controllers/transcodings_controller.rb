@@ -30,6 +30,7 @@ class TranscodingsController < ApplicationController
 
     respond_to do |format|
       if @transcoding.save
+        @transcoding.upload
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully created.' }
         format.json { render :show, status: :created, location: @transcoding }
       else
