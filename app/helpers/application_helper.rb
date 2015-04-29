@@ -20,19 +20,20 @@ module ApplicationHelper
 	end
 
 	def top_menu_active(item)
-		path = request.path
-		menu = {
-			:'/' => :home,
+		con = controller.controller_name
 
-			:'/user_videos/index' => :video,
-
-			:'/advertise/strategies' => :ad,
-
-			:'/players' => :player,
-
-			:'/admin' => :admin
+		controller = {
+			:home => :home,
+			:user_videos => :video,
+			:transcodings => :video,
+			:transcoding_strategies => :video,
+			:strategies => :ad,
+			:resources => :ad,
+			:players => :player,
+			:logos => :player,
+			:user => :admin,
 		}
-		return true if item == menu[path.to_sym]
+		return true if item == controller[con.to_sym]
 	end
 
 end
