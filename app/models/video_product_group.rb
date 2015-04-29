@@ -11,20 +11,19 @@ class VideoProductGroup < ActiveRecord::Base
   end
 
   def create_fragments(cut_points)
-    video_cut_points.each do |cp, idx|
-      VideoFragment.create(video_product_group: self,
-                           video_cut_point: cp,
-                           order: idx)
+    cut_points.each do |cp, idx|
+      VideoFragment.create(:video_product_group => self,
+                           :video_cut_point => cp,
+                           :order => idx)
     end
   end
 
   def create_products(transcodings)
     task_group = VideoProductGroupTaskGroup.create(:target => self)
     # make video product for each transcoding in self.transcoding_strategy
-    # self.transcoding_strategy.each do |transcoding|
-    [].each do |transcoding|
+    self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
-      product.make_video_product_task
+      product.make_video_product_task(task_group)
     end
   end
 
@@ -49,5 +48,6 @@ end
 # created_at              datetime             false           false  
 # updated_at              datetime             false           false  
 # transcoding_strategy_id int(11)              true            false  
+# name                    varchar(255)         true            false  
 #
 #------------------------------------------------------------------------------

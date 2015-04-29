@@ -1,33 +1,33 @@
 <%= form_for(@transcoding_strategy) do |f| %>
-  <% if @transcoding_strategy.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@transcoding_strategy.errors.count, "error") %> prohibited this transcoding_strategy from being saved:</h2>
+    <% if @transcoding_strategy.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@transcoding_strategy.errors.count, "error") %> prohibited this transcoding_strategy from
+            being saved:</h2>
 
-      <ul>
-      <% @transcoding_strategy.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @transcoding_strategy.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
     </div>
-  <% end %>
+    <div class="field">
+      <%= f.label :note %><br>
+      <%= f.text_area :note %>
+    </div>
+    <div>
+      <% Transcoding.visiable(current_user).each do |transcoding| %>
+          <%= f.check_box :transcodings, { :multiple => true, :checked => @existing_transcodings.index(transcoding).present? }, transcoding.id, nil %>
+          <%= label_tag "transcoding_strategy[transcodings][#{transcoding.id}]", transcoding.name  %>
+      <% end %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :data %><br>
-    <%= f.text_area :data %>
-  </div>
-  <div class="field">
-    <%= f.label :note %><br>
-    <%= f.text_area :note %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
