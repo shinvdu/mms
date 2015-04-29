@@ -2,7 +2,7 @@ class UserVideosController < ApplicationController
   before_action :authenticate_account!, :check_login
 
   def index
-    @user_videos = UserVideo.where(owner_id: current_user.uid)
+    @user_videos = UserVideo.where(owner_id: current_user.uid).page(params[:page])
   end
 
   def new
