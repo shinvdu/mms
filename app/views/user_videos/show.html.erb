@@ -9,33 +9,30 @@
 <br/>
 <span>slice</span>
 <div>
-  <%= form_for :product_data, :url => user_video_video_product_group_path(@user_video, format: :json) do |f| %>
+  <%= form_for :product_data, :url => video_product_groups_path(format: :json) do |f| %>
+      <%= f.hidden_field :user_video_id, :value => @user_video.id %>
       <span>name: </span>
       <%= f.text_field :name, value: 'hello ffmpeg' %>
       <span>data: </span>
-      <%= f.text_field :cut_points, value: '[{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"0.123","stop_time":"3.432"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"4.989","stop_time":"9.2"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"10.652","stop_time":"11.109"}]' %>
+      <%= f.text_area :cut_points, value: '[{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"0.123","stop_time":"3.432"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"4.989","stop_time":"9.2"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"10.652","stop_time":"11.109"}]' %>
       <%= f.submit 'Submit' %>
   <% end %>
 </div>
 <div>
   <% @user_video.video_product_groups.each do |g| %>
       <div>
-        <%= g.name %>
+        <%= g.name %><br/>
+        <%= g.status %><br/>
+        <%= link_to 'download', download_video_product_group_path(g) %>
         <table>
           <tr>
             <th>id</th>
             <th>status</th>
-            <th>download</th>
           </tr>
           <% g.video_products.each do |product| %>
               <tr>
                 <td><%= product.id %></td>
                 <td><%= product.status %></td>
-                <td>
-                  <% if product.FINISHED? %>
-                    <%= link_to 'download', 'url' %>
-                  <% end %>
-                </td>
               </tr>
           <% end %>
         </table>

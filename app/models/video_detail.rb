@@ -28,6 +28,64 @@ class VideoDetail < ActiveRecord::Base
     FileUtils.mv(video.path, temp_path)
   end
 
+  def get_full_path
+    Rails.root.join(Settings.file_server.dir, self.uri).to_s
+  end
+
+  def get_full_url
+    "#{Settings.aliyun.oss.download_proxy}#{Settings.aliyun.oss.host}/#{self.uri}"
+  end
+
+  def create_sub_video(start, stop, suffix)
+    start_time = get_time(start)
+    stop_time = get_time(stop)
+    input_path = self.get_full_path
+    output_path = input_path.split('.').insert(-2, suffix).join('.')
+    slice_video(input_path, output_path, start_time, stop_time)
+    sub_video = self.dup
+    sub_video.uri = self.uri.split('.').insert(-2, suffix).join('.')
+    File.open(output_path) { |f| sub_video.video = f }
+    sub_video.status = VideoDetail::STATUS::BOTH
+    sub_video.save!
+    sub_video
+  end
+
+  def slice_video(input, output, start_time, stop_time)
+    logger.debug `ffmpeg -i #{input} -ss #{start_time} -to #{stop_time} -vcodec copy -acodec copy -y #{output}`
+    `ffmpeg -i #{input} -ss #{start_time} -to #{stop_time} -vcodec copy -acodec copy -y #{output}`
+  end
+
+  def get_time(t)
+    "#{t.to_i/3600}:#{t.to_i%3600/60}:#{t-t.to_i/60*60}"
+  end
+
+  def load_local_file(local_path)
+    File.open(local_path) do |file|
+      self.video = file
+      self.status = VideoDetail::STATUS::BOTH
+      self.save!
+    end
+    self.fetch_video_info
+  end
+
+  require 'rubygems'
+  require 'streamio-ffmpeg'
+
+  def fetch_video_info
+    # TODO get MD5 and video info for original video
+    movie = FFMPEG::Movie.new(self.get_full_path)
+    if movie.valid?
+      self.duration = movie.duration
+      self.rate = movie.bitrate
+      self.size = movie.size
+      self.video_codec = movie.video_codec #TODO
+      self.audio_codec = movie.audio_codec #TODO
+      self.resolution = movie.resolution #TODO
+      self.width = movie.width
+      self.height = movie.height
+    end
+  end
+
   def destroy
     remove_video!
     save

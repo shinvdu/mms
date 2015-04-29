@@ -29,14 +29,12 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :video_details
-
-  resources :user_videos do
-    collection do
-        get 'index', :as => :index
+  resources :video_product_groups do
+    member do
+      get 'download'
     end
-    resource :video_product_group, :controller => 'video_product_groups'
   end
+  resources :user_videos
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

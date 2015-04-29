@@ -29,3 +29,4 @@ bin
 public/uploads
 db/schema.rb
 public/assets/
+public/m3u8/
