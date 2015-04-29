@@ -1,6 +1,6 @@
 class VideoProduct < ActiveRecord::Base
   belongs_to :video_product_group
-  has_many :video_product_fragments, -> { order('order') }
+  has_many :video_product_fragments, -> { order('video_product_fragments.order') }
   belongs_to :video_detail
   belongs_to :transcoding
   before_save :default_values
@@ -14,12 +14,13 @@ class VideoProduct < ActiveRecord::Base
     FINISHED = 60
   end
 
-  def make_video_product_task
-    VideoProductGroupTaskGroup.new(:target => self.video_product_group)
-    VideoProductTask.new(:target => self)
+  def make_video_product_task(task_group)
+    VideoProductTask.create(:target => self, :local_task_group => task_group)
   end
 
-  handle_asynchronously :make_video_product_task
+  def FINISHED?
+    self.status == STATUS::FINISHED
+  end
 
   def default_values
     self.status ||= STATUS::NOT_STARTED

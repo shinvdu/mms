@@ -1,5 +1,6 @@
 class UserVideo < ActiveRecord::Base
   has_many :videos, :class_name => 'VideoDetail', :dependent => :destroy
+  has_many :video_product_groups
   has_many :video_cut_points
   has_many :tags_relationship
   belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id

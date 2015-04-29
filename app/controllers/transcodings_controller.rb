@@ -9,7 +9,7 @@ class TranscodingsController < ApplicationController
   # GET /transcodings
   # GET /transcodings.json
   def index
-    @transcodings = Transcoding.visiable(current_user.uid)
+    @transcodings = Transcoding.visiable(current_user)
   end
 
   # GET /transcodings/1
@@ -63,10 +63,10 @@ class TranscodingsController < ApplicationController
   # DELETE /transcodings/1.json
   def destroy
     # @transcoding.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
+    respond_to do |format|
+      format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

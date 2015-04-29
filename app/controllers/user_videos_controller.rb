@@ -14,14 +14,15 @@ class UserVideosController < ApplicationController
   end
 
   def create
-    if params[:file_data].blank?
+    if user_video_params.blank?
       session[:return_to] ||= request.referer
       redirect_to session.delete(:return_to)
       return
     end
-    video_name = params[:file_data][:video_name]
-    video = params[:file_data][:video]
+    video_name = user_video_params[:video_name]
+    video = user_video_params[:video]
     user_video = UserVideo.new(current_user, video_name, video)
+    user_video.default_transcoding_strategy_id = user_video_params[:default_transcoding_strategy]
     user_video.save!
     video.close
 
@@ -37,9 +38,7 @@ class UserVideosController < ApplicationController
     redirect_to user_videos_path
   end
 
-  def admin
-    @user_videos = UserVideo.where(owner_id: current_user.uid)
-    render 'user_videos/index'
+  def user_video_params
+    params.require(:user_video).permit(:video_name, :video, :default_transcoding_strategy)
   end
-
 end
