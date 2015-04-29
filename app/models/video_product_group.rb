@@ -48,8 +48,8 @@ class VideoProductGroup < ActiveRecord::Base
     file_path
   end
 
-  def status
-    stat = super
+  def get_status
+    stat = self.status
     if stat != STATUS::FINISHED
       stat = STATUS::FINISHED if self.video_products.present?
       self.video_products.each do |product|
