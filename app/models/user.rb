@@ -20,7 +20,7 @@ end
 # Name              SQL Type             Null    Default Primary
 # ----------------- -------------------- ------- ------- -------
 # uid               int(11)              false           true   
-# nicename          varchar(255)         true            false  
+# nickname          varchar(255)         true            false  
 # role              int(11)              true            false  
 # sex               int(11)              true            false  
 # really_name       int(11)              true            false  
