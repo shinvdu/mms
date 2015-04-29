@@ -1,41 +1,35 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Logos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Uid</th>
-      <th>Uri</th>
-      <th>Width</th>
-      <th>Height</th>
-      <th>Filemime</th>
-      <th>Filesize</th>
-      <th>Origname</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @logos.each do |logo| %>
+<%=  render 'players/nav' %>
+<div class="tab-panel current" id="add-player">
+  <div class="panel-header clearfix">
+    <a type="button" class="btn btn-green" href="<%= new_logo_path  %> ">添加logo</a>
+  </div>
+  <table class="table table-hover panel-table">
+    <thead>
+      <tr>
+        <th>logo名称</th>
+        <th>image</th>
+        <th>user</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @logos.each do |logo|  %>
       <tr>
         <td><%= logo.name %></td>
-        <td><%= logo.uid %></td>
-        <td><%= logo.uri %></td>
-        <td><%= logo.width %></td>
-        <td><%= logo.height %></td>
-        <td><%= logo.filemime %></td>
-        <td><%= logo.filesize %></td>
-        <td><%= logo.origname %></td>
-        <td><%= link_to 'Show', logo %></td>
-        <td><%= link_to 'Edit', edit_logo_path(logo) %></td>
-        <td><%= link_to 'Destroy', logo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= image_tag(logo.uri) if logo.uri? %></td>
+        <td><%= logo.user && logo.user.uid %></td>
+        <td><%=  logo.created_at %></td>
+        <td>
+    <%= link_to '预览', logo_path(logo) %>
+     <%= link_to '修改', edit_logo_path(logo) %>
+     <td><%= link_to '删除', logo, method: :delete, data: { confirm: '你确定要删除?' } %></td>
+        </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Logo', new_logo_path %>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="panel-footer">
+    <%=  paginate @logos %>
+  </div>
+      </div>

@@ -13,6 +13,7 @@
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
       </div>
     </form>
+    <a href="<%= new_transcoding_strategy_path %>" class="btn btn-select-green ">增加方案</a>
   </div>
   <table class="table table-hover panel-table">
     <thead>
@@ -31,14 +32,14 @@
     <% @transcoding_strategies.each do |transcoding_strategy| %>
         <tr>
           <td><%= transcoding_strategy.id %></td>
-          <td>平行教室转码方案</td>
+          <td><%= transcoding_strategy.name %></td>
           <td>转码模板1，转码模板2</td>
           <td>xiao2</td>
-          <td>2015/04/26 17:30</td>
-          <td>2015/04/26 17:31</td>
+        <td><%=  transcoding_strategy.created_at  %></td>
+        <td><%=  transcoding_strategy.updated_at  %></td>
           <td>
-            <a href="#">修改</a>
-            <a href="#">删除</a>
+            <a href="<%= edit_transcoding_strategy_path(transcoding_strategy)  %>">修改</a>
+            <%= link_to '删除', transcoding_strategy, method: :delete, data: { confirm: '你确定要删除?' } %>
           </td>
           <td>231456</td>
         </tr>

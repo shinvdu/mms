@@ -1,31 +1,4 @@
-<nav class="nav-tab">
-  <ul class="nav-square clearfix">
-    <li class="current">
-      <a href="#add-player">
-        <span class="square"></span>
-        新增播放器
-      </a>
-    </li>
-    <li>
-      <a href="#manage-player">
-        <span class="square"></span>
-        播放器管理
-      </a>
-    </li>
-    <li>
-      <a href="#logo">
-        <span class="square"></span>
-        LOGO
-      </a>
-    </li>
-    <li>
-      <a href="#upload-logo">
-        <span class="square"></span>
-        上传LOGO
-      </a>
-    </li>
-  </ul>
-      </nav>
+<%=  render 'players/nav' %>
 <div class="tab-panel current" id="add-player">
   <div class="panel-header clearfix">
     <a type="button" class="btn btn-green" href="<%= new_player_path  %> ">添加播放器</a>
