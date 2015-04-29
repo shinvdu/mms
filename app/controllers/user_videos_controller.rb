@@ -14,7 +14,7 @@ class UserVideosController < ApplicationController
   end
 
   def create
-    if user_video_params.blank?
+    if user_video_params[:video].blank?
       session[:return_to] ||= request.referer
       redirect_to session.delete(:return_to)
       return

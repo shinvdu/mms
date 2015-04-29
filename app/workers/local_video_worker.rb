@@ -42,6 +42,7 @@ module LocalVideoWorker
         end
 
         task.status = VideoProductTask::STATUS::FINISHED
+        task.save!
       end
     end
 

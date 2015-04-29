@@ -2,6 +2,8 @@
 <p>Find me in app/views/user_videos/new.html.erb</p>
 
 <%= form_for :user_video, :html =>{:multipart => true}, :url => user_videos_path(:user_video, format: :html) do |f| %>
+    <span>name:</span>
+    <%= f.text_field :video_name %>
     <%= f.file_field :video %>
     <span>strategy:</span>
     <%= f.collection_select(:default_transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name) %>
