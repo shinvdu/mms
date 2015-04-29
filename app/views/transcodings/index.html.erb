@@ -12,11 +12,7 @@
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </div>
     </form>
-    <select class="btn-select btn-select-green">
-      <option>添加转码模板</option>
-      <option>添加转码模板</option>
-      <option>添加转码模板</option>
-    </select>
+    <a href="<%= new_transcoding_path %>" class="btn btn-select-green ">增加模板</a>
   </div>
         <table class="table table-hover panel-table">
     <thead>
@@ -32,9 +28,10 @@
       </tr>
     </thead>
     <tbody>
+      <% @transcodings.each do | transcoding | %>
       <tr>
-        <td>1234567</td>
-        <td>高清_1080P_5M</td>
+        <td><%=  transcoding.id %></td>
+        <td><%=  transcoding.name %></td>
         <td>
     <select class="form-control">
       <option>转码模板</option>
@@ -43,14 +40,16 @@
     </select>
         </td>
         <td>xiao2</td>
-        <td>2015/04/26 17:30</td>
-        <td>2015/04/26 17:31</td>
+        <td><%=  transcoding.created_at  %></td>
+        <td><%=  transcoding.updated_at  %></td>
         <td>
-    <a href="#">修改</a>
-    <a href="#">删除</a>
+            <a href="<%= transcoding_path(transcoding)  %>">查看</a>
+    <a href="<%= edit_transcoding_path(transcoding)  %>">修改</a>
+    <%= link_to '删除', transcoding, method: :delete, data: { confirm: '你确定要删除?' } %>
         </td>
         <td>1 231456</td>
       </tr>
+      <% end %>
     </tbody>
   </table>
   <div class="panel-footer">

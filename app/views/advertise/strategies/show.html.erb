@@ -1,3 +1,5 @@
+<%=  render 'advertise/nav' %>
+<div class="tab-panel current" id="add-player">
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -39,6 +41,6 @@
   <strong>Data:</strong>
   <%= @advertise_strategy.data %>
 </p>
-
 <%= link_to 'Edit', edit_advertise_strategy_path(@advertise_strategy) %> |
 <%= link_to 'Back', advertise_strategies_path %>
+</div>
