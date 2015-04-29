@@ -43,6 +43,7 @@ gem 'uuidtools'
 gem 'mini_magick'
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem 'kaminari'
 gem 'streamio-ffmpeg'
 
 group :development, :test do
