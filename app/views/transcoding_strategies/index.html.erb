@@ -38,6 +38,7 @@
         <td><%=  transcoding_strategy.created_at  %></td>
         <td><%=  transcoding_strategy.updated_at  %></td>
           <td>
+            <a href="<%= transcoding_strategy_path(transcoding_strategy)  %>">查看</a>
             <a href="<%= edit_transcoding_strategy_path(transcoding_strategy)  %>">修改</a>
             <%= link_to '删除', transcoding_strategy, method: :delete, data: { confirm: '你确定要删除?' } %>
           </td>
