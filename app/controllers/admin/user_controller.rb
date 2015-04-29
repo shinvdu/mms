@@ -1,5 +1,5 @@
 class Admin::UserController < ApplicationController
 	def users
-		@users  = User.all
+		@users  = User.page(params[:page])
 	end
 end
