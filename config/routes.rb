@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin , :as => :admin do
-    get 'users' => 'user#users'
+    get 'users' => 'user#users', :as => :users
     get 'index' => 'user#users'
     get '/' => 'user#users'
   end
