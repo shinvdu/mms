@@ -23,7 +23,7 @@
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </div>
     </form>
-    <button type="button" class="btn btn-green">添加广告方案</button>
+    <a type="button" class="btn btn-green" href="<%=  new_advertise_strategy_path %>">添加广告方案</a>
   </div>
   <table class="table table-hover panel-table">
     <thead>
@@ -39,9 +39,10 @@
       </tr>
     </thead>
     <tbody>
+      <% @advertise_strategies.each do | strategy| %>
       <tr>
-        <td>1234567</td>
-        <td>奥美国际广告方案</td>
+        <td><%=  strategy.id %></td>
+        <td><%=  strategy.name %></td>
         <td>
     <select class="form-control">
       <option>广告资源1</option>
@@ -78,10 +79,11 @@
     </select>
         </td>
         <td>
-    <a href="#">修改</a>
-    <a href="#">删除</a>
+    <a href="<%=  edit_advertise_strategy_path(strategy) %>">修改</a>
+    <%= link_to '删除', strategy, method: :delete, data: { confirm: '你确定要删除?' } %>
         </td>
       </tr>
+      <% end %>
     </tbody>
   </table>
   <div class="panel-footer">

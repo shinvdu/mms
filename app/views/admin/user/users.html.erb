@@ -60,8 +60,8 @@
 	      <td><%=  user && user.account && user.account.last_sign_in_ip %></td>
 	      <td><%=  user && user.account && user.account.last_sign_in_at %></td>
 	      <td>
-		<a href="#">修改</a>
-		<a href="#">删除</a>
+		<a href="<%= edit_user_path(user)  %>">修改</a>
+		<%= link_to '删除', user, method: :delete, data: { confirm: '你确定要删除?' } %>
 		<a href="#">冻结</a>
 	      </td>
 	    </tr>
