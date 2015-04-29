@@ -13,15 +13,23 @@ class VideoProductFragment < ActiveRecord::Base
   end
 
   def produce(dependent_video)
-    start_time = 0
-    stop_time = 1
-    input_path = File.join(Settings.file_server.dir, dependent_video.uri)
-    output_path = input_path.split('/').insert(-2, 'fragment').join('/').split('.').insert(-2, self.id).join('.')
+    start_time = get_time(video_fragment.video_cut_point.start_time)
+    stop_time = get_time(video_fragment.video_cut_point.stop_time)
+    input_path = Rails.root.join(Settings.file_server.dir, dependent_video.uri).to_s
+    output_path = input_path.split('.').insert(-2, self.id).join('.')
     # video slice
-    `ffmpeg -ss 00:00:02 -i #{input_path} -t 00:00:04 -vcodec copy -acodec copy -y #{output_path}`
+    logger.debug `ffmpeg -i #{input_path} -ss #{start_time} -to #{stop_time} -vcodec copy -acodec copy -y #{output_path}`
+    `ffmpeg -i #{input_path} -ss #{start_time} -to #{stop_time} -vcodec copy -acodec copy -y #{output_path}`
     fragment_video = dependent_video.dup
     fragment_video.uri = dependent_video.uri.split('.').insert(-2, self.id).join('.')
-    fragment_video.video = nil#TODO
+    File.open(output_path) do |f|
+      fragment_video.video = f
+      fragment_video.save!
+    end
+  end
+
+  def get_time(t)
+    "#{t.to_i/3600}:#{t.to_i%3600/60}:#{t-t.to_i/60*60}"
   end
 
   def default_values

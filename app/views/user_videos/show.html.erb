@@ -3,15 +3,42 @@
 
 <span>id:</span><%= @user_video.id %>
 <div>
-    <%= link_to 'preview', get_preview_path(@user_video) %>
-    <%= get_preview_path(@user_video) %>
+  <%= link_to 'preview', get_preview_path(@user_video) %>
+  <%= get_preview_path(@user_video) %>
 </div>
-<br />
+<br/>
 <span>slice</span>
 <div>
-    <%= form_for :product_data, :url => user_video_video_product_group_path(@user_video, format: :json) do |f| %>
-        <span>data: </span>
-        <%= f.text_field :cut_points, value: '[{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"34.123","stop_time":"89.432"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"4.989","stop_time":"9.2"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"134.652","stop_time":"189.109"}]' %>
-        <%= f.submit 'Submit' %>
-    <% end %>
+  <%= form_for :product_data, :url => user_video_video_product_group_path(@user_video, format: :json) do |f| %>
+      <span>name: </span>
+      <%= f.text_field :name, value: 'hello ffmpeg' %>
+      <span>data: </span>
+      <%= f.text_field :cut_points, value: '[{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"0.123","stop_time":"3.432"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"4.989","stop_time":"9.2"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"10.652","stop_time":"11.109"}]' %>
+      <%= f.submit 'Submit' %>
+  <% end %>
+</div>
+<div>
+  <% @user_video.video_product_groups.each do |g| %>
+      <div>
+        <%= g.name %>
+        <table>
+          <tr>
+            <th>id</th>
+            <th>status</th>
+            <th>download</th>
+          </tr>
+          <% g.video_products.each do |product| %>
+              <tr>
+                <td><%= product.id %></td>
+                <td><%= product.status %></td>
+                <td>
+                  <% if product.FINISHED? %>
+                    <%= link_to 'download', 'url' %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+        </table>
+      </div>
+  <% end %>
 </div>

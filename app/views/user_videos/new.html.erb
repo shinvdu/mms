@@ -1,7 +1,9 @@
 <h1>UserVideos#new</h1>
 <p>Find me in app/views/user_videos/new.html.erb</p>
 
-<%= form_for :file_data, :html =>{:multipart => true}, :url => user_videos_path(:file_data, format: :html) do |f| %>
+<%= form_for :user_video, :html =>{:multipart => true}, :url => user_videos_path(:user_video, format: :html) do |f| %>
     <%= f.file_field :video %>
+    <span>strategy:</span>
+    <%= f.collection_select(:default_transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name) %>
     <%= f.submit 'Upload' %>
 <% end %>

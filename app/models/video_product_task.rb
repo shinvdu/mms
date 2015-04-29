@@ -18,5 +18,6 @@ end
 # dependency_id       int(11)              true            false  
 # created_at          datetime             false           false  
 # updated_at          datetime             false           false  
+# type                varchar(255)         true            false  
 #
 #------------------------------------------------------------------------------

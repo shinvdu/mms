@@ -75,6 +75,7 @@ module MTSUtils
     def execute(url, file = nil)
       host, query = url.split('?')
       begin
+        # puts host, query
         res = RestClient.post host, query
       rescue Exception => e
         puts e.response

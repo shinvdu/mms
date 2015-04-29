@@ -12,7 +12,7 @@ module MTSWorker
         video_detail.save!
         self.status = UserVideo::STATUS::UPLOADED
       end
-      create_fetch_video_info_job(video_detail)
+      # create_fetch_video_info_job(video_detail)
       create_transcoding_video_job
       self.status = UserVideo::STATUS::PRETRANSCODING
     end
@@ -57,10 +57,12 @@ module MTSWorker
       if job_result.success
         transcoded_video_detail = video_detail.dup
         self.mini_video = transcoded_video_detail if transcoding.nil?
-        transcoded_video_detail.user_video = self
+        transcoded_video_detail.transcoding = transcoding if transcoding.present?
         transcoded_video_detail.uri = output_object_uri
-        transcoded_video_detail.video = nil
+        transcoded_video_detail.status = VideoDetail::STATUS::PROCESSING
         transcoded_video_detail.save!
+        # change carrierwave mounted column
+        transcoded_video_detail.update_column(:video, File.basename(output_object_uri))
         self.save!
         TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
       end
@@ -136,6 +138,7 @@ module MTSWorker
         puts result_list
         result_list.each do |result|
           job = job_map[result.job_id]
+          logger.info "Checking for #{job.id}, status is #{result.state}"
           case result.state
             when MTSUtils::Status::TRANSCODING
               job.status = MtsJob::STATUS::PROCESSING
@@ -143,10 +146,18 @@ module MTSWorker
             when MTSUtils::Status::TRANSCODE_SUCCESS
               job.status = MtsJob::STATUS::FINISHED
               job.finish_time = Time.now
-              user_video = job.target.user_video
-              user_video.status = UserVideo::STATUS::GOT_LOW_RATE
-              user_video.mini_video.uri = user_video.original_video.uri.split('.').insert(-2, Settings.file_server.mini_suffix).join('.')
-              user_video.save!
+              video_detail = job.target
+              if video_detail.transcoding.nil?
+                user_video = video_detail.user_video
+                user_video.status = UserVideo::STATUS::GOT_LOW_RATE
+                user_video.save!
+              end
+              if video_detail.PROCESSING?
+                video_detail.status = VideoDetail::STATUS::ONLY_REMOTE
+              else
+                video_detail.status = VideoDetail::STATUS::BOTH
+              end
+              video_detail.save!
             when MTSUtils::Status::TRANSCODE_FAIL
               job.status = MtsJob::STATUS::FAILED
               job.code = result.code

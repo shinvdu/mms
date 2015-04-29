@@ -1,56 +1,57 @@
-<%=  render 'user_videos/nav' %>
+<%= render 'user_videos/nav' %>
 <div class="tab-panel current" id="video-transcoding-solution">
-        <div class="panel-header clearfix">
+  <div class="panel-header clearfix">
     <select class="pull-right btn-select btn-select-white">
       <option>转码模板</option>
       <option>转码模板</option>
       <option>转码模板</option>
     </select>
+
     <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input class="form-control" placeholder="模版名称/用户名" type="search">
+      <div class="form-group right-inner-addon">
+        <input class="form-control" placeholder="模版名称/用户名" type="search">
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
+      </div>
     </form>
   </div>
-        <table class="table table-hover panel-table">
+  <table class="table table-hover panel-table">
     <thead>
-      <tr>
-        <th>ID</th>
-        <th>模板方案</th>
-        <th>转码模板</th>
-        <th>创建用户</th>
-        <th>创建时间</th>
-        <th>最后修改时间</th>
-        <th>操作</th>
-        <th>备注</th>
-      </tr>
+    <tr>
+      <th>ID</th>
+      <th>模板方案</th>
+      <th>转码模板</th>
+      <th>创建用户</th>
+      <th>创建时间</th>
+      <th>最后修改时间</th>
+      <th>操作</th>
+      <th>备注</th>
+    </tr>
     </thead>
     <tbody>
-      <% @transcoding_strategies.each do | transcoding_strategy | %>
-      <tr>
-        <td><%=  transcoding_strategy.id %></td>
-        <td>平行教室转码方案</td>
-        <td>转码模板1，转码模板2</td>
-        <td>xiao2</td>
-        <td>2015/04/26 17:30</td>
-        <td>2015/04/26 17:31</td>
-        <td>
-    <a href="#">修改</a>
-    <a href="#">删除</a>
-        </td>
-        <td>231456</td>
-      </tr>
-      <% end %>
+    <% @transcoding_strategies.each do |transcoding_strategy| %>
+        <tr>
+          <td><%= transcoding_strategy.id %></td>
+          <td>平行教室转码方案</td>
+          <td>转码模板1，转码模板2</td>
+          <td>xiao2</td>
+          <td>2015/04/26 17:30</td>
+          <td>2015/04/26 17:31</td>
+          <td>
+            <a href="#">修改</a>
+            <a href="#">删除</a>
+          </td>
+          <td>231456</td>
+        </tr>
+    <% end %>
     </tbody>
   </table>
   <div class="panel-footer">
     <nav class="panel-table-pagination">
       <ul class="pagination">
         <li>
-    <a href="#" aria-label="Previous">
-      <span aria-hidden="true">«</span>
-    </a>
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">«</span>
+          </a>
         </li>
         <li class="active"><a href="#">1</a></li>
         <li><a href="#">2</a></li>
@@ -58,14 +59,14 @@
         <li><a href="#">4</a></li>
         <li><a href="#">5</a></li>
         <li>
-    <a href="#" aria-label="Next">
-      <span aria-hidden="true">»</span>
-    </a>
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">»</span>
+          </a>
         </li>
       </ul>
     </nav>
   </div>
-      </div>
+</div>
 
 <br>
 

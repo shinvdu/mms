@@ -1,7 +1,7 @@
 class Transcoding < ActiveRecord::Base
   belongs_to :user
   has_many :transcoding_strategy_relationship
-  scope :visiable, -> (uid) { where(['user_id in (?, ?)', Settings.admin_id, uid]) }
+  scope :visiable, -> (user) { where(['user_id in (?, ?)', Settings.admin_id, user.uid]) }
 
   include MTSWorker::TranscodingWorker
 end
@@ -27,7 +27,7 @@ end
 # data                  text                 true            false  
 # created_at            datetime             false           false  
 # updated_at            datetime             false           false  
-# video_codec           int(11)              true            false  
+# video_codec           varchar(255)         true            false  
 # video_bitrate         int(11)              true            false  
 # video_crf             int(11)              true            false  
 # video_fps             int(11)              true            false  
