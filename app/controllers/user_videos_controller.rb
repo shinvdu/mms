@@ -37,4 +37,8 @@ class UserVideosController < ApplicationController
     redirect_to user_videos_path
   end
 
+  def admin
+    
+  end
+
 end
