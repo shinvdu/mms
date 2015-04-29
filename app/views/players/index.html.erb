@@ -1,34 +1,7 @@
-<nav class="nav-tab">
-  <ul class="nav-square clearfix">
-    <li class="current">
-      <a href="#add-player">
-        <span class="square"></span>
-        新增播放器
-      </a>
-    </li>
-    <li>
-      <a href="#manage-player">
-        <span class="square"></span>
-        播放器管理
-      </a>
-    </li>
-    <li>
-      <a href="#logo">
-        <span class="square"></span>
-        LOGO
-      </a>
-    </li>
-    <li>
-      <a href="#upload-logo">
-        <span class="square"></span>
-        上传LOGO
-      </a>
-    </li>
-  </ul>
-      </nav>
+<%=  render 'players/nav' %>
 <div class="tab-panel current" id="add-player">
   <div class="panel-header clearfix">
-    <button type="button" class="btn btn-green">添加播放器</button>
+    <a type="button" class="btn btn-green" href="<%= new_player_path  %> ">添加播放器</a>
   </div>
   <table class="table table-hover panel-table">
     <thead>
@@ -45,7 +18,7 @@
       <tr>
         <td><%= player.name %></td>
         <td>1234567890QWER</td>
-        <td><%= player.user && player.user.nicename %></td>
+        <td><%= player.user && player.user.nickname %></td>
         <td><%=  player.created_at %></td>
         <td>
     <%= link_to '预览', player %>
@@ -57,25 +30,6 @@
     </tbody>
   </table>
   <div class="panel-footer">
-    <nav class="panel-table-pagination">
-      <ul class="pagination">
-        <li>
-    <a href="#" aria-label="Previous">
-      <span aria-hidden="true">«</span>
-    </a>
-        </li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-    <a href="#" aria-label="Next">
-      <span aria-hidden="true">»</span>
-    </a>
-        </li>
-      </ul>
-    </nav>
+    <%=  paginate @players %>
   </div>
       </div>
-<%= link_to 'New Player', new_player_path %>

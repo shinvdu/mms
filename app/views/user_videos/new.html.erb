@@ -1,3 +1,5 @@
+<%=  render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-transcoding-template">
 <h1>UserVideos#new</h1>
 <p>Find me in app/views/user_videos/new.html.erb</p>
 
@@ -9,3 +11,5 @@
     <%= f.collection_select(:default_transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name) %>
     <%= f.submit 'Upload' %>
 <% end %>
+
+</div>

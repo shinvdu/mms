@@ -9,7 +9,7 @@ class TranscodingsController < ApplicationController
   # GET /transcodings
   # GET /transcodings.json
   def index
-    @transcodings = Transcoding.visiable(current_user)
+    @transcodings = Transcoding.where(user_id: current_user.uid).page(params[:page])
   end
 
   # GET /transcodings/1

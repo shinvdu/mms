@@ -4,15 +4,11 @@ module MTSWorker
 
     def fetch_video_info_and_upload
       video_detail = self.original_video
-      local_path = Rails.root.join(Settings.file_server.dir, video_detail.uri)
-      File.open(local_path) do |file|
-        # TODO get MD5 for original video
-        video_detail.video = file
-        video_detail.status = VideoDetail::STATUS::BOTH
-        video_detail.save!
-        self.status = UserVideo::STATUS::UPLOADED
-      end
-      # create_fetch_video_info_job(video_detail)
+      video_detail.load_local_file(video_detail.get_full_path)
+      # if video_detail.video_codec !=
+      #
+      # end
+      self.status = UserVideo::STATUS::UPLOADED
       create_transcoding_video_job
       self.status = UserVideo::STATUS::PRETRANSCODING
     end

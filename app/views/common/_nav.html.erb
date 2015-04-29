@@ -6,7 +6,7 @@
           </div>
   </form>
   <ul class="nav nav-pills" role="tablist">
-    <li class="active" role="presentation">
+    <li class="<%= 'active' if top_menu_active :home %>" role="presentation">
       <a href="/" role="tab">
         <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
         首页
@@ -18,19 +18,19 @@
         视频管理
       </a>
     </li>
-    <li role="presentation">
+    <li role="presentation" class="<%= 'active' if top_menu_active :ad %>">
       <a href="<%= advertise_strategies_path %>" role="tab">
         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
         广告管理
       </a>
     </li>
-    <li role="presentation">
+    <li role="presentation" class="<%= 'active' if top_menu_active :player %>">
       <a href="<%=  players_path %>" role="tab">
         <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
         点播播放器
       </a>
     </li>
-    <li role="presentation">
+    <li role="presentation" class="<%= 'active' if top_menu_active :admin %>">
       <a href="<%=  admin_path  %>" role="tab">
         <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
         系统管理

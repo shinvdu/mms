@@ -7,7 +7,9 @@ class VideoProductGroup < ActiveRecord::Base
   before_save :default_values
 
   module STATUS
-    WAITING_FOR_PROCESSING = 10
+    SUBMITTED = 10
+    PROCESSING = 20
+    FINISHED = 30
   end
 
   def create_fragments(cut_points)
@@ -18,7 +20,7 @@ class VideoProductGroup < ActiveRecord::Base
     end
   end
 
-  def create_products(transcodings)
+  def create_products
     task_group = VideoProductGroupTaskGroup.create(:target => self)
     # make video product for each transcoding in self.transcoding_strategy
     self.transcoding_strategy.transcodings.each do |transcoding|
@@ -27,8 +29,40 @@ class VideoProductGroup < ActiveRecord::Base
     end
   end
 
+  def get_m3u8_file_path
+    file_path = Rails.root.join(Settings.m3u8_dir, [self.id, 'm3u8'].join('.'))
+    dir = File.dirname file_path
+    FileUtils.mkdir_p dir if !File.exist? dir
+    if !File.exist? file_path
+      File.open file_path, 'w' do |file|
+        file.puts '#EXTM3U'
+        self.video_products.each do |product|
+          product.video_product_fragments.each do |fragment|
+            file.puts
+            file.puts "#EXTINF:#{fragment.video_detail.duration}, vdo "
+            file.puts fragment.video_detail.get_full_url
+          end
+        end
+      end
+    end
+    file_path
+  end
+
+  def status
+    stat = super
+    if stat != STATUS::FINISHED
+      stat = STATUS::FINISHED if self.video_products.present?
+      self.video_products.each do |product|
+        stat = STATUS::PROCESSING if !product.FINISHED?
+      end
+      self.status = stat
+      self.save! if self.changed?
+    end
+    stat
+  end
+
   def default_values
-    self.status ||= STATUS::WAITING_FOR_PROCESSING
+    @status ||= STATUS::SUBMITTED
   end
 end
 

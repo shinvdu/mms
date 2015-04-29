@@ -19,4 +19,21 @@ module ApplicationHelper
 		@current_user
 	end
 
+	def top_menu_active(item)
+		con = controller.controller_name
+
+		controller = {
+			:home => :home,
+			:user_videos => :video,
+			:transcodings => :video,
+			:transcoding_strategies => :video,
+			:strategies => :ad,
+			:resources => :ad,
+			:players => :player,
+			:logos => :player,
+			:user => :admin,
+		}
+		return true if item == controller[con.to_sym]
+	end
+
 end

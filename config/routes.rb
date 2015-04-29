@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin , :as => :admin do
-    get 'users' => 'user#users'
+    get 'users' => 'user#users', :as => :users
     get 'index' => 'user#users'
     get '/' => 'user#users'
   end
@@ -29,11 +29,12 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :video_details
-
-  resources :user_videos do
-    resource :video_product_group, :controller => 'video_product_groups'
+  resources :video_product_groups do
+    member do
+      get 'download'
+    end
   end
+  resources :user_videos
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

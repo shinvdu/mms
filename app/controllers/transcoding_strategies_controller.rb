@@ -9,7 +9,7 @@ class TranscodingStrategiesController < ApplicationController
   # GET /transcoding_strategies
   # GET /transcoding_strategies.json
   def index
-    @transcoding_strategies = TranscodingStrategy.visiable(current_user)
+    @transcoding_strategies = TranscodingStrategy.where(user_id: current_user.uid).page(params[:page])
     @relationship = []
   end
 
