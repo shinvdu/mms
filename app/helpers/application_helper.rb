@@ -19,4 +19,20 @@ module ApplicationHelper
 		@current_user
 	end
 
+	def top_menu_active(item)
+		path = request.path
+		menu = {
+			:'/' => :home,
+
+			:'/user_videos/index' => :video,
+
+			:'/advertise/strategies' => :ad,
+
+			:'/players' => :player,
+
+			:'/admin' => :admin
+		}
+		return true if item == menu[path.to_sym]
+	end
+
 end
