@@ -1,33 +1,47 @@
-<h1>UserVideos#index</h1>
-<p>Find me in app/views/user_videos/index.html.erb</p>
-
-
-<%= link_to 'upload video', new_user_video_path %>
-<table>
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>file name</th>
-        <th>status</th>
-        <th>edit</th>
-        <th>remove</th>
-        <th>mini video url</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @videos.each do |video| %>
+<%= render 'user_videos/nav' %>
+      <div class="tab-panel current" id="video-list">
+        <table class="table table-hover panel-table">
+      <thead>
         <tr>
-            <td><%= video.id %></td>
-            <td><%= video.file_name %></td>
-            <td><%= video.status %></td>
-            <td><%= link_to 'e', user_video_path(video) %></td>
-            <td><%= button_to 'x', user_video_path(video), :method => :delete %></td>
-            <td>
-                <% if video.GOT_LOW_RATE? %>
-                    <%= link_to 'preview', get_preview_path(video) %>
-                <% end %>
-            </td>
+          <th>视频名称</th>
+          <th>视频分类</th>
+          <th>转码方案</th>
+          <th>文件大小</th>
+          <th>上传时间</th>
+          <th>状态</th>
+          <th>操作</th>
         </tr>
-    <% end %>
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+        <% @user_videos.each do | user_video| %>
+        <tr>
+          <td><%= user_video && user_video.videoName  %></td>
+          <td>
+        <select class="form-control">
+          <option>分类1</option>
+          <option>分类2</option>
+          <option>分类3</option>
+        </select>
+          </td>
+          <td>
+            <select class="form-control">
+          <option>方案1</option>
+          <option>方案2</option>
+          <option>方案3</option>
+        </select>
+          </td>
+          <td>100MB</td>
+          <td>2015/04/26 17:31</td>
+          <td>等待上传</td>
+          <td>
+        <a href="#">上传</a>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <button type="button" class="btn btn-purple">选择文件</button>
+      <button type="button" class="btn btn-green">上传文件</button>
+    </div>
+      </div>

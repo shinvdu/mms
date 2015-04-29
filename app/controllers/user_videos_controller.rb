@@ -2,7 +2,7 @@ class UserVideosController < ApplicationController
   before_action :authenticate_account!, :check_login
 
   def index
-    @videos = current_user.user_videos
+    @user_videos = UserVideo.where(owner_id: current_user.uid)
   end
 
   def new
@@ -38,7 +38,8 @@ class UserVideosController < ApplicationController
   end
 
   def admin
-    
+    @user_videos = UserVideo.where(owner_id: current_user.uid)
+    render 'user_videos/index'
   end
 
 end

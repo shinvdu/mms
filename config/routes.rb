@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :user_videos do
     collection do
         get 'admin' , :as => :admin
+        get 'index' , :as => :index
     end
     resource :video_product_group, :controller => 'video_product_groups'
   end
