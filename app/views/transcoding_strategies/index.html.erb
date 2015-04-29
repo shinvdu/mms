@@ -1,32 +1,69 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Transcoding Strategies</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th>Data</th>
-      <th>Note</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @transcoding_strategies.each do |transcoding_strategy| %>
+<%=  render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-transcoding-solution">
+        <div class="panel-header clearfix">
+    <select class="pull-right btn-select btn-select-white">
+      <option>转码模板</option>
+      <option>转码模板</option>
+      <option>转码模板</option>
+    </select>
+    <form class="pull-right" role="search">
+            <div class="form-group right-inner-addon">
+              <input class="form-control" placeholder="模版名称/用户名" type="search">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </div>
+    </form>
+  </div>
+        <table class="table table-hover panel-table">
+    <thead>
       <tr>
-        <td><%= transcoding_strategy.name %></td>
-        <td><%= transcoding_strategy.user_id %></td>
-        <td><%= transcoding_strategy.data %></td>
-        <td><%= transcoding_strategy.note %></td>
-        <td><%= link_to 'Show', transcoding_strategy %></td>
-        <td><%= link_to 'Edit', edit_transcoding_strategy_path(transcoding_strategy) %></td>
-        <td><%= link_to 'Destroy', transcoding_strategy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>ID</th>
+        <th>模板方案</th>
+        <th>转码模板</th>
+        <th>创建用户</th>
+        <th>创建时间</th>
+        <th>最后修改时间</th>
+        <th>操作</th>
+        <th>备注</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1234567</td>
+        <td>平行教室转码方案</td>
+        <td>转码模板1，转码模板2</td>
+        <td>xiao2</td>
+        <td>2015/04/26 17:30</td>
+        <td>2015/04/26 17:31</td>
+        <td>
+    <a href="#">修改</a>
+    <a href="#">删除</a>
+        </td>
+        <td>1 231456</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="panel-footer">
+    <nav class="panel-table-pagination">
+      <ul class="pagination">
+        <li>
+    <a href="#" aria-label="Previous">
+      <span aria-hidden="true">«</span>
+    </a>
+        </li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+    <a href="#" aria-label="Next">
+      <span aria-hidden="true">»</span>
+    </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+      </div>
 
 <br>
 
