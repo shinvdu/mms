@@ -20,6 +20,25 @@ class TranscodingsController < ApplicationController
   # GET /transcodings/new
   def new
     @transcoding = Transcoding.new
+    @transcoding.container = 'mp4'
+    @transcoding.video_codec = 'H.264'
+    @transcoding.video_profile = 'high'
+    @transcoding.video_bitrate = 10000
+    @transcoding.video_crf = 26
+
+    @transcoding.video_fps = 30
+    @transcoding.video_gop = 250
+    @transcoding.video_preset = 'slow'
+    @transcoding.video_scanmode = 'progressive'
+    @transcoding.video_bufsize = 6000
+    @transcoding.video_maxrate = 10000
+    @transcoding.video_bitrate_bnd_max = 10000
+    @transcoding.video_bitrate_bnd_min = 1000
+    @transcoding.audio_codec = 'aac'
+    @transcoding.audio_samplerate = 44100
+    @transcoding.audio_bitrate = 128
+    @transcoding.audio_channels = 2
+
   end
 
   # GET /transcodings/1/edit
