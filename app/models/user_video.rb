@@ -17,6 +17,12 @@ class UserVideo < ActiveRecord::Base
     ORIGIN_DELETED = 99
   end
 
+  module STRATEGY
+    PACKAGE = 1
+    TRANSCODING_AND_PUBLISH = 2
+    TRANSCODING_AND_EDIT = 3
+  end
+
   include MTSWorker::UserVideoWorker
 
   def initialize(owner, videoName, video)
@@ -59,5 +65,6 @@ end
 # height                          int(11)              true            false  
 # transcoding_strategy_id         int(11)              true            false  
 # default_transcoding_strategy_id int(11)              true            false  
+# strategy                        int(11)              true            false  
 #
 #------------------------------------------------------------------------------

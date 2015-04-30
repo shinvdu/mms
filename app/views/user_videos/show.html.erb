@@ -15,6 +15,12 @@
       <%= f.text_field :name, value: 'hello ffmpeg' %>
       <span>data: </span>
       <%= f.text_area :cut_points, value: '[{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"0.123","stop_time":"9.432"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"4.989","stop_time":"9.2"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"1.652","stop_time":"11.109"}]' %>
+      <br/>
+      <% if @user_video.default_transcoding_strategy.present? %>
+          <%= f.check_box :select_strategy %>
+          <%= f.label :select_strategy, 'change strategy' %>
+      <% end %>
+      <%= f.collection_select :strategy_id, TranscodingStrategy.visiable(current_user), :id, :name %>
       <%= f.submit 'Submit' %>
   <% end %>
 </div>
@@ -28,11 +34,19 @@
           <tr>
             <th>id</th>
             <th>status</th>
+            <th>trans name</th>
+            <th>download</th>
           </tr>
           <% g.video_products.each do |product| %>
               <tr>
                 <td><%= product.id %></td>
                 <td><%= product.status %></td>
+                <td><%= product.transcoding.name %></td>
+                <td>
+                  <% if product.FINISHED? %>
+                      <%= link_to 'download', download_video_product_path(product) %>
+                  <% end %>
+                </td>
               </tr>
           <% end %>
         </table>

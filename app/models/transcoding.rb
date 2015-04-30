@@ -41,5 +41,6 @@ end
 # aliyun_template_id    varchar(255)         true            false  
 # video_bitrate_bnd_min int(11)              true            false  
 # disabled              int(11)              true            false  
+# share                 tinyint(1)           true            false  
 #
 #------------------------------------------------------------------------------

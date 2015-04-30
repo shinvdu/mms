@@ -29,6 +29,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :video_products do
+    member do
+      get 'download'
+    end
+  end
   resources :video_product_groups do
     member do
       get 'download'

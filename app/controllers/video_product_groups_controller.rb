@@ -16,15 +16,16 @@ class VideoProductGroupsController < ApplicationController
       cp.save!
     end
 
-    strategy = user_video.default_transcoding_strategy
-    if (strategy.nil?)
+    strategy = product_data_params[:select_strategy] ?
+        TranscodingStrategy.find(product_data_params[:strategy_id]) : user_video.default_transcoding_strategy
+    if strategy.nil?
       respond_to do |format|
         format.html { redirect_to user_videos_path }
         format.json { render :json => 'no default transcoding strategy selected' }
       end
       return
     end
-    video_product_group = VideoProductGroup.create(:name => product_data_params[:name].strip,  :user_video => user_video, :transcoding_strategy => strategy)
+    video_product_group = VideoProductGroup.create(:name => product_data_params[:name].strip, :user_video => user_video, :transcoding_strategy => strategy)
     video_product_group.create_fragments(video_cut_points)
     video_product_group.create_products
 
@@ -39,6 +40,6 @@ class VideoProductGroupsController < ApplicationController
   end
 
   def product_data_params
-    params.require(:product_data).permit(:user_video_id, :name, :cut_points)
+    params.require(:product_data).permit(:user_video_id, :name, :cut_points, :strategy_id, :select_strategy)
   end
 end

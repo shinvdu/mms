@@ -6,7 +6,7 @@ class UserVideosController < ApplicationController
   end
 
   def new
-
+    @strategy = []
   end
 
   def show

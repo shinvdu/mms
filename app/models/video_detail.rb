@@ -114,7 +114,7 @@ end
 # md5            varchar(255)         true            false  
 # rate           varchar(255)         true            false  
 # size           int(11)              true            false  
-# duration       int(11)              true            false  
+# duration       float                true            false  
 # status         int(11)              true            false  
 # user_video_id  int(11)              true            false  
 # created_at     datetime             false           false  
@@ -125,5 +125,8 @@ end
 # fps            int(11)              true            false  
 # transcoding_id int(11)              true            false  
 # fragment       tinyint(1)           true    0       false  
+# video_codec    varchar(255)         true            false  
+# audio_codec    varchar(255)         true            false  
+# resolution     varchar(255)         true            false  
 #
 #------------------------------------------------------------------------------

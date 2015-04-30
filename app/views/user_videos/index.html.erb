@@ -1,48 +1,48 @@
 <%= render 'user_videos/nav' %>
-      <div class="tab-panel current" id="video-list">
-        <table class="table table-hover panel-table">
-      <thead>
+<div class="tab-panel current" id="video-list">
+  <table class="table table-hover panel-table">
+    <thead>
+    <tr>
+      <th>视频名称</th>
+      <th>视频分类</th>
+      <th>转码方案</th>
+      <th>文件大小</th>
+      <th>上传时间</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @user_videos.each do |user_video| %>
         <tr>
-          <th>视频名称</th>
-          <th>视频分类</th>
-          <th>转码方案</th>
-          <th>文件大小</th>
-          <th>上传时间</th>
-          <th>状态</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user_videos.each do | user_video| %>
-        <tr>
-          <td><%= user_video && user_video.video_name  %></td>
+          <td><%= link_to user_video.video_name, user_video_path(user_video) %></td>
           <td>
-        <select class="form-control">
-          <option>分类1</option>
-          <option>分类2</option>
-          <option>分类3</option>
-        </select>
+            <select class="form-control">
+              <option>分类1</option>
+              <option>分类2</option>
+              <option>分类3</option>
+            </select>
           </td>
           <td>
             <select class="form-control">
-          <option>方案1</option>
-          <option>方案2</option>
-          <option>方案3</option>
-        </select>
+              <option>方案1</option>
+              <option>方案2</option>
+              <option>方案3</option>
+            </select>
           </td>
           <td>100MB</td>
           <td>2015/04/26 17:31</td>
           <td>等待上传</td>
           <td>
-        <a href="#">上传</a>
+            <a href="#">上传</a>
           </td>
         </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class="panel-footer">
-    <%=  paginate @user_videos %>
-      <button type="button" class="btn btn-purple">选择文件</button>
-      <button type="button" class="btn btn-green">上传文件</button>
-    </div>
-      </div>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="panel-footer">
+    <%= paginate @user_videos %>
+    <button type="button" class="btn btn-purple">选择文件</button>
+    <button type="button" class="btn btn-green">上传文件</button>
+  </div>
+</div>
