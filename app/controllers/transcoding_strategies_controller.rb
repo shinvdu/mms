@@ -34,9 +34,11 @@ class TranscodingStrategiesController < ApplicationController
   def create
     new_transcoding_ids = transcoding_strategy_params[:transcodings]
     params[:transcoding_strategy].delete :transcodings
+
     @transcoding_strategy = TranscodingStrategy.new(transcoding_strategy_params)
+
     new_transcoding_ids.each do |transcoding_id|
-      TranscodingStrategyRelationship.create(:transcoding_strategy => @transcoding_strategy, :transcoding_id => transcoding_id)
+      TranscodingStrategyRelationship.create(:transcoding_strategy => @transcoding_strategy, :transcoding_id => transcoding_id, :user_id => current_user.uid)
     end
 
     respond_to do |format|
@@ -59,7 +61,7 @@ class TranscodingStrategiesController < ApplicationController
     existed_transcoding_ids = @transcoding_strategy.transcodings.map { |t| t.id }
     transcoding_strategy_params[:transcodings].each do |transcoding_id|
       if existed_transcoding_ids.index(transcoding_id).nil?
-        TranscodingStrategyRelationship.create(:transcoding_strategy => @transcoding_strategy, :transcoding_id => transcoding_id)
+        TranscodingStrategyRelationship.create(:transcoding_strategy => @transcoding_strategy, :transcoding_id => transcoding_id, :user_id => current_user.uid)
       end
     end
     respond_to do |format|

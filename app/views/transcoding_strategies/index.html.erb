@@ -33,8 +33,15 @@
         <tr>
           <td><%= transcoding_strategy.id %></td>
           <td><%= transcoding_strategy.name %></td>
-          <td>转码模板1，转码模板2</td>
-          <td>xiao2</td>
+          <td>
+            <select class="pull-right btn-select btn-select-white">
+            <% transcoding_strategy.transcodings.each do |transcoding | %>
+              <option><%= transcoding && transcoding.name %></option>
+              <% end %>
+            </select>
+
+          </td>
+          <td><%=  transcoding_strategy.user &&  transcoding_strategy.user.nickname %></td>
         <td><%=  transcoding_strategy.created_at  %></td>
         <td><%=  transcoding_strategy.updated_at  %></td>
           <td>

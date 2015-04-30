@@ -17,17 +17,17 @@
   </div>
   <div class="field">
     <%= f.label :容器格式 %><br>
-    <%= f.select :container, %w{ mp4 flv }, :selected => 'mp4' %>
+    <%= f.select :container, %w{ mp4 flv } %>
     <p>容器格式,支持flv、mp4、ts、m3u8</p>
   </div>
     <div class="field">
     <%= f.label :编解码格式 %><br>
-    <%= f.select :video_codec, %w{ H.264 },  :selected => 'H.264' %>
+    <%= f.select :video_codec, %w{ H.264 } %>
     <p>编解码格式,默认值为H.264</p>
   </div>
     <div class="field">
     <%= f.label :编码级别 %><br>
-    <%= f.select :video_profile, %w{ baseline  main high},  :selected => 'baseline'  %>
+    <%= f.select :video_profile, %w{ baseline  main high} %>
     <p>编码级别,支持baseline、main、high,默认值high <br>
 baseline:针对移动设备 <br>
 main:针对标准分辨率设备 <br>
@@ -35,85 +35,84 @@ high:针对高分辨率设备</p>
   </div>
     <div class="field">
     <%= f.label :视频平均码率 %><br>
-    <%= f.number_field :video_bitrate, :value => 10000 %>
+    <%= f.number_field :video_bitrate %>
     <p>视频平均码率,值范围[10,50000],单位Kbps</p>
   </div>
     <div class="field">
     <%= f.label :"码率-质量控制因子" %><br>
-    <%= f.number_field :video_crf, :value => 26 %>
+    <%= f.number_field :video_crf %>
     <p>码率-质量控制因子,值范围[0 51],默认值26;如果设置了
 Crf,则Bitrate的设置失效。</p>
   </div>
     <div class="field">
     <%= f.label :宽 %><br>
-    <%= f.number_field :width, :value => 1000 %>
+    <%= f.number_field :width %>
     <p>宽,默认值是视频原始宽度,值范围[128,4096],单位px</p>
   </div>
     <div class="field">
     <%= f.label :高 %><br>
-    <%= f.number_field :height, :value => 1000 %>
+    <%= f.number_field :height %>
     <p>高,默认值是视频原始高度,值范围[128,4096],单位px</p>
   </div>
     <div class="field">
     <%= f.label :帧率 %><br>
-    <%= f.number_field :video_fps, :value => 30 %>
+    <%= f.number_field :video_fps %>
     <p>帧率,默认值取输入文件帧率,当输入文件帧率超过60时取60,值范围(0,60]</p>
   </div>
     <div class="field">
     <%= f.label :关键帧间最大帧数 %><br>
-    <%= f.number_field :video_gop, :value => 250 %>
+    <%= f.number_field :video_gop %>
     <p>关键帧间最大帧数,值范围[1,1080000],默认值250</p>
   </div>
     <div class="field">
     <%= f.label :视频算法器预置 %><br>
-    <%= f.select :video_preset, %w{ veryfast  fast medium slow slower veryslow }, :selected => :slow %>
+    <%= f.select :video_preset, %w{ veryfast  fast medium slow slower veryslow }, {:prompt => "视频算法器预置..."} %>
     <p>视频算法器预置,支持veryfast、fast、medium、slow、slower、veryslow,默认值slow</p>
   </div>
-  <div class="field">
+    <div class="field">
     <%= f.label :扫描模式 %><br>
-    <%= radio_button("transcoding", "video_scanmode", "interlaced", :checked => true ) %> interlaced
-    <%= radio_button("transcoding", "video_scanmode", "progressive") %> progressive
+    <%= f.select :video_scanmode, %w{ interlaced  progressive}, {:prompt => "扫描模式..."} %>
     <p>扫描模式,支持interlaced、progressive</p>
   </div>
     <div class="field">
     <%= f.label :缓冲区大小 %><br>
-    <%= f.number_field :video_gop, :value => 250 %>
+    <%= f.number_field :video_gop %>
     <p>关键帧间最大帧数,值范围[1,1080000],默认值250</p>
   </div>
     <div class="field">
     <%= f.label :视频码率峰值 %><br>
-    <%= f.number_field :video_maxrate, :value => 10000 %>
+    <%= f.number_field :video_maxrate %>
     <p>视频码率峰值,值范围[10,50000],单位Kbps</p>
   </div>
     <div class="field">
     <%= f.label :视频总码率上限 %><br>
-    <%= f.number_field :video_bitrate_bnd_max, :value => 10000 %>
+    <%= f.number_field :video_bitrate_bnd_max %>
     <p>总码率上限,[10, 50000],单位Kbps</p>
   </div>
     <div class="field">
     <%= f.label :视频总码率下限 %><br>
-    <%= f.number_field :video_bitrate_bnd_min, :value => 1000 %>
+    <%= f.number_field :video_bitrate_bnd_min %>
     <p>总码率下限,[10, 50000],单位Kbps</p>
   </div>
   <hr>  
     <div class="field">
     <%= f.label :音频编解码格式 %><br>
-    <%= f.select :audio_codec, %w{ aac  mp3}, :selected => :aac %>
+    <%= f.select :audio_codec, %w{ aac  mp3}, {:prompt => "解码格式 ..."} %>
     <p>音频编解码格式,支持aac、mp3,默认值为aac</p>
   </div>
     <div class="field">
     <%= f.label :采样率 %><br>
-    <%= f.select :audio_samplerate, %w{ 22050  32000 48000 96000}, :selected => 44100 %>
+    <%= f.select :audio_samplerate, %w{ 22050  32000 48000 96000}, {:prompt => "采样率..."} %>
     <p>采样率,支持22050、32000、44100、48000、96000,默认是44100,单位为Hz</p>
   </div>
     <div class="field">
     <%= f.label :音频码率 %><br>
-    <%= f.number_field :audio_bitrate, :value => 128 %>
+    <%= f.number_field :audio_bitrate %>
     <p>输出文件的音频码率,[8,1000],单位Kbps,默认值是128</p>
   </div>
     <div class="field">
     <%= f.label :声道数 %><br>
-    <%= f.select :audio_channels, %w{ 1 2 3 4 5 6 7 8}, :selected => 2 %>
+    <%= f.select :audio_channels, %w{ 1  2 3 4 5 6 7 8}, {:prompt => "声道数..."} %>
     <p>声道数,默认是2,支持1、2、3、4、5、6、7、8</p>
   </div>
 
