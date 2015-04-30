@@ -8,8 +8,8 @@ class Transcoding < ActiveRecord::Base
   validates :video_profile, presence: true , inclusion: { in: %w(baseline main high ),  message: "%{value} is not a valid 编码级别" }
   validates :video_bitrate, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
   validates :video_crf, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 51}
-  validates :width,  numericality: { only_integer: true, greater_than_or_equal_to: 128, less_than_or_equal_to: 4096}
-  validates :height,  numericality: { only_integer: true, greater_than_or_equal_to: 128, less_than_or_equal_to: 4096}
+  validates :width,  numericality: {  greater_than_or_equal_to: 128, less_than_or_equal_to: 4096} , :allow_nil => true
+  validates :height,  numericality: { greater_than_or_equal_to: 128, less_than_or_equal_to: 4096},  :allow_nil => true
   validates :video_fps, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 60}
   validates :video_gop, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1080000}
   validates :video_preset, presence: true , inclusion: { in: %w(veryfast fast medium slow slower veryslow),  message: "%{value} is not a valid 视频算法器预置" }
