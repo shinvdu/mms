@@ -27,12 +27,14 @@ class Transcoding < ActiveRecord::Base
   include MTSWorker::TranscodingWorker
 
   def destroy!
-    self.delete_template(self) if self.aliyun_template_id.present?
+    self.delay.delete_template(self) if self.aliyun_template_id.present?
     super
   end
 
-  def disable!
-    
+  def disable
+    self.disabled = true
+    self.disable_time = Time.now
+    self.delay.delete_template(self) if self.aliyun_template_id.present?
   end
 
 end
