@@ -21,7 +21,8 @@
   </div>
   <div class="field">
     <%= f.label :logo %><br>
-    <%= f.number_field :logo_id %>
+
+    <%= f.select :logo_id, @logos %>
   </div>
   <div class="field">
     <%= f.label :logo_position %><br>
