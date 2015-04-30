@@ -50,7 +50,6 @@ class TranscodingsController < ApplicationController
   def create
     @transcoding = Transcoding.new(transcoding_params)
     @transcoding.user = current_user
-    @transcoding.share = false
 
     respond_to do |format|
       if @transcoding.save
