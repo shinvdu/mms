@@ -4,6 +4,15 @@ class Transcoding < ActiveRecord::Base
   scope :visiable, -> (user) { where(['user_id in (?, ?)', Settings.admin_id, user.uid]) }
 
   include MTSWorker::TranscodingWorker
+
+  def destroy!
+    self.delete_template(self) if self.aliyun_template_id.present?
+    super
+  end
+
+  def disable!
+    
+  end
 end
 
 #------------------------------------------------------------------------------

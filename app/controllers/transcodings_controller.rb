@@ -1,6 +1,6 @@
 class TranscodingsController < ApplicationController
   before_action :authenticate_account! #, except: [:show]
-  before_action  only: [:create, :update] do 
+  before_action only: [:create, :update] do
     set_user_id('transcoding')
   end
   before_action :set_transcoding, only: [:show, :edit, :update, :destroy]
@@ -64,9 +64,24 @@ class TranscodingsController < ApplicationController
   # DELETE /transcodings/1.json
   def destroy
     # @transcoding.destroy
-    respond_to do |format|
-      format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }
-      format.json { head :no_content }
+    can_delete = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
+                     .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
+    if can_delete
+      has_video = VideoDetail.where(:transcoding => @transcoding).present?
+      if !has_video
+        @transcoding.destroy!
+      else
+        @transcoding.disable
+      end
+      respond_to do |format|
+        format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to transcodings_url, alert: 'Transcoding cannot be destroyed, it is included by some transcoding strategy.' }
+        format.json { head :no_content }
+      end
     end
   end
 

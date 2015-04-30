@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
     has_many :tags_relationship
     has_many :user_videos, :foreign_key => :owner_id
     mount_uploader :avar, AvatarUploader
+
+    alias_attribute :id, :uid
 end
 
 #------------------------------------------------------------------------------
