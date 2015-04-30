@@ -64,14 +64,14 @@ class TranscodingsController < ApplicationController
   # DELETE /transcodings/1.json
   def destroy
     # @transcoding.destroy
-    can_delete = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
+    belong_strategy = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
                      .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
-    if can_delete
-      has_video = VideoDetail.where(:transcoding => @transcoding).present?
-      if !has_video
-        @transcoding.destroy!
-      else
+    belong_video = VideoDetail.where(:transcoding => @transcoding).present?
+    if !belong_strategy
+      if belong_video || belong_video
         @transcoding.disable
+      else
+        @transcoding.destroy!
       end
       respond_to do |format|
         format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }
