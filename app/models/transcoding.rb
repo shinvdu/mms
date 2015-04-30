@@ -4,6 +4,28 @@ class Transcoding < ActiveRecord::Base
   scope :visiable, -> (user) { where(['user_id in (?, ?)', Settings.admin_id, user.uid]) }
 
   include MTSWorker::TranscodingWorker
+  validates :name, presence: true
+  validates :container, presence: true , inclusion: { in: %w(mp4 flv),  message: "%{value} is not a valid format" }
+  validates :video_codec, presence: true , inclusion: { in: %w(H.264),  message: "%{value} is not a valid 编解码格式" }
+  validates :video_profile, presence: true , inclusion: { in: %w(baseline main high ),  message: "%{value} is not a valid 编码级别" }
+  validates :video_bitrate, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
+  validates :video_crf, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 51}
+  validates :width,  numericality: { only_integer: true, greater_than_or_equal_to: 128, less_than_or_equal_to: 4096}
+  validates :height,  numericality: { only_integer: true, greater_than_or_equal_to: 128, less_than_or_equal_to: 4096}
+  validates :video_fps, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 60}
+  validates :video_gop, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1080000}
+  validates :video_preset, presence: true , inclusion: { in: %w(veryfast fast medium slow slower veryslow),  message: "%{value} is not a valid 视频算法器预置" }
+  validates :video_scanmode, presence: true , inclusion: { in: %w(interlaced progressive),  message: "%{value} is not a valid 扫描模式" }
+  validates :video_bufsize, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: 128000}
+  validates :video_maxrate, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
+  validates :video_bitrate_bnd_max, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
+  validates :video_bitrate_bnd_min, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
+
+  validates :audio_codec, presence: true , inclusion: { in: %w(aac mp3),  message: "%{value} is not a valid 音频编解码格式" }
+  validates :audio_samplerate, presence: true , inclusion: { in: [22050, 32000,44100, 48000, 96000],  message: "%{value} is not a valid 采样率" }
+  validates :audio_bitrate, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 8, less_than_or_equal_to: 1000}
+  validates :audio_channels, presence: true , inclusion: { in: [1, 2, 3, 4, 5, 6, 7, 8],  message: "%{value} is not a valid 声道数" }
+
 end
 
 #------------------------------------------------------------------------------

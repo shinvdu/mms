@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :容器格式 %><br>
-    <%= f.select :container, %w{ mp4 flv }, :selected => 'mp4' %>
+    <%= f.select :container, %w{ mp4 flv ts m3u8}, :selected => 'mp4' %>
     <p>容器格式,支持flv、mp4、ts、m3u8</p>
   </div>
     <div class="field">
@@ -77,8 +77,8 @@ Crf,则Bitrate的设置失效。</p>
   </div>
     <div class="field">
     <%= f.label :缓冲区大小 %><br>
-    <%= f.number_field :video_gop, :value => 250 %>
-    <p>关键帧间最大帧数,值范围[1,1080000],默认值250</p>
+    <%= f.number_field :video_bufsize, :value => 6000 %>
+    <p>缓冲区大小,默认值6000,值范围[1000,128000],单位Kb</p>
   </div>
     <div class="field">
     <%= f.label :视频码率峰值 %><br>
