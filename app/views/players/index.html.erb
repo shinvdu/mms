@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th>播放器名称</th>
-        <th>播放器ID</th>
+        <th>播放器logo</th>
         <th>创建人</th>
         <th>创建时间</th>
         <th>操作</th>
@@ -17,7 +17,7 @@
       <% @players.each do |player|  %>
       <tr>
         <td><%= player.name %></td>
-        <td>1234567890QWER</td>
+        <td><%= player.logo && image_tag(player.logo.uri_url(:thumb)) if player.logo.uri? %></td>
         <td><%= player.user && player.user.nickname %></td>
         <td><%=  player.created_at %></td>
         <td>
