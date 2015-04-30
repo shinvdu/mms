@@ -7,42 +7,23 @@
   <%= @logo.name %>
 </p>
 
-<p>
-  <strong>Uid:</strong>
-  <%= @logo.user_id %>
-</p>
-
-<p>
-  <strong>Uri:</strong>
-    <%= image_tag(@logo.uri) if @logo.uri? %>
-  <%= @logo.uri %>
-</p>
-
-<p>
-  <strong>Width:</strong>
-  <%= @logo.width %>
-</p>
-
-<p>
-  <strong>Height:</strong>
-  <%= @logo.height %>
-</p>
-
-<p>
-  <strong>Filemime:</strong>
-  <%= @logo.filemime %>
-</p>
-
-<p>
-  <strong>Filesize:</strong>
-  <%= @logo.filesize %>
-</p>
-
-<p>
-  <strong>Origname:</strong>
-  <%= @logo.origname %>
-</p>
-
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>200 * 200 </th>
+          <th>100 * 100</th>
+          <th>50 * 50</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= image_tag(@logo.uri) if @logo.uri? %></td>
+          <td><%= image_tag(@logo.uri_url(:normal)) if @logo.uri? %></td>
+          <th><%= image_tag(@logo.uri_url(:thumb)) if @logo.uri? %></th>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
 <%= link_to 'Edit', edit_logo_path(@logo) %> |
 <%= link_to 'Back', logos_path %>
 </div>
