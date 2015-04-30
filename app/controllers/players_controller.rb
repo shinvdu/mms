@@ -21,6 +21,11 @@ class PlayersController < ApplicationController
   # GET /players/new
   def new
     @player = Player.new
+    @logos = {}
+    logos = Logo.where(user_id: current_user.uid)
+    logos.each do |logo |
+      @logos[logo.name] = logo.id
+    end
   end
 
   # GET /players/1/edit
