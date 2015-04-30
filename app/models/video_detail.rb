@@ -46,6 +46,7 @@ class VideoDetail < ActiveRecord::Base
     sub_video.uri = self.uri.split('.').insert(-2, suffix).join('.')
     File.open(output_path) { |f| sub_video.video = f }
     sub_video.status = VideoDetail::STATUS::BOTH
+    sub_video.fragment = true
     sub_video.save!
     sub_video
   end

@@ -45,6 +45,8 @@ module MTSWorker
       template_id = transcoding.nil? ? Settings.aliyun.mts.mini_template_id : transcoding.aliyun_template_id
       suffix = transcoding.nil? ? Settings.file_server.mini_suffix : transcoding.id.to_s
       output_object_uri = video_detail.uri.split('.').insert(-2, suffix).join('.')
+      logger.debug 'create transcoding job'
+      logger.debug "[template id: #{template_id}]"
       request_id, job_result = submit_job(Settings.aliyun.oss.bucket,
                                           video_detail.uri,
                                           output_object_uri,
@@ -131,7 +133,7 @@ module MTSWorker
       job_ids = jobs.map { |j| j.job_id }
       job_ids.each_slice(10).each do |ids|
         request_id, result_list, not_exist_list = query_job_list(ids)
-        puts result_list
+        logger.debug result_list
         result_list.each do |result|
           job = job_map[result.job_id]
           logger.info "Checking for #{job.id}, status is #{result.state}"

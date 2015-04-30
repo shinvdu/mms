@@ -8,13 +8,16 @@ module LocalVideoWorker
         video_product = task.target
         transcoding = video_product.transcoding
         video_product_group = video_product.video_product_group
+        logger.debug "[video product group id: #{video_product_group.id}"
         user_video = video_product_group.user_video
+        logger.debug "[user video id: #{user_video.id}, transcoding id: #{transcoding.id}]"
         dependent_video = VideoDetail.find_by_user_video_id_and_transcoding_id(user_video.id, transcoding.id)
         if dependent_video.nil?
-          logger.info 'Dependent video not found, transcode to get it'
+          logger.info 'Dependent video not found, transcode to get it.'
           user_video.create_transcoding_video_job(transcoding)
           return
         end
+        logger.debug "[dependent video id: #{dependent_video.id}]"
         if dependent_video.PROCESSING?
           logger.info 'Wait for next loop because dependent video is in processing'
           video_product.status = VideoProduct::STATUS::WAIT_FOR_DEPENDENCY
