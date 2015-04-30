@@ -16,30 +16,25 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :uri %><br>
-    <%= image_tag(@logo.uri) if @logo.uri? %>
     <%= f.file_field :uri %>
     <%= f.hidden_field :uri_cache %>
-  </div>
-  <div class="field">
-    <%= f.label :width %><br>
-    <%= f.number_field :width %>
-  </div>
-  <div class="field">
-    <%= f.label :height %><br>
-    <%= f.number_field :height %>
-  </div>
-  <div class="field">
-    <%= f.label :filemime %><br>
-    <%= f.text_field :filemime %>
-  </div>
-  <div class="field">
-    <%= f.label :filesize %><br>
-    <%= f.number_field :filesize %>
-  </div>
-  <div class="field">
-    <%= f.label :origname %><br>
-    <%= f.text_field :origname %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>200 * 200 </th>
+          <th>100 * 100</th>
+          <th>50 * 50</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= image_tag(@logo.uri) if @logo.uri? %></td>
+          <td><%= image_tag(@logo.uri_url(:normal)) if @logo.uri? %></td>
+          <th><%= image_tag(@logo.uri_url(:thumb)) if @logo.uri? %></th>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
   <div class="actions">
     <%= f.submit %>
