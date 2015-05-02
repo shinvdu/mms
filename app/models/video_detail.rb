@@ -73,15 +73,15 @@ class VideoDetail < ActiveRecord::Base
   require 'streamio-ffmpeg'
 
   def fetch_video_info
-    # TODO get MD5 and video info for original video
+    self.md5 = Digest::MD5.file(self.get_full_path).hexdigest
     movie = FFMPEG::Movie.new(self.get_full_path)
     if movie.valid?
       self.duration = movie.duration
       self.rate = movie.bitrate
       self.size = movie.size
-      self.video_codec = movie.video_codec #TODO
-      self.audio_codec = movie.audio_codec #TODO
-      self.resolution = movie.resolution #TODO
+      self.video_codec = movie.video_codec
+      self.audio_codec = movie.audio_codec
+      self.resolution = movie.resolution
       self.width = movie.width
       self.height = movie.height
     end

@@ -9,7 +9,7 @@ class TranscodingsController < ApplicationController
   # GET /transcodings
   # GET /transcodings.json
   def index
-    @transcodings = Transcoding.where(user_id: current_user.uid).page(params[:page])
+    @transcodings = Transcoding.visiable(current_user).page(params[:page])
   end
 
   # GET /transcodings/1
@@ -57,6 +57,7 @@ class TranscodingsController < ApplicationController
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully created.' }
         format.json { render :show, status: :created, location: @transcoding }
       else
+        notice_error 'Create transcoding failed.'
         format.html { render :new }
         format.json { render json: @transcoding.errors, status: :unprocessable_entity }
       end
@@ -66,10 +67,10 @@ class TranscodingsController < ApplicationController
   # PATCH/PUT /transcodings/1
   # PATCH/PUT /transcodings/1.json
   def update
-    # params[:transcoding][:user_id]
     respond_to do |format|
-      if @transcoding.update(transcoding_params)
-        format.html { redirect_to @transcoding, notice: 'Transcoding was successfully updated.' }
+      new_transcoding = @transcoding.update_by_create(transcoding_params)
+      if new_transcoding.present?
+        format.html { redirect_to new_transcoding, notice: 'Transcoding was successfully updated.' }
         format.json { render :show, status: :ok, location: @transcoding }
       else
         format.html { render :edit }
@@ -83,11 +84,11 @@ class TranscodingsController < ApplicationController
   def destroy
     # @transcoding.destroy
     belong_strategy = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
-                     .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
+                          .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
     belong_video = VideoDetail.where(:transcoding => @transcoding).present?
     if !belong_strategy
       if belong_video || belong_video
-        @transcoding.disable
+        @transcoding.disable!
       else
         @transcoding.destroy!
       end

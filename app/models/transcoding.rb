@@ -1,7 +1,8 @@
 class Transcoding < ActiveRecord::Base
   belongs_to :user
-  has_many :transcoding_strategy_relationship
-  scope :visiable, -> (user) { where(['user_id in (?, ?)', Settings.admin_id, user.uid]) }
+  has_many :transcoding_strategy_relationships
+  scope :visiable, -> (user) { where(['user_id in (?, ?) and disabled=false', Settings.admin_id, user.uid]) }
+  before_save :default_values
   validates :name, presence: true
   validates :container, presence: true , inclusion: { in: %w(mp4 flv),  message: "%{value} is not a valid format" }
   validates :video_codec, presence: true , inclusion: { in: %w(H.264),  message: "%{value} is not a valid 编解码格式" }
@@ -18,11 +19,10 @@ class Transcoding < ActiveRecord::Base
   validates :video_maxrate, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
   validates :video_bitrate_bnd_max, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
   validates :video_bitrate_bnd_min, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}
-
-  validates :audio_codec, presence: true , inclusion: { in: %w(aac mp3),  message: "%{value} is not a valid 音频编解码格式" }
-  validates :audio_samplerate, presence: true , inclusion: { in: [22050, 32000,44100, 48000, 96000],  message: "%{value} is not a valid 采样率" }
-  validates :audio_bitrate, presence: true , numericality: { only_integer: true, greater_than_or_equal_to: 8, less_than_or_equal_to: 1000}
-  validates :audio_channels, presence: true , inclusion: { in: [1, 2, 3, 4, 5, 6, 7, 8],  message: "%{value} is not a valid 声道数" }
+  validates :audio_codec, presence: true, inclusion: {in: %w(aac mp3), message: "%{value} is not a valid 音频编解码格式"}
+  validates :audio_samplerate, presence: true, inclusion: {in: [22050, 32000, 44100, 48000, 96000], message: "%{value} is not a valid 采样率"}
+  validates :audio_bitrate, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 8, less_than_or_equal_to: 1000}
+  validates :audio_channels, presence: true, inclusion: {in: [1, 2, 3, 4, 5, 6, 7, 8], message: "%{value} is not a valid 声道数"}
 
   include MTSWorker::TranscodingWorker
 
@@ -31,12 +31,31 @@ class Transcoding < ActiveRecord::Base
     super
   end
 
-  def disable
+  def disable!
     self.disabled = true
     self.disable_time = Time.now
     self.delay.delete_template(self) if self.aliyun_template_id.present?
+    self.save!
   end
 
+  def update_by_create(params)
+    new_transcoding = self.dup
+    self.disabled = true
+    self.disable_time = Time.now
+    return nil if !new_transcoding.update(params)
+    new_transcoding.save!
+    self.transcoding_strategy_relationships.each do |relation|
+      relation.transcoding = new_transcoding
+      relation.save!
+    end
+    self.save!
+    new_transcoding
+  end
+
+  def default_values
+    self.disabled = false if self.disabled.nil?
+    nil
+  end
 end
 
 #------------------------------------------------------------------------------
