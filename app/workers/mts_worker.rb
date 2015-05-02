@@ -75,9 +75,8 @@ module MTSWorker
       request_id, res_template = add_template(self)
       self.aliyun_template_id = res_template.id
       self.save!
+      self
     end
-
-    handle_asynchronously :upload_and_save!
   end
 
   module Scheduled

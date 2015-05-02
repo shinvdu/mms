@@ -3,7 +3,7 @@ class Transcoding < ActiveRecord::Base
   has_many :transcoding_strategy_relationships
   scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
   validates :name, presence: true
-  validates :container, presence: true, inclusion: {in: %w(mp4 flv), message: "%{value} is not a valid format"}
+  validates :container, presence: true, inclusion: {in: %w(mp4 flv ts m3u8), message: "%{value} is not a valid format"}
   validates :video_codec, presence: true, inclusion: {in: %w(H.264), message: "%{value} is not a valid 编解码格式"}
   validates :video_profile, presence: true, inclusion: {in: %w(baseline main high ), message: "%{value} is not a valid 编码级别"}
   validates :video_bitrate, numericality: {only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}, :allow_nil => true
