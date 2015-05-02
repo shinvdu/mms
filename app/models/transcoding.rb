@@ -1,7 +1,7 @@
 class Transcoding < ActiveRecord::Base
   belongs_to :user
   has_many :transcoding_strategy_relationships
-  scope :visiable, -> (user) { where(['user_id in (?, ?) and disabled=false', Settings.admin_id, user.uid]) }
+  scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
   before_save :default_values
   validates :name, presence: true
   validates :container, presence: true, inclusion: {in: %w(mp4 flv), message: "%{value} is not a valid format"}
@@ -118,7 +118,7 @@ end
 # state                 varchar(255)         true            false  
 # aliyun_template_id    varchar(255)         true            false  
 # video_bitrate_bnd_min int(11)              true            false  
-# disabled              int(11)              true            false  
-# share                 tinyint(1)           true            false  
+# disabled              tinyint(1)           true            false  
+# disable_time          datetime             true            false  
 #
 #------------------------------------------------------------------------------
