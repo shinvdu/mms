@@ -49,11 +49,9 @@ class TranscodingsController < ApplicationController
   # POST /transcodings.json
   def create
     @transcoding = Transcoding.new(transcoding_params)
-    @transcoding.user = current_user
 
     respond_to do |format|
-      if @transcoding.save
-        @transcoding.upload
+      if @transcoding.upload_and_save!
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully created.' }
         format.json { render :show, status: :created, location: @transcoding }
       else
@@ -67,8 +65,13 @@ class TranscodingsController < ApplicationController
   # PATCH/PUT /transcodings/1
   # PATCH/PUT /transcodings/1.json
   def update
+    belong_video = VideoDetail.where(:transcoding => @transcoding).present?
+    if belong_video
+      new_transcoding = @transcoding.update_by_create!(transcoding_params)
+    else
+      new_transcoding = @transcoding.update_directly(transcoding_params)
+    end
     respond_to do |format|
-      new_transcoding = @transcoding.update_by_create(transcoding_params)
       if new_transcoding.present?
         format.html { redirect_to new_transcoding, notice: 'Transcoding was successfully updated.' }
         format.json { render :show, status: :ok, location: @transcoding }
@@ -82,7 +85,6 @@ class TranscodingsController < ApplicationController
   # DELETE /transcodings/1
   # DELETE /transcodings/1.json
   def destroy
-    # @transcoding.destroy
     belong_strategy = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
                           .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
     belong_video = VideoDetail.where(:transcoding => @transcoding).present?
@@ -124,6 +126,7 @@ class TranscodingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def transcoding_params
+    params[:transcoding][:user_id] = current_user.uid
     params.require(:transcoding).permit(:name, :user_id, :container, :video_profile, :video_preset, :audio_codec, :audio_samplerate, :audio_bitrate, :video_line_scan, :h_w_percent, :width, :height, :data, :video_codec, :video_bitrate, :video_crf, :video_fps, :video_gop, :video_scanmode, :video_bufsize, :video_bitratebnd, :audio_channels, :state, :aliyun_template_id, :created_at, :updated_at, :video_maxrate, :video_bitrate_bnd_max, :video_bitrate_bnd_min)
   end
 
