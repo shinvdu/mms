@@ -48,7 +48,7 @@ class TranscodingsController < ApplicationController
   # POST /transcodings
   # POST /transcodings.json
   def create
-    @transcoding = Transcoding.new(transcoding_params)
+    @transcoding = Transcoding.create(transcoding_params)
 
     respond_to do |format|
       if @transcoding.upload_and_save!
