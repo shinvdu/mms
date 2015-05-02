@@ -17,6 +17,7 @@ class VideoProductFragment < ActiveRecord::Base
     self.video_detail = dependent_video.create_sub_video(cut_point.start_time, cut_point.stop_time, self.id)
     self.video_detail.fetch_video_info
     self.video_detail.save!
+    logger.debug "upload successfully for fragment. id: #{self.id}"
 
     # start_time = get_time(video_fragment.video_cut_point.start_time)
     # stop_time = get_time(video_fragment.video_cut_point.stop_time)

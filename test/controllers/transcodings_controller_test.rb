@@ -18,7 +18,7 @@ class TranscodingsControllerTest < ActionController::TestCase
 
   test "should create transcoding" do
     assert_difference('Transcoding.count') do
-      post :create, transcoding: { audio_code_rate: @transcoding.audio_code_rate, audio_encode: @transcoding.audio_encode, audio_sample_rate: @transcoding.audio_sample_rate, data: @transcoding.data, h_w_percent: @transcoding.h_w_percent, height: @transcoding.height, name: @transcoding.name, output_format: @transcoding.output_format, quality: @transcoding.quality, speed: @transcoding.speed, user_id: @transcoding.user_id, video_line_scan: @transcoding.video_line_scan, width: @transcoding.width }
+      post :create, transcoding: { audio_code_rate: @transcoding.audio_code_rate, audio_encode: @transcoding.audio_encode, audio_sample_rate: @transcoding.audio_sample_rate, data: @transcoding.data, height: @transcoding.height, name: @transcoding.name, output_format: @transcoding.output_format, quality: @transcoding.quality, speed: @transcoding.speed, user_id: @transcoding.user_id, width: @transcoding.width }
     end
 
     assert_redirected_to transcoding_path(assigns(:transcoding))
@@ -35,7 +35,7 @@ class TranscodingsControllerTest < ActionController::TestCase
   end
 
   test "should update transcoding" do
-    patch :update, id: @transcoding, transcoding: { audio_code_rate: @transcoding.audio_code_rate, audio_encode: @transcoding.audio_encode, audio_sample_rate: @transcoding.audio_sample_rate, data: @transcoding.data, h_w_percent: @transcoding.h_w_percent, height: @transcoding.height, name: @transcoding.name, output_format: @transcoding.output_format, quality: @transcoding.quality, speed: @transcoding.speed, user_id: @transcoding.user_id, video_line_scan: @transcoding.video_line_scan, width: @transcoding.width }
+    patch :update, id: @transcoding, transcoding: { audio_code_rate: @transcoding.audio_code_rate, audio_encode: @transcoding.audio_encode, audio_sample_rate: @transcoding.audio_sample_rate, data: @transcoding.data, height: @transcoding.height, name: @transcoding.name, output_format: @transcoding.output_format, quality: @transcoding.quality, speed: @transcoding.speed, user_id: @transcoding.user_id, width: @transcoding.width }
     assert_redirected_to transcoding_path(assigns(:transcoding))
   end
 

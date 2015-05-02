@@ -232,7 +232,6 @@ module MTSUtils
       url = generate_url(params)
       res = JSON.parse execute(url)
       return res['RequestId'], AliyunTemplate.new(res['Template'])
-
     end
 
     def search_template
@@ -253,8 +252,38 @@ module MTSUtils
       return res['RequestId'], res['TemplateId']
     end
 
-    def update_template
-
+    def update_template(transcoding)
+      params = {
+          'Action' => 'AddTemplate',
+          'TemplateId' => transcoding.aliyun_template_id,
+          'Name' => transcoding.name,
+          'Container' => {"Format": transcoding.container}.to_json,
+          'Audio' => {
+              "Codec":  transcoding.audio_codec,
+              "Samplerate": transcoding.audio_samplerate,
+              "Bitrate": transcoding.audio_bitrate,
+              "Channels": transcoding.audio_channels
+          }.to_json,
+          'Video' => {
+              "Codec": transcoding.video_codec,
+              "Profile": transcoding.video_profile,
+              "Bitrate": transcoding.video_bitrate,
+              "Crf": transcoding.video_crf,
+              "Width": transcoding.width,
+              "Height": transcoding.height,
+              "Fps": transcoding.video_fps,
+              "Gop": transcoding.video_gop,
+              "Preset": transcoding.video_preset,
+              "ScanMode": transcoding.video_scanmode,
+              "Bufsize": transcoding.video_bufsize,
+              "Maxrate": transcoding.video_maxrate,
+              'BitrateBnd' => {"Max": transcoding.video_bitrate_bnd_max, "Min": transcoding.video_bitrate_bnd_min}
+          }.to_json,
+          'state' => transcoding.state
+      }.select { |k, v| v.present? }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      return res['RequestId'], AliyunTemplate.new(res['Template'])
     end
   end
 
