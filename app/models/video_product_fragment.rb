@@ -2,7 +2,6 @@ class VideoProductFragment < ActiveRecord::Base
   belongs_to :video_product
   belongs_to :video_fragment
   belongs_to :video_detail
-  before_save :default_values
 
   module STATUS
     NOT_STARTED = 10
@@ -32,10 +31,6 @@ class VideoProductFragment < ActiveRecord::Base
     #   fragment_video.video = f
     #   fragment_video.save!
     # end
-  end
-
-  def default_values
-    self.status ||= STATUS::NOT_STARTED
   end
 end
 

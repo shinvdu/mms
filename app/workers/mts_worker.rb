@@ -45,7 +45,7 @@ module MTSWorker
       transcoding = Transcoding.find(1) if transcoding.nil?
       template_id = transcoding.aliyun_template_id
       suffix = transcoding.id == 1 ? Settings.file_server.mini_suffix : transcoding.id.to_s
-      output_object_uri = video_detail.uri.split('.').insert(-2, suffix).join('.')
+      output_object_uri = video_detail.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
       logger.debug 'create transcoding job'
       logger.debug "[template id: #{template_id}]"
       request_id, job_result = submit_job(Settings.aliyun.oss.bucket,
@@ -75,9 +75,8 @@ module MTSWorker
       request_id, res_template = add_template(self)
       self.aliyun_template_id = res_template.id
       self.save!
+      self
     end
-
-    handle_asynchronously :upload_and_save!
   end
 
   module Scheduled
