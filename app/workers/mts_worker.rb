@@ -45,7 +45,7 @@ module MTSWorker
       transcoding = Transcoding.find(1) if transcoding.nil?
       template_id = transcoding.aliyun_template_id
       suffix = transcoding.id == 1 ? Settings.file_server.mini_suffix : transcoding.id.to_s
-      output_object_uri = video_detail.uri.split('.').push(suffix, transcoding.container).join('.')
+      output_object_uri = video_detail.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
       logger.debug 'create transcoding job'
       logger.debug "[template id: #{template_id}]"
       request_id, job_result = submit_job(Settings.aliyun.oss.bucket,
