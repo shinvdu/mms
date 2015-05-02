@@ -28,6 +28,13 @@ class VideoDetail < ActiveRecord::Base
     self
   end
 
+  def set_attributes_by_hash(params)
+    params.each do |k, v|
+      send "#{k}=", v
+    end
+    self
+  end
+
   def get_full_path
     Rails.root.join(Settings.file_server.dir, self.uri).to_s
   end
@@ -43,7 +50,7 @@ class VideoDetail < ActiveRecord::Base
     output_path = input_path.split('.').insert(-2, suffix).join('.')
     logger.debug "slice video to #{output_path}"
     slice_video(input_path, output_path, start_time, stop_time)
-    sub_video = self.dup
+    sub_video = VideoDetail.new.set_attributes_by_hash(self.attributes.except('id', 'video', 'created_at'))
     sub_video.uri = self.uri.split('.').insert(-2, suffix).join('.')
     File.open(output_path) { |f| sub_video.video = f }
     sub_video.status = VideoDetail::STATUS::BOTH
