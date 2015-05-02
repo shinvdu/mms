@@ -57,6 +57,7 @@ class TranscodingsController < ApplicationController
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully created.' }
         format.json { render :show, status: :created, location: @transcoding }
       else
+        notice_error 'Create transcoding failed.'
         format.html { render :new }
         format.json { render json: @transcoding.errors, status: :unprocessable_entity }
       end
@@ -83,7 +84,7 @@ class TranscodingsController < ApplicationController
   def destroy
     # @transcoding.destroy
     belong_strategy = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
-                     .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
+                          .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
     belong_video = VideoDetail.where(:transcoding => @transcoding).present?
     if !belong_strategy
       if belong_video || belong_video

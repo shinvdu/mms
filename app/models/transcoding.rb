@@ -54,6 +54,7 @@ class Transcoding < ActiveRecord::Base
 
   def default_values
     self.disabled = false if self.disabled.nil?
+    nil
   end
 end
 
