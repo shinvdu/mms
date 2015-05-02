@@ -16,16 +16,18 @@ class VideoDetail < ActiveRecord::Base
 
   def initialize(user_video, video)
     super()
-    self.user_video = user_video
-    self.uuid = UUIDTools::UUID.random_create
-    self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
-    self.status = STATUS::ONLY_LOCAL
+    if (user_video.nil? && video.nil?)
+      self.user_video = user_video
+      self.uuid = UUIDTools::UUID.random_create
+      self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
+      self.status = STATUS::ONLY_LOCAL
 
-    # TODO save file to file server
-    temp_path = Rails.root.join(Settings.file_server.dir, self.uri)
-    dir = File.dirname(temp_path)
-    FileUtils.makedirs(dir) if !File.directory?(dir)
-    FileUtils.mv(video.path, temp_path)
+      # TODO save file to file server
+      temp_path = Rails.root.join(Settings.file_server.dir, self.uri)
+      dir = File.dirname(temp_path)
+      FileUtils.makedirs(dir) if !File.directory?(dir)
+      FileUtils.mv(video.path, temp_path)
+    end
   end
 
   def get_full_path
@@ -41,6 +43,7 @@ class VideoDetail < ActiveRecord::Base
     stop_time = get_time(stop)
     input_path = self.get_full_path
     output_path = input_path.split('.').insert(-2, suffix).join('.')
+    logger.debug "slice video to #{output_path}"
     slice_video(input_path, output_path, start_time, stop_time)
     sub_video = self.dup
     sub_video.uri = self.uri.split('.').insert(-2, suffix).join('.')

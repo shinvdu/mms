@@ -78,6 +78,10 @@ class Transcoding < ActiveRecord::Base
     end
   end
 
+  def mini_transcoding?
+    self.id == 1
+  end
+
   def default_values
     self.disabled = false if self.disabled.nil?
     nil

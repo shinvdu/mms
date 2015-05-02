@@ -42,8 +42,9 @@ module MTSWorker
 
     def create_transcoding_video_job(transcoding = nil)
       video_detail = self.original_video
-      template_id = transcoding.nil? ? Settings.aliyun.mts.mini_template_id : transcoding.aliyun_template_id
-      suffix = transcoding.nil? ? Settings.file_server.mini_suffix : transcoding.id.to_s
+      transcoding = Transcoding.find(1) if transcoding.nil?
+      template_id = transcoding.aliyun_template_id
+      suffix = transcoding.id == 1 ? Settings.file_server.mini_suffix : transcoding.id.to_s
       output_object_uri = video_detail.uri.split('.').insert(-2, suffix).join('.')
       logger.debug 'create transcoding job'
       logger.debug "[template id: #{template_id}]"
@@ -54,7 +55,7 @@ module MTSWorker
                                           Settings.aliyun.mts.pipeline_id)
       if job_result.success
         transcoded_video_detail = video_detail.dup
-        self.mini_video = transcoded_video_detail if transcoding.nil?
+        self.mini_video = transcoded_video_detail if transcoding.mini_transcoding?
         transcoded_video_detail.transcoding = transcoding if transcoding.present?
         transcoded_video_detail.uri = output_object_uri
         transcoded_video_detail.status = VideoDetail::STATUS::PROCESSING
@@ -146,7 +147,7 @@ module MTSWorker
               job.status = MtsJob::STATUS::FINISHED
               job.finish_time = Time.now
               video_detail = job.target
-              if video_detail.transcoding.nil?
+              if video_detail.transcoding.mini_transcoding?
                 user_video = video_detail.user_video
                 user_video.status = UserVideo::STATUS::GOT_LOW_RATE
                 user_video.save!
