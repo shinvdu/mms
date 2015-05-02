@@ -2,7 +2,6 @@ class Transcoding < ActiveRecord::Base
   belongs_to :user
   has_many :transcoding_strategy_relationships
   scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
-  before_save :default_values
   validates :name, presence: true
   validates :container, presence: true, inclusion: {in: %w(mp4 flv), message: "%{value} is not a valid format"}
   validates :video_codec, presence: true, inclusion: {in: %w(H.264), message: "%{value} is not a valid 编解码格式"}
@@ -80,11 +79,6 @@ class Transcoding < ActiveRecord::Base
 
   def mini_transcoding?
     self.id == 1
-  end
-
-  def default_values
-    self.disabled = false if self.disabled.nil?
-    nil
   end
 end
 

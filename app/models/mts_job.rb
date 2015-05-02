@@ -1,18 +1,13 @@
 class MtsJob < ActiveRecord::Base
   scope :not_finished, -> { where(['status in (?, ?)', STATUS::SUBMITTED, STATUS::PROCESSING]) }
-  before_save :default_values
 
   module STATUS
-    SUBMITTED = 1
-    PROCESSING = 2
-    FINISHED = 3
-    CANCELED = 4
-    FAILED = 5
-    MISSING = 6
-  end
-
-  def default_values
-    self.status ||= STATUS::SUBMITTED
+    SUBMITTED = 10
+    PROCESSING = 20
+    FINISHED = 30
+    CANCELED = 40
+    FAILED = 50
+    MISSING = 60
   end
 end
 
