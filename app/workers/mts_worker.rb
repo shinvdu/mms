@@ -42,7 +42,7 @@ module MTSWorker
 
     def create_transcoding_video_job(transcoding = nil)
       video_detail = self.original_video
-      transcoding = Transcoding.find(1) if transcoding.nil?
+      transcoding = Transcoding.find_mini if transcoding.nil?
       template_id = transcoding.aliyun_template_id
       suffix = transcoding.id == 1 ? Settings.file_server.mini_suffix : transcoding.id.to_s
       output_object_uri = video_detail.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
