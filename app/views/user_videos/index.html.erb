@@ -25,14 +25,12 @@
           </td>
           <td>
             <select class="form-control">
-              <option>方案1</option>
-              <option>方案2</option>
-              <option>方案3</option>
+              <option><%= user_video.default_transcoding_strategy.name %></option>
             </select>
           </td>
           <td>100MB</td>
-          <td>2015/04/26 17:31</td>
-          <td>等待上传</td>
+          <td><%= user_video.created_at  %></td>
+          <td>完成</td>
           <td>
             <a href="#">上传</a>
           </td>
