@@ -32,7 +32,9 @@
           <td><%= user_video.created_at  %></td>
           <td>完成</td>
           <td>
-            <a href="#">上传</a>
+            <a href="<%= user_video_path(user_video) %>">查看</a>
+            <a href="<%= edit_user_video_path(user_video) %>">编辑</a>
+          <%= link_to '删除', user_video, method: :delete, data: { confirm: '你确定要删除?' } %>
           </td>
         </tr>
     <% end %>

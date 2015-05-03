@@ -1,7 +1,7 @@
 <h1>Video show</h1>
 <span>id:</span><%= @user_video.id %>
 <% if @user_video.videos %>
-  <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="852" height="480"
+  <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" data-setup='{ "controls": true, "autoplay": false, "preload": "auto" }' width="853" height="480"
       data-setup="{}">
     <source src="/uploads/<%= @user_video.videos.first.uri %>" type='video/mp4' />
 
