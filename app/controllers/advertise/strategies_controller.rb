@@ -4,7 +4,7 @@ class Advertise::StrategiesController < ApplicationController
     set_user_id('advertise_strategy')
   end
   before_action :set_advertise_strategy, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_advertise_strategy, only: [:index, :show, :edit, :update,  :destroy]
+  before_action :restrict_advertise_strategy, only: [:show, :edit, :update,  :destroy]
 
   # GET /advertise/strategies
   # GET /advertise/strategies.json

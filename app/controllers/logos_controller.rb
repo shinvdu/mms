@@ -4,7 +4,7 @@ class LogosController < ApplicationController
     set_user_id('logo')
   end
   before_action :set_logo, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_logo, only: [:index, :edit, :update,  :destroy]
+  before_action :restrict_logo, only: [:edit, :update,  :destroy]
 
   # GET /logos
   # GET /logos.json
