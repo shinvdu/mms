@@ -1,7 +1,6 @@
 <%=  render 'user_videos/nav' %>
 <div class="tab-panel current" id="video-transcoding-template">
-<h1>UserVideos#new</h1>
-<p>Find me in app/views/user_videos/new.html.erb</p>
+<h1>upload new video</h1>
 
 <%= form_for :user_video, :html =>{:multipart => true}, :url => user_videos_path(:user_video, format: :html) do |f| %>
     <span>name:</span>
