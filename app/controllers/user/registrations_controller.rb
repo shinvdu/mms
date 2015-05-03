@@ -15,7 +15,7 @@ class User::RegistrationsController < Devise::RegistrationsController
     if account.present?
       user = User.new
       account.user = user
-      account.save
+      account.save!
     end
   end
 

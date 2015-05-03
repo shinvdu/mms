@@ -14,8 +14,7 @@ class VideoDetail < ActiveRecord::Base
     BOTH = 50
   end
 
-  def initialize(user_video, video)
-    super()
+  def set_video(user_video, video)
     self.user_video = user_video
     self.uuid = UUIDTools::UUID.random_create
     self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
@@ -26,6 +25,14 @@ class VideoDetail < ActiveRecord::Base
     dir = File.dirname(temp_path)
     FileUtils.makedirs(dir) if !File.directory?(dir)
     FileUtils.mv(video.path, temp_path)
+    self
+  end
+
+  def set_attributes_by_hash(params)
+    params.each do |k, v|
+      send "#{k}=", v
+    end
+    self
   end
 
   def get_full_path
@@ -41,8 +48,9 @@ class VideoDetail < ActiveRecord::Base
     stop_time = get_time(stop)
     input_path = self.get_full_path
     output_path = input_path.split('.').insert(-2, suffix).join('.')
+    logger.debug "slice video to #{output_path}"
     slice_video(input_path, output_path, start_time, stop_time)
-    sub_video = self.dup
+    sub_video = VideoDetail.new.set_attributes_by_hash(self.attributes.except('id', 'video', 'created_at'))
     sub_video.uri = self.uri.split('.').insert(-2, suffix).join('.')
     File.open(output_path) { |f| sub_video.video = f }
     sub_video.status = VideoDetail::STATUS::BOTH
@@ -73,15 +81,15 @@ class VideoDetail < ActiveRecord::Base
   require 'streamio-ffmpeg'
 
   def fetch_video_info
-    # TODO get MD5 and video info for original video
+    self.md5 = Digest::MD5.file(self.get_full_path).hexdigest
     movie = FFMPEG::Movie.new(self.get_full_path)
     if movie.valid?
       self.duration = movie.duration
       self.rate = movie.bitrate
       self.size = movie.size
-      self.video_codec = movie.video_codec #TODO
-      self.audio_codec = movie.audio_codec #TODO
-      self.resolution = movie.resolution #TODO
+      self.video_codec = movie.video_codec
+      self.audio_codec = movie.audio_codec
+      self.resolution = movie.resolution
       self.width = movie.width
       self.height = movie.height
     end

@@ -21,7 +21,7 @@ class UserVideosController < ApplicationController
     end
     video_name = user_video_params[:video_name]
     video = user_video_params[:video]
-    user_video = UserVideo.new(current_user, video_name, video)
+    user_video = UserVideo.new.set_by_video(current_user, video_name, video)
     user_video.default_transcoding_strategy_id = user_video_params[:default_transcoding_strategy]
     user_video.save!
     video.close
