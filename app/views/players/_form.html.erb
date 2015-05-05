@@ -15,10 +15,12 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+ <!-- 
   <div class="field">
     <%= f.label :color %><br>
     <%= f.text_field :color %>
   </div>
+-->
   <div class="field">
     <%= f.label :logo %><br>
 
@@ -26,7 +28,12 @@
   </div>
   <div class="field">
     <%= f.label :logo_position %><br>
-    <%= f.text_field :logo_position %>
+    <%= f.select :logo_position, {
+      '右上角' =>  :top_right ,  
+      '左上角' => :left_top, 
+      '右下角' => :bottom_right , 
+      '左下角' => :bottom_left
+    } %>
   </div>
   <div class="field">
     <%= f.label :autoplay %><br>
@@ -34,7 +41,7 @@
   </div>
   <div class="field">
     <%= f.label :share %><br>
-    <%= f.number_field :share %>
+    <%= f.check_box :share %>
   </div>
   <div class="field">
     <%= f.label :full_screen %><br>

@@ -15,11 +15,26 @@ class PlayersController < ApplicationController
   # GET /players/1
   # GET /players/1.json
   def show
+
+    respond_to do |format|
+      format.html 
+      format.json { 
+        json_data = {
+          controls: true,
+          preload: 'meta',
+          autoplay: false,
+          width: @player.width,
+          height: @player.height
+        }
+        render json: json_data
+      }
+    end
   end
 
   # GET /players/new
   def new
     @player = Player.new
+    @player.autoplay = false
     @logos = {}
     logos = Logo.where(user_id: current_user.uid)
     logos.each do |logo |
