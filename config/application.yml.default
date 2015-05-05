@@ -10,11 +10,11 @@ defaults: &defaults
   cool: mms
   logo: 
     origin:  
-      width: 200 
-      height:  200
-    normal:  
-      width:  100
+      width: 100 
       height:  100
+    normal:  
+      width:  80
+      height:  80
     small:  
       width:  50
       height:  50

@@ -22,9 +22,9 @@ class PlayersController < ApplicationController
         json_data = {
           controls: true,
           preload: 'meta',
-          autoplay: false,
-          width: @player.width,
-          height: @player.height
+          autoplay: @player.autoplay ? @player.autoplay : false, 
+          width: @player.width ? @player.width : 852,
+          height: @player.height ? @player.height : 480,
         }
         render json: json_data
       }
