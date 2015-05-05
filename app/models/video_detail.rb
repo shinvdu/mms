@@ -2,6 +2,7 @@ class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
   mount_uploader :video, VideoUploader
+  scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
 
   require 'fileutils'
   require 'uuidtools'
@@ -103,6 +104,10 @@ class VideoDetail < ActiveRecord::Base
 
   def ONLY_REMOTE?
     self.status == STATUS::ONLY_REMOTE
+  end
+
+  def REMOTE?
+    self.status == STATUS::ONLY_REMOTE || self.status == STATUS::BOTH
   end
 
   def PROCESSING?
