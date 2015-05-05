@@ -4,7 +4,36 @@ jQuery(document).ready(function($) {
           dataType: 'json',
           url: '/players/<%= @player.id  %>.json',
           success: function ( json ) {
-            videojs("wgcloud_video_1", json);
+            video = videojs("wgcloud_video_1", json);
+            <% if @player.logo &&  @player.logo.uri? %>
+            switch("<%=  @player.logo_position %>")
+            {
+              case 'left_top':
+                 var xpos = 0
+                 var ypos = 0
+              break;
+              case 'bottom_right':
+                 var xpos = 100
+                 var ypos = 100
+              break;
+              case 'bottom_left':
+                 var xpos =  0
+                 var ypos = 100
+              break;
+              default:
+                 var xpos = 100
+                 var ypos = 0
+            }            
+
+            var hash_water = {
+              file: '<%=  @player.logo.uri_url(:normal) %>',
+              xpos: xpos,
+              ypos: ypos,
+              xrepeat: 0,
+              opacity: 0.5,
+            }
+            video.watermark(hash_water);
+            <% end %>
           },
         } );
 })
