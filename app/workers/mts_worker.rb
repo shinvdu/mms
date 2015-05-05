@@ -2,45 +2,25 @@ module MTSWorker
   module UserVideoWorker
     include MTSUtils::All
 
-    def fetch_video_info_and_upload
+    def async_fetch_video_info_and_upload
       video_detail = self.original_video
       video_detail.load_local_file(video_detail.get_full_path)
       # if video_detail.video_codec !=
       #
       # end
       self.status = UserVideo::STATUS::UPLOADED
-      create_transcoding_video_job
+      create_transcoding_video_job(nil, true)
       self.status = UserVideo::STATUS::PRETRANSCODING
     end
 
-    handle_asynchronously :fetch_video_info_and_upload
+    handle_asynchronously :async_fetch_video_info_and_upload
 
-    def create_fetch_video_info_job(video_detail)
-      request_id, meta_info_job = submit_meta_info_job(Settings.aliyun.oss.bucket, video_detail.uri)
-      MetaInfoJob.create(:job_id => meta_info_job.job_id, :target => self)
-    end
-
-    # def create_minimal_video_job
-    #   video_detail = self.original_video
-    #   output_object_uri = video_detail.uri.split('.').insert(-2, Settings.aliyun.oss.mini_suffix).join('.')
-    #   request_id, job_result = submit_job(Settings.aliyun.oss.bucket,
-    #                                       video_detail.uri,
-    #                                       output_object_uri,
-    #                                       Settings.aliyun.mts.mini_template_id,
-    #                                       Settings.aliyun.mts.pipeline_id)
-    #   if job_result.success
-    #     mini_video_detail = video_detail.dup
-    #     self.mini_video = mini_video_detail
-    #     mini_video_detail.user_video = self
-    #     mini_video_detail.uri = output_object_uri
-    #     mini_video_detail.video = nil
-    #     mini_video_detail.save!
-    #     self.save!
-    #     TranscodeJob.create(:job_id => job_result.job.job_id, :target => mini_video_detail)
-    #   end
+    # def create_fetch_video_info_job(video_detail)
+    #   request_id, meta_info_job = submit_meta_info_job(Settings.aliyun.oss.bucket, video_detail.uri)
+    #   MetaInfoJob.create(:job_id => meta_info_job.job_id, :target => self)
     # end
 
-    def create_transcoding_video_job(transcoding = nil)
+    def create_transcoding_video_job(transcoding = nil, public = false)
       video_detail = self.original_video
       transcoding = Transcoding.find_mini if transcoding.nil?
       template_id = transcoding.aliyun_template_id
@@ -48,20 +28,27 @@ module MTSWorker
       output_object_uri = video_detail.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
       logger.debug 'create transcoding job'
       logger.debug "[template id: #{template_id}]"
-      request_id, job_result = submit_job(Settings.aliyun.oss.bucket,
+      output_bucket = public ? Settings.aliyun.oss.public_bucket : Settings.aliyun.oss.private_bucket
+      request_id, job_result = submit_job(video_detail.bucket,
                                           video_detail.uri,
                                           output_object_uri,
                                           template_id,
-                                          Settings.aliyun.mts.pipeline_id)
+                                          Settings.aliyun.mts.pipeline_id,
+                                          :output_bucket => output_bucket)
       if job_result.success
         transcoded_video_detail = video_detail.dup
         self.mini_video = transcoded_video_detail if transcoding.mini_transcoding?
         transcoded_video_detail.transcoding = transcoding if transcoding.present?
         transcoded_video_detail.uri = output_object_uri
         transcoded_video_detail.status = VideoDetail::STATUS::PROCESSING
+        transcoded_video_detail.public = public
         transcoded_video_detail.save!
         # change carrierwave mounted column
-        transcoded_video_detail.update_column(:video, File.basename(output_object_uri))
+        if public
+          transcoded_video_detail.update_column(:public_video, File.basename(output_object_uri))
+        else
+          transcoded_video_detail.update_column(:private_video, File.basename(output_object_uri))
+        end
         self.save!
         TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
       end

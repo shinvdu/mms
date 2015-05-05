@@ -123,9 +123,16 @@ module MTSUtils
   end
 
   module Job
-    def submit_job(bucket, object, output_object, template_id, pipeline_id,
-                   location = 'oss-cn-hangzhou', output_bucket = nil, output_location = 'oss-cn-hangzhou', user_data = '')
-      output_bucket = bucket if output_bucket.blank?
+    def submit_job(bucket, object, output_object, template_id, pipeline_id, **p)
+      args = {:location => 'oss-cn-hangzhou',
+              :output_bucket => bucket,
+              :output_location => 'oss-cn-hangzhou',
+              :user_data => ''
+      }.merge(p)
+      location = args[:location]
+      output_bucket = args[:output_bucket]
+      output_location = args[:output_location]
+      user_data = args[:user_data]
       params = {'Action' => 'SubmitJobs',
                 'Input' => {
                     'Bucket' => bucket,
@@ -437,7 +444,7 @@ module MTSUtils
   end
 
   class AliyunAudio
-    attr_accessor :codec, :samplerate, :bitrate, :channels 
+    attr_accessor :codec, :samplerate, :bitrate, :channels
 
     def initialize(var)
       if var.is_a? Hash
@@ -450,7 +457,7 @@ module MTSUtils
   end
 
   class AliyunTemplate
-    attr_accessor :id, :name, :container, :audio, :video, :state  
+    attr_accessor :id, :name, :container, :audio, :video, :state
 
     def initialize(var)
       if var.is_a? Hash
