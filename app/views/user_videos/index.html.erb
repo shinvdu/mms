@@ -25,7 +25,7 @@
           </td>
           <td>
             <select class="form-control">
-              <option><%= user_video.default_transcoding_strategy.name %></option>
+              <option><%=  user_video.default_transcoding_strategy && user_video.default_transcoding_strategy.name %></option>
             </select>
           </td>
           <td>100MB</td>
