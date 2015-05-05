@@ -19,283 +19,321 @@
 	<![endif]-->
   </head>
   <body>
-    <div class="header">
-      <div class="title">
-	<a class="header-brand text-white" href="#">MMS</a>
-	<span class="text-purple">www.mz.com</span>
-      </div><!--
-	      --><div class="user-options text-gray">
-	<div class="user-name">
-	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-	  <span>MMS</span>
-	</div>
-	<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-      </div>
-    </div>
+    <div class="site">
+      <div class="header" id="header"></div>
 
-    <div class="content">
-      <nav class="navbar">
-	<form class="navbar-form navbar-right" role="search">
-          <div class="form-group right-inner-addon">
-            <input type="search" class="form-control" placeholder="视频搜索">
-	    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-          </div>
-	</form>
-	<ul class="nav nav-pills" role="tablist">
-	  <li role="presentation">
-	    <a href="index.html" role="tab">
-	      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-	      首页
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="video.html" role="tab">
-	      <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-	      视频管理
-	    </a>
-	  </li>
-	  <li class="active" role="presentation">
-	    <a href="#" role="tab">
-	      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-	      广告管理
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="player.html" role="tab">
-	      <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
-	      点播播放器
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="system.html" role="tab">
-	      <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
-	      系统管理
-	    </a>
-	  </li>
-	</ul>
-      </nav>
-
-      <nav class="nav-tab">
-	<ul class="nav-square clearfix">
-	  <li class="current">
-	    <a href="#advertisement-solution">
-	      <span class="square"></span>
-	      广告方案
-	    </a>
-	  </li>
-	  <li>
-	    <a href="#advertisement-resource">
-	      <span class="square"></span>
-	      广告资源
-	    </a>
-	  </li>
-	</ul>
-      </nav>
-
-      <div class="tab-panel current" id="advertisement-solution">
-	<div class="panel-header clearfix">
-	  <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input type="search" class="form-control" placeholder="广告方案名称">
+      <div class="content">
+	<nav class="navbar">
+	  <form class="navbar-form navbar-right" role="search">
+	    <div class="form-group right-inner-addon">
+	      <input type="search" class="form-control" placeholder="视频搜索">
 	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
+	    </div>
 	  </form>
-	  <button type="button" class="btn btn-green">添加广告方案</button>
-	</div>
-	<table class="table table-hover panel-table">
-	  <thead>
-	    <tr>
-	      <th>编号</th>
-	      <th>广告资源</th>
-	      <th>片头广告</th>
-	      <th>片尾广告</th>
-	      <th>暂停广告</th>
-	      <th>悬浮广告</th>
-	      <th>滚动字幕</th>
-	      <th>操作</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>1234567</td>
-	      <td>奥美国际广告方案</td>
-	      <td>
-		<select class="form-control">
-		  <option>广告资源1</option>
-		  <option>广告资源2</option>
-		  <option>广告资源3</option>
-		</select>
-	      </td>
-	      <td>
-		<select class="form-control">
-		  <option>广告资源1</option>
-		  <option>广告资源2</option>
-		  <option>广告资源3</option>
-		</select>
-	      </td>
-	      <td>
-		<select class="form-control">
-		  <option>广告资源1</option>
-		  <option>广告资源2</option>
-		  <option>广告资源3</option>
-		</select>
-	      </td>
-	      <td>
-		<select class="form-control">
-		  <option>广告资源1</option>
-		  <option>广告资源2</option>
-		  <option>广告资源3</option>
-		</select>
-	      </td>
-	      <td>
-		<select class="form-control">
-		  <option>广告资源1</option>
-		  <option>广告资源2</option>
-		  <option>广告资源3</option>
-		</select>
-	      </td>
-	      <td>
-		<a href="#">修改</a>
-		<a href="#">删除</a>
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
-	<div class="panel-footer">
-	  <nav class="panel-table-pagination">
-	    <ul class="pagination">
-	      <li>
-		<a href="#" aria-label="Previous">
-		  <span aria-hidden="true">&laquo;</span>
-		</a>
-	      </li>
-	      <li class="active"><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-		<a href="#" aria-label="Next">
-		  <span aria-hidden="true">&raquo;</span>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
-
-      <div class="tab-panel" id="advertisement-resource">
-	<div class="panel-header clearfix">
-	  <select class="pull-right btn-select btn-select-white">
-	    <option>全部类型</option>
-	    <option>全部类型</option>
-	    <option>全部类型</option>
-	  </select>
-	  <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input type="search" class="form-control" placeholder="资源名称/创建人">
-	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
-	  </form>
-	</div>
-	<table class="table table-hover panel-table">
-	  <thead>
-	    <tr>
-	      <th>编号</th>
-	      <th>广告资源</th>
-	      <th>资源类型</th>
-	      <th>广告类型</th>
-	      <th>创建时间</th>
-	      <th>创建人</th>
-	      <th>操作</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>1234567</td>
-	      <td>奥美国际广告方案</td>
-	      <td>
-		<select class="form-control">
-		  <option>视频</option>
-		  <option>视频</option>
-		  <option>视频</option>
-		</select>
-	      </td>
-	      <td>
-		<select class="form-control">
-		  <option>广告资源1</option>
-		  <option>广告资源2</option>
-		  <option>广告资源3</option>
-		</select>
-	      </td>
-	      <td>2015/04/26 17:31</td>
-	      <td>xiao2</td>
-	      <td>
-		<a href="#">修改</a>
-		<a href="#">删除</a>
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
-	<div class="panel-footer">
-	  <nav class="panel-table-pagination">
-	    <ul class="pagination">
-	      <li>
-		<a href="#" aria-label="Previous">
-		  <span aria-hidden="true">&laquo;</span>
-		</a>
-	      </li>
-	      <li class="active"><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-		<a href="#" aria-label="Next">
-		  <span aria-hidden="true">&raquo;</span>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
-
-    </div>
-    
-    <div class="footer">
-      <div class="footer-links">
-	<div class="link-list">
-	  <div class="link-list-header">
-	    <a href="#">未谷技术</a>
-	  </div>
-	  <ul>
-	    <li><a href="video.html">视频管理</a></li>
-	    <li><a href="player.html">点播播放器</a></li>
-	    <li><a href="#">广告管理</a></li>
-	    <li><a href="system.html">系统管理</a></li>
-	    <li><a href="#">用户协议</a></li>
+	  <ul class="nav nav-pills" role="tablist">
+	    <li role="presentation">
+	      <a href="index.html" role="tab">
+		<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+		首页
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="video.html" role="tab">
+		<span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+		视频管理
+	      </a>
+	    </li>
+	    <li class="active" role="presentation">
+	      <a href="advertisement.html" role="tab">
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		广告管理
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="player.html" role="tab">
+		<span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+		点播播放器
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="system.html" role="tab">
+		<span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
+		系统管理
+	      </a>
+	    </li>
 	  </ul>
-	</div><!--
-		--><div class="link-list">
-	  <div class="link-list-header">
-	    <a href="#">帮助中心</a>
-	  </div>
-	  <ul>
-	    <li><a href="#">平台</a></li>
+	</nav>
+
+	<nav class="nav-tab">
+	  <ul class="nav-square clearfix">
+	    <li class="current">
+	      <a href="#advertisement-solution">
+		<span class="square"></span>
+		广告方案
+	      </a>
+	    </li>
+	    <li>
+	      <a href="#advertisement-resource">
+		<span class="square"></span>
+		广告资源
+	      </a>
+	    </li>
 	  </ul>
+	</nav>
+
+	<div class="tab-panel current" id="advertisement-solution">
+	  <div class="panel-header clearfix">
+	    <form class="pull-right" role="search">
+              <div class="form-group right-inner-addon">
+		<input type="search" class="form-control" placeholder="广告方案名称">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+	    </form>
+	    <button type="button" class="btn btn-green" id="btn-add-advertisement">添加广告方案</button>
+	  </div>
+	  <table class="table table-hover">
+	    <thead>
+	      <tr>
+		<th>编号</th>
+		<th>广告资源</th>
+		<th>片头广告</th>
+		<th>片尾广告</th>
+		<th>暂停广告</th>
+		<th>悬浮广告</th>
+		<th>滚动字幕</th>
+		<th>操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>1234567</td>
+		<td>奥美国际广告方案</td>
+		<td>
+		  <select class="form-control">
+		    <option>广告资源1</option>
+		    <option>广告资源2</option>
+		    <option>广告资源3</option>
+		  </select>
+		</td>
+		<td>
+		  <select class="form-control">
+		    <option>广告资源1</option>
+		    <option>广告资源2</option>
+		    <option>广告资源3</option>
+		  </select>
+		</td>
+		<td>
+		  <select class="form-control">
+		    <option>广告资源1</option>
+		    <option>广告资源2</option>
+		    <option>广告资源3</option>
+		  </select>
+		</td>
+		<td>
+		  <select class="form-control">
+		    <option>广告资源1</option>
+		    <option>广告资源2</option>
+		    <option>广告资源3</option>
+		  </select>
+		</td>
+		<td>
+		  <select class="form-control">
+		    <option>广告资源1</option>
+		    <option>广告资源2</option>
+		    <option>广告资源3</option>
+		  </select>
+		</td>
+		<td>
+		  <a href="#">修改</a>
+		  <a href="#">删除</a>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="panel-footer">
+	    <nav class="panel-table-pagination">
+	      <ul class="pagination">
+		<li>
+		  <a href="#" aria-label="Previous">
+		    <span aria-hidden="true">&laquo;</span>
+		  </a>
+		</li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		  <a href="#" aria-label="Next">
+		    <span aria-hidden="true">&raquo;</span>
+		  </a>
+		</li>
+	      </ul>
+	    </nav>
+	  </div>
 	</div>
-      </div><!--
-	      --><div class="footer-info">
-	<div class="footer-bar">
-	  <div class="short-line"></div>
-	  <a href="#">关于我们</a>
+
+	<div class="tab-panel" id="add-advertisement">
+	  <div class="panel-links"><a href="#">&lt;&lt; 返回广告方案列表</a></div>
+	  <div class="panel-content">
+	    <p>添加广告方案</p>
+	    <form class="form-horizontal">
+	      <div class="form-group">
+		<label for="ad-name" class="col-sm-2 control-label">广告方案名称:</label>
+		<div class="col-sm-6">
+		  <input type="text" class="form-control" id="ad-name">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label for="" class="col-sm-2 control-label">Password</label>
+		<div class="col-sm-6">
+		  <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+		  <div class="checkbox">
+		    <label>
+		      <input type="checkbox"> Remember me
+		    </label>
+		  </div>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+		  <button type="submit" class="btn btn-default">Sign in</button>
+		</div>
+	      </div>
+	    </form>
+
+	    
+	    <div>
+	      广告方案名称: <input class="form-control" type="text">
+	    </div>
+	    <div>
+	      片头广告选择:
+	      <select class="form-control">
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+	      </select>
+	    </div>
+	    <div>
+	      片尾广告选择:
+	      <select class="form-control">
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+	      </select>
+	    </div>
+	    <div>
+	      暂停广告选择:
+	      <select class="form-control">
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+	      </select>
+	    </div>
+	    <div>
+	      悬浮广告选择:
+	      <select class="form-control">
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+	      </select>
+	    </div>
+	    <div>
+	      滚动广告选择:
+	      <select class="form-control">
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+		<option>片头广告选择</option>
+	      </select>
+	    </div>
+	    <button class="btn" type="button">保存</button>
+	    <button class="btn" type="button">取消</button>
+	  </div>
 	</div>
-	<div class="footer-bar">
-	  <div class="short-line"></div>
-	  <p>copyright &copy; 2015上海未谷信息技术有限公司</p>
-	  <p>沪ICP 备案 xxxxxxx</p>
+
+	<div class="tab-panel" id="advertisement-resource">
+	  <div class="panel-header clearfix">
+	    <select class="pull-right btn-select btn-select-white">
+	      <option>全部类型</option>
+	      <option>全部类型</option>
+	      <option>全部类型</option>
+	    </select>
+	    <form class="pull-right" role="search">
+              <div class="form-group right-inner-addon">
+		<input type="search" class="form-control" placeholder="资源名称/创建人">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+	    </form>
+	  </div>
+	  <table class="table table-hover panel-table">
+	    <thead>
+	      <tr>
+		<th>编号</th>
+		<th>广告资源</th>
+		<th>资源类型</th>
+		<th>广告类型</th>
+		<th>创建时间</th>
+		<th>创建人</th>
+		<th>操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>1234567</td>
+		<td>奥美国际广告方案</td>
+		<td>
+		  <select class="form-control">
+		    <option>视频</option>
+		    <option>视频</option>
+		    <option>视频</option>
+		  </select>
+		</td>
+		<td>
+		  <select class="form-control">
+		    <option>广告资源1</option>
+		    <option>广告资源2</option>
+		    <option>广告资源3</option>
+		  </select>
+		</td>
+		<td>2015/04/26 17:31</td>
+		<td>xiao2</td>
+		<td>
+		  <a href="#">修改</a>
+		  <a href="#">删除</a>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="panel-footer">
+	    <nav class="panel-table-pagination">
+	      <ul class="pagination">
+		<li>
+		  <a href="#" aria-label="Previous">
+		    <span aria-hidden="true">&laquo;</span>
+		  </a>
+		</li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		  <a href="#" aria-label="Next">
+		    <span aria-hidden="true">&raquo;</span>
+		  </a>
+		</li>
+	      </ul>
+	    </nav>
+	  </div>
 	</div>
+
       </div>
+      
+      <div class="footer" id="footer"></div>
     </div>
 
     <script src="js/jquery/1.11.2/jquery.min.js"></script>

@@ -1,0 +1,15 @@
+<div class="header">
+  <div class="row">
+    <div class="title col-md-8">
+      <a class="header-brand" href="#">MMS</a>
+      <span>www.mz.com</span>
+    </div>
+    <div class="user-options col-md-4">
+      <div class="user-name">
+	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	<span>MMS</span>
+      </div>
+      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+    </div>
+  </div>
+</div>

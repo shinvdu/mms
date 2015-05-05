@@ -19,182 +19,231 @@
 	<![endif]-->
   </head>
   <body>
-    <div class="header">
-      <div class="title">
-	<a class="header-brand text-white" href="#">MMS</a>
-	<span class="text-purple">www.mz.com</span>
-      </div><!--
-	      --><div class="user-options text-gray">
-	<div class="user-name">
-	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-	  <span>MMS</span>
-	</div>
-	<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-      </div>
-    </div>
+    <div class="site">
+      <div class="header" id="header"></div>
 
-    <div class="content">
-      <nav class="navbar">
-	<form class="navbar-form navbar-right" role="search">
-          <div class="form-group right-inner-addon">
-            <input type="search" class="form-control" placeholder="视频搜索">
-	    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-          </div>
-	</form>
-	<ul class="nav nav-pills" role="tablist">
-	  <li role="presentation">
-	    <a href="index.html" role="tab">
-	      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-	      首页
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="video.html" role="tab">
-	      <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-	      视频管理
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="advertisement.html" role="tab">
-	      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-	      广告管理
-	    </a>
-	  </li>
-	  <li class="active" role="presentation">
-	    <a href="#" role="tab">
-	      <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
-	      点播播放器
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="system.html" role="tab">
-	      <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
-	      系统管理
-	    </a>
-	  </li>
-	</ul>
-      </nav>
-
-      <nav class="nav-tab">
-	<ul class="nav-square clearfix">
-	  <li class="current">
-	    <a href="#add-player">
-	      <span class="square"></span>
-	      新增播放器
-	    </a>
-	  </li>
-	  <li>
-	    <a href="#manage-player">
-	      <span class="square"></span>
-	      播放器管理
-	    </a>
-	  </li>
-	  <li>
-	    <a href="#logo">
-	      <span class="square"></span>
-	      LOGO
-	    </a>
-	  </li>
-	  <li>
-	    <a href="#upload-logo">
-	      <span class="square"></span>
-	      上传LOGO
-	    </a>
-	  </li>
-	</ul>
-      </nav>
-
-      <div class="tab-panel current" id="add-player">
-	<div class="panel-header clearfix">
-	  <button type="button" class="btn btn-green">添加播放器</button>
-	</div>
-	<table class="table table-hover panel-table">
-	  <thead>
-	    <tr>
-	      <th>播放器名称</th>
-	      <th>播放器ID</th>
-	      <th>创建人</th>
-	      <th>创建时间</th>
-	      <th>操作</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>播放器名字123</td>
-	      <td>1234567890QWER</td>
-	      <td>xiao2</td>
-	      <td>2015/04/26 17:31</td>
-	      <td>
-		<a href="#">预览</a>
-		<a href="#">修改</a>
-		<a href="#">删除</a>
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
-	<div class="panel-footer">
-	  <nav class="panel-table-pagination">
-	    <ul class="pagination">
-	      <li>
-		<a href="#" aria-label="Previous">
-		  <span aria-hidden="true">&laquo;</span>
-		</a>
-	      </li>
-	      <li class="active"><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-		<a href="#" aria-label="Next">
-		  <span aria-hidden="true">&raquo;</span>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
-
-      <div class="tab-panel" id="manage-player"></div>
-      <div class="tab-panel" id="logo"></div>
-      <div class="tab-panel" id="upload-logo"></div>
-      
-    </div>
-
-    <div class="footer">
-      <div class="footer-links">
-	<div class="link-list">
-	  <div class="link-list-header">
-	    <a href="#">未谷技术</a>
-	  </div>
-	  <ul>
-	    <li><a href="video.html">视频管理</a></li>
-	    <li><a href="#">点播播放器</a></li>
-	    <li><a href="advertisement.html">广告管理</a></li>
-	    <li><a href="system.html">系统管理</a></li>
-	    <li><a href="#">用户协议</a></li>
+      <div class="content">
+	<nav class="navbar">
+	  <form class="navbar-form navbar-right" role="search">
+	    <div class="form-group right-inner-addon">
+	      <input type="search" class="form-control" placeholder="视频搜索">
+	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+	    </div>
+	  </form>
+	  <ul class="nav nav-pills" role="tablist">
+	    <li role="presentation">
+	      <a href="index.html" role="tab">
+		<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+		首页
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="video.html" role="tab">
+		<span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+		视频管理
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="advertisement.html" role="tab">
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		广告管理
+	      </a>
+	    </li>
+	    <li class="active" role="presentation">
+	      <a href="player.html" role="tab">
+		<span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+		点播播放器
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="system.html" role="tab">
+		<span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
+		系统管理
+	      </a>
+	    </li>
 	  </ul>
-	</div><!--
-		--><div class="link-list">
-	  <div class="link-list-header">
-	    <a href="#">帮助中心</a>
-	  </div>
-	  <ul>
-	    <li><a href="#">平台</a></li>
+	</nav>
+
+	<nav class="nav-tab">
+	  <ul class="nav-square clearfix">
+	    <li class="current">
+	      <a href="#add-player">
+		新增播放器
+	      </a>
+	    </li>
+	    <li>
+	      <a href="#manage-player">
+		播放器管理
+	      </a>
+	    </li>
+	    <li>
+	      <a href="#logo">
+		LOGO
+	      </a>
+	    </li>
+	    <li>
+	      <a href="#upload-logo">
+		上传LOGO
+	      </a>
+	    </li>
 	  </ul>
+	</nav>
+
+	<div class="tab-panel current" id="add-player">
+	  <div class="panel-header clearfix">
+	    <button type="button" class="btn btn-green">添加播放器</button>
+	  </div>
+	  <table class="table table-hover">
+	    <thead>
+	      <tr>
+		<th>播放器名称</th>
+		<th>播放器ID</th>
+		<th>创建人</th>
+		<th>创建时间</th>
+		<th>操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>播放器名字123</td>
+		<td>1234567890QWER</td>
+		<td>xiao2</td>
+		<td>2015/04/26 17:31</td>
+		<td>
+		  <a href="#">预览</a>
+		  <a href="#">修改</a>
+		  <a href="#">删除</a>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="panel-footer">
+	    <nav class="panel-table-pagination">
+	      <ul class="pagination">
+		<li>
+		  <a href="#" aria-label="Previous">
+		    <span aria-hidden="true">&laquo;</span>
+		  </a>
+		</li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		  <a href="#" aria-label="Next">
+		    <span aria-hidden="true">&raquo;</span>
+		  </a>
+		</li>
+	      </ul>
+	    </nav>
+	  </div>
 	</div>
-      </div><!--
-	      --><div class="footer-info">
-	<div class="footer-bar">
-	  <div class="short-line"></div>
-	  <a href="#">关于我们</a>
+
+	<div class="tab-panel" id="add-new-player">
+	  <div class="panel-links"><a href="#">&lt;&lt; 返回播放器管理</a></div>
+	  <div class="panel-content">
+	    <p>添加播放器</p>
+	    <div>
+	      播放器名称: 播放器名称
+	    </div>
+	    <div>
+	      播放器颜色:
+	      <input type="radio" name="player-color">黑色
+	      <input type="radio" name="player-color">经典
+	      <input type="radio" name="player-color">其他颜色
+	    </div>
+	    <div>
+	      自动播放:
+	      <select class="form-control">
+		<option>是</option>
+		<option>否</option>
+	      </select>
+	    </div>
+	    <div>
+	      LOGO:
+	      <select class="form-control">
+		<option>logo1</option>
+		<option>logo2</option>
+		<option>logo3</option>
+	      </select>
+	    </div>
+	    <div>
+	      LOGO的位置:
+	      <select class="form-control">
+		<option>右上角</option>
+		<option>右下角</option>
+		<option>左上角</option>
+		<option>左下角</option>
+	      </select>
+	    </div>
+	    <div>
+	      分享功能:
+	      <select class="form-control">
+		<option>打开</option>
+		<option>关闭</option>
+	      </select>
+	    </div>
+	    <div>
+	      全屏功能:
+	      <select class="form-control">
+		<option>是</option>
+		<option>否</option>
+	      </select>
+	    </div>
+	    <div>
+	      长宽:
+	      <select class="form-control">
+		<option>1080X720</option>
+		<option>1080X720</option>
+		<option>1080X720</option>
+	      </select>
+	    </div>
+	    <button class="btn" type="button">保存</button>
+	    <button class="btn" type="button">取消</button>
+	  </div>
 	</div>
-	<div class="footer-bar">
-	  <div class="short-line"></div>
-	  <p>copyright &copy; 2015上海未谷信息技术有限公司</p>
-	  <p>沪ICP 备案 xxxxxxx</p>
+
+	<div class="tab-panel" id="manage-player"></div>
+	<div class="tab-panel" id="logo"></div>
+	
+	<div class="tab-panel" id="upload-logo">
+	  <div class="panel-links"><a href="#">&lt;&lt; 返回LOGO列表</a></div>
+	  <div class="panel-content">
+	    <p>添加LOGO图片</p>
+	    <div class="panel-notice">
+	      <p>说明</p>
+	      <ul>
+		<li>图片使用透明背景，JPG文件会导致白色背景，</li>
+		<li>图片使用透明背景，JPG文件会导致白色背景，</li>
+		<li>图片使用透明背景，JPG文件会导致白色背景，</li>
+		<li>图片使用透明背景，JPG文件会导致白色背景，</li>
+	      </ul>
+	    </div>
+	    <button class="btn btn-blue" type="button">选择图片</button>
+	    <div class="row row-images">
+	      <img class="img-rounded img-display" src="./picture/header-bg.jpg">
+	      <figure>
+		<img class="img-rounded img-small" src="./picture/header-bg.jpg">
+		<figcaption>50x50</figcaption>
+	      </figure>
+	      <figure>
+	      <img class="img-rounded img-middle" src="./picture/header-bg.jpg">
+		<figcaption>50x50</figcaption>
+	      </figure>
+	      <figure>
+	      <img class="img-rounded img-large" src="./picture/header-bg.jpg">
+		<figcaption>50x50</figcaption>
+	      </figure>
+	    </div>
+	    <button class="btn btn-green" type="button">保存</button>
+	    <button class="btn btn-gray" type="button">取消</button>
+	  </div>
 	</div>
+	
       </div>
+
+      <div class="footer" id="footer"></div>
     </div>
 
     <script src="js/jquery/1.11.2/jquery.min.js"></script>
