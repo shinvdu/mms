@@ -5,7 +5,6 @@ class PlayersController < ApplicationController
   end
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   before_action :restrict_player, only: [:edit, :update,  :destroy]
-  before_action :only_root, only: [:index]
 
   # GET /players
   # GET /players.json
