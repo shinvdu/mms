@@ -29,6 +29,11 @@ class PlayersController < ApplicationController
 
   # GET /players/1/edit
   def edit
+    @logos = {}
+    logos = Logo.where(user_id: current_user.uid)
+    logos.each do |logo |
+      @logos[logo.name] = logo.id
+    end
   end
 
   # POST /players

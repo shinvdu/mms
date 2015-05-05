@@ -1,8 +1,11 @@
 class Logo < ActiveRecord::Base
   belongs_to :user
   has_many :player
+  validates :name, presence: true
+  validates :uri, presence: true
   
   mount_uploader :uri, LogoUploader
+
 end
 
 #------------------------------------------------------------------------------

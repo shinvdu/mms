@@ -3,6 +3,7 @@ class Transcoding < ActiveRecord::Base
   has_many :transcoding_strategy_relationships
   scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
   scope :find_mini, -> { order('id desc').find_by_mini(true) }
+  
   validates :name, presence: true
   validates :container, presence: true, inclusion: {in: %w(mp4 flv ts m3u8), message: "%{value} is not a valid format"}
   validates :video_codec, presence: true, inclusion: {in: %w(H.264), message: "%{value} is not a valid 编解码格式"}
@@ -11,7 +12,7 @@ class Transcoding < ActiveRecord::Base
   validates :video_crf, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 51}, :allow_nil => true
   validates :width, numericality: {greater_than_or_equal_to: 128, less_than_or_equal_to: 4096}, :allow_nil => true
   validates :height, numericality: {greater_than_or_equal_to: 128, less_than_or_equal_to: 4096}, :allow_nil => true
-  validates :video_fps, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 60}
+  validates :video_fps, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 60}, :allow_nil => true
   validates :video_gop, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1080000}
   validates :video_preset, presence: true, inclusion: {in: %w(veryfast fast medium slow slower veryslow), message: "%{value} is not a valid 视频算法器预置"}
   validates :video_scanmode, presence: true, inclusion: {in: %w(interlaced progressive), message: "%{value} is not a valid 扫描模式"}
