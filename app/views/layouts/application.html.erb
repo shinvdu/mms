@@ -13,7 +13,9 @@
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
   <link href="/mms/css/main.css" rel="stylesheet" type="text/css">
   <link href="/player1/video-js.css" rel="stylesheet" type="text/css">
+  <link href="/player1/videojs.watermark.css" rel="stylesheet" type="text/css">
   <script src="/player1/video.js"></script>
+  <script src="/player1/videojs.watermark.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -22,7 +24,7 @@
   <![endif]-->
   
   <script>
-    videojs.options.flash.swf = "video-js.swf";
+    videojs.options.flash.swf = "/player1/video-js.swf";
   </script>
   <%= csrf_meta_tags %>
 </head>

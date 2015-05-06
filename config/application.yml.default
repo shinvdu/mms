@@ -10,11 +10,11 @@ defaults: &defaults
   cool: mms
   logo: 
     origin:  
-      width: 200 
-      height:  200
-    normal:  
-      width:  100
+      width: 100 
       height:  100
+    normal:  
+      width:  80
+      height:  80
     small:  
       width:  50
       height:  50
@@ -29,6 +29,11 @@ defaults: &defaults
       width:  50
       height:  50
   m3u8_dir: public/m3u8
+  player: 
+    sizes:  
+      480|320: 480 * 320 
+      1080|720: 1080 * 720 
+      1920|1080: 1920 * 1080 
 
 production:
   <<: *defaults
