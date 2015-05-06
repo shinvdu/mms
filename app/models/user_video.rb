@@ -35,7 +35,7 @@ class UserVideo < ActiveRecord::Base
     videoDetail.save!
     self.original_video = videoDetail
     self.status = STATUS::PREUPLOADED
-    fetch_video_info_and_upload
+    async_fetch_video_info_and_upload
     self
   end
 

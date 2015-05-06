@@ -38,6 +38,6 @@ class ScheduledWorker
   end
 
   def logger
-    Rails.logger
+    Delayed::Worker.logger
   end
 end

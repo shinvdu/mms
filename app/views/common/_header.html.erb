@@ -1,18 +1,22 @@
-    <div class="header">
-      <div class="title">
-  <a class="header-brand text-white" href="#">MMS</a>
-  <span class="text-purple">www.mz.com</span>
-      </div><!--
-        --><div class="user-options text-gray">
-<% if current_account %>
-  <div class="user-name">
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-    <span><%=  @current_user && @current_user.nickname %></span>
-  </div>
-    <%= raw link_to('<span class="glyphicon glyphicon-off" aria-hidden="true"></span>'.html_safe, destroy_account_session_path, :method => :delete) %> 
-<% else %>
-    <%= link_to('註冊', new_registration_path(:account)) %> 
-    <%= link_to('登入', new_session_path(:account)) %>
-<% end %>
+<div class="header">
+    <div class="container" id="header"><div class="row">
+      <div class="title col-md-8">
+        <a class="header-brand" href="/">MMS</a>
+        <span>www.mgcloud.com</span>
+      </div>
+
+      <div class="user-options col-md-4">
+        <% if current_account %>
+        <div class="user-name">
+          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+          <span><%=  @current_user && @current_user.nickname %></span>
+        </div>
+        <%= raw link_to('<span class="glyphicon glyphicon-off" aria-hidden="true"></span>'.html_safe, destroy_account_session_path, :method => :delete) %> 
+        <% else %>
+        <%= link_to('註冊', new_registration_path(:account)) %> 
+        <%= link_to('登入', new_session_path(:account)) %>
+        <% end %>
       </div>
     </div>
+  </div>
+</div>

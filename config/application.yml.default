@@ -10,11 +10,11 @@ defaults: &defaults
   cool: mms
   logo: 
     origin:  
-      width: 200 
-      height:  200
-    normal:  
-      width:  100
+      width: 100 
       height:  100
+    normal:  
+      width:  80
+      height:  80
     small:  
       width:  50
       height:  50
@@ -29,6 +29,11 @@ defaults: &defaults
       width:  50
       height:  50
   m3u8_dir: public/m3u8
+  player: 
+    sizes:  
+      480|320: 480 * 320 
+      1080|720: 1080 * 720 
+      1920|1080: 1920 * 1080 
 
 production:
   <<: *defaults
@@ -64,9 +69,10 @@ development:
     oss:
       download_proxy: http://
       proxy: http://
-      host: tttesthah.oss-cn-hangzhou.aliyuncs.com/
-      bucket: tttesthah
-      user_video_dir: original_video
+      host: oss-cn-hangzhou.aliyuncs.com
+      private_bucket: wgc-private
+      public_bucket: wgc-public
+      user_video_dir: video
     mts:
       host: mts.aliyuncs.com
       mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
