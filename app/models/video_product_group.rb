@@ -97,7 +97,7 @@ class VideoProductGroup < ActiveRecord::Base
 
     self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
-      product.transcode_from_mkv
+      product.transcode_video(self.mkv_video, transcoding)
     end
 
     self.save!

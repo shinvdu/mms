@@ -13,10 +13,6 @@ class VideoProduct < ActiveRecord::Base
     FINISHED = 60
   end
 
-  def transcode_from_mkv
-    # TODO
-  end
-
   def get_m3u8_file_path
     file_path = Rails.root.join(Settings.m3u8_dir, [self.video_product_group.id, self.id, 'm3u8'].join('.'))
     dir = File.dirname file_path
@@ -52,6 +48,22 @@ class VideoProduct < ActiveRecord::Base
 
     self.status = VideoProduct::STATUS::FINISHED
     self.save!
+  end
+
+  def transcode_video(video_detail, transcoding)
+    transcode_job = video_detail.create_transcoding_video_job
+    transcode_job.post_process_command = "VideoProduct.find(#{self.id}).video_transcode_finished"
+    transcode_job.save!
+  end
+
+  def video_transcode_finished
+    self.status = STATUS::FINISHED
+    video_product_group = self.video_product_group
+    not_all_finished = video_product_group.video_products.any? { |products| !products.FINISHED? }
+    unless not_all_finished
+      video_product_group.status = VideoProductGroup::STATUS::FINISHED
+      video_product_group.save!
+    end
   end
 end
 

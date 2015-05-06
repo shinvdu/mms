@@ -11,7 +11,7 @@ class MtsJob < ActiveRecord::Base
   end
 
   def post_process
-
+    eval self.post_process_command if self.post_process_command.present?
   end
 end
 

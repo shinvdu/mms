@@ -16,6 +16,8 @@ class VideoDetail < ActiveRecord::Base
     BOTH = 50
   end
 
+  include MTSWorker::VideoDetailWorker
+
   def video
     self.public ? self.public_video : self.private_video
   end
@@ -35,7 +37,7 @@ class VideoDetail < ActiveRecord::Base
 
   def set_video(user_video, video)
     self.user_video = user_video
-    self.uuid = UUIDTools::UUID.random_create
+    self.uuid = UUIDTools::UUID.random_create.to_s
     self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
     self.status = STATUS::ONLY_LOCAL
 
@@ -97,7 +99,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def copy_attributes
-    self.attributes.except('id', 'video', 'created_at')
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -136,9 +138,28 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def create_mkv_video_by_fragments(video_fragments)
-    # todo
+    new_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
+    new_video.uri = self.uri.split('.').insert(-2, new_video.id).join('.')
+    new_video.uuid = UUIDTools::UUID.random_create.to_s
     input_path = self.get_full_path
-    `mkvmerge -o #{output_path} --split parts:0:0:1-0:0:3,+0:0:5-0:0:7 #{input_path}`
+    output_path = new_video.get_full_path
+
+    file_paths = []
+    video_fragments.each_with_index do |frag, idx|
+      tmp_path = File.join(File.dirname(output_path), [new_video.uuid, idx, 'mkv'].join('.'))
+      file_paths.append tmp_path
+      cp = frag.video_cut_point
+      time_str = "#{get_time(cp.start_time)}-#{get_time(cp.stop_time)}"
+      `mkvmerge -o #{tmp_path} --split parts:#{time_str} #{input_path}`
+    end
+
+    # TODO
+    # `mkvmerge -o #{output_path} --split parts:0:0:1-0:0:3,+0:0:5-0:0:7 #{input_path}`
+    FileUtils.cp file_paths[0], output_path
+
+    file_paths.each_with_index { |path| FileUtils.rm path }
+    new_video.load_local_file!
+    new_video
   end
 
   def download!
@@ -149,12 +170,6 @@ class VideoDetail < ActiveRecord::Base
     # must cp before save, save will remove cached file
     self.status = VideoDetail::STATUS::BOTH
     self.save!
-  end
-
-  def destroy
-    remove_video!
-    save
-    super
   end
 
   def ONLY_REMOTE?

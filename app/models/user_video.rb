@@ -54,6 +54,7 @@ class UserVideo < ActiveRecord::Base
   def async_fetch_video_info_and_upload
     video_detail = self.original_video
     video_detail.fetch_video_info
+    video_detail.load_local_file! unless self.publish_strategy == UserVideo::STRATEGY::PACKAGE
     if self.publish_strategy == UserVideo::STRATEGY::PACKAGE &&
         (video_detail.video_codec.downcase.index('h264') || video_detail.audio_codec.downcase.index('aac'))
       self.status = UserVideo::STATUS::BAD_FORMAT_FOR_PACKAGE
@@ -73,7 +74,6 @@ class UserVideo < ActiveRecord::Base
     if video_detail.video_codec.downcase.index('h264') && video_detail.audio_codec.downcase.index('aac')
       self.mkv_video = self.original_video.create_mkv_video
     else
-      video_detail.load_local_file! unless video_detail.REMOTE?
       transcode_job = create_transcoding_video_job(Transcoding.find_middle_template)
       self.mkv_video = transcode_job.target
     end
