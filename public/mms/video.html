@@ -154,11 +154,7 @@
 		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </div>
 	      </form>
-	      <select class="btn-select btn-select-green">
-	        <option>添加转码模板</option>
-	        <option>添加转码模板</option>
-	        <option>添加转码模板</option>
-	      </select>
+	      <button class="btn btn-green" id="btn-add-transcoding-template" type="button">添加转码模板</button>
 	    </div>
             <table class="table table-hover panel-table">
 	      <thead>
@@ -219,104 +215,112 @@
 	  </div>
 
 	  <div class="tab-panel" id="add-transcoding-template">
-	    <div class="panel-links"><a href="#">&lt;&lt; 返回模板列表</a></div>
+	    <div class="panel-links"><a class="btn-return-link" href="#video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
 	    <div class="panel-content">
-	      <p>添加转码模板</p>
-	      <form class="form-horizontal">
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="template-name">模板名称:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-		    <input class="form-control" id="template-name" type="text">
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label">输出格式:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-                    <p class="form-control-static">mp4</p>
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="transcoding-level">编码级别:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <select class="form-control" id="transcoding-level">
-		      <option>high</option>
-		      <option>high</option>
-		      <option>high</option>
-	            </select>
-                    备注: 推荐使用 high
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="compress-parameter">视频压缩参数:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <select class="form-control" id="compress-parameter">
-		      <option>slow</option>
-		      <option>slow</option>
-		      <option>slow</option>
-	            </select>
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="audio-coding">音频编码:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <select class="form-control" id="audio-coding">
-		      <option>AAC</option>
-		      <option>AAC</option>
-		      <option>AAC</option>
-	            </select>
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="audio-sample-rate">音频采样率:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <select class="form-control" id="audio-sample-rate">
-		      <option>采样率</option>
-		      <option>采样率</option>
-		      <option>采样率</option>
-	            </select>
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="audio-code-rate">音频码率:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <select class="form-control" id="audio-code-rate">
-		      <option>码率</option>
-		      <option>码率</option>
-		      <option>码率</option>
-	            </select>
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label">视频隔行扫描:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="yes">
-                        是
-                      </label>
-                    </div>
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="video-aspect-ratio">视频长宽比:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <select class="form-control" id="video-aspect-ratio">
-		      <option>固定长宽高，画面拉伸</option>
-		      <option>固定长宽高，画面拉伸</option>
-		      <option>固定长宽高，画面拉伸</option>
-	            </select>
-                    说明:
-	            <input type="text" placeholder="长/px">
-	            <input type="text" placeholder="宽/px">
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <button class="btn btn-green" type="button">保存</button>
-	            <button class="btn btn-gray" type="button">取消</button>
-		  </div>
-	        </div>
-              </form>
+	      <div class="row">
+		<div class="col-md-8">
+		  <form class="form-horizontal">
+	            <div class="form-group">
+		      <label class="col-md-3 control-label">添加转码模板</label>
+		    </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="template-name">模板名称:</label>
+		      <div class="col-md-6">
+			<input class="form-control" id="template-name" type="text">
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label">输出格式:</label>
+		      <div class="col-md-6">
+			<p class="form-control-static">mp4</p>
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="transcoding-level">编码级别:</label>
+		      <div class="col-md-6">
+			<select class="form-control" id="transcoding-level">
+			  <option>high</option>
+			  <option>high</option>
+			  <option>high</option>
+			</select>
+		      </div>
+		      <div class="col-md-3 input-horizontal-helper-text">备注: 推荐使用 high</div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="compress-parameter">视频压缩参数:</label>
+		      <div class="col-md-6">
+			<select class="form-control" id="compress-parameter">
+			  <option>slow</option>
+			  <option>slow</option>
+			  <option>slow</option>
+			</select>
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="audio-coding">音频编码:</label>
+		      <div class="col-md-6">
+			<select class="form-control" id="audio-coding">
+			  <option>AAC</option>
+			  <option>AAC</option>
+			  <option>AAC</option>
+			</select>
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="audio-sample-rate">音频采样率:</label>
+		      <div class="col-md-6">
+			<select class="form-control" id="audio-sample-rate">
+			  <option>采样率</option>
+			  <option>采样率</option>
+			  <option>采样率</option>
+			</select>
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="audio-code-rate">音频码率:</label>
+		      <div class="col-md-6">
+			<select class="form-control" id="audio-code-rate">
+			  <option>码率</option>
+			  <option>码率</option>
+			  <option>码率</option>
+			</select>
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label">视频隔行扫描:</label>
+		      <div class="col-md-6">
+			<div class="checkbox">
+			  <label>
+                            <input type="checkbox" value="yes">
+                            是
+			  </label>
+			</div>
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="video-aspect-ratio">视频长宽比:</label>
+		      <div class="col-md-6">
+			<select class="form-control" id="video-aspect-ratio">
+			  <option>固定长宽高，画面拉伸</option>
+			  <option>固定长宽高，画面拉伸</option>
+			  <option>固定长宽高，画面拉伸</option>
+			</select>
+		      </div>
+		      <div class="col-md-3">
+			说明:
+			<input class="form-control" type="text" placeholder="长/px">
+			<input class="form-control" type="text" placeholder="宽/px">
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <div class="col-md-offset-2 col-md-6">
+			<button class="btn btn-green" type="button">保存</button>
+			<button class="btn btn-gray" type="button">取消</button>
+		      </div>
+	            </div>
+		  </form>
+		</div>
+	      </div>
 	    </div>
 	  </div>
 
@@ -333,6 +337,7 @@
 		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </div>
 	      </form>
+	      <button class="btn btn-green" id="btn-add-transcoding-solution" type="button">添加转码方案</button>
 	    </div>
             <table class="table table-hover panel-table">
 	      <thead>
@@ -387,41 +392,47 @@
 	  </div>
 
 	  <div class="tab-panel" id="add-transcoding-solution">
-	    <div class="panel-links"><a href="#">&lt;&lt; 返回模板列表</a></div>
+	    <div class="panel-links"><a class="btn-return-link" href="#video-transcoding-solution">&lt;&lt; 返回方案列表</a></div>
 	    <div class="panel-content">
-	      <p>添加转码方案</p>
-	      <form class="form-horizontal">
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="solution-name">方案名称:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-		    <input class="form-control" id="solution-name" type="text">
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <label class="col-sm-2 control-label" for="template-select">模板选择:</label>
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <select class="form-control" id="template-select">
-		      <option>高清转码模板</option>
-		      <option>720P电影</option>
-		      <option>480P电影</option>
-		      <option>直接封装</option>
-		      <option>直接封装</option>
-	            </select>
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <div class="col-sm-offset-2 col-sm-6">
-                    说明:<br>
-                    qwertyuiopasdfghjklzxcvbnm
-		  </div>
-	        </div>
-	        <div class="form-group">
-		  <div class="col-sm-offset-2 col-sm-6">
-	            <button class="btn btn-green" type="button">保存</button>
-	            <button class="btn btn-gray" type="button">取消</button>
-		  </div>
-	        </div>
-              </form>
+	      <div class="row">
+		<div class="col-md-8">
+		  <form class="form-horizontal">
+	            <div class="form-group">
+		      <label class="col-md-3 control-label">添加转码方案</label>
+		    </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="solution-name">方案名称:</label>
+		      <div class="col-md-6">
+			<input class="form-control" id="solution-name" type="text">
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <label class="col-md-3 control-label" for="template-select">模板选择:</label>
+		      <div class="col-md-6">
+			<select class="form-control" id="template-select">
+			  <option>高清转码模板</option>
+			  <option>720P电影</option>
+			  <option>480P电影</option>
+			  <option>直接封装</option>
+			  <option>直接封装</option>
+			</select>
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <div class="col-md-offset-3 col-md-6">
+			说明:<br>
+			qwertyuiopasdfghjklzxcvbnm
+		      </div>
+	            </div>
+	            <div class="form-group">
+		      <div class="col-md-offset-3 col-md-6">
+			<button class="btn btn-green" type="button">保存</button>
+			<button class="btn btn-gray" type="button">取消</button>
+		      </div>
+	            </div>
+		  </form>
+		</div>
+	      </div>
 	    </div>
 	  </div>
         </div>

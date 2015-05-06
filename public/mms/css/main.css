@@ -26,9 +26,9 @@ body {
   margin-top: -75px;
   padding: 20px 0;
   height: 75px; }
-  .header > .row {
+  .header .row {
     height: 100%; }
-    .header > .row > div {
+    .header .row div {
       height: 100%; }
   .header .title a {
     margin-right: 10px; }
@@ -37,7 +37,7 @@ body {
     font-size: 24px; }
     .header .title .header-brand:hover, .header .title .header-brand:active {
       color: #8c9ddd; }
-  .header .title > span {
+  .header .title span {
     color: #8c9ddd; }
   .header .user-options {
     color: #7f8999;
@@ -115,42 +115,23 @@ body {
   margin-bottom: -200px;
   height: 200px;
   color: #7f8999; }
-  .footer > .row {
-    height: 100%; }
-    .footer > .row > div {
-      height: 100%; }
-      .footer > .row > div > .row {
-        height: 100%; }
-        .footer > .row > div > .row .row {
-          margin-left: 10px; }
-          .footer > .row > div > .row .row:first-child {
-            margin-bottom: 20px; }
-        .footer > .row > div > .row a {
-          display: block; }
-      .footer > .row > div:last-child {
-        position: relative; }
-        .footer > .row > div:last-child > div {
-          position: absolute;
-          bottom: 0;
-          right: 15px; }
+  .footer .col-md-3 .row:first-child {
+    margin-bottom: 20px; }
+  .footer .col-md-6:last-child {
+    padding-top: 46px;
+    text-align: right; }
+    .footer .col-md-6:last-child > .row + .row {
+      margin-top: 20px; }
   .footer a:link, .footer a:visited {
     color: #7f8999; }
   .footer a:hover, .footer a:active {
     color: #8c9ddd; }
-  .footer .footer-bar {
-    display: inline-block;
-    vertical-align: bottom;
-    margin-top: 15px;
-    text-align: right;
-    width: 100%; }
-    .footer .footer-bar .short-line {
-      background-color: #4fbf91;
-      height: 2px;
-      margin-left: auto;
-      margin-bottom: 3px;
-      width: 20px; }
-    .footer .footer-bar p {
-      margin: 0; }
+  .footer .short-line {
+    background-color: #4fbf91;
+    margin-left: auto;
+    margin-bottom: 5px;
+    width: 20px;
+    height: 2px; }
 
 .right-inner-addon {
   position: relative; }
@@ -310,6 +291,14 @@ body {
     margin-bottom: 30px; }
     .panel-content .panel-notice ul {
       padding-left: 17px; }
+  .panel-content .col-md-12 {
+    margin-bottom: 10px;
+    padding-left: 75px; }
+  .panel-content .input-horizontal-helper-text {
+    padding-left: 0;
+    padding-top: 5px; }
+  .panel-content .form-group:last-child {
+    margin-top: 35px; }
 
 .row-images {
   margin: 0;
@@ -337,3 +326,5 @@ body {
   .row-images .img-large {
     width: 100px;
     height: 100px; }
+
+/*# sourceMappingURL=main.css.map */

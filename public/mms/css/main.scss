@@ -40,10 +40,10 @@ body {
     padding: 20px 0;
     height: 75px;
 
-    > .row {
+    .row {
 	height: 100%;
 
-	> div {
+	div {
 	    height: 100%;
 	}
     }
@@ -63,7 +63,7 @@ body {
 	    }
 	}
 
-	> span {
+	span {
 	    color: $color-purple;
 	}
     }
@@ -182,37 +182,18 @@ body {
     height: 200px;
     color: $text-color-gray-2;
 
-    > .row {
-	height: 100%;
+    .col-md-3 {
+	.row:first-child {
+	    margin-bottom: 20px;
+	}
+    }
 
-	> div {
-	    height: 100%;
+    .col-md-6:last-child {
+	padding-top: 46px;
+	text-align: right;
 
-	    > .row {
-		height: 100%;
-
-		.row {
-		    margin-left: 10px;
-
-		    &:first-child {
-			margin-bottom: 20px;
-		    }
-		}
-
-		a {
-		    display: block;
-		}
-	    }
-
-	    &:last-child {
-		position: relative;
-
-		> div {
-		    position: absolute;
-		    bottom: 0;
-		    right: 15px;
-		}
-	    }
+	>.row+.row {
+	    margin-top: 20px;
 	}
     }
 
@@ -228,24 +209,12 @@ body {
 	}
     }
 
-    .footer-bar {
-	display: inline-block;
-	vertical-align: bottom;
-	margin-top: 15px;
-	text-align: right;
-	width: 100%;
-
-	.short-line {
-	    background-color: $color-green;
-	    height: 2px;
-	    margin-left: auto;
-	    margin-bottom: 3px;
-	    width: 20px;
-	}
-
-	p {
-	    margin: 0;
-	}
+    .short-line {
+	background-color: $color-green;
+	margin-left: auto;
+	margin-bottom: 5px;
+	width: 20px;
+	height: 2px;
     }
 }
 
@@ -488,6 +457,20 @@ body {
 	ul {
 	    padding-left: 17px;
 	}
+    }
+
+    .col-md-12 {
+	margin-bottom: 10px;
+	padding-left: 75px;
+    }
+
+    .input-horizontal-helper-text {
+	padding-left: 0;
+	padding-top: 5px;
+    }
+
+    .form-group:last-child {
+	margin-top: 35px;
     }
 }
 
