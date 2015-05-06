@@ -1,42 +1,80 @@
-<%= form_for(@logo) do |f| %>
-  <% if @logo.errors.any? %>
+    <script type="text/javascript">
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        if($('#logo_name').val() == ''){
+          $('#logo_name').val(input.files[0].name);
+        }
+        reader.onload = function (e) {
+          $('#blah') .attr('src', e.target.result).width(200).height(200);
+          $('#thumb_size') .attr('src', e.target.result).width(<%= Settings.logo.small.width.to_i %>).height(<%= Settings.logo.small.height.to_i %>);
+          $('#normal_size') .attr('src', e.target.result).width(<%= Settings.logo.normal.width.to_i %>).height(<%= Settings.logo.normal.height.to_i %>);
+          $('#big_size') .attr('src', e.target.result).width(<%= Settings.logo.origin.width.to_i %>).height(<%= Settings.logo.origin.height.to_i %>);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }   
+    function show_images () {
+      $('div.logo_images').show();
+    }
+    </script>
+
+    <%= form_for(@logo , html: {class: "form-horizontal"}) do |f| %>
+    <% if @logo.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@logo.errors.count, "error") %> prohibited this logo from being saved:</h2>
+      <h2> 发生两<%= pluralize(@logo.errors.count, "") %>个错误</h2>
 
       <ul>
-      <% @logo.errors.full_messages.each do |message| %>
+        <% @logo.errors.full_messages.each do |message| %>
         <li><%= message %></li>
-      <% end %>
+        <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
+    <div class="panel-content">
+      <p>添加LOGO图片</p>
+      <div class="panel-notice">
+        <p>说明</p>
+        <ul>
+          <li>图片使用透明背景，JPG文件会导致白色背景</li>
+          <li>请使用gif或png图片</li>
+        </ul>
+      </div>
+      <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png", :onchange => 'readURL(this); show_images()' %>
+      <%= f.hidden_field :uri_cache %>
+      <hr>
+      <div class="logo_images" style="display: <%=  controller.action_name == 'new' ? 'none' : 'show' %>">
+        <div class="form-group">
+          <%= f.label :LOGO名称,  :class => "col-sm-2 control-label" %>
+          <div class="col-sm-6">
+            <%= f.text_field :name ,  class: 'form-control' %>
+          </div>
+        </div>
+        <hr>
+        <div class="row row-images ">
+            <%= image_tag(@logo.uri , :id => 'blah') if @logo.uri? %>
+            <%= image_tag('javascript:void' , :id => 'blah') if not @logo.uri? %>
+          <figure>
+            <%= image_tag(@logo.uri_url(:thumb), :id => 'thumb_size') if @logo.uri? %>
+            <%= image_tag('javascript:void', :id => 'thumb_size') if not @logo.uri? %>
+            <figcaption><%= Settings.logo.small.height.to_i %>x<%= Settings.logo.small.height.to_i %></figcaption>
+          </figure>
+          <figure>
+            <%= image_tag(@logo.uri_url(:normal),  :id => 'normal_size') if @logo.uri? %>
+            <%= image_tag('javascript:void', :id => 'normal_size') if not @logo.uri? %>
+            <figcaption><%= Settings.logo.normal.height.to_i %> x <%= Settings.logo.normal.height.to_i %></figcaption>
+          </figure>
+          <figure>
+            <!-- <img class="img-rounded img-large" src="./picture/header-bg.jpg"> -->
+            <%= image_tag(@logo.uri , :id => 'big_size') if @logo.uri? %>
+            <%= image_tag('javascript:void', :id => 'big_size') if not @logo.uri? %>
+            <figcaption><%= Settings.logo.origin.height.to_i %> x <%= Settings.logo.origin.height.to_i %></figcaption>
+          </figure>
+        </div>
+      </div>
+      <%= f.submit '保存' , :class => 'btn btn-green' %>
+      <!-- <button class="btn btn-gray" type="button">取消</button> -->
+    </div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.file_field :uri %>
-    <%= f.hidden_field :uri_cache %>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>200 * 200 </th>
-          <th>100 * 100</th>
-          <th>50 * 50</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= image_tag(@logo.uri) if @logo.uri? %></td>
-          <td><%= image_tag(@logo.uri_url(:normal)) if @logo.uri? %></td>
-          <th><%= image_tag(@logo.uri_url(:thumb)) if @logo.uri? %></th>
-        </tr>
-      </tbody>
-    </table>
 
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

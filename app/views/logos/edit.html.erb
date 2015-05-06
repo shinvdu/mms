@@ -1,6 +1,6 @@
-<h1>Editing Logo</h1>
+<%=  render 'players/nav' %>
 
+<div class="tab-panel current" id="upload-logo">
+  <div class="panel-links"><%= link_to '返回LOGO列表', logos_path %> |  <%= link_to '查看', @logo %></div>
 <%= render 'form' %>
-
-<%= link_to 'Show', @logo %> |
-<%= link_to 'Back', logos_path %>
+</div>

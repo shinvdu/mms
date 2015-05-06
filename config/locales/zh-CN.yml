@@ -240,4 +240,7 @@ zh-CN:
     submit:
       create: "新增%{model}"
       update: "更新%{model}"
-      submit: "储存%{model}"
+      submit: "储存%{model}"  
+  model:
+    logo:
+      logo_require: "请选择要上传的LOGO"
