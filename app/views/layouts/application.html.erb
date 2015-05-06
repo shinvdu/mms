@@ -7,11 +7,10 @@
   <meta charset='utf-8' />
 <%= favicon_link_tag 'favicon.ico' %>
   <!-- video.js must be in the <head> for older IEs to work. -->
+  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
   <%= stylesheet_link_tag    'style', params[:controller], media: 'all', 'data-turbolinks-track' => true %>
    <%= javascript_include_tag 'site',  params[:controller], 'data-turbolinks-track' => true %>
   <!-- page -->
-  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
-  <link href="/mms/css/main.css" rel="stylesheet" type="text/css">
   <link href="/player1/video-js.css" rel="stylesheet" type="text/css">
   <link href="/player1/videojs.watermark.css" rel="stylesheet" type="text/css">
   <script src="/player1/video.js"></script>

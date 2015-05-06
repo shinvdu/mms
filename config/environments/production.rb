@@ -77,10 +77,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.assets.precompile += ['dashboard.js', 'site.js']
-  config.assets.precompile += ['dashboard.css', 'style.css']
-
-
   config.action_mailer.default_url_options = { host: Settings.default_url_options.host, port:  Settings.default_url_options.port }
 
   config.action_mailer.delivery_method = :smtp
