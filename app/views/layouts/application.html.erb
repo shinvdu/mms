@@ -33,13 +33,15 @@
     <%= render 'common/header' %>
 
     <div class="content">
-      <%= render 'common/nav' %>
-      <div>
-        <%= notice_message %>
+      <div class="container">
+        <%= render 'common/nav' %>
+        <div>
+          <%= notice_message %>
+        </div>
+
+        <%= yield %>
+
       </div>
-
-      <%= yield %>
-
     </div>
     <%= render 'common/footer' %>
   </div>

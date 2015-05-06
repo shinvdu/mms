@@ -37,7 +37,7 @@ body {
     background: url('../picture/header-bg.jpg') no-repeat;
     background-size: cover;
     margin-top: -75px;
-    padding: 20px 20%;
+    padding: 20px 0;
     height: 75px;
 
     > .row {
@@ -84,7 +84,7 @@ body {
 .content {
     background-color: $bg-color;
     min-height: 100%;
-    padding: 20px 20%;
+    padding: 20px 0;
 
     &:after {
 	content: '\00a0';
@@ -177,7 +177,7 @@ body {
 .footer {
     background: url('../picture/header-bg.jpg') no-repeat;
     background-size: cover;
-    padding: 30px 20%;
+    padding: 30px 0;
     margin-bottom: -200px;
     height: 200px;
     color: $text-color-gray-2;
