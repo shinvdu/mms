@@ -11,6 +11,7 @@ class MtsJob < ActiveRecord::Base
   end
 
   def post_process
+    Rails.logger.info "post process, #{self.post_process_command}"
     eval self.post_process_command if self.post_process_command.present?
   end
 end

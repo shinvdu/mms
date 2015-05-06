@@ -9,7 +9,7 @@ class VideoDetail < ActiveRecord::Base
   require 'uuidtools'
 
   module STATUS
-    # NONE = 10
+    NONE = 10
     PROCESSING = 20
     ONLY_LOCAL = 30
     ONLY_REMOTE = 40
@@ -86,7 +86,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def create_mkv_video
-    if self.user_video.ext_name == 'mkv'
+    if self.user_video.ext_name == '.mkv'
       return self
     end
     input_path = self.get_full_path
@@ -99,7 +99,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def copy_attributes
-    self.attributes.except('id', 'public_video', 'private_video', 'created_at')
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -117,6 +117,16 @@ class VideoDetail < ActiveRecord::Base
       self.status = VideoDetail::STATUS::BOTH
       self.save!
     end
+  end
+
+  def remove_local_file!
+    FileUtils.rm self.get_full_path
+    if self.REMOTE?
+      self.status = STATUS::ONLY_REMOTE
+    else
+      self.status = STATUS::NONE
+    end
+    self.save!
   end
 
   require 'rubygems'
@@ -139,26 +149,24 @@ class VideoDetail < ActiveRecord::Base
 
   def create_mkv_video_by_fragments(video_fragments)
     new_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
+    new_video.public = false
+    new_video.save!
     new_video.uri = self.uri.split('.').insert(-2, new_video.id).join('.')
-    new_video.uuid = UUIDTools::UUID.random_create.to_s
     input_path = self.get_full_path
     output_path = new_video.get_full_path
 
     file_paths = []
     video_fragments.each_with_index do |frag, idx|
-      tmp_path = File.join(File.dirname(output_path), [new_video.uuid, idx, 'mkv'].join('.'))
+      tmp_path = new_video.uri.split('.').insert(-2, idx).join('.')
       file_paths.append tmp_path
       cp = frag.video_cut_point
       time_str = "#{get_time(cp.start_time)}-#{get_time(cp.stop_time)}"
       `mkvmerge -o #{tmp_path} --split parts:#{time_str} #{input_path}`
     end
-
-    # TODO
-    # `mkvmerge -o #{output_path} --split parts:0:0:1-0:0:3,+0:0:5-0:0:7 #{input_path}`
-    FileUtils.cp file_paths[0], output_path
+    `mkvmerge  -o #{output_path} #{file_paths.join(' +')}`
 
     file_paths.each_with_index { |path| FileUtils.rm path }
-    new_video.load_local_file!
+    new_video.save!
     new_video
   end
 

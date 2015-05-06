@@ -51,19 +51,17 @@ class VideoProduct < ActiveRecord::Base
   end
 
   def transcode_video(video_detail, transcoding)
-    transcode_job = video_detail.create_transcoding_video_job
+    transcode_job = video_detail.create_transcoding_video_job(transcoding, true)
     transcode_job.post_process_command = "VideoProduct.find(#{self.id}).video_transcode_finished"
     transcode_job.save!
+    self.video_detail = transcode_job.target
+    self.save!
   end
 
   def video_transcode_finished
     self.status = STATUS::FINISHED
-    video_product_group = self.video_product_group
-    not_all_finished = video_product_group.video_products.any? { |products| !products.FINISHED? }
-    unless not_all_finished
-      video_product_group.status = VideoProductGroup::STATUS::FINISHED
-      video_product_group.save!
-    end
+    self.video_product_group.check_status
+    self.save!
   end
 end
 

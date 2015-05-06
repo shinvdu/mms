@@ -60,6 +60,10 @@ class VideoProductGroup < ActiveRecord::Base
   # asynchronous method
   #####################################################
 
+  def logger
+    Delayed::Worker.logger
+  end
+
   def create_products
     logger.info 'Start process video product group'
     video_product_group = self
@@ -93,7 +97,8 @@ class VideoProductGroup < ActiveRecord::Base
     self.status = STATUS::PROCESSING
     self.save!
     self.mkv_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
-    self.mkv_video.load_local_file!
+    self.mkv_video.load_local_file! unless self.mkv_video.REMOTE?
+    self.mkv_video.remove_local_file!
 
     self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
@@ -104,6 +109,17 @@ class VideoProductGroup < ActiveRecord::Base
   end
 
   handle_asynchronously :create_products
+
+  def check_status
+    not_all_finished = self.video_products.any? { |products| !products.FINISHED? }
+    unless not_all_finished
+      self.status = VideoProductGroup::STATUS::FINISHED
+      FileUtils.rm self.mkv_video.get_full_path
+      self.mkv_video.delete
+      self.mkv_video = nil
+      self.save!
+    end
+  end
 
 end
 
