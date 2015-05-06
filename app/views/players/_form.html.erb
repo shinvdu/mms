@@ -84,7 +84,7 @@
   <div class="form-group">
     <%= f.label :长宽 ,  :class => "col-sm-2 control-label" %>
     <div class="col-sm-6">
-      <%= select_tag(:player_size,  options_for_select([['480 * 320', '480|320'], ['1080 * 720', '1080|720'], ['1920 * 1080', '1920|1080']], "#{@player.width}|#{@player.height}"), {:class => 'form-control player_size' }) %>
+      <%= select_tag(:player_size,  options_for_select(Settings.player.sizes.invert.to_a, "#{@player.width}|#{@player.height}"), {:class => 'form-control player_size' }) %>
       <%= f.hidden_field :width, :id => 'player_width' %>
       <%= f.hidden_field :height, :id => 'player_height' %>
     </div>
