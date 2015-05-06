@@ -36,4 +36,13 @@ module ApplicationHelper
 		return true if item == controller[con.to_sym]
 	end
 
+	def javascript(*js_files)
+		content_for(:head_js) { javascript_include_tag(*js_files) }
+	end
+
+	def style(*css_files)
+		content_for(:head_css) { stylesheet_link_tag(*css_files) }
+	end
+
+
 end
