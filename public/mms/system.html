@@ -19,359 +19,395 @@
 	<![endif]-->
   </head>
   <body>
-    <div class="header">
-      <div class="title">
-	<a class="header-brand text-white" href="#">MMS</a>
-	<span class="text-purple">www.mz.com</span>
-      </div><!--
-	      --><div class="user-options text-gray">
-	<div class="user-name">
-	  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-	  <span>MMS</span>
-	</div>
-	<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-      </div>
-    </div>
+    <div class="site">
+      <div class="header" id="header"></div>
 
-    <div class="content">
-      <nav class="navbar">
-	<form class="navbar-form navbar-right" role="search">
-          <div class="form-group right-inner-addon">
-            <input type="search" class="form-control" placeholder="视频搜索">
-	    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-          </div>
-	</form>
-	<ul class="nav nav-pills" role="tablist">
-	  <li role="presentation">
-	    <a href="index.html" role="tab">
-	      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-	      首页
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="video.html" role="tab">
-	      <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-	      视频管理
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="advertisement.html" role="tab">
-	      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-	      广告管理
-	    </a>
-	  </li>
-	  <li role="presentation">
-	    <a href="player.html" role="tab">
-	      <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
-	      点播播放器
-	    </a>
-	  </li>
-	  <li class="active" role="presentation">
-	    <a href="#" role="tab">
-	      <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
-	      系统管理
-	    </a>
-	  </li>
-	</ul>
-      </nav>
-
-      <nav class="nav-tab">
-	<ul class="nav-square clearfix">
-	  <li class="current">
-	    <a href="#manage-user">
-	      <span class="square"></span>
-	      用户管理
-	    </a>
-	  </li>
-	  <li>
-	    <a href="#manage-permission">
-	      <span class="square"></span>
-	      权限管理
-	    </a>
-	  </li>
-	  <li>
-	    <a href="#manage-api">
-	      <span class="square"></span>
-	      API管理
-	    </a>
-	  </li>
-	  <li>
-	    <a href="#manage-log">
-	      <span class="square"></span>
-	      操作日志
-	    </a>
-	  </li>
-	</ul>
-      </nav>
-
-      <div class="tab-panel current" id="manage-user">
-      	<div class="panel-header clearfix">
-	  <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input type="search" class="form-control" placeholder="模版名称/用户名">
+      <div class="content">
+	<nav class="navbar">
+	  <form class="navbar-form navbar-right" role="search">
+	    <div class="form-group right-inner-addon">
+	      <input type="search" class="form-control" placeholder="视频搜索">
 	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
+	    </div>
 	  </form>
-	  <button type="button" class="btn btn-green">添加</button>
-	  <button type="button" class="btn btn-blue">编辑</button>
-	  <button type="button" class="btn btn-gray">删除</button>
-	</div>
-        <table class="table table-hover panel-table">
-	  <thead>
-	    <tr>
-	      <th></th>
-	      <th>编号</th>
-	      <th>用户名称</th>
-	      <th>登录IP</th>
-	      <th>最后登陆时间</th>
-	      <th>操作</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>
-		<input type="checkbox">
-	      </td>
-	      <td>1234566</td>
-	      <td>xiao2</td>
-	      <td>211.211.211.211</td>
-	      <td>2015/04/26 17:30</td>
-	      <td>
-		<a href="#">修改</a>
-		<a href="#">删除</a>
-		<a href="#">冻结</a>
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
-	<div class="panel-footer">
-	  <nav class="panel-table-pagination">
-	    <ul class="pagination">
-	      <li>
-		<a href="#" aria-label="Previous">
-		  <span aria-hidden="true">&laquo;</span>
-		</a>
-	      </li>
-	      <li class="active"><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-		<a href="#" aria-label="Next">
-		  <span aria-hidden="true">&raquo;</span>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
-
-      <div class="tab-panel" id="manage-permission">
-      	<div class="panel-header clearfix">
-	  <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input type="search" class="form-control" placeholder="模版名称/用户名">
-	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
-	  </form>
-	  <button type="button" class="btn btn-green">添加</button>
-	  <button type="button" class="btn btn-blue">编辑</button>
-	  <button type="button" class="btn btn-gray">删除</button>
-	</div>
-        <table class="table table-hover panel-table">
-	  <thead>
-	    <tr>
-	      <th></th>
-	      <th>编号</th>
-	      <th>角色名称</th>
-	      <th>描述</th>
-	      <th>创建时间</th>
-	      <th>操作</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>
-		<input type="checkbox">
-	      </td>
-	      <td>1234566</td>
-	      <td>xiao2</td>
-	      <td>系统管理 / 播放器管理</td>
-	      <td>2015/04/26 17:30</td>
-	      <td>
-		<a href="#">修改</a>
-		<a href="#">删除</a>
-		<a href="#">冻结</a>
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
-	<div class="panel-footer">
-	  <nav class="panel-table-pagination">
-	    <ul class="pagination">
-	      <li>
-		<a href="#" aria-label="Previous">
-		  <span aria-hidden="true">&laquo;</span>
-		</a>
-	      </li>
-	      <li class="active"><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-		<a href="#" aria-label="Next">
-		  <span aria-hidden="true">&raquo;</span>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
-
-      <div class="tab-panel" id="manage-api">
-      	<div class="panel-header clearfix">
-	  <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input type="search" class="form-control" placeholder="模版名称/用户名">
-	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
-	  </form>
-	</div>
-        <table class="table table-hover panel-table">
-	  <thead>
-	    <tr>
-	      <th>名称</th>
-	      <th>象征</th>
-	      <th>用户</th>
-	      <th>操作</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>token</td>
-	      <td>xiao2系统管理 / 播放器管理 / 管理</td>
-	      <td>管理者</td>
-	      <td>
-		<a href="#">启用</a>
-		<a href="#">禁用</a>
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
-	<div class="panel-footer">
-	  <nav class="panel-table-pagination">
-	    <ul class="pagination">
-	      <li>
-		<a href="#" aria-label="Previous">
-		  <span aria-hidden="true">&laquo;</span>
-		</a>
-	      </li>
-	      <li class="active"><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-		<a href="#" aria-label="Next">
-		  <span aria-hidden="true">&raquo;</span>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
-
-      <div class="tab-panel" id="manage-log">
-      	<div class="panel-header clearfix">
-	  <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input type="search" class="form-control" placeholder="用户名">
-	      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </div>
-            <input type="text" placeholder="2015/05/01">
-	    至
-            <input type="text" placeholder="2015/05/01">
-	  </form>
-	</div>
-        <table class="table table-hover panel-table">
-	  <thead>
-	    <tr>
-	      <th style="width: 20%">登录时间</th>
-	      <th style="width: 10%">登录名</th>
-	      <th style="width: 20%">登录IP</th>
-	      <th style="width: 50%">详情</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>2015/04/26 17:31</td>
-	      <td>管理者</td>
-	      <td>211.211.211.211</td>
-	      <td></td>
-	    </tr>
-	  </tbody>
-	</table>
-	<div class="panel-footer">
-	  <nav class="panel-table-pagination">
-	    <ul class="pagination">
-	      <li>
-		<a href="#" aria-label="Previous">
-		  <span aria-hidden="true">&laquo;</span>
-		</a>
-	      </li>
-	      <li class="active"><a href="#">1</a></li>
-	      <li><a href="#">2</a></li>
-	      <li><a href="#">3</a></li>
-	      <li><a href="#">4</a></li>
-	      <li><a href="#">5</a></li>
-	      <li>
-		<a href="#" aria-label="Next">
-		  <span aria-hidden="true">&raquo;</span>
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-	</div>
-      </div>
-
-    </div>
-
-    <div class="footer">
-      <div class="footer-links">
-	<div class="link-list">
-	  <div class="link-list-header">
-	    <a href="#">未谷技术</a>
-	  </div>
-	  <ul>
-	    <li><a href="video.html">视频管理</a></li>
-	    <li><a href="player.html">点播播放器</a></li>
-	    <li><a href="advertisement.html">广告管理</a></li>
-	    <li><a href="#">系统管理</a></li>
-	    <li><a href="#">用户协议</a></li>
+	  <ul class="nav nav-pills" role="tablist">
+	    <li role="presentation">
+	      <a href="index.html" role="tab">
+		<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+		首页
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="video.html" role="tab">
+		<span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+		视频管理
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="advertisement.html" role="tab">
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		广告管理
+	      </a>
+	    </li>
+	    <li role="presentation">
+	      <a href="player.html" role="tab">
+		<span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+		点播播放器
+	      </a>
+	    </li>
+	    <li class="active" role="presentation">
+	      <a href="system.html" role="tab">
+		<span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
+		系统管理
+	      </a>
+	    </li>
 	  </ul>
-	</div><!--
-		--><div class="link-list">
-	  <div class="link-list-header">
-	    <a href="#">帮助中心</a>
-	  </div>
-	  <ul>
-	    <li><a href="#">平台</a></li>
+	</nav>
+
+	<nav class="nav-tab">
+	  <ul class="nav-square clearfix">
+	    <li class="current">
+	      <a href="#manage-user">
+		<span class="square"></span>
+		用户管理
+	      </a>
+	    </li>
+	    <li>
+	      <a href="#manage-permission">
+		<span class="square"></span>
+		权限管理
+	      </a>
+	    </li>
+	    <li>
+	      <a href="#manage-api">
+		<span class="square"></span>
+		API管理
+	      </a>
+	    </li>
+	    <li>
+	      <a href="#manage-log">
+		<span class="square"></span>
+		操作日志
+	      </a>
+	    </li>
 	  </ul>
+	</nav>
+
+	<div class="tab-panel current" id="manage-user">
+      	  <div class="panel-header clearfix">
+	    <form class="pull-right" role="search">
+              <div class="form-group right-inner-addon">
+		<input type="search" class="form-control" placeholder="模版名称/用户名">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+	    </form>
+	    <button type="button" class="btn btn-green">添加</button>
+	    <button type="button" class="btn btn-blue">编辑</button>
+	    <button type="button" class="btn btn-gray">删除</button>
+	  </div>
+          <table class="table table-hover">
+	    <thead>
+	      <tr>
+		<th></th>
+		<th>编号</th>
+		<th>用户名称</th>
+		<th>登录IP</th>
+		<th>最后登陆时间</th>
+		<th>操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>
+		  <input type="checkbox">
+		</td>
+		<td>1234566</td>
+		<td>xiao2</td>
+		<td>211.211.211.211</td>
+		<td>2015/04/26 17:30</td>
+		<td>
+		  <a href="#">修改</a>
+		  <a href="#">删除</a>
+		  <a href="#">冻结</a>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="panel-footer">
+	    <nav class="panel-table-pagination">
+	      <ul class="pagination">
+		<li>
+		  <a href="#" aria-label="Previous">
+		    <span aria-hidden="true">&laquo;</span>
+		  </a>
+		</li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		  <a href="#" aria-label="Next">
+		    <span aria-hidden="true">&raquo;</span>
+		  </a>
+		</li>
+	      </ul>
+	    </nav>
+	  </div>
 	</div>
-      </div><!--
-	      --><div class="footer-info">
-	<div class="footer-bar">
-	  <div class="short-line"></div>
-	  <a href="#">关于我们</a>
+	
+	<div class="tab-panel" id="add-user">
+	  <div class="panel-links"><a href="#">&lt;&lt; 返回用户管理</a></div>
+	  <div class="panel-content">
+	    <p>添加用户</p>
+	    <div>
+	      角色名:
+	      <input class="form-control" type="text" placeholder="播放器名称">
+	    </div>
+	    <div>
+	      昵称:
+	      <input class="form-control" type="text">
+	    </div>
+	    <div>
+	      邮箱:
+	      <input class="form-control" type="text">
+	    </div>
+	    <div>
+	      联系电话:
+	      <input class="form-control" type="text">
+	    </div>
+	    <div>
+	      密码:
+	      <input class="form-control" type="text">
+	    </div>
+	    <div>
+	      确认密码:
+	      <input class="form-control" type="text">
+	    </div>
+	    <div>
+	      分配角色：
+	      <input class="form-control" type="radio">角色
+	      <input class="form-control" type="radio">角色
+	      <input class="form-control" type="radio">角色
+	      <input class="form-control" type="radio">角色
+	    </div>
+	    <div>
+	      API权限：
+	      <input class="form-control" type="radio">角色
+	      <input class="form-control" type="radio">角色
+	      <input class="form-control" type="radio">角色
+	    </div>
+	    <button class="btn" type="button">保存</button>
+	    <button class="btn" type="button">取消</button>
+	  </div>
 	</div>
-	<div class="footer-bar">
-	  <div class="short-line"></div>
-	  <p>copyright &copy; 2015上海未谷信息技术有限公司</p>
-	  <p>沪ICP 备案 xxxxxxx</p>
+
+	<div class="tab-panel" id="manage-permission">
+      	  <div class="panel-header clearfix">
+	    <form class="pull-right" role="search">
+              <div class="form-group right-inner-addon">
+		<input type="search" class="form-control" placeholder="模版名称/用户名">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+	    </form>
+	    <button type="button" class="btn-green">添加</button>
+	    <button type="button" class="btn-blue">编辑</button>
+	    <button type="button" class="btn-gray">删除</button>
+	  </div>
+          <table class="table table-hover panel-table">
+	    <thead>
+	      <tr>
+		<th></th>
+		<th>编号</th>
+		<th>角色名称</th>
+		<th>描述</th>
+		<th>创建时间</th>
+		<th>操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>
+		  <input type="checkbox">
+		</td>
+		<td>1234566</td>
+		<td>xiao2</td>
+		<td>系统管理 / 播放器管理</td>
+		<td>2015/04/26 17:30</td>
+		<td>
+		  <a href="#">修改</a>
+		  <a href="#">删除</a>
+		  <a href="#">冻结</a>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="panel-footer">
+	    <nav class="panel-table-pagination">
+	      <ul class="pagination">
+		<li>
+		  <a href="#" aria-label="Previous">
+		    <span aria-hidden="true">&laquo;</span>
+		  </a>
+		</li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		  <a href="#" aria-label="Next">
+		    <span aria-hidden="true">&raquo;</span>
+		  </a>
+		</li>
+	      </ul>
+	    </nav>
+	  </div>
+	</div>
+
+	<div class="tab-panel" id="add-permission-control">
+	  <div class="panel-links"><a href="#">&lt;&lt; 返回权限管理</a></div>
+	  <div class="panel-content">
+	    <p>添加角色</p>
+	    <div>
+	      角色名称:
+	      <input class="form-control" type="text" placeholder="管理员">
+	    </div>
+	    <div>
+	      系统管理:
+	      <input class="form-control" type="radio" name="player-color">权限
+	      <input class="form-control" type="radio" name="player-color">权限
+	      <input class="form-control" type="radio" name="player-color">权限
+	    </div>
+	    <div>
+	      播放器管理:
+	      <input class="form-control" type="radio" name="player-color">权限
+	      <input class="form-control" type="radio" name="player-color">权限
+	      <input class="form-control" type="radio" name="player-color">权限
+	    </div>
+	    <div>
+	      媒资管理:
+	      <input class="form-control" type="radio" name="player-color">权限
+	      <input class="form-control" type="radio" name="player-color">权限
+	      <input class="form-control" type="radio" name="player-color">权限
+	    </div>
+	    <div>
+	      说明：
+	      <textarea class="form-control" placeholder="100个字符"></textarea>
+	    </div>
+	    <button class="btn" type="button">保存</button>
+	    <button class="btn" type="button">取消</button>
+	  </div>
+	</div>
+
+	<div class="tab-panel" id="manage-api">
+      	  <div class="panel-header clearfix">
+	    <form class="pull-right" role="search">
+              <div class="form-group right-inner-addon">
+		<input type="search" class="form-control" placeholder="模版名称/用户名">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+	    </form>
+	  </div>
+          <table class="table table-hover panel-table">
+	    <thead>
+	      <tr>
+		<th>名称</th>
+		<th>象征</th>
+		<th>用户</th>
+		<th>操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>token</td>
+		<td>xiao2系统管理 / 播放器管理 / 管理</td>
+		<td>管理者</td>
+		<td>
+		  <a href="#">启用</a>
+		  <a href="#">禁用</a>
+		</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="panel-footer">
+	    <nav class="panel-table-pagination">
+	      <ul class="pagination">
+		<li>
+		  <a href="#" aria-label="Previous">
+		    <span aria-hidden="true">&laquo;</span>
+		  </a>
+		</li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		  <a href="#" aria-label="Next">
+		    <span aria-hidden="true">&raquo;</span>
+		  </a>
+		</li>
+	      </ul>
+	    </nav>
+	  </div>
+	</div>
+
+	<div class="tab-panel" id="manage-log">
+      	  <div class="panel-header clearfix">
+	    <form class="pull-right" role="search">
+              <div class="form-group right-inner-addon">
+		<input type="search" class="form-control" placeholder="用户名">
+		<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+              <input type="text" placeholder="2015/05/01">
+	      至
+              <input type="text" placeholder="2015/05/01">
+	    </form>
+	  </div>
+          <table class="table table-hover panel-table">
+	    <thead>
+	      <tr>
+		<th style="width: 20%">登录时间</th>
+		<th style="width: 10%">登录名</th>
+		<th style="width: 20%">登录IP</th>
+		<th style="width: 50%">详情</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>2015/04/26 17:31</td>
+		<td>管理者</td>
+		<td>211.211.211.211</td>
+		<td></td>
+	      </tr>
+	    </tbody>
+	  </table>
+	  <div class="panel-footer">
+	    <nav class="panel-table-pagination">
+	      <ul class="pagination">
+		<li>
+		  <a href="#" aria-label="Previous">
+		    <span aria-hidden="true">&laquo;</span>
+		  </a>
+		</li>
+		<li class="active"><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		  <a href="#" aria-label="Next">
+		    <span aria-hidden="true">&raquo;</span>
+		  </a>
+		</li>
+	      </ul>
+	    </nav>
+	  </div>
 	</div>
       </div>
+
+      <div class="footer" id="footer"></div>
     </div>
 
     <script src="js/jquery/1.11.2/jquery.min.js"></script>
