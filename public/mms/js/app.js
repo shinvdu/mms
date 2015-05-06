@@ -19,6 +19,13 @@ var main = function() {
 	$('#add-advertisement').addClass('current');
 	e.preventDefault();
     });
+
+    $('#btn-add-new-player').on('click', function(e) {
+	$('.tab-panel').removeClass('current');
+	$('#add-new-player').addClass('current');
+	e.preventDefault();
+    });
+
 };
 
 $(document).ready(main);
