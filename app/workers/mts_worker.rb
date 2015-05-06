@@ -33,6 +33,9 @@ module MTSWorker
         end
         self.save!
         TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
+      else
+        logger.error 'create transcoding job failed!'
+        raise 'create transcoding job failed!'
       end
     end
   end
@@ -126,6 +129,7 @@ module MTSWorker
                 video_detail.status = VideoDetail::STATUS::BOTH
               end
               video_detail.save!
+              job.post_process
             when MTSUtils::Status::TRANSCODE_FAIL
               job.status = MtsJob::STATUS::FAILED
               job.code = result.code

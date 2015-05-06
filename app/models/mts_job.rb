@@ -9,6 +9,10 @@ class MtsJob < ActiveRecord::Base
     FAILED = 50
     MISSING = 60
   end
+
+  def post_process
+
+  end
 end
 
 

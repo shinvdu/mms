@@ -1,11 +1,13 @@
 class LocalTask < ActiveRecord::Base
   belongs_to :local_task_group
   scope :not_finished, -> { where(['status in (?)', STATUS::NOT_STARTED]) }
+  scope :failed, -> { where(['status in (?)', STATUS::FAILED]) }
 
   module STATUS
     NOT_STARTED = 10
     PROCESSING = 20
     FINISHED = 30
+    FAILED = 99
   end
 end
 

@@ -61,8 +61,6 @@ class UserVideo < ActiveRecord::Base
     end
     # check publish strategy
     # currently only edit
-    video_detail.load_local_file(video_detail.get_full_path)
-    self.status = UserVideo::STATUS::UPLOADED
     create_transcoding_video_job(nil, true)
     create_mkv
     self.status = UserVideo::STATUS::PRETRANSCODING
@@ -73,16 +71,13 @@ class UserVideo < ActiveRecord::Base
   def create_mkv
     video_detail = self.original_video
     if video_detail.video_codec.downcase.index('h264') && video_detail.audio_codec.downcase.index('aac')
-      create_local_mkv
+      self.mkv_video = self.original_video.create_mkv_video
     else
+      video_detail.load_local_file! unless video_detail.REMOTE?
       transcode_job = create_transcoding_video_job(Transcoding.find_middle_template)
       self.mkv_video = transcode_job.target
     end
     self.save!
-  end
-
-  def create_local_mkv
-    self.mkv_video = self.original_video.create_mkv_video
   end
 end
 

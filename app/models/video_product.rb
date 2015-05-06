@@ -13,8 +13,8 @@ class VideoProduct < ActiveRecord::Base
     FINISHED = 60
   end
 
-  def make_video_product_task(task_group)
-    VideoProductTask.create(:target => self, :local_task_group => task_group)
+  def transcode_from_mkv
+    # TODO
   end
 
   def get_m3u8_file_path
@@ -36,6 +36,22 @@ class VideoProduct < ActiveRecord::Base
 
   def FINISHED?
     self.status == STATUS::FINISHED
+  end
+
+  ########################################################
+  # asynchronous method
+  ########################################################
+
+  def produce!(dependent_video, video_fragments)
+    fragments = []
+    video_fragments.each_with_index do |frag, idx|
+      product_fragment = VideoProductFragment.new(:video_product => self, :video_fragment => frag, :order => idx)
+      product_fragment.produce(dependent_video)
+      fragments.append product_fragment
+    end
+
+    self.status = VideoProduct::STATUS::FINISHED
+    self.save!
   end
 end
 

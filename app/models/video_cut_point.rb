@@ -1,5 +1,14 @@
 class VideoCutPoint < ActiveRecord::Base
   belongs_to :user_video
+
+  def self.create_by_user(cut_points)
+    video_cut_points = VideoCutPoint.create(cut_points)
+    video_cut_points.each do |cp|
+      cp.user_created = true
+      cp.save!
+    end
+    video_cut_points
+  end
 end
 
 #------------------------------------------------------------------------------
