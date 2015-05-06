@@ -221,15 +221,94 @@
 	  <div class="panel-links"><a href="#">&lt;&lt; 返回模板列表</a></div>
 	  <div class="panel-content">
 	    <p>添加转码模板</p>
+	    <form class="form-horizontal">
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="template-name">模板名称:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="template-name" type="text">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">输出格式:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <p class="form-control-static">mp4</p>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">编码级别:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+	          <select class="form-control" id="">
+		    <option>滚动广告选择</option>
+		    <option>滚动广告选择</option>
+		    <option>滚动广告选择</option>
+	          </select>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-phone">联系电话:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-phone" type="tel">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-password">密码:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-password" type="password">
+                  (6-20个字符)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-password-confirm">确认密码:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-password-confirm" type="password">
+                  (6-20个字符)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">分配角色:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-1" type="radio" name="role-assignment" value="option1">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-2" type="radio" name="role-assignment" value="option2">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-3" type="radio" name="role-assignment" value="option3">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-4" type="radio" name="role-assignment" value="option4">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-5" type="radio" name="role-assignment" value="option5">角色
+                  </label>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">API权限:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <label class="radio-inline">
+                    <input id="api-permission-radio-1" type="radio" name="api-permission" value="option1">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="api-permission-radio-2" type="radio" name="api-permission" value="option2">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="api-permission-radio-3" type="radio" name="api-permission" value="option3">权限
+                  </label>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-6">
+	          <button class="btn btn-green" type="button">保存</button>
+	          <button class="btn btn-gray" type="button">取消</button>
+		</div>
+	      </div>
+            </form>
+
+
 	    <div>
-	      模板名称:
-	      <input type="text">
-	    </div>
-	    <div>
-	      输出格式: mp4
-	    </div>
-	    <div>
-	      编码级别:
+	      :
 	      <select>
 		<option>high</option>
 		<option>high</option>

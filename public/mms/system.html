@@ -160,46 +160,89 @@
 	  <div class="panel-links"><a href="#">&lt;&lt; 返回用户管理</a></div>
 	  <div class="panel-content">
 	    <p>添加用户</p>
-	    <div>
-	      角色名:
-	      <input class="form-control" type="text" placeholder="播放器名称">
-	    </div>
-	    <div>
-	      昵称:
-	      <input class="form-control" type="text">
-	    </div>
-	    <div>
-	      邮箱:
-	      <input class="form-control" type="text">
-	    </div>
-	    <div>
-	      联系电话:
-	      <input class="form-control" type="text">
-	    </div>
-	    <div>
-	      密码:
-	      <input class="form-control" type="text">
-	    </div>
-	    <div>
-	      确认密码:
-	      <input class="form-control" type="text">
-	    </div>
-	    <div>
-	      分配角色：
-	      <input class="form-control" type="radio">角色
-	      <input class="form-control" type="radio">角色
-	      <input class="form-control" type="radio">角色
-	      <input class="form-control" type="radio">角色
-	    </div>
-	    <div>
-	      API权限：
-	      <input class="form-control" type="radio">角色
-	      <input class="form-control" type="radio">角色
-	      <input class="form-control" type="radio">角色
-	    </div>
-	    <button class="btn" type="button">保存</button>
-	    <button class="btn" type="button">取消</button>
-	  </div>
+	    <form class="form-horizontal">
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-name">用户名:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-name" type="text" placeholder="用户名称">
+                  (5-20个字符，包括英文字母/数字/下划线)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-nickname">昵称:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-nickname" type="text">
+                  (16个字符)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-email">邮箱:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-email" type="email">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-phone">联系电话:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-phone" type="tel">
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-password">密码:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-password" type="password">
+                  (6-20个字符)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="user-password-confirm">确认密码:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="user-password-confirm" type="password">
+                  (6-20个字符)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">分配角色:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-1" type="radio" name="role-assignment" value="option1">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-2" type="radio" name="role-assignment" value="option2">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-3" type="radio" name="role-assignment" value="option3">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-4" type="radio" name="role-assignment" value="option4">角色
+                  </label>
+                  <label class="radio-inline">
+                    <input id="role-assignment-radio-5" type="radio" name="role-assignment" value="option5">角色
+                  </label>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">API权限:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <label class="radio-inline">
+                    <input id="api-permission-radio-1" type="radio" name="api-permission" value="option1">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="api-permission-radio-2" type="radio" name="api-permission" value="option2">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="api-permission-radio-3" type="radio" name="api-permission" value="option3">权限
+                  </label>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-6">
+	          <button class="btn btn-green" type="button">保存</button>
+	          <button class="btn btn-gray" type="button">取消</button>
+		</div>
+	      </div>
+            </form>
+          </div>
 	</div>
 
 	<div class="tab-panel" id="manage-permission">
@@ -269,34 +312,70 @@
 	  <div class="panel-links"><a href="#">&lt;&lt; 返回权限管理</a></div>
 	  <div class="panel-content">
 	    <p>添加角色</p>
-	    <div>
-	      角色名称:
-	      <input class="form-control" type="text" placeholder="管理员">
-	    </div>
-	    <div>
-	      系统管理:
-	      <input class="form-control" type="radio" name="player-color">权限
-	      <input class="form-control" type="radio" name="player-color">权限
-	      <input class="form-control" type="radio" name="player-color">权限
-	    </div>
-	    <div>
-	      播放器管理:
-	      <input class="form-control" type="radio" name="player-color">权限
-	      <input class="form-control" type="radio" name="player-color">权限
-	      <input class="form-control" type="radio" name="player-color">权限
-	    </div>
-	    <div>
-	      媒资管理:
-	      <input class="form-control" type="radio" name="player-color">权限
-	      <input class="form-control" type="radio" name="player-color">权限
-	      <input class="form-control" type="radio" name="player-color">权限
-	    </div>
-	    <div>
-	      说明：
-	      <textarea class="form-control" placeholder="100个字符"></textarea>
-	    </div>
-	    <button class="btn" type="button">保存</button>
-	    <button class="btn" type="button">取消</button>
+	    <form class="form-horizontal">
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="role-name">角色名称:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+		  <input class="form-control" id="role-name" type="text" placeholder="管理员">
+                  (20字符)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">系统管理:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <label class="radio-inline">
+                    <input id="system-management-radio-1" type="radio" name="system-management" value="option1">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="system-management-radio-2" type="radio" name="system-management" value="option2">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="system-management-radio-3" type="radio" name="system-management" value="option3">权限
+                  </label>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">播放器管理:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <label class="radio-inline">
+                    <input id="player-management-radio-1" type="radio" name="player-management" value="option1">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="player-management-radio-2" type="radio" name="player-management" value="option2">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="player-management-radio-3" type="radio" name="player-management" value="option3">权限
+                  </label>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label">媒资管理:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+                  <label class="radio-inline">
+                    <input id="media-source-management-radio-1" type="radio" name="media-source-management" value="option1">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="media-source-management-radio-2" type="radio" name="media-source-management" value="option2">权限
+                  </label>
+                  <label class="radio-inline">
+                    <input id="media-source-management-radio-3" type="radio" name="media-source-management" value="option3">权限
+                  </label>
+		</div>
+	      </div>
+	      <div class="form-group">
+		<label class="col-sm-2 control-label" for="add-permission-control-notice">说明:</label>
+		<div class="col-sm-offset-2 col-sm-6">
+	          <textarea class="form-control" id="add-permission-control-notice" rows="5" placeholder="100个字符"></textarea>
+                  (100个字符)
+		</div>
+	      </div>
+	      <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-6">
+	          <button class="btn btn-green" type="button">保存</button>
+	          <button class="btn btn-gray" type="button">取消</button>
+		</div>
+	      </div>
+            </form>
 	  </div>
 	</div>
 
