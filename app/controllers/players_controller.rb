@@ -5,7 +5,6 @@ class PlayersController < ApplicationController
   end
   before_action :set_player, only: [:show, :edit, :update, :destroy]
   before_action :restrict_player, only: [:edit, :update,  :destroy]
-  before_action :only_root, only: [:index]
 
   # GET /players
   # GET /players.json
@@ -21,10 +20,20 @@ class PlayersController < ApplicationController
   # GET /players/new
   def new
     @player = Player.new
+    @logos = {}
+    logos = Logo.where(user_id: current_user.uid)
+    logos.each do |logo |
+      @logos[logo.name] = logo.id
+    end
   end
 
   # GET /players/1/edit
   def edit
+    @logos = {}
+    logos = Logo.where(user_id: current_user.uid)
+    logos.each do |logo |
+      @logos[logo.name] = logo.id
+    end
   end
 
   # POST /players

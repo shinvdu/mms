@@ -21,7 +21,8 @@
   </div>
   <div class="field">
     <%= f.label :logo %><br>
-    <%= f.number_field :logo_id %>
+
+    <%= f.select :logo_id, @logos %>
   </div>
   <div class="field">
     <%= f.label :logo_position %><br>
@@ -29,7 +30,7 @@
   </div>
   <div class="field">
     <%= f.label :autoplay %><br>
-    <%= f.number_field :autoplay %>
+    <%= f.check_box :autoplay %>
   </div>
   <div class="field">
     <%= f.label :share %><br>
@@ -37,7 +38,7 @@
   </div>
   <div class="field">
     <%= f.label :full_screen %><br>
-    <%= f.number_field :full_screen %>
+    <%= f.check_box :full_screen %>
   </div>
   <div class="field">
     <%= f.label :width %><br>
@@ -46,10 +47,6 @@
   <div class="field">
     <%= f.label :height %><br>
     <%= f.number_field :height %>
-  </div>
-  <div class="field">
-    <%= f.label :data %><br>
-    <%= f.text_area :data %>
   </div>
   <div class="actions">
     <%= f.submit %>

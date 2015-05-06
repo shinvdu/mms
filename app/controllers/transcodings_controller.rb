@@ -9,7 +9,7 @@ class TranscodingsController < ApplicationController
   # GET /transcodings
   # GET /transcodings.json
   def index
-    @transcodings = Transcoding.where(user_id: current_user.uid).page(params[:page])
+    @transcodings = Transcoding.visiable(current_user).page(params[:page])
   end
 
   # GET /transcodings/1
@@ -26,7 +26,7 @@ class TranscodingsController < ApplicationController
     @transcoding.video_bitrate = 10000
     @transcoding.video_crf = 26
 
-    @transcoding.video_fps = 30
+    # @transcoding.video_fps = 30
     @transcoding.video_gop = 250
     @transcoding.video_preset = 'slow'
     @transcoding.video_scanmode = 'progressive'
@@ -48,15 +48,14 @@ class TranscodingsController < ApplicationController
   # POST /transcodings
   # POST /transcodings.json
   def create
-    @transcoding = Transcoding.new(transcoding_params)
-    @transcoding.user = current_user
+    @transcoding = Transcoding.new(transcoding_params).upload_and_save!
 
     respond_to do |format|
-      if @transcoding.save
-        @transcoding.upload
+      if @transcoding
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully created.' }
         format.json { render :show, status: :created, location: @transcoding }
       else
+        notice_error 'Create transcoding failed.'
         format.html { render :new }
         format.json { render json: @transcoding.errors, status: :unprocessable_entity }
       end
@@ -66,10 +65,15 @@ class TranscodingsController < ApplicationController
   # PATCH/PUT /transcodings/1
   # PATCH/PUT /transcodings/1.json
   def update
-    # params[:transcoding][:user_id]
+    belong_video = VideoDetail.where(:transcoding => @transcoding).present?
+    if belong_video
+      new_transcoding = @transcoding.update_by_create!(transcoding_params)
+    else
+      new_transcoding = @transcoding.update_directly(transcoding_params)
+    end
     respond_to do |format|
-      if @transcoding.update(transcoding_params)
-        format.html { redirect_to @transcoding, notice: 'Transcoding was successfully updated.' }
+      if new_transcoding.present?
+        format.html { redirect_to new_transcoding, notice: 'Transcoding was successfully updated.' }
         format.json { render :show, status: :ok, location: @transcoding }
       else
         format.html { render :edit }
@@ -81,13 +85,12 @@ class TranscodingsController < ApplicationController
   # DELETE /transcodings/1
   # DELETE /transcodings/1.json
   def destroy
-    # @transcoding.destroy
     belong_strategy = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
-                     .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
+                          .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
     belong_video = VideoDetail.where(:transcoding => @transcoding).present?
     if !belong_strategy
       if belong_video || belong_video
-        @transcoding.disable
+        @transcoding.disable!
       else
         @transcoding.destroy!
       end
@@ -123,7 +126,8 @@ class TranscodingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def transcoding_params
-    params.require(:transcoding).permit(:name, :user_id, :container, :video_profile, :video_preset, :audio_codec, :audio_samplerate, :audio_bitrate, :video_line_scan, :h_w_percent, :width, :height, :data, :video_codec, :video_bitrate, :video_crf, :video_fps, :video_gop, :video_scanmode, :video_bufsize, :video_bitratebnd, :audio_channels, :state, :aliyun_template_id, :created_at, :updated_at, :video_maxrate, :video_bitrate_bnd_max, :video_bitrate_bnd_min)
+    params[:transcoding][:user_id] = current_user.uid
+    params.require(:transcoding).permit(:name, :user_id, :container, :video_profile, :video_preset, :audio_codec, :audio_samplerate, :audio_bitrate, :width, :height, :video_codec, :video_bitrate, :video_crf, :video_fps, :video_gop, :video_scanmode, :video_bufsize, :video_bitratebnd, :audio_channels, :state, :aliyun_template_id, :created_at, :updated_at, :video_maxrate, :video_bitrate_bnd_max, :video_bitrate_bnd_min)
   end
 
 end

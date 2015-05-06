@@ -3,7 +3,6 @@ class VideoProduct < ActiveRecord::Base
   has_many :video_product_fragments, -> { order('video_product_fragments.order') }
   belongs_to :video_detail
   belongs_to :transcoding
-  before_save :default_values
 
   module STATUS
     NOT_STARTED = 10
@@ -37,10 +36,6 @@ class VideoProduct < ActiveRecord::Base
 
   def FINISHED?
     self.status == STATUS::FINISHED
-  end
-
-  def default_values
-    self.status ||= STATUS::NOT_STARTED
   end
 end
 

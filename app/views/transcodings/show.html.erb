@@ -2,15 +2,68 @@
 <div class="tab-panel current" id="video-transcoding-solution">
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @transcoding.name %>
-</p>
+<dl class="dl-horizontal">
+  <dt>Name</dt>
+  <dd><%= @transcoding.name %></dd>
 
-<p>
-  <strong>User:</strong>
-  <%= @transcoding.user_id %>
-</p>
+  <dt>username</dt>
+  <dd><%= @transcoding.user && @transcoding.user.nickname %></dd>
+  
+  <dt>容器格式</dt>
+  <dd><%= @transcoding.container  %></dd>
+  
+  <dt>编解码格式</dt>
+  <dd><%= @transcoding.video_codec  %></dd>
+  
+  <dt>编码级别</dt>
+  <dd><%= @transcoding.video_profile  %></dd>
+  
+  <dt>视频平均码率</dt>
+  <dd><%= @transcoding.video_bitrate  %></dd>
+  
+  <dt>码率-质量控制因子</dt>
+  <dd><%= @transcoding.video_crf  %></dd>
+  
+  <dt>宽</dt>
+  <dd><%= @transcoding.width  %></dd>
+  
+  <dt>高</dt>
+  <dd><%= @transcoding.height  %></dd>
+  
+  <dt>帧率</dt>
+  <dd><%= @transcoding.video_fps  %></dd>
+  
+  <dt>关键帧间最大帧数</dt>
+  <dd><%= @transcoding.video_gop  %></dd>
+  
+  <dt>视频算法器预置</dt>
+  <dd><%= @transcoding.video_preset  %></dd>
+  
+  <dt>缓冲区大小</dt>
+  <dd><%= @transcoding.video_bufsize  %></dd>
+  
+  <dt>视频码率峰值</dt>
+  <dd><%= @transcoding.video_maxrate  %></dd>
+  
+  <dt>视频总码率上限</dt>
+  <dd><%= @transcoding.video_bitrate_bnd_max  %></dd>
+  
+  <dt>视频总码率下限</dt>
+  <dd><%= @transcoding.video_bitrate_bnd_min  %></dd>
+  
+  <dt>音频编解码格式</dt>
+  <dd><%= @transcoding.audio_codec  %></dd>
+  
+  <dt>采样率</dt>
+  <dd><%= @transcoding.audio_samplerate  %></dd>
+  
+  <dt>音频码率</dt>
+  <dd><%= @transcoding.audio_bitrate  %></dd>
+  
+  <dt>声道数</dt>
+  <dd><%= @transcoding.audio_channels  %></dd>
+  
+</dl>
 
 
 <%= link_to 'Edit', edit_transcoding_path(@transcoding) %> |

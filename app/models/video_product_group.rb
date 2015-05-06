@@ -4,7 +4,6 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
   belongs_to :transcoding_strategy
-  before_save :default_values
 
   module STATUS
     SUBMITTED = 10
@@ -59,10 +58,6 @@ class VideoProductGroup < ActiveRecord::Base
       self.save! if self.changed?
     end
     stat
-  end
-
-  def default_values
-    @status ||= STATUS::SUBMITTED
   end
 end
 

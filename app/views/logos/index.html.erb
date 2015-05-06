@@ -17,8 +17,8 @@
       <% @logos.each do |logo|  %>
       <tr>
         <td><%= logo.name %></td>
-        <td><%= image_tag(logo.uri) if logo.uri? %></td>
-        <td><%= logo.user && logo.user.uid %></td>
+        <td><%= image_tag(logo.uri_url(:normal)) if logo.uri? %></td>
+        <td><%= logo.user && logo.user.nickname %></td>
         <td><%=  logo.created_at %></td>
         <td>
           <%= link_to '预览', logo_path(logo) %>

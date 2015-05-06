@@ -2,7 +2,6 @@ class VideoProductFragment < ActiveRecord::Base
   belongs_to :video_product
   belongs_to :video_fragment
   belongs_to :video_detail
-  before_save :default_values
 
   module STATUS
     NOT_STARTED = 10
@@ -17,6 +16,7 @@ class VideoProductFragment < ActiveRecord::Base
     self.video_detail = dependent_video.create_sub_video(cut_point.start_time, cut_point.stop_time, self.id)
     self.video_detail.fetch_video_info
     self.video_detail.save!
+    logger.debug "upload successfully for fragment. id: #{self.id}"
 
     # start_time = get_time(video_fragment.video_cut_point.start_time)
     # stop_time = get_time(video_fragment.video_cut_point.stop_time)
@@ -31,10 +31,6 @@ class VideoProductFragment < ActiveRecord::Base
     #   fragment_video.video = f
     #   fragment_video.save!
     # end
-  end
-
-  def default_values
-    self.status ||= STATUS::NOT_STARTED
   end
 end
 

@@ -1,10 +1,39 @@
-<h1>UserVideos#show</h1>
-<p>Find me in app/views/user_videos/show.html.erb</p>
-
+<h1>Video show</h1>
 <span>id:</span><%= @user_video.id %>
+<% if @user_video.videos %>
+  <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" data-setup='{ "controls": true, "autoplay": false, "preload": "auto" }' width="853" height="480"
+      data-setup="{}">
+    <source src="/uploads/<%= @user_video.videos.first.uri %>" type='video/mp4' />
+
+
+   <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+  </video>
+    <div class="vjs-big-play-button" role="button" aria-live="polite" tabindex="0" aria-label="play video"><span aria-hidden="true"></span></div>
+    <% end %>
+
 <div>
-  <%= link_to 'preview', get_preview_path(@user_video) %>
-  <%= get_preview_path(@user_video) %>
+  <% @user_video.videos.transcoded.each do |video| %>
+      <% if video.REMOTE? %>
+          <span><%= video.transcoding.name %>:</span>
+          <%= link_to 'preview', video.get_full_url %><br/>
+          <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="852" height="480"
+                 data-setup="{}">
+            <source src="<%= video.get_full_url %>" type='video/mp4'/>
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser
+              that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          </video>
+      <% end %>
+  <% end %>
+  <% if @user_video.GOT_LOW_RATE? %>
+      <span><%= @user_video.mini_video.transcoding.name %>:</span>
+      <%= link_to 'preview', get_preview_path(@user_video) %><br/>
+      <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"
+             data-setup="{}">
+        <source src="<%= get_preview_path(@user_video) %>" type='video/mp4'/>
+        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+          <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+      </video>
+  <% end %>
 </div>
 <br/>
 <span>slice</span>

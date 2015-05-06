@@ -25,18 +25,18 @@ class UserVideo < ActiveRecord::Base
 
   include MTSWorker::UserVideoWorker
 
-  def initialize(owner, videoName, video)
-    super()
+  def set_by_video(owner, videoName, video)
     self.owner = owner
     self.video_name = videoName
     self.file_name = video.original_filename
     self.ext_name = File.extname(self.file_name)
 
-    videoDetail = VideoDetail.new(self, video)
+    videoDetail = VideoDetail.new.set_video(self, video)
     videoDetail.save!
     self.original_video = videoDetail
     self.status = STATUS::PREUPLOADED
     fetch_video_info_and_upload
+    self
   end
 
   def GOT_LOW_RATE?

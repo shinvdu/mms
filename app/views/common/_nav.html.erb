@@ -12,7 +12,7 @@
         首页
       </a>
     </li>
-    <li role="presentation">
+    <li role="presentation" class="<%= 'active' if top_menu_active :video %>">
       <a href="<%=  user_videos_path %>" role="tab">
         <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
         视频管理
@@ -38,3 +38,4 @@
     </li>
   </ul>
       </nav>
+

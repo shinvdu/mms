@@ -66,13 +66,13 @@ Crf,则Bitrate的设置失效。</p>
   </div>
     <div class="field">
     <%= f.label :视频算法器预置 %><br>
-    <%= f.select :video_preset, %w{ veryfast  fast medium slow slower veryslow }, {:prompt => "视频算法器预置..."} %>
+    <%= f.select :video_preset, %w{ veryfast  fast medium slow slower veryslow } %>
     <p>视频算法器预置,支持veryfast、fast、medium、slow、slower、veryslow,默认值slow</p>
   </div>
     <div class="field">
     <%= f.label :扫描模式 %><br>
-    <%= f.select :video_scanmode, %w{ interlaced  progressive}, {:prompt => "扫描模式..."} %>
-    <p>扫描模式,支持interlaced、progressive</p>
+    <%= radio_button("transcoding", "video_scanmode", "interlaced", :checked => true ) %> interlaced
+    <%= radio_button("transcoding", "video_scanmode", "progressive") %> progressive    <p>扫描模式,支持interlaced、progressive</p>
   </div>
     <div class="field">
     <%= f.label :缓冲区大小 %><br>
@@ -97,12 +97,12 @@ Crf,则Bitrate的设置失效。</p>
   <hr>  
     <div class="field">
     <%= f.label :音频编解码格式 %><br>
-    <%= f.select :audio_codec, %w{ aac  mp3}, {:prompt => "解码格式 ..."} %>
+    <%= f.select :audio_codec, %w{ aac  mp3} %>
     <p>音频编解码格式,支持aac、mp3,默认值为aac</p>
   </div>
     <div class="field">
     <%= f.label :采样率 %><br>
-    <%= f.select :audio_samplerate, %w{ 22050  32000 44100 48000 96000}, {:prompt => "采样率..."} %>
+    <%= f.select :audio_samplerate, %w{ 22050  32000 44100 48000 96000} %>
     <p>采样率,支持22050、32000、44100、48000、96000,默认是44100,单位为Hz</p>
   </div>
     <div class="field">
@@ -112,7 +112,7 @@ Crf,则Bitrate的设置失效。</p>
   </div>
     <div class="field">
     <%= f.label :声道数 %><br>
-    <%= f.select :audio_channels, %w{ 1  2 3 4 5 6 7 8}, {:prompt => "声道数..."} %>
+    <%= f.select :audio_channels, %w{ 1  2 3 4 5 6 7 8} %>
     <p>声道数,默认是2,支持1、2、3、4、5、6、7、8</p>
   </div>
 
