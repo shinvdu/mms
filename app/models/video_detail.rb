@@ -1,7 +1,8 @@
 class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
-  mount_uploader :video, VideoUploader
+  mount_uploader :public_video, PublicVideoUploader
+  mount_uploader :private_video, PrivateVideoUploader
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
 
   require 'fileutils'
@@ -13,6 +14,23 @@ class VideoDetail < ActiveRecord::Base
     ONLY_LOCAL = 30
     ONLY_REMOTE = 40
     BOTH = 50
+  end
+
+  def video
+    self.public ? self.public_video : self.private_video
+  end
+
+  def video=(param)
+    self.public ? self.public_video = param : self.private_video = param
+  end
+
+  def store_dir
+    return uuid if self.transcoding.nil? || self.fragment || self.transcoding.mini? || self.user_video_id.present?
+    return "product_#{self.id}"
+  end
+
+  def bucket
+    self.public ? Settings.aliyun.oss.public_bucket : Settings.aliyun.oss.private_bucket
   end
 
   def set_video(user_video, video)
@@ -41,7 +59,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def get_full_url
-    "#{Settings.aliyun.oss.download_proxy}#{Settings.aliyun.oss.host}/#{self.uri}"
+    "#{Settings.aliyun.oss.download_proxy}#{self.bucket}.#{Settings.aliyun.oss.host}/#{self.uri}"
   end
 
   def create_sub_video(start, stop, suffix)
@@ -75,7 +93,6 @@ class VideoDetail < ActiveRecord::Base
       self.status = VideoDetail::STATUS::BOTH
       self.save!
     end
-    self.fetch_video_info
   end
 
   require 'rubygems'

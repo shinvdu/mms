@@ -17,7 +17,7 @@
       <% @players.each do |player|  %>
       <tr>
         <td><%= player.name %></td>
-        <td><%= player.logo && image_tag(player.logo.uri_url(:thumb)) if player.logo.uri? %></td>
+        <td><%=  image_tag(player.logo.uri_url(:thumb)) if player.logo && player.logo.uri? %></td>
         <td><%= player.user && player.user.nickname %></td>
         <td><%=  player.created_at %></td>
         <td>
