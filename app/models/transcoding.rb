@@ -3,7 +3,8 @@ class Transcoding < ActiveRecord::Base
   has_many :transcoding_strategy_relationships
   scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
   scope :find_mini, -> { order('id desc').find_by_mini(true) }
-  
+  scope :find_middle_template, -> { order('id desc').find_by_middle(true) }
+
   validates :name, presence: true
   validates :container, presence: true, inclusion: {in: %w(mp4 flv ts m3u8), message: "%{value} is not a valid format"}
   validates :video_codec, presence: true, inclusion: {in: %w(H.264), message: "%{value} is not a valid 编解码格式"}

@@ -2,24 +2,6 @@ module MTSWorker
   module UserVideoWorker
     include MTSUtils::All
 
-    def async_fetch_video_info_and_upload
-      video_detail = self.original_video
-      video_detail.load_local_file(video_detail.get_full_path)
-      # if video_detail.video_codec !=
-      #
-      # end
-      self.status = UserVideo::STATUS::UPLOADED
-      create_transcoding_video_job(nil, true)
-      self.status = UserVideo::STATUS::PRETRANSCODING
-    end
-
-    handle_asynchronously :async_fetch_video_info_and_upload
-
-    # def create_fetch_video_info_job(video_detail)
-    #   request_id, meta_info_job = submit_meta_info_job(Settings.aliyun.oss.bucket, video_detail.uri)
-    #   MetaInfoJob.create(:job_id => meta_info_job.job_id, :target => self)
-    # end
-
     def create_transcoding_video_job(transcoding = nil, public = false)
       video_detail = self.original_video
       transcoding = Transcoding.find_mini if transcoding.nil?

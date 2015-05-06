@@ -62,6 +62,11 @@ class VideoDetail < ActiveRecord::Base
     "#{Settings.aliyun.oss.download_proxy}#{self.bucket}.#{Settings.aliyun.oss.host}/#{self.uri}"
   end
 
+  def full_cache_path!
+    self.video.cache_stored_file!
+    Rails.root.join('public', self.video.cache_dir, self.video.cache_name)
+  end
+
   def create_sub_video(start, stop, suffix)
     start_time = get_time(start)
     stop_time = get_time(stop)
@@ -76,6 +81,12 @@ class VideoDetail < ActiveRecord::Base
     sub_video.fragment = true
     sub_video.save!
     sub_video
+  end
+
+  def create_mkv_video
+    if self.user_video.ext_name == 'mkv'
+      return self
+    end
   end
 
   def slice_video(input, output, start_time, stop_time)

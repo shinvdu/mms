@@ -6,7 +6,10 @@ class UserVideo < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
+  belongs_to :mkv_video, :class_name => 'VideoDetail'
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
+
+  alias publish_strategy strategy
 
   module STATUS
     PREUPLOADED = 10
@@ -14,6 +17,7 @@ class UserVideo < ActiveRecord::Base
     # GOT_META = 30
     PRETRANSCODING = 40
     GOT_LOW_RATE = 50
+    BAD_FORMAT_FOR_PACKAGE = 91
     ORIGIN_DELETED = 99
   end
 
@@ -41,6 +45,44 @@ class UserVideo < ActiveRecord::Base
 
   def GOT_LOW_RATE?
     self.status == STATUS::GOT_LOW_RATE
+  end
+
+  ######################################################
+  # asynchronous method
+  ######################################################
+
+  def async_fetch_video_info_and_upload
+    video_detail = self.original_video
+    video_detail.fetch_video_info
+    if self.publish_strategy == UserVideo::STRATEGY::PACKAGE &&
+        (video_detail.video_codec.downcase.index('h264') || video_detail.audio_codec.downcase.index('aac'))
+      self.status = UserVideo::STATUS::BAD_FORMAT_FOR_PACKAGE
+      return
+    end
+    # check publish strategy
+    # currently only edit
+    video_detail.load_local_file(video_detail.get_full_path)
+    self.status = UserVideo::STATUS::UPLOADED
+    create_transcoding_video_job(nil, true)
+    create_mkv
+    self.status = UserVideo::STATUS::PRETRANSCODING
+  end
+
+  handle_asynchronously :async_fetch_video_info_and_upload
+
+  def create_mkv
+    video_detail = self.original_video
+    if video_detail.video_codec.downcase.index('h264') && video_detail.audio_codec.downcase.index('aac')
+      create_local_mkv
+    else
+      transcode_job = create_transcoding_video_job(Transcoding.find_middle_template)
+      self.mkv_video = transcode_job.target
+    end
+    self.save!
+  end
+
+  def create_local_mkv
+    self.mkv_video = self.original_video.create_mkv_video
   end
 end
 
