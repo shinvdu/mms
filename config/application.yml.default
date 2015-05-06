@@ -5,7 +5,8 @@ defaults: &defaults
     email: admin@15class.com
     password: 123123123
   mms:
-    name:  多媒体管理系统
+    name:  未谷云
+    domain:  www.wgcloud.com
   title: 多媒体管理系统
   cool: mms
   logo: 
