@@ -1,4 +1,5 @@
-<%= form_for(@player) do |f| %>
+<hr>
+<%= form_for(@player, html: {class: "form-horizontal"}) do |f| %>
   <% if @player.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
@@ -11,51 +12,87 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :播放器名称,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= f.text_field :name ,  class: 'form-control' %>
+    </div>
   </div>
- <!-- 
-  <div class="field">
-    <%= f.label :color %><br>
-    <%= f.text_field :color %>
+  <div class="form-group">
+    <%= f.label :播放器颜色,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <label class="radio-inline">
+        <%= radio_button("player", "color", "black", :checked => true ) %> 黑色
+      </label>
+      <label class="radio-inline">
+        <%= radio_button("player", "color", "classical") %> 经典    
+      </label>
+      <label class="radio-inline">
+        <%= radio_button("player", "color", "other") %> 其它    
+      </label>
+    </div>
   </div>
--->
-  <div class="field">
-    <%= f.label :logo %><br>
+  <div class="form-group">
+    <%= f.label :LOGO,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-6">
 
-    <%= f.select :logo_id, @logos %>
+    <%= f.select :logo_id, @logos , {}, {:class => 'form-control' } %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :logo_position %><br>
+  <div class="form-group">
+    <%= f.label :LOGO的位置,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-6">
     <%= f.select :logo_position, {
       '右上角' =>  :top_right ,  
       '左上角' => :left_top, 
       '右下角' => :bottom_right , 
       '左下角' => :bottom_left
-    } %>
+    } , {}, {:class => 'form-control' } %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :autoplay %><br>
+  <div class="form-group">
+    <%= f.label :自动播放,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
     <%= f.check_box :autoplay %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :share %><br>
-    <%= f.check_box :share %>
+  <div class="form-group">
+    <%= f.label :分享功能,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-6">
+    <%= f.select :share, {:打开 => true, :关闭 => false} , {}, {:class => 'form-control' }%>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :full_screen %><br>
+  <div class="form-group">
+    <%= f.label :全屏功能,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
     <%= f.check_box :full_screen %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :width %><br>
-    <%= f.number_field :width %>
+  <script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#player_size').on('change', function (e) {
+      var optionSelected = $("option:selected", this);
+      var valueSelected = this.value;
+      var size = valueSelected.split('|');
+      var width = parseInt(size[0]);
+      var height = parseInt(size[1]);
+      $("#player_width").val(width); 
+      $("#player_height").val(height); 
+    });
+  });
+  </script>
+  <div class="form-group">
+    <%= f.label :长宽 ,  :class => "col-sm-2 control-label" %>
+    <div class="col-sm-6">
+      <%= select_tag(:player_size,  options_for_select([['480 * 320', '480|320'], ['1080 * 720', '1080|720'], ['1920 * 1080', '1920|1080']], "#{@player.width}|#{@player.height}"), {:class => 'form-control player_size' }) %>
+      <%= f.hidden_field :width, :id => 'player_width' %>
+      <%= f.hidden_field :height, :id => 'player_height' %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :height %><br>
-    <%= f.number_field :height %>
+  <hr>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit :新增播放器 %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <% end %>
