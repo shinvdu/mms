@@ -120,15 +120,28 @@ class VideoProductGroup < ActiveRecord::Base
     self.save!
   end
 
-  def check_status
+  def check_all_finished
     not_all_finished = self.video_products.any? { |products| !products.FINISHED? }
     unless not_all_finished
       self.status = VideoProductGroup::STATUS::FINISHED
-      FileUtils.rm self.mkv_video.get_full_path
-      self.mkv_video.delete
-      self.mkv_video = nil
+      self.mkv_video.remove_local_file!
       self.save!
     end
+  end
+
+  ######################################################
+  # check status
+  ######################################################
+
+  def check(checker_admin, result)
+    if [CHECK_STATUS::ACCEPTED, CHECK_STATUS::REJECT, CHECK_STATUS::PENDING].include?(result)
+      self.check_status = result
+      self.checker = checker_admin
+    end
+  end
+
+  def NEED_CHECK?
+    [CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING].include? self.check_status
   end
 
 end

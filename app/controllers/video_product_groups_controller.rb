@@ -1,4 +1,6 @@
 class VideoProductGroupsController < ApplicationController
+  before_action :authenticate_account!, :check_login
+
   def create
     user_video = UserVideo.find(product_data_params[:user_video_id])
     if !user_video.GOT_LOW_RATE?

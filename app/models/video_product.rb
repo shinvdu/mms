@@ -60,7 +60,7 @@ class VideoProduct < ActiveRecord::Base
 
   def video_transcode_finished
     self.status = STATUS::FINISHED
-    self.video_product_group.check_status
+    self.video_product_group.check_all_finished
     self.save!
   end
 end

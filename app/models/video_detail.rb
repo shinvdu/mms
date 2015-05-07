@@ -117,7 +117,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def remove_local_file!
-    FileUtils.rm self.get_full_path
+    FileUtils.rm self.get_full_path if File.exist? self.get_full_path
     if self.REMOTE?
       self.status = STATUS::ONLY_REMOTE
     else
