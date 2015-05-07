@@ -30,7 +30,9 @@
       <div class="container">
         <%= render 'common/nav' %>
         <div>
-          <%= notice_message %>
+          <div id="message">
+            <%= notice_message %>
+          </div>
         </div>
 
         <%= yield %>

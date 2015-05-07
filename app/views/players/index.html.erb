@@ -1,5 +1,5 @@
 <%=  render 'players/nav' %>
-<div class="tab-panel current" id="add-player">
+<div class="tab-panel current container" id="add-player">
   <div class="panel-header clearfix">
     <a type="button" class="btn btn-green" href="<%= new_player_path  %> ">添加播放器</a>
   </div>
@@ -22,8 +22,8 @@
         <td><%=  player.created_at %></td>
         <td>
     <%= link_to '预览', player, 'data-no-turbolink' => true %>
-     <%= link_to '修改', edit_player_path(player) %>
-     <td><%= link_to '删除', player, method: :delete, data: { confirm: '你确定要删除?' } %></td>
+     <%= link_to '修改', edit_player_path(player),  'data-no-turbolink' => true %>
+     <%= link_to '删除', player, method: :delete, data: { confirm: '你确定要删除?' } %>
         </td>
       </tr>
       <% end %>
