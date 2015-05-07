@@ -108,7 +108,7 @@ module MTSUtils
       res = JSON.parse execute(url)
       non_exist_job_ids = []
       non_exist_job_ids = res['NonExistJobIds']['String'] if res['NonExistJobIds'].present?
-      return res['RequestId'], res['MetaInfoJobList']['MetaInfoJob'].map{|job|AliyunMetaInfoJob.new job}, non_exist_job_ids
+      return res['RequestId'], res['MetaInfoJobList']['MetaInfoJob'].map { |job| AliyunMetaInfoJob.new job }, non_exist_job_ids
     end
   end
 
@@ -172,7 +172,7 @@ module MTSUtils
       res = JSON.parse execute(url)
       non_exist_job_ids = []
       non_exist_job_ids = res['NonExistJobIds']['String'] if res['NonExistJobIds'].present?
-      return res['RequestId'], res['JobList']['Job'].map{|job|AliyunJob.new job}, non_exist_job_ids
+      return res['RequestId'], res['JobList']['Job'].map { |job| AliyunJob.new job }, non_exist_job_ids
     end
 
     def search_job
@@ -225,7 +225,7 @@ module MTSUtils
       res = JSON.parse execute(url)
       non_exist_job_ids = []
       non_exist_job_ids = res['NonExistJobIds']['String'] if res['NonExistJobIds'].present?
-      return res['RequestId'], res['SnapshotJobList']['SnapshotJob'].map{|job|AliyunSnapshotJob.new job}, non_exist_job_ids
+      return res['RequestId'], res['SnapshotJobList']['SnapshotJob'].map { |job| AliyunSnapshotJob.new job }, non_exist_job_ids
     end
   end
 
@@ -246,31 +246,31 @@ module MTSUtils
   module Template
     def add_template(transcoding)
       params = {
-        'Action' => 'AddTemplate',
-        'Name' => transcoding.name,
-        'Container' => {"Format": transcoding.container}.to_json,
-        'Audio' => {
-          "Codec":  transcoding.audio_codec,
-          "Samplerate": transcoding.audio_samplerate,
-          "Bitrate": transcoding.audio_bitrate,
-          "Channels": transcoding.audio_channels
+          'Action' => 'AddTemplate',
+          'Name' => transcoding.name,
+          'Container' => {'Format' => transcoding.container}.to_json,
+          'Audio' => {
+              'Codec' => transcoding.audio_codec,
+              'Samplerate' => transcoding.audio_samplerate,
+              'Bitrate' => transcoding.audio_bitrate,
+              'Channels' => transcoding.audio_channels
           }.to_json,
-        'Video' => {
-          "Codec": transcoding.video_codec,
-          "Profile": transcoding.video_profile,
-          "Bitrate": transcoding.video_bitrate,
-          "Crf": transcoding.video_crf,
-          "Width": transcoding.width,
-          "Height": transcoding.height,
-          "Fps": transcoding.video_fps,
-          "Gop": transcoding.video_gop,
-          "Preset": transcoding.video_preset,
-          "ScanMode": transcoding.video_scanmode,
-          "Bufsize": transcoding.video_bufsize,
-          "Maxrate": transcoding.video_maxrate,
-          'BitrateBnd' => {"Max": transcoding.video_bitrate_bnd_max, "Min": transcoding.video_bitrate_bnd_min}
+          'Video' => {
+              'Codec' => transcoding.video_codec,
+              'Profile' => transcoding.video_profile,
+              'Bitrate' => transcoding.video_bitrate,
+              'Crf' => transcoding.video_crf,
+              'Width' => transcoding.width,
+              'Height' => transcoding.height,
+              'Fps' => transcoding.video_fps,
+              'Gop' => transcoding.video_gop,
+              'Preset' => transcoding.video_preset,
+              'ScanMode' => transcoding.video_scanmode,
+              'Bufsize' => transcoding.video_bufsize,
+              'Maxrate' => transcoding.video_maxrate,
+              'BitrateBnd' => {'Max' => transcoding.video_bitrate_bnd_max, 'Min' => transcoding.video_bitrate_bnd_min}
           }.to_json,
-        'state' => transcoding.state
+          'state' => transcoding.state
       }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
@@ -287,8 +287,8 @@ module MTSUtils
 
     def delete_template(transcoding)
       params = {
-        'Action' => 'DeleteTemplate',
-        'TemplateId' => transcoding.aliyun_template_id,
+          'Action' => 'DeleteTemplate',
+          'TemplateId' => transcoding.aliyun_template_id,
       }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
@@ -300,27 +300,27 @@ module MTSUtils
           'Action' => 'AddTemplate',
           'TemplateId' => transcoding.aliyun_template_id,
           'Name' => transcoding.name,
-          'Container' => {"Format": transcoding.container}.to_json,
+          'Container' => {'Format' => transcoding.container}.to_json,
           'Audio' => {
-              "Codec":  transcoding.audio_codec,
-              "Samplerate": transcoding.audio_samplerate,
-              "Bitrate": transcoding.audio_bitrate,
-              "Channels": transcoding.audio_channels
+              'Codec' => transcoding.audio_codec,
+              'Samplerate' => transcoding.audio_samplerate,
+              'Bitrate' => transcoding.audio_bitrate,
+              'Channels' => transcoding.audio_channels
           }.to_json,
           'Video' => {
-              "Codec": transcoding.video_codec,
-              "Profile": transcoding.video_profile,
-              "Bitrate": transcoding.video_bitrate,
-              "Crf": transcoding.video_crf,
-              "Width": transcoding.width,
-              "Height": transcoding.height,
-              "Fps": transcoding.video_fps,
-              "Gop": transcoding.video_gop,
-              "Preset": transcoding.video_preset,
-              "ScanMode": transcoding.video_scanmode,
-              "Bufsize": transcoding.video_bufsize,
-              "Maxrate": transcoding.video_maxrate,
-              'BitrateBnd' => {"Max": transcoding.video_bitrate_bnd_max, "Min": transcoding.video_bitrate_bnd_min}
+              'Codec' => transcoding.video_codec,
+              'Profile' => transcoding.video_profile,
+              'Bitrate' => transcoding.video_bitrate,
+              'Crf' => transcoding.video_crf,
+              'Width' => transcoding.width,
+              'Height' => transcoding.height,
+              'Fps' => transcoding.video_fps,
+              'Gop' => transcoding.video_gop,
+              'Preset' => transcoding.video_preset,
+              'ScanMode' => transcoding.video_scanmode,
+              'Bufsize' => transcoding.video_bufsize,
+              'Maxrate' => transcoding.video_maxrate,
+              'BitrateBnd' => {'Max' => transcoding.video_bitrate_bnd_max, 'Min' => transcoding.video_bitrate_bnd_min}
           }.to_json,
           'state' => transcoding.state
       }.select { |k, v| v.present? }
@@ -431,7 +431,7 @@ module MTSUtils
       if var.is_a? Hash
         @output_file = AliyunOSSFile.new var['OutputFile']
         @template_id = var['TemplateId']
-        @water_mark_list = var['WaterMarkList'].map{|wm|AliyunWaterMark.new wm} if var['WaterMarkList'].present?
+        @water_mark_list = var['WaterMarkList'].map { |wm| AliyunWaterMark.new wm } if var['WaterMarkList'].present?
         @properties = var['Properties']
         @user_data = var['UserData']
       end
@@ -449,7 +449,8 @@ module MTSUtils
   end
 
   class AliyunViedo
-    attr_accessor :codec, :profile, :bitrate, :crf , :width, :height, :fps, :gop, :preset, :scanmode, :bufsize, :maxrate, :bitratebnd
+    attr_accessor :codec, :profile, :bitrate, :crf, :width, :height, :fps, :gop, :preset, :scanmode, :bufsize, :maxrate, :bitratebnd
+
     def initialize(var)
       if var.is_a? Hash
         @codec = var['Codec']
@@ -471,6 +472,7 @@ module MTSUtils
 
   class AliyunBitrateBnd
     attr_accessor :max, :min
+
     def initialize(var)
       if var.is_a? Hash
         @max = var['Max']
