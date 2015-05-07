@@ -1,25 +1,45 @@
+<% javascript '/cropper/dist/cropper.js' %>
+<% javascript '/cropper/dist/canvas-to-blob.min.js' %>
+<% javascript '/mms/js/mlogo.js' %>
+<% style '/cropper/dist/cropper.css' %>
+<% style '/mms/css/mlogo.css' %>
     <script type="text/javascript">
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        if($('#logo_name').val() == ''){
-          $('#logo_name').val(input.files[0].name);
+$(function () {
+    document.querySelector("#logo_form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        var canvas = $('.img-container > img').cropper('getCroppedCanvas')
+        if (typeof canvas.toBlob !== "undefined") {
+            canvas.toBlob(function(blob){
+                formData.append("logo[uri]",blob, $('#logo_name').val());
+            } , "image/png", 0.75);
+        }else if (typeof canvas.msToBlob !== "undefined") {
+            var blob = canvas.msToBlob()
+            formData.append("logo[uri]",blob,  $('#logo_name').val());
         }
-        reader.onload = function (e) {
-          $('#blah') .attr('src', e.target.result).width(200).height(200);
-          $('#thumb_size') .attr('src', e.target.result).width(<%= Settings.logo.small.width.to_i %>).height(<%= Settings.logo.small.height.to_i %>);
-          $('#normal_size') .attr('src', e.target.result).width(<%= Settings.logo.normal.width.to_i %>).height(<%= Settings.logo.normal.height.to_i %>);
-          $('#big_size') .attr('src', e.target.result).width(<%= Settings.logo.origin.width.to_i %>).height(<%= Settings.logo.origin.height.to_i %>);
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }   
-    function show_images () {
-      $('div.logo_images').show();
-    }
-    </script>
 
-    <%= form_for(@logo , html: {class: "form-horizontal"}) do |f| %>
+    $.ajax({
+        url: '/logos<%= "/#{@logo.id}" if controller.action_name == 'edit' %>.json',
+        data: formData,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data) {
+          var success = '<div class="alert alert-success">上传成功, <a href="/logos/'  + data.id + '">查看</a> </div>'
+            $('#message').html(success)
+            window.scrollTo(0, 0);
+        },
+        error: function(xhr, error){
+          var failed = '<div class="alert alert-danger">上传失败 </div>'
+            $('#message').html(failed)
+            window.scrollTo(0, 0);
+        },
+    });
+    }, false);
+
+});
+</script>
+    <%= form_for(@logo , html: {class: "form-horizontal", id: 'logo_form'}) do |f| %>
     <% if @logo.errors.any? %>
     <div id="error_explanation">
       <h2> 发生两<%= pluralize(@logo.errors.count, "") %>个错误</h2>
@@ -31,51 +51,49 @@
       </ul>
     </div>
     <% end %>
-    <div class="panel-content">
-      <p>添加LOGO图片</p>
-      <div class="panel-notice">
-        <p>说明</p>
-        <ul>
-          <li>图片使用透明背景，JPG文件会导致白色背景</li>
-          <li>请使用gif或png图片</li>
-        </ul>
-      </div>
-      <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png", :onchange => 'readURL(this); show_images()' %>
-      <%= f.hidden_field :uri_cache %>
-      <hr>
+    <h4 style="margin: 30px;">添加LOGO图片</h4>
       <div class="logo_images" style="display: <%=  controller.action_name == 'new' ? 'none' : 'show' %>">
-        <div class="form-group">
-          <%= f.label :LOGO名称,  :class => "col-sm-2 control-label" %>
-          <div class="col-sm-6">
-            <%= f.text_field :name ,  class: 'form-control' %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <!-- <h3 class="page-header">Demo:</h3> -->
+          <div class="img-container">
+            <%= image_tag(@logo.uri()) if @logo.uri? %>
+            <% if not  @logo.uri?  %>
+              <img src="/cropper/assets/img/picture.jpg" alt="Picture">
+            <% end %>
           </div>
         </div>
-        <hr>
-        <div class="row row-images ">
-            <%= image_tag(@logo.uri , :id => 'blah') if @logo.uri? %>
-            <%= "<img src='#' , :id => 'blah'>" if not @logo.uri? %>
+        <div class="col-md-3">
+          <!-- <h3 class="page-header">Preview:</h3> -->
+          <div class="docs-preview clearfix">
+            <div class="clearfix">
+              <div class="img-preview preview-lg clearfix"></div><span style="display:block; margin-top:80px">100* 100</span>
+            </div>
+            <div class="clearfix">
+              <div class="img-preview preview-md"></div><span  style="display:block; margin-top:60px">80* 80</span>
+            </div>
+            <div class="clearfix">
+              <div class="img-preview preview-sm"></div><span  style="display:block; margin-top:30px">50* 50</span>
+            </div>
+            <div id="xie"></div>
 
-          <figure>
-            <%= image_tag(@logo.uri_url(:thumb), :id => 'thumb_size') if @logo.uri? %>
-            <%= "<img src='#' , :id => 'thumb_size'>" if not @logo.uri? %>
-            <figcaption><%= Settings.logo.small.height.to_i %>x<%= Settings.logo.small.height.to_i %></figcaption>
-          </figure>
-          <figure>
-            <%= image_tag(@logo.uri_url(:normal),  :id => 'normal_size') if @logo.uri? %>
-            <%= "<img src='#' , :id => 'normal_size'>" if not @logo.uri? %>
-            <figcaption><%= Settings.logo.normal.height.to_i %> x <%= Settings.logo.normal.height.to_i %></figcaption>
-          </figure>
-          <figure>
-            <!-- <img class="img-rounded img-large" src="./picture/header-bg.jpg"> -->
-            <%= image_tag(@logo.uri , :id => 'big_size') if @logo.uri? %>
-            <%= "<img src='#' , :id => 'big_size'>" if not @logo.uri? %>
-            <figcaption><%= Settings.logo.origin.height.to_i %> x <%= Settings.logo.origin.height.to_i %></figcaption>
-          </figure>
+          </div>
         </div>
       </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :LOGO名称,  :class => "col-sm-2 control-label" %>
+      <div class="col-sm-6">
+        <%= f.text_field :name ,  class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png", :onchange => 'readURL(this); show_images()' %>
+      <%= f.hidden_field :uri_cache %>
+      <hr>
       <%= f.submit '保存' , :class => 'btn btn-green' %>
       <!-- <button class="btn btn-gray" type="button">取消</button> -->
-    </div>
     <% end %>
 
 

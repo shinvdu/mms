@@ -1,1 +1,1 @@
-json.extract! @logo, :id, :name, :uid, :uri, :width, :height, :filemime, :filesize, :origname, :created_at, :updated_at
+json.extract! @logo, :id, :name, :uri,  :created_at, :updated_at

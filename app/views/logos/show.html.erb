@@ -1,6 +1,6 @@
 <%=  render 'players/nav' %>
 <div class="tab-panel current" id="add-player">
-  <div class="panel-links"><%= link_to '返回LOGO列表', logos_path %> |  <%= link_to '编辑', edit_logo_path(@logo) %></div>
+  <div class="panel-links"><%= link_to '返回LOGO列表', logos_path %> |  <%= link_to '编辑', edit_logo_path(@logo) ,  'data-no-turbolink' => true %></div>
 <p id="notice"><%= notice %></p>
 
 <p>

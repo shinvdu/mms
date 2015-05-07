@@ -10,7 +10,7 @@ class LogosController < ApplicationController
   # GET /logos.json
   # listint own logos, opereate by owner or root
   def index
-    @logos = Logo.where(user_id: current_user.uid).page(params[:page])
+    @logos = Logo.where(user_id: current_user.uid).page(params[:page]).order(created_at: :desc)
   end
 
   # GET /logos/1
