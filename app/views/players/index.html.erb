@@ -21,7 +21,7 @@
         <td><%= player.user && player.user.nickname %></td>
         <td><%=  player.created_at %></td>
         <td>
-    <%= link_to '预览', player %>
+    <%= link_to '预览', player, 'data-no-turbolink' => true %>
      <%= link_to '修改', edit_player_path(player) %>
      <td><%= link_to '删除', player, method: :delete, data: { confirm: '你确定要删除?' } %></td>
         </td>
