@@ -1,6 +1,7 @@
 class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
+  has_many :snapshots
   mount_uploader :public_video, PublicVideoUploader
   mount_uploader :private_video, PrivateVideoUploader
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
@@ -70,8 +71,8 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def create_sub_video(start, stop, suffix)
-    start_time = get_time(start)
-    stop_time = get_time(stop)
+    start_time = start.to_time
+    stop_time = stop.to_time
     input_path = self.get_full_path
     output_path = input_path.split('.').insert(-2, suffix).join('.')
     logger.debug "slice video to #{output_path}"
@@ -105,10 +106,6 @@ class VideoDetail < ActiveRecord::Base
   def slice_video(input, output, start_time, stop_time)
     logger.debug `ffmpeg -i #{input} -ss #{start_time} -to #{stop_time} -vcodec copy -acodec copy -y #{output}`
     `ffmpeg -i #{input} -ss #{start_time} -to #{stop_time} -vcodec copy -acodec copy -y #{output}`
-  end
-
-  def get_time(t)
-    "#{t.to_i/3600}:#{t.to_i%3600/60}:#{t-t.to_i/60*60}"
   end
 
   def load_local_file!
@@ -160,7 +157,7 @@ class VideoDetail < ActiveRecord::Base
       tmp_path = new_video.uri.split('.').insert(-2, idx).join('.')
       file_paths.append tmp_path
       cp = frag.video_cut_point
-      time_str = "#{get_time(cp.start_time)}-#{get_time(cp.stop_time)}"
+      time_str = "#{cp.start_time.to_time}-#{cp.stop_time.to_time}"
       `mkvmerge -o #{tmp_path} --split parts:#{time_str} #{input_path}`
     end
     `mkvmerge  -o #{output_path} #{file_paths.join(' +')}`
@@ -178,6 +175,16 @@ class VideoDetail < ActiveRecord::Base
     # must cp before save, save will remove cached file
     self.status = VideoDetail::STATUS::BOTH
     self.save!
+  end
+
+  def create_snapshot
+    n = Settings.aliyun.mts.snapshot_number
+    # create n snapshots from 10% to 90%
+    (0..n).to_a.map { |i| self.duration*0.8/n*i+self.duration*0.1 }.each_with_index do |time, idx|
+      uri = File.join(File.dirname(self.uri), [self.id, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
+      snapshot = Snapshot.create(:time => time, :uri => uri, :video_detail => self)
+      snapshot.create_mts_job
+    end
   end
 
   def ONLY_REMOTE?

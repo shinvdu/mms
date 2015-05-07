@@ -5,6 +5,7 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
   belongs_to :transcoding_strategy
+  belongs_to :checker, :class_name => 'User'
 
   module STATUS
     SUBMITTED = 10
@@ -14,6 +15,13 @@ class VideoProductGroup < ActiveRecord::Base
     UPLOADING = 50
     FINISHED = 60
     FAILED = 99
+  end
+
+  module CHECK_STATUS
+    UNCHECKED = 10
+    PENDING = 20
+    ACCEPTED = 30
+    REJECT = 99
   end
 
   def create_fragments(cut_points)
@@ -75,6 +83,7 @@ class VideoProductGroup < ActiveRecord::Base
       logger.error "Cannot find mkv video for user video. id: #{user_video.id}"
       self.status = STATUS::FAILED
       self.save!
+      self.delay.create_products
       return
     end
 
@@ -83,6 +92,7 @@ class VideoProductGroup < ActiveRecord::Base
       logger.info 'Wait for next loop because dependent video is in processing'
       self.status = STATUS::WAIT_FOR_DEPENDENCY
       self.save!
+      self.delay.create_products
       return
     end
 
@@ -97,7 +107,9 @@ class VideoProductGroup < ActiveRecord::Base
     self.status = STATUS::PROCESSING
     self.save!
     self.mkv_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
+    self.mkv_video.fetch_video_info
     self.mkv_video.load_local_file! unless self.mkv_video.REMOTE?
+    self.mkv_video.create_snapshot
     self.mkv_video.remove_local_file!
 
     self.transcoding_strategy.transcodings.each do |transcoding|
@@ -107,8 +119,6 @@ class VideoProductGroup < ActiveRecord::Base
 
     self.save!
   end
-
-  handle_asynchronously :create_products
 
   def check_status
     not_all_finished = self.video_products.any? { |products| !products.FINISHED? }

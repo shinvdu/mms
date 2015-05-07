@@ -137,7 +137,8 @@ module MTSUtils
                 'Input' => {
                     'Bucket' => bucket,
                     'Location' => location,
-                    'Object' => object}.to_json,
+                    'Object' => object
+                }.to_json,
                 'OutputBucket' => output_bucket,
                 'OutputLocation' => output_location,
                 'Outputs' => [{
@@ -184,12 +185,47 @@ module MTSUtils
   end
 
   module Snapshot
-    def submit_snapshot_job
-
+    def submit_snapshot_job(bucket, object, time, output_object, **p)
+      input_params = {
+          :bucket => bucket,
+          :location => 'oss-cn-hangzhou',
+          :object => object,
+          :output_bucket => bucket,
+          :output_location => 'oss-cn-hangzhou',
+          :time => time,
+          :output_object => output_object,
+          :user_data => ''
+      }.merge(p)
+      params = {'Action' => 'SubmitSnapshotJob',
+                'Input' => {
+                    'Bucket' => input_params[:bucket],
+                    'Location' => input_params[:location],
+                    'Object' => input_params[:object]
+                }.to_json,
+                'SnapshotConfig' => {
+                    'OutputFile' => {
+                        'Bucket' => input_params[:output_bucket],
+                        'Location' => input_params[:output_location],
+                        'Object' => input_params[:output_object]
+                    },
+                    'Time' => input_params[:time].to_s
+                }.to_json,
+                'UserData' => input_params[:user_data]
+      }.select { |k, v| v.present? }
+      url = generate_url params
+      res = JSON.parse execute(url)
+      return res['RequestId'], AliyunSnapshotJob.new(res['SnapshotJob'])
     end
 
-    def query_snapshot_job_list
-
+    def query_snapshot_job_list(job_ids)
+      params = {'Action' => 'QuerySnapshotJobList',
+                'SnapshotJobIds' => job_ids.join(',')
+      }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      non_exist_job_ids = []
+      non_exist_job_ids = res['NonExistJobIds']['String'] if res['NonExistJobIds'].present?
+      return res['RequestId'], res['SnapshotJobList']['SnapshotJob'].map{|job|AliyunSnapshotJob.new job}, non_exist_job_ids
     end
   end
 
@@ -393,7 +429,7 @@ module MTSUtils
 
     def initialize(var)
       if var.is_a? Hash
-        @output_file = var['OutputFile']
+        @output_file = AliyunOSSFile.new var['OutputFile']
         @template_id = var['TemplateId']
         @water_mark_list = var['WaterMarkList'].map{|wm|AliyunWaterMark.new wm} if var['WaterMarkList'].present?
         @properties = var['Properties']
@@ -481,7 +517,32 @@ module MTSUtils
     end
   end
 
+  class AliyunSnapshotJob
+    attr_accessor :job_id, :state, :snapshot_config, :code, :message, :user_data, :creation_time
 
+    def initialize(var)
+      if var.is_a? Hash
+        @job_id = var['Id']
+        @state = var['State']
+        @snapshot_config = AliyunSnapshotConfig.new var['SnapshotConfig']
+        @code = var['Code']
+        @message = var['Message']
+        @user_data = var['UserData']
+        @creation_time = var['CreationTime']
+      end
+    end
+  end
+
+  class AliyunSnapshotConfig
+    attr_accessor :job_id, :state, :snapshot_config, :code, :message, :user_data, :creation_time
+
+    def initialize(var)
+      if var.is_a? Hash
+        @output_file = AliyunOSSFile.new var['OutputFile']
+        @time = var['Time']
+      end
+    end
+  end
 
   module Status
     SUBMITTED = 'Submitted'
@@ -490,6 +551,7 @@ module MTSUtils
     TRANSCODE_FAIL = 'TranscodeFail'
     TRANSCODE_CANCELLED = 'TranscodeCancelled'
     ANALYZING = 'Analyzing'
+    SNAPSHOTING = 'Snapshoting'
     SUCCESS = 'Success'
     FAIL = 'Fail'
   end
