@@ -94,10 +94,8 @@
 	    </ul>
 	  </nav>
 
-	  <div class="tab-panel current" id="video-upload"></div>
-	  
-	  <div class="tab-panel" id="video-list">
-      	    <table class="table table-hover">
+	  <div class="tab-panel current" id="video-upload">
+	    <table class="table table-hover">
 	      <thead>
 	        <tr>
 		  <th>视频名称</th>
@@ -213,7 +211,153 @@
 	      </nav>
 	    </div>
 	  </div>
+	  
+	  <div class="tab-panel" id="video-list">
+	    <div class="panel-header clearfix">
+	      <form class="pull-right" role="search">
+		<div class="form-group right-inner-addon">
+		  <input type="search" class="form-control" placeholder="视频名称">
+		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		</div>
+		<input type="text" placeholder="2015/05/01">
+		至
+		<input type="text" placeholder="2015/05/01">
+		<select class="form-control">
+		  <option>全部状态</option>
+		  <option>全部状态</option>
+		  <option>全部状态</option>
+		</select>
+	      </form>
+	      <button class="btn btn-green">上传文件</button>
+	    </div>
+	    <div class="panel-content-display">
+	      <div class="row">
+		<div class="row">
+		  <div class="col-md-12">
+		    <input type="checkbox">
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-md-3">
+		    <img class="img-rounded" src="./images/header-bg.jpg" alt="video-preview">
+		    <select class="form-control">
+		      <option>方案1</option>
+		      <option>方案2</option>
+		      <option>方案3</option>
+		    </select>
+		    状态: 完成
+		  </div>
+		  <div class="col-md-9">
+		    <div class="row">
+		      <div class="col-md-12">
+			名称: sjasdjsjasjdja
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-md-3">
+			视频大小: 100M
+		      </div>
+		      <div class="col-md-9">
+			创建时间: 2015/04/22 10:31
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-md-3">
+			时长: 12:12:12
+		      </div>
+		      <div class="col-md-9">
+			播放次数: 1234次
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-md-3">
+			拥有者: 小小小
+		      </div>
+		      <div class="col-md-9">
+			ID: IJDOQWJ3123143413IDSADO
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-md-12">
+			TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
+		      </div>
+		    </div>
+		    <div class="row">
+		      <div class="col-md-12">
+			<button class="btn btn-blue">编辑</button>
+			<button class="btn btn-blue">代码</button>
+			<button class="btn btn-blue" id="btn-video-clip">剪辑</button>
+			<button class="btn btn-gray">删除</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	      </div>
+	    </div>
+	  </div>
 
+	  <div class="tab-panel" id="video-clip">
+	    <div class="panel-links"><a class="btn-return-link" href="#video-list">&lt;&lt; 返回视频列表</a></div>
+	    <div class="panel-content-display">
+	      <div class="row">
+		<div class="col-md-12">
+		  剪辑视频文件：［视频文件的名称］
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="col-md-12">
+		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+		  第一步：分割视频
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="col-md-12">
+		  <div style="text-align: center; height: 480px; width: 853px; background-color: gray; font-size: 22px;">Video</div>
+		</div>
+		<div class="col-md-12">
+		  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="col-md-12">
+		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+		  第二步：选择需要合并的视频
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="col-md-12">
+		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+		  第三步：选择播放器/广告方案
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="col-md-6">
+		  <select class="form-control">
+		    <option>下拉默认</option>
+		    <option>下拉默认</option>
+		    <option>下拉默认</option>
+		  </select>
+		</div>
+		<div class="col-md-6">
+		  <select class="form-control">
+		    <option>下拉默认</option>
+		    <option>下拉默认</option>
+		    <option>下拉默认</option>
+		  </select>
+		</div>
+	      </div>
+	      <div class="row">
+		<div class="col-md-12">
+		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+		  第四步：保存/提交
+		</div>
+	      </div>
+	      <button class="btn btn-green">保存</button>
+	      <button class="btn btn-blue">提交</button>
+	    </div>
+	  </div>
+	  
 	  <div class="tab-panel" id="add-transcoding-template">
 	    <div class="panel-links"><a class="btn-return-link" href="#video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
 	    <div class="panel-content">
