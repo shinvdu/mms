@@ -1,9 +1,6 @@
 'use strict'
 
 var main = function() {
-    $('#header').load('header.html');
-    $('#footer').load('footer.html');
-    
     $('.nav-tab > .nav-square a').on('click', function(e) {
 	var panelID = $(this).attr('href'),
 	    currentTab = $(this).parent();
