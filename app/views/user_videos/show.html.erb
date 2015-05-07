@@ -71,7 +71,7 @@
                 <td><%= product.transcoding.name %></td>
                 <td>
                   <% if product.FINISHED? %>
-                      <%= link_to 'download', product.video_detail.get_full_url %>
+                      <%= link_to 'download', download_video_product_path(product) %>
                   <% end %>
                 </td>
               </tr>
