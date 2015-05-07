@@ -73,11 +73,7 @@ class VideoProductGroup < ActiveRecord::Base
     Delayed::Worker.logger
   end
 
-  def create_products
-    logger.info 'Start process video product group'
-    video_product_group = self
-    logger.debug "video product group id: #{video_product_group.id}"
-    user_video = self.user_video
+  def check_dependent(user_video)
     dependent_video = user_video.mkv_video
 
     if dependent_video.nil? || dependent_video.NONE?
@@ -86,8 +82,8 @@ class VideoProductGroup < ActiveRecord::Base
       logger.warn 'Create mkv video from user video.'
       self.status = STATUS::WAIT_FOR_DEPENDENCY
       self.save!
-      self.delay.create_products
-      return
+      self.delay(run_at: 5.seconds.from_now).create_products_from_mkv
+      return false
     end
 
     logger.debug "[dependent video id: #{dependent_video.id}]"
@@ -95,17 +91,44 @@ class VideoProductGroup < ActiveRecord::Base
       logger.info 'Wait for next loop because dependent video is in processing'
       self.status = STATUS::WAIT_FOR_DEPENDENCY
       self.save!
-      self.delay.create_products
-      return
+      self.delay(run_at: 5.seconds.from_now).create_products_from_mkv
+      return false
     end
 
-    if dependent_video.ONLY_REMOTE?
+    unless dependent_video.LOCAL?
       logger.info 'Dependent video is only in remote server(OSS), download before cut'
       self.status = STATUS::DOWNLOADING
       self.save!
       dependent_video.download!
     end
+    true
+  end
 
+  def create_products_from_mkv
+    logger.info 'Start process video product group'
+    user_video = self.user_video
+    return unless check_dependent(user_video)
+
+    dependent_video = user_video.mkv_video
+
+    if self.transcoding_strategy.present?
+      create_products_by_transcoding_strategy(dependent_video)
+    else
+      create_products_for_directly_publish(dependent_video)
+    end
+  end
+
+  def create_products_from_origin
+    self.status = STATUS::PROCESSING
+    self.save!
+    self.transcoding_strategy.transcodings.each do |transcoding|
+      product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
+      product.transcode_video(self.user_video.original_video, transcoding)
+    end
+    #TODO
+  end
+
+  def create_products_by_transcoding_strategy(dependent_video)
     logger.info 'Start to make video product fragment'
     self.status = STATUS::PROCESSING
     self.save!
@@ -119,7 +142,18 @@ class VideoProductGroup < ActiveRecord::Base
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
       product.transcode_video(self.mkv_video, transcoding)
     end
+    self.save!
+  end
 
+  def create_products_for_directly_publish(dependent_video)
+    logger.info 'Start to make packaged video product'
+    self.status = STATUS::PROCESSING
+    self.save!
+    # self.mkv_video = dependent_video.copy_mkv_video_for_package
+    self.mkv_video = VideoDetail.create.copy_video_info_from! dependent_video
+    product = VideoProduct.create(:video_product_group => self)
+    product.copy_package_mkv!(self.user_video.mkv_video)
+    self.status = STATUS::FINISHED
     self.save!
   end
 

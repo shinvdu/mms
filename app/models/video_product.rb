@@ -58,6 +58,13 @@ class VideoProduct < ActiveRecord::Base
     self.save!
   end
 
+  def copy_package_mkv!(mkv_video_detail)
+    self.video_detail = VideoDetail.create.copy_video_info_from! mkv_video_detail
+    self.video_detail.publish_video! mkv_video_detail.get_full_path
+    self.status = VideoProduct::STATUS::FINISHED
+    self.save!
+  end
+
   def video_transcode_finished
     self.status = STATUS::FINISHED
     self.video_product_group.check_all_finished

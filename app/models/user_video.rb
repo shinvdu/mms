@@ -53,17 +53,17 @@ class UserVideo < ActiveRecord::Base
   def fetch_video_info_and_upload
     video_detail = self.original_video
     video_detail.fetch_video_info
-    video_detail.load_local_file! unless self.publish_strategy == UserVideo::PUBLISH_STRATEGY::PACKAGE
+    video_detail.load_local_file!
     if self.publish_strategy == UserVideo::PUBLISH_STRATEGY::PACKAGE &&
-        (video_detail.video_codec.downcase.index('h264') || video_detail.audio_codec.downcase.index('aac'))
+        (!video_detail.video_codec.downcase.index('h264') || !video_detail.audio_codec.downcase.index('aac'))
       self.status = UserVideo::STATUS::BAD_FORMAT_FOR_PACKAGE
-      return
     end
     # check publish strategy
     # currently only edit
     create_transcoding_video_job(nil, true)
     create_mkv
     self.status = UserVideo::STATUS::PRETRANSCODING
+    self.save!
   end
 
   def create_mkv
@@ -79,6 +79,25 @@ class UserVideo < ActiveRecord::Base
       self.mkv_video = transcode_job.target
     end
     self.save!
+  end
+
+  def publish_by_strategy
+    case self.publish_strategy
+      when PUBLISH_STRATEGY::PACKAGE
+        return if self.status == STATUS::BAD_FORMAT_FOR_PACKAGE
+        if self.mkv_video.nil? || !self.mkv_video.LOCAL?
+          logger.info "mkv video not created, wait for next loop. id: #{self.id}"
+          self.delay(run_at: 5.seconds.from_now).publish_by_strategy
+          return
+        end
+        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self)
+        video_product_group.create_products_from_mkv
+      when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
+        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :transcoding_strategy => self.default_transcoding_strategy)
+        video_product_group.create_products_from_origin
+
+        #TODO
+    end
   end
 end
 

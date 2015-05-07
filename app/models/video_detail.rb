@@ -29,7 +29,11 @@ class VideoDetail < ActiveRecord::Base
 
   def store_dir
     return uuid if self.transcoding.nil? || self.fragment || self.transcoding.mini? || self.user_video_id.present?
-    return "product_#{self.id}"
+    "product_#{self.id}"
+  end
+
+  def remote_file_name
+    File.basename self.uri if self.uri.present?
   end
 
   def bucket
@@ -100,7 +104,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def copy_attributes
-    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5')
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -167,7 +171,28 @@ class VideoDetail < ActiveRecord::Base
     new_video
   end
 
+  def copy_video_info_from!(video_detail)
+    self.set_attributes_by_hash(video_detail.copy_attributes)
+    self.public = false
+    self.uri = video_detail.uri.split('.').insert(-2, self.id).join('.')
+    self.status = VideoDetail::STATUS::NONE
+    self.save!
+    self
+  end
+
+  def publish_video!(local_path)
+    self.public = true
+    File.open local_path do |f|
+      self.video = f
+    end
+    self.status = VideoDetail::STATUS::ONLY_REMOTE
+    self.save!
+
+  end
+
   def download!
+    self.status = VideoDetail::STATUS::PROCESSING
+    self.save!
     file_path = self.get_full_path
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"
@@ -193,6 +218,10 @@ class VideoDetail < ActiveRecord::Base
 
   def REMOTE?
     self.status == STATUS::ONLY_REMOTE || self.status == STATUS::BOTH
+  end
+
+  def LOCAL?
+    self.status == STATUS::ONLY_LOCAL || self.status == STATUS::BOTH
   end
 
   def PROCESSING?

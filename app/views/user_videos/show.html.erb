@@ -46,7 +46,7 @@
               <tr>
                 <td><%= product.id %></td>
                 <td><%= product.status %></td>
-                <td><%= product.transcoding.name %></td>
+                <td><%= product.transcoding.present? ? product.transcoding.name : @user_video.video_name %></td>
                 <td>
                   <% if product.FINISHED? %>
                       <%= link_to 'download', download_video_product_path(product) %>

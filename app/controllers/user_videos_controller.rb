@@ -29,6 +29,7 @@ class UserVideosController < ApplicationController
                                :default_transcoding_strategy_id => user_video_params[:default_transcoding_strategy]
     ).set_video(user_video_params[:video])
     user_video.save!
+    user_video.delay.publish_by_strategy
 
     respond_to do |format|
       format.html { redirect_to user_videos_path }
