@@ -93,6 +93,20 @@ module MTSWorker
     end
   end
 
+  module SnapshotWorker
+    include MTSUtils::All
+
+    def create_mts_job
+      request_id, snapshot_job = submit_snapshot_job(self.video_detail.bucket, self.video_detail.uri, self.time.to_i, self.uri,
+                                                     :output_bucket => Settings.aliyun.oss.public_bucket)
+      if snapshot_job.state == MTSUtils::Status::SUCCESS || snapshot_job.state == MTSUtils::Status::SNAPSHOTING
+        SnapshotJob.create!(:job_id => snapshot_job.job_id, :target => self)
+      else
+        self.status = Snapshot::STATUS::FAILED
+      end
+    end
+  end
+
   module Scheduled
     include MTSUtils::All
 
@@ -184,6 +198,41 @@ module MTSWorker
         not_exist_list.each do |str|
           job_map[str].status = MtsJob::STATUS::MISSING
           job_map[str].save!
+        end
+      end
+    end
+
+    def query_snapshot_jobs
+      jobs = SnapshotJob.not_finished
+      job_map = Hash[jobs.collect { |j| [j.job_id, j] }]
+      job_ids = jobs.map { |j| j.job_id }
+      job_ids.each_slice(10).each do |ids|
+        request_id, result_list, not_exist_list = query_snapshot_job_list(ids)
+        logger.debug result_list
+        result_list.each do |result|
+          job = job_map[result.job_id]
+          logger.info "Checking for #{job.id}, status is #{result.state}"
+          case result.state
+            when MTSUtils::Status::SNAPSHOTING
+              job.status = MtsJob::STATUS::PROCESSING
+            when MTSUtils::Status::SUCCESS
+              job.status = MtsJob::STATUS::FINISHED
+              job.finish_time = Time.now
+              snapshot = job.target
+              snapshot.status = Snapshot::STATUS::FINISHED
+              snapshot.save!
+            when MTSUtils::Status::FAIL
+              job.status = MtsJob::STATUS::FAILED
+              job.code = result.code
+              job.message = result.message
+          end
+          job.save!
+        end
+        not_exist_list.each do |str|
+          job_map[str].status = MtsJob::STATUS::MISSING
+          job_map[str].save!
+          job_map[str].target.status = Snapshot::STATUS::FAILED
+          job_map[str].target.save!
         end
       end
     end

@@ -23,7 +23,7 @@ class VideoProductGroupsController < ApplicationController
     end
     video_product_group = VideoProductGroup.create(:name => product_data_params[:name].strip, :user_video => user_video, :transcoding_strategy => strategy)
     video_product_group.create_fragments(video_cut_points)
-    video_product_group.create_products
+    video_product_group.delay.create_products
 
     respond_to do |format|
       format.html { redirect_to user_videos_path }

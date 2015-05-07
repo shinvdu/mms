@@ -83,6 +83,7 @@ class VideoProductGroup < ActiveRecord::Base
       logger.error "Cannot find mkv video for user video. id: #{user_video.id}"
       self.status = STATUS::FAILED
       self.save!
+      self.delay.create_products
       return
     end
 
@@ -91,6 +92,7 @@ class VideoProductGroup < ActiveRecord::Base
       logger.info 'Wait for next loop because dependent video is in processing'
       self.status = STATUS::WAIT_FOR_DEPENDENCY
       self.save!
+      self.delay.create_products
       return
     end
 
@@ -105,7 +107,9 @@ class VideoProductGroup < ActiveRecord::Base
     self.status = STATUS::PROCESSING
     self.save!
     self.mkv_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
+    self.mkv_video.fetch_video_info
     self.mkv_video.load_local_file! unless self.mkv_video.REMOTE?
+    self.mkv_video.create_snapshot
     self.mkv_video.remove_local_file!
 
     self.transcoding_strategy.transcodings.each do |transcoding|
@@ -115,8 +119,6 @@ class VideoProductGroup < ActiveRecord::Base
 
     self.save!
   end
-
-  handle_asynchronously :create_products
 
   def check_status
     not_all_finished = self.video_products.any? { |products| !products.FINISHED? }
