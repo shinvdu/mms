@@ -5,6 +5,7 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
   belongs_to :transcoding_strategy
+  belongs_to :checker, :class_name => 'User'
 
   module STATUS
     SUBMITTED = 10
@@ -14,6 +15,13 @@ class VideoProductGroup < ActiveRecord::Base
     UPLOADING = 50
     FINISHED = 60
     FAILED = 99
+  end
+
+  module CHECK_STATUS
+    UNCHECKED = 10
+    PENDING = 20
+    ACCEPTED = 30
+    REJECT = 99
   end
 
   def create_fragments(cut_points)
