@@ -1,3 +1,11 @@
+<% style '/player1/video-js.css' %>
+<% style '/player1/videojs.watermark.css' %>
+<% javascript '/player1/video.js' %>
+<% javascript '/player1/videojs.watermark.js' %>
+  <script>
+    videojs.options.flash.swf = "/player1/video-js.swf";
+  </script>
+
 <%=  render 'players/nav' %>
 <div class="tab-panel current" id="add-player">
 <p id="notice"><%= notice %></p>
