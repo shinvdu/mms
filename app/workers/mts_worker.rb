@@ -6,41 +6,6 @@ module MTSWorker
       job = self.original_video.create_transcoding_video_job(transcoding, public)
       self.mini_video = job.target if transcoding.nil? || transcoding.mini_transcoding?
       return
-
-      # video_detail = self.original_video
-      # transcoding = Transcoding.find_mini if transcoding.nil?
-      # template_id = transcoding.aliyun_template_id
-      # suffix = transcoding.id == 1 ? Settings.file_server.mini_suffix : transcoding.id.to_s
-      # output_object_uri = video_detail.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
-      # logger.debug 'create transcoding job'
-      # logger.debug "[template id: #{template_id}]"
-      # output_bucket = public ? Settings.aliyun.oss.public_bucket : Settings.aliyun.oss.private_bucket
-      # request_id, job_result = submit_job(video_detail.bucket,
-      #                                     video_detail.uri,
-      #                                     output_object_uri,
-      #                                     template_id,
-      #                                     Settings.aliyun.mts.pipeline_id,
-      #                                     :output_bucket => output_bucket)
-      # if job_result.success
-      #   transcoded_video_detail = video_detail.dup
-      #   self.mini_video = transcoded_video_detail if transcoding.mini_transcoding?
-      #   transcoded_video_detail.transcoding = transcoding if transcoding.present?
-      #   transcoded_video_detail.uri = output_object_uri
-      #   transcoded_video_detail.status = VideoDetail::STATUS::PROCESSING
-      #   transcoded_video_detail.public = public
-      #   transcoded_video_detail.save!
-      #   # change carrierwave mounted column
-      #   if public
-      #     transcoded_video_detail.update_column(:public_video, File.basename(output_object_uri))
-      #   else
-      #     transcoded_video_detail.update_column(:private_video, File.basename(output_object_uri))
-      #   end
-      #   self.save!
-      #   TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
-      # else
-      #   logger.error 'create transcoding job failed!'
-      #   raise 'create transcoding job failed!'
-      # end
     end
   end
 
