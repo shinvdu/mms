@@ -53,21 +53,22 @@
         <hr>
         <div class="row row-images ">
             <%= image_tag(@logo.uri , :id => 'blah') if @logo.uri? %>
-            <%= image_tag('javascript:void' , :id => 'blah') if not @logo.uri? %>
+            <%= "<img src='#' , :id => 'blah'>" if not @logo.uri? %>
+
           <figure>
             <%= image_tag(@logo.uri_url(:thumb), :id => 'thumb_size') if @logo.uri? %>
-            <%= image_tag('javascript:void', :id => 'thumb_size') if not @logo.uri? %>
+            <%= "<img src='#' , :id => 'thumb_size'>" if not @logo.uri? %>
             <figcaption><%= Settings.logo.small.height.to_i %>x<%= Settings.logo.small.height.to_i %></figcaption>
           </figure>
           <figure>
             <%= image_tag(@logo.uri_url(:normal),  :id => 'normal_size') if @logo.uri? %>
-            <%= image_tag('javascript:void', :id => 'normal_size') if not @logo.uri? %>
+            <%= "<img src='#' , :id => 'normal_size'>" if not @logo.uri? %>
             <figcaption><%= Settings.logo.normal.height.to_i %> x <%= Settings.logo.normal.height.to_i %></figcaption>
           </figure>
           <figure>
             <!-- <img class="img-rounded img-large" src="./picture/header-bg.jpg"> -->
             <%= image_tag(@logo.uri , :id => 'big_size') if @logo.uri? %>
-            <%= image_tag('javascript:void', :id => 'big_size') if not @logo.uri? %>
+            <%= "<img src='#' , :id => 'big_size'>" if not @logo.uri? %>
             <figcaption><%= Settings.logo.origin.height.to_i %> x <%= Settings.logo.origin.height.to_i %></figcaption>
           </figure>
         </div>
