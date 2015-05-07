@@ -6,6 +6,7 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
   belongs_to :transcoding_strategy
   belongs_to :checker, :class_name => 'User'
+  scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
 
   module STATUS
     SUBMITTED = 10
@@ -79,9 +80,11 @@ class VideoProductGroup < ActiveRecord::Base
     user_video = self.user_video
     dependent_video = user_video.mkv_video
 
-    if dependent_video.nil?
-      logger.error "Cannot find mkv video for user video. id: #{user_video.id}"
-      self.status = STATUS::FAILED
+    if dependent_video.nil? || dependent_video.NONE?
+      user_video.delay.create_mkv
+      logger.warn "Cannot find mkv video for user video. id: #{user_video.id}"
+      logger.warn 'Create mkv video from user video.'
+      self.status = STATUS::WAIT_FOR_DEPENDENCY
       self.save!
       self.delay.create_products
       return

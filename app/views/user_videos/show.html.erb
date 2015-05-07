@@ -35,35 +35,6 @@
       <div>
         <%= g.name %><br/>
         <%= g.get_status %><br/>
-        <% if g.NEED_CHECK? %>
-            <%= form_for g, :url => check_video_product_group_path do |f| %>
-                <%= f.button :accept, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::ACCEPTED %>
-                <%= f.button :reject, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::REJECT %>
-                <%= f.button :pend, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::PENDING %>
-            <% end %>
-            <% if g.mkv_video.present? %>
-                <table>
-                  <tr>
-                    <% g.mkv_video.snapshots.each do |snapshot| %>
-                        <td>
-                          <% if snapshot.FINISHED? %>
-                              <%= image_tag snapshot.get_full_url, :style => "width:180px;" %>
-                          <% else %>
-                              截图制作中
-                          <% end %>
-                        </td>
-                    <% end %>
-                  </tr>
-                  <tr>
-                    <% g.mkv_video.snapshots.each do |snapshot| %>
-                        <td>
-                          <%= snapshot.time.to_i.to_time %>
-                        </td>
-                    <% end %>
-                  </tr>
-                </table>
-            <% end %>
-        <% end %>
         <table>
           <tr>
             <th>id</th>
@@ -86,5 +57,36 @@
         </table>
       </div>
       <br/>
+  <% end %>
+  <% if current_user.admin? %>
+      <% VideoProductGroup.need_check.each do |g| %>
+          <%= form_for g, :url => check_video_product_group_path do |f| %>
+              <%= f.button :accept, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::ACCEPTED %>
+              <%= f.button :reject, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::REJECT %>
+              <%= f.button :pend, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::PENDING %>
+          <% end %>
+          <% if g.mkv_video.present? %>
+              <table>
+                <tr>
+                  <% g.mkv_video.snapshots.each do |snapshot| %>
+                      <td>
+                        <% if snapshot.FINISHED? %>
+                            <%= image_tag snapshot.get_full_url, :style => "width:180px;" %>
+                        <% else %>
+                            截图制作中
+                        <% end %>
+                      </td>
+                  <% end %>
+                </tr>
+                <tr>
+                  <% g.mkv_video.snapshots.each do |snapshot| %>
+                      <td>
+                        <%= snapshot.time.to_i.to_time %>
+                      </td>
+                  <% end %>
+                </tr>
+              </table>
+          <% end %>
+      <% end %>
   <% end %>
 </div>

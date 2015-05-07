@@ -199,6 +199,10 @@ class VideoDetail < ActiveRecord::Base
     self.status == STATUS::PROCESSING
   end
 
+  def NONE?
+    self.status == STATUS::NONE
+  end
+
 end
 
 #------------------------------------------------------------------------------
