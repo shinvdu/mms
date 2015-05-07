@@ -104,7 +104,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def copy_attributes
-    self.attributes.except('id', 'public_video', 'private_video', 'created_at')
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -173,6 +173,7 @@ class VideoDetail < ActiveRecord::Base
 
   def copy_video_info_from!(video_detail)
     self.set_attributes_by_hash(video_detail.copy_attributes)
+    self.md5 = video_detail.md5
     self.public = false
     self.uri = video_detail.uri.split('.').insert(-2, self.id).join('.')
     self.status = VideoDetail::STATUS::NONE
@@ -202,14 +203,21 @@ class VideoDetail < ActiveRecord::Base
     self.save!
   end
 
-  def create_snapshot
+  def create_snapshot(video_product_group)
     n = Settings.aliyun.mts.snapshot_number
     # create n snapshots from 10% to 90%
     (0..n).to_a.map { |i| self.duration*0.8/n*i+self.duration*0.1 }.each_with_index do |time, idx|
       uri = File.join(File.dirname(self.uri), [self.id, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
-      snapshot = Snapshot.create(:time => time, :uri => uri, :video_detail => self)
+      snapshot = Snapshot.create(:time => time,
+                                 :uri => uri,
+                                 :video_detail => self,
+                                 :video_product_group => video_product_group)
       snapshot.create_mts_job
     end
+  end
+
+  def fetched_info?
+    self.md5.present?
   end
 
   def ONLY_REMOTE?

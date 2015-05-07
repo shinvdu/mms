@@ -4,6 +4,7 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_products
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
+  has_many :snapshots
   belongs_to :transcoding_strategy
   belongs_to :checker, :class_name => 'User'
   scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
@@ -125,7 +126,7 @@ class VideoProductGroup < ActiveRecord::Base
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
       product.transcode_video(self.user_video.original_video, transcoding)
     end
-    #TODO
+    self.user_video.original_video.create_snapshot(self)
   end
 
   def create_products_by_transcoding_strategy(dependent_video)
@@ -135,7 +136,7 @@ class VideoProductGroup < ActiveRecord::Base
     self.mkv_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
     self.mkv_video.fetch_video_info
     self.mkv_video.load_local_file! unless self.mkv_video.REMOTE?
-    self.mkv_video.create_snapshot
+    self.mkv_video.create_snapshot(self)
     self.mkv_video.remove_local_file!
 
     self.transcoding_strategy.transcodings.each do |transcoding|
@@ -153,6 +154,7 @@ class VideoProductGroup < ActiveRecord::Base
     self.mkv_video = VideoDetail.create.copy_video_info_from! dependent_video
     product = VideoProduct.create(:video_product_group => self)
     product.copy_package_mkv!(self.user_video.mkv_video)
+    user_video.original_video.create_snapshot(self)
     self.status = STATUS::FINISHED
     self.save!
   end

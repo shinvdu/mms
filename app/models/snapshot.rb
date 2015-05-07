@@ -1,5 +1,6 @@
 class Snapshot < ActiveRecord::Base
   belongs_to :video_detail
+  belongs_to :video_product_group
 
   include MTSWorker::SnapshotWorker
 
