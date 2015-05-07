@@ -18,10 +18,11 @@ class UserVideo < ActiveRecord::Base
     PRETRANSCODING = 40
     GOT_LOW_RATE = 50
     BAD_FORMAT_FOR_PACKAGE = 91
+    BAD_FORMAT_FOR_MTS = 92
     ORIGIN_DELETED = 99
   end
 
-  module STRATEGY
+  module PUBLISH_STRATEGY
     PACKAGE = 1
     TRANSCODING_AND_PUBLISH = 2
     TRANSCODING_AND_EDIT = 3
@@ -29,9 +30,7 @@ class UserVideo < ActiveRecord::Base
 
   include MTSWorker::UserVideoWorker
 
-  def set_by_video(owner, videoName, video)
-    self.owner = owner
-    self.video_name = videoName
+  def set_video(video)
     self.file_name = video.original_filename
     self.ext_name = File.extname(self.file_name)
 
@@ -39,7 +38,7 @@ class UserVideo < ActiveRecord::Base
     video_detail.save!
     self.original_video = video_detail
     self.status = STATUS::PREUPLOADED
-    async_fetch_video_info_and_upload
+    self.delay.fetch_video_info_and_upload
     self
   end
 
@@ -51,11 +50,11 @@ class UserVideo < ActiveRecord::Base
   # asynchronous method
   ######################################################
 
-  def async_fetch_video_info_and_upload
+  def fetch_video_info_and_upload
     video_detail = self.original_video
     video_detail.fetch_video_info
-    video_detail.load_local_file! unless self.publish_strategy == UserVideo::STRATEGY::PACKAGE
-    if self.publish_strategy == UserVideo::STRATEGY::PACKAGE &&
+    video_detail.load_local_file! unless self.publish_strategy == UserVideo::PUBLISH_STRATEGY::PACKAGE
+    if self.publish_strategy == UserVideo::PUBLISH_STRATEGY::PACKAGE &&
         (video_detail.video_codec.downcase.index('h264') || video_detail.audio_codec.downcase.index('aac'))
       self.status = UserVideo::STATUS::BAD_FORMAT_FOR_PACKAGE
       return
@@ -66,8 +65,6 @@ class UserVideo < ActiveRecord::Base
     create_mkv
     self.status = UserVideo::STATUS::PRETRANSCODING
   end
-
-  handle_asynchronously :async_fetch_video_info_and_upload
 
   def create_mkv
     video_detail = self.original_video

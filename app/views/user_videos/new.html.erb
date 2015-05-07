@@ -6,22 +6,21 @@
       <p>
         <span>name:</span>
         <%= f.text_field :video_name %>
-
       </p>
-
       <p>
         <%= f.file_field :video %>
-
       </p>
-
       <p>
-        <span>strategy:</span>
-        <%= f.collection_select(:default_transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name) %>
+        <span>发布方案:</span>
+        <%= f.select :publish_strategy, @publish_strategy %>
+      </p>
+      <p>
+        <span>转码方案:</span>
+        <%= f.collection_select :default_transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
       </p>
 
       <p>
         <%= f.submit 'Upload' %>
-
       </p>
   <% end %>
 
