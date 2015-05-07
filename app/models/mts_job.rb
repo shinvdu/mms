@@ -9,6 +9,11 @@ class MtsJob < ActiveRecord::Base
     FAILED = 50
     MISSING = 60
   end
+
+  def post_process
+    Rails.logger.info "post process, #{self.post_process_command}"
+    eval self.post_process_command if self.post_process_command.present?
+  end
 end
 
 

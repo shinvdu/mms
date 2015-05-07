@@ -9,12 +9,14 @@ class VideoDetail < ActiveRecord::Base
   require 'uuidtools'
 
   module STATUS
-    # NONE = 10
+    NONE = 10
     PROCESSING = 20
     ONLY_LOCAL = 30
     ONLY_REMOTE = 40
     BOTH = 50
   end
+
+  include MTSWorker::VideoDetailWorker
 
   def video
     self.public ? self.public_video : self.private_video
@@ -35,7 +37,7 @@ class VideoDetail < ActiveRecord::Base
 
   def set_video(user_video, video)
     self.user_video = user_video
-    self.uuid = UUIDTools::UUID.random_create
+    self.uuid = UUIDTools::UUID.random_create.to_s
     self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
     self.status = STATUS::ONLY_LOCAL
 
@@ -62,6 +64,11 @@ class VideoDetail < ActiveRecord::Base
     "#{Settings.aliyun.oss.download_proxy}#{self.bucket}.#{Settings.aliyun.oss.host}/#{self.uri}"
   end
 
+  def full_cache_path!
+    self.video.cache_stored_file!
+    Rails.root.join('public', self.video.cache_dir, self.video.cache_name)
+  end
+
   def create_sub_video(start, stop, suffix)
     start_time = get_time(start)
     stop_time = get_time(stop)
@@ -69,13 +76,30 @@ class VideoDetail < ActiveRecord::Base
     output_path = input_path.split('.').insert(-2, suffix).join('.')
     logger.debug "slice video to #{output_path}"
     slice_video(input_path, output_path, start_time, stop_time)
-    sub_video = VideoDetail.new.set_attributes_by_hash(self.attributes.except('id', 'video', 'created_at'))
+    sub_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     sub_video.uri = self.uri.split('.').insert(-2, suffix).join('.')
     File.open(output_path) { |f| sub_video.video = f }
     sub_video.status = VideoDetail::STATUS::BOTH
     sub_video.fragment = true
     sub_video.save!
     sub_video
+  end
+
+  def create_mkv_video
+    if self.user_video.ext_name == '.mkv'
+      return self
+    end
+    input_path = self.get_full_path
+    output_path = self.get_full_path.split('.')[0..-2].append('mkv').join('.')
+    `ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}`
+    mkv_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
+    mkv_video.uri = self.uri.split('.')[0..-2].append('mkv').join('.')
+    mkv_video.status = VideoDetail::STATUS::ONLY_LOCAL
+    mkv_video
+  end
+
+  def copy_attributes
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -87,12 +111,22 @@ class VideoDetail < ActiveRecord::Base
     "#{t.to_i/3600}:#{t.to_i%3600/60}:#{t-t.to_i/60*60}"
   end
 
-  def load_local_file(local_path)
-    File.open(local_path) do |file|
+  def load_local_file!
+    File.open(self.get_full_path) do |file|
       self.video = file
       self.status = VideoDetail::STATUS::BOTH
       self.save!
     end
+  end
+
+  def remove_local_file!
+    FileUtils.rm self.get_full_path
+    if self.REMOTE?
+      self.status = STATUS::ONLY_REMOTE
+    else
+      self.status = STATUS::NONE
+    end
+    self.save!
   end
 
   require 'rubygems'
@@ -113,10 +147,37 @@ class VideoDetail < ActiveRecord::Base
     end
   end
 
-  def destroy
-    remove_video!
-    save
-    super
+  def create_mkv_video_by_fragments(video_fragments)
+    new_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
+    new_video.public = false
+    new_video.save!
+    new_video.uri = self.uri.split('.').insert(-2, new_video.id).join('.')
+    input_path = self.get_full_path
+    output_path = new_video.get_full_path
+
+    file_paths = []
+    video_fragments.each_with_index do |frag, idx|
+      tmp_path = new_video.uri.split('.').insert(-2, idx).join('.')
+      file_paths.append tmp_path
+      cp = frag.video_cut_point
+      time_str = "#{get_time(cp.start_time)}-#{get_time(cp.stop_time)}"
+      `mkvmerge -o #{tmp_path} --split parts:#{time_str} #{input_path}`
+    end
+    `mkvmerge  -o #{output_path} #{file_paths.join(' +')}`
+
+    file_paths.each_with_index { |path| FileUtils.rm path }
+    new_video.save!
+    new_video
+  end
+
+  def download!
+    file_path = self.get_full_path
+    cache_path = self.full_cache_path!
+    logger.debug "cp #{cache_path} #{file_path}"
+    FileUtils.cp cache_path, file_path
+    # must cp before save, save will remove cached file
+    self.status = VideoDetail::STATUS::BOTH
+    self.save!
   end
 
   def ONLY_REMOTE?

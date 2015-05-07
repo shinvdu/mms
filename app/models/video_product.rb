@@ -13,10 +13,6 @@ class VideoProduct < ActiveRecord::Base
     FINISHED = 60
   end
 
-  def make_video_product_task(task_group)
-    VideoProductTask.create(:target => self, :local_task_group => task_group)
-  end
-
   def get_m3u8_file_path
     file_path = Rails.root.join(Settings.m3u8_dir, [self.video_product_group.id, self.id, 'm3u8'].join('.'))
     dir = File.dirname file_path
@@ -36,6 +32,36 @@ class VideoProduct < ActiveRecord::Base
 
   def FINISHED?
     self.status == STATUS::FINISHED
+  end
+
+  ########################################################
+  # asynchronous method
+  ########################################################
+
+  def produce!(dependent_video, video_fragments)
+    fragments = []
+    video_fragments.each_with_index do |frag, idx|
+      product_fragment = VideoProductFragment.new(:video_product => self, :video_fragment => frag, :order => idx)
+      product_fragment.produce(dependent_video)
+      fragments.append product_fragment
+    end
+
+    self.status = VideoProduct::STATUS::FINISHED
+    self.save!
+  end
+
+  def transcode_video(video_detail, transcoding)
+    transcode_job = video_detail.create_transcoding_video_job(transcoding, true)
+    transcode_job.post_process_command = "VideoProduct.find(#{self.id}).video_transcode_finished"
+    transcode_job.save!
+    self.video_detail = transcode_job.target
+    self.save!
+  end
+
+  def video_transcode_finished
+    self.status = STATUS::FINISHED
+    self.video_product_group.check_status
+    self.save!
   end
 end
 
