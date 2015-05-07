@@ -4,22 +4,22 @@ class ScheduledWorker
 
   def mts_query_loop
     logger.info 'Start mts query loop'
-    if Delayed::Job.where(:queue => Settings.aliyun.mts.scheduled_queue).size <= 1
+    if Delayed::Job.where(:queue => Settings.aliyun.mts.scheduled_queue, :locked_by => nil).size <= 1
       mts_query_loop
     end
     safe_exception do
       query_transcoding_jobs
     end
-    # safe_exception do
-    #   query_meta_info_list_job
-    # end
+    safe_exception do
+      query_snapshot_jobs
+    end
   end
 
   handle_asynchronously :mts_query_loop, :queue => Settings.aliyun.mts.scheduled_queue, :run_at => Proc.new { 5.seconds.from_now }
 
   def local_video_loop
     logger.info 'Start local video loop'
-    if Delayed::Job.where(:queue => Settings.file_server.video_cut_scheduled_queue).size <= 1
+    if Delayed::Job.where(:queue => Settings.file_server.video_cut_scheduled_queue, :locked_by => nil).size <= 1
       local_video_loop
     end
     safe_exception do

@@ -10,24 +10,20 @@ class VideoProductGroupsController < ApplicationController
     end
 
     cut_points = JSON.parse(product_data_params[:cut_points])
-    video_cut_points = VideoCutPoint.create(cut_points)
-    video_cut_points.each do |cp|
-      cp.user_created = true
-      cp.save!
-    end
+    video_cut_points = VideoCutPoint.create_by_user(cut_points)
 
     strategy = product_data_params[:select_strategy] ?
         TranscodingStrategy.find(product_data_params[:strategy_id]) : user_video.default_transcoding_strategy
     if strategy.nil?
       respond_to do |format|
         format.html { redirect_to user_videos_path }
-        format.json { render :json => 'no default transcoding strategy selected' }
+        format.json { render :json => 'no transcoding strategy selected' }
       end
       return
     end
     video_product_group = VideoProductGroup.create(:name => product_data_params[:name].strip, :user_video => user_video, :transcoding_strategy => strategy)
     video_product_group.create_fragments(video_cut_points)
-    video_product_group.create_products
+    video_product_group.delay.create_products
 
     respond_to do |format|
       format.html { redirect_to user_videos_path }

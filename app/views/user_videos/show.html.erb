@@ -1,18 +1,6 @@
 <h1>Video show</h1>
 <span>id:</span><%= @user_video.id %>
 <div>
-  <% @user_video.videos.transcoded.each do |video| %>
-      <% if video.REMOTE? %>
-          <span><%= video.transcoding.name %>:</span>
-          <%= link_to 'preview', get_url_with_privilege(video) %><br/>
-          <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="852" height="480"
-                 data-setup="{}">
-            <source src="<%= get_url_with_privilege(video) %>" type='video/mp4'/>
-            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser
-              that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-          </video>
-      <% end %>
-  <% end %>
   <% if @user_video.GOT_LOW_RATE? %>
       <span><%= @user_video.mini_video.transcoding.name %>:</span>
       <%= link_to 'preview', @user_video.mini_video.get_full_url %><br/>
@@ -47,7 +35,28 @@
       <div>
         <%= g.name %><br/>
         <%= g.get_status %><br/>
-        <%= link_to 'download', download_video_product_group_path(g) %>
+        <% if g.mkv_video.present? %>
+            <table>
+              <tr>
+                <% g.mkv_video.snapshots.each do |snapshot| %>
+                    <td>
+                      <% if snapshot.FINISHED? %>
+                          <%= image_tag snapshot.get_full_url, :style => "width:180px;" %>
+                      <% else %>
+                          截图制作中
+                      <% end %>
+                    </td>
+                <% end %>
+              </tr>
+              <tr>
+                <% g.mkv_video.snapshots.each do |snapshot| %>
+                    <td>
+                      <%= snapshot.time.to_i.to_time %>
+                    </td>
+                <% end %>
+              </tr>
+            </table>
+        <% end %>
         <table>
           <tr>
             <th>id</th>
