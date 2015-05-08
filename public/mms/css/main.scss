@@ -308,6 +308,12 @@ body {
 	padding: 10px 15px;
 	width: 100%;
 
+	.form-control:last-child {
+	    display: inline-block;
+	    width: 100px;
+	    vertical-align: top;
+	}
+
         form {
 	    display: inline-block;
 	    margin-right: 10px;
@@ -471,6 +477,26 @@ body {
 
     .form-group:last-child {
 	margin-top: 35px;
+    }
+}
+
+/* Need to be fixed */
+.panel-content-display {
+    padding: 10px 50px;
+
+    img {
+	width: 100%;
+	height: 105px;
+	margin-bottom: 10px;
+    }
+
+    select {
+	margin-bottom: 10px;
+    }
+
+    .row {
+	padding-top: 4px;
+	padding-bottom: 4px;
     }
 }
 

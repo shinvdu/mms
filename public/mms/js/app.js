@@ -41,6 +41,12 @@ var main = function() {
 	e.preventDefault();
     });
 
+    $('#btn-video-clip').on('click', function(e) {
+	$('.tab-panel').removeClass('current');
+	$('#video-clip').addClass('current');
+	e.preventDefault();
+    });
+
     $('.btn-return-link').on('click', function(e) {
 	var returnID = $(this).attr('href');
 	$('.tab-panel').removeClass('current');

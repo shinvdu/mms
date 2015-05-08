@@ -188,6 +188,10 @@ body {
     background-color: transparent;
     padding: 10px 15px;
     width: 100%; }
+    .tab-panel > .panel-header .form-control:last-child {
+      display: inline-block;
+      width: 100px;
+      vertical-align: top; }
     .tab-panel > .panel-header form {
       display: inline-block;
       margin-right: 10px; }
@@ -299,6 +303,19 @@ body {
     padding-top: 5px; }
   .panel-content .form-group:last-child {
     margin-top: 35px; }
+
+/* Need to be fixed */
+.panel-content-display {
+  padding: 10px 50px; }
+  .panel-content-display img {
+    width: 100%;
+    height: 105px;
+    margin-bottom: 10px; }
+  .panel-content-display select {
+    margin-bottom: 10px; }
+  .panel-content-display .row {
+    padding-top: 4px;
+    padding-bottom: 4px; }
 
 .row-images {
   margin: 0;
