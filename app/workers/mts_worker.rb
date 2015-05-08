@@ -45,6 +45,11 @@ module MTSWorker
         raise 'create transcoding job failed!'
       end
     end
+
+    def create_fetch_video_info_job
+      request_id, meta_info_job = submit_meta_info_job(self.bucket, self.uri)
+      MetaInfoJob.create(:job_id => meta_info_job.job_id, :target => self)
+    end
   end
 
   module TranscodingWorker
@@ -91,20 +96,17 @@ module MTSWorker
               job.status = MtsJob::STATUS::FINISHED
               job.finish_time = Time.now
 
-              user_video = job.target
-              original_video = user_video.original_video
+              video_detail = job.target
               properties = result.properties
 
-              user_video.width = properties.width
-              user_video.height = properties.height
-              user_video.duration = properties.duration
-              original_video.width = user_video.width
-              original_video.height = user_video.height
-              original_video.duration = user_video.duration
-              original_video.fps = properties.fps
-              original_video.rate = properties.bitrate
-              original_video.size = properties.file_size
-              original_video.format = properties.file_format
+              video_detail.width = properties.width
+              video_detail.height = properties.height
+              video_detail.duration = properties.duration
+              video_detail.fps = properties.fps
+              video_detail.rate = properties.bitrate
+              video_detail.size = properties.file_size
+              video_detail.format = properties.file_format
+              video_detail.save!
             when MTSUtils::Status::FAIL
               job.status = MtsJob::STATUS::FAILED
               job.code = result.code

@@ -1,5 +1,10 @@
 class TranscodeJob < MtsJob
   belongs_to :target, :class_name => 'VideoDetail', :foreign_key => :target_id
+
+  def post_process
+    super
+    self.target.create_fetch_video_info_job
+  end
 end
 
 #------------------------------------------------------------------------------

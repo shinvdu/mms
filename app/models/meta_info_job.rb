@@ -1,5 +1,5 @@
 class MetaInfoJob < MtsJob
-  belongs_to :target, :class_name => 'UserVideo', :foreign_key => :target_id
+  belongs_to :target, :class_name => 'VideoDetail'
 end
 
 #------------------------------------------------------------------------------
