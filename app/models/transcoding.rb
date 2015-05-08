@@ -126,7 +126,6 @@ end
 # disabled              tinyint(1)           true    0       false  
 # disable_time          datetime             true            false  
 # share                 tinyint(1)           true    0       false  
-# mini                  tinyint(1)           true    0       false  
-# middle                tinyint(1)           true            false  
+# special_template      int(11)              true    0       false  
 #
 #------------------------------------------------------------------------------
