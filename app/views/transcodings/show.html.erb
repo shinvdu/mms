@@ -5,16 +5,29 @@
 <dl class="dl-horizontal">
   <dt>名称</dt>
   <dd><%= @transcoding.name %></dd>
-  
+
+   <dt>转码速度</dt>
+  <dd><%= @transcoding.video_preset  %></dd>
+ 
   <dt>输出格式</dt>
   <dd><%= @transcoding.container  %></dd>
   
   <dt>视频编码</dt>
   <dd><%= @transcoding.video_codec  %></dd>
 
+  <dt>音频编码</dt>
+  <dd><%= @transcoding.audio_codec  %></dd>
+
+
   <dt>视频码流</dt>
-  <dd><%= @transcoding.video_bitrate  %>Kbps </dd>
-  
+  <dd><%= @transcoding.video_bitrate  %> Kbps </dd>
+
+  <dt>音频码率</dt>
+  <dd><%= @transcoding.audio_bitrate  %> Kbps </dd>
+
+   <dt>视频帧率</dt>
+  <dd><%= @transcoding.video_fps  %></dd>
+ 
   <dt>宽</dt>
   <dd><%= @transcoding.width  %></dd>
   
@@ -22,37 +35,13 @@
   <dd><%= @transcoding.height  %></dd>
   
   <dt>帧率</dt>
-  <dd><%= @transcoding.video_fps  %></dd>
+  <dd><%= @transcoding.video_fps  %> 帧/每秒</dd>
   
-  <dt>关键帧间最大帧数</dt>
-  <dd><%= @transcoding.video_gop  %></dd>
-  
-  <dt>视频算法器预置</dt>
-  <dd><%= @transcoding.video_preset  %></dd>
+  <dt>关键帧间隔</dt>
+  <dd><%= @transcoding.video_gop /  @transcoding.video_fps  %> 秒</dd>
   
   <dt>缓冲区大小</dt>
-  <dd><%= @transcoding.video_bufsize  %></dd>
-  
-  <dt>视频码率峰值</dt>
-  <dd><%= @transcoding.video_maxrate  %></dd>
-  
-  <dt>视频总码率上限</dt>
-  <dd><%= @transcoding.video_bitrate_bnd_max  %></dd>
-  
-  <dt>视频总码率下限</dt>
-  <dd><%= @transcoding.video_bitrate_bnd_min  %></dd>
-  
-  <dt>音频编解码格式</dt>
-  <dd><%= @transcoding.audio_codec  %></dd>
-  
-  <dt>采样率</dt>
-  <dd><%= @transcoding.audio_samplerate  %></dd>
-  
-  <dt>音频码率</dt>
-  <dd><%= @transcoding.audio_bitrate  %></dd>
-  
-  <dt>声道数</dt>
-  <dd><%= @transcoding.audio_channels  %></dd>
+  <dd><%= @transcoding.video_bufsize  %> Kb</dd>
   
 </dl>
 
