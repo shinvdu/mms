@@ -28,7 +28,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def store_dir
-    return uuid if self.transcoding.nil? || self.fragment || self.transcoding.mini? || self.user_video_id.present?
+    return uuid if self.transcoding.nil? || self.fragment || self.transcoding.mini_transcoding? || self.user_video_id.present?
     "product_#{self.id}"
   end
 
@@ -70,6 +70,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def full_cache_path!
+    # BE CAREFUL, move cache file to full_path immediately. It will not be removed automatically
     self.video.cache_stored_file!
     Rails.root.join('public', self.video.cache_dir, self.video.cache_name)
   end
@@ -90,12 +91,12 @@ class VideoDetail < ActiveRecord::Base
     sub_video
   end
 
-  def create_mkv_video
-    if self.user_video.ext_name == '.mkv'
+  def create_mkv_video(input_path = nil)
+    output_path = self.get_full_path.split('.')[0..-2].append('mkv').join('.')
+    if self.user_video.ext_name == '.mkv' && input_path == output_path
       return self
     end
-    input_path = self.get_full_path
-    output_path = self.get_full_path.split('.')[0..-2].append('mkv').join('.')
+    input_path ||= self.get_full_path
     `ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}`
     mkv_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     mkv_video.uri = self.uri.split('.')[0..-2].append('mkv').join('.')
@@ -197,7 +198,9 @@ class VideoDetail < ActiveRecord::Base
     file_path = self.get_full_path
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"
-    FileUtils.cp cache_path, file_path
+    FileUtils.mv cache_path, file_path
+    # FileUtils.cp cache_path, file_path
+    # TODO disable callback may solve this problem?
     # must cp before save, save will remove cached file
     self.status = VideoDetail::STATUS::BOTH
     self.save!

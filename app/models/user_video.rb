@@ -1,5 +1,5 @@
 class UserVideo < ActiveRecord::Base
-  has_many :videos, :class_name => 'VideoDetail', :dependent => :destroy
+  has_many :videos, :class_name => 'VideoDetail'
   has_many :video_product_groups
   has_many :video_cut_points
   has_many :tags_relationship
@@ -7,6 +7,7 @@ class UserVideo < ActiveRecord::Base
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
   belongs_to :mkv_video, :class_name => 'VideoDetail'
+  belongs_to :pre_mkv_video, :class_name => 'VideoDetail'
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
 
   alias_attribute :publish_strategy, :strategy
@@ -82,8 +83,9 @@ class UserVideo < ActiveRecord::Base
       # TODO MTS doesn't support mkv right now
       # middle_template is not created
       logger.debug 'original video is not h264/acc, call mts to transcode'
-      transcode_job = create_transcoding_video_job(Transcoding.find_middle_template)
-      self.mkv_video = transcode_job.target
+      transcode_job = create_transcoding_video_job(Transcoding.find_pre_middle_template)
+      transcode_job.post_process_command = "UserVideo.find(#{self.id}).pre_middle_transcode_finished"
+      self.pre_mkv_video = transcode_job.target
     end
     self.save!
   end
@@ -105,6 +107,15 @@ class UserVideo < ActiveRecord::Base
         video_product_group.create_products_from_origin
     end
   end
+
+  def pre_middle_transcode_finished
+    self.mkv_video = self.pre_mkv_video.create_mkv_video(self.pre_mkv_video.full_cache_path!)
+    self.mkv_video.save!
+    self.pre_mkv_video.destroy
+    self.pre_mkv_video = nil
+    self.save!
+  end
+
 end
 
 #------------------------------------------------------------------------------
