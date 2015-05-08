@@ -1,9 +1,15 @@
 <%=  render 'user_videos/nav' %>
 <div class="tab-panel current" id="video-transcoding-template">
-<h1>Editing Transcoding</h1>
+	<div class="panel-links">
+		<%= link_to '&lt;&lt; 返回模板列表'.html_safe, transcodings_path, :class => 'btn-return-link' %> |
+		<%= link_to '查看', @transcoding %>
+	</div>
+
+	<div class="form-group">
+		<label class="col-md-5 control-label text-center">编辑转码模板</label>
+	</div>
+	<hr>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @transcoding %> |
-<%= link_to 'Back', transcodings_path %>
 </div>
