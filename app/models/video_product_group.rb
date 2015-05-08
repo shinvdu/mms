@@ -1,4 +1,5 @@
 class VideoProductGroup < ActiveRecord::Base
+  belongs_to :owner, :class_name => 'User'
   belongs_to :user_video
   belongs_to :mkv_video, :class_name => 'VideoDetail'
   has_many :video_products

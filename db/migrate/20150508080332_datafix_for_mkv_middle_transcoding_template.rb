@@ -23,6 +23,7 @@ class DatafixForMkvMiddleTranscodingTemplate < ActiveRecord::Migration
                         :audio_channels => 2,
                         :state => 'Normal',
                         :aliyun_template_id => Settings.aliyun.mts.pre_mkv_middle_template_id,
-                        :share => false
+                        :share => false,
+                        :special_template => Transcoding::SPECIAL_TEMPLATE::PRE_MIDDLE_TEMPLATE
   end
 end

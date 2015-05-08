@@ -99,11 +99,11 @@ class UserVideo < ActiveRecord::Base
           self.delay(run_at: 5.seconds.from_now).publish_by_strategy
           return
         end
-        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self)
+        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
         video_product_group.create_products_from_mkv
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
-        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :transcoding_strategy => self.default_transcoding_strategy)
+        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :transcoding_strategy => self.default_transcoding_strategy)
         video_product_group.create_products_from_origin
     end
   end
@@ -141,5 +141,7 @@ end
 # default_transcoding_strategy_id int(11)              true            false  
 # strategy                        int(11)              true            false  
 # mkv_video_id                    int(11)              true            false  
+# format_status                   int(11)              true    0       false  
+# pre_mkv_video_id                int(11)              true            false  
 #
 #------------------------------------------------------------------------------
