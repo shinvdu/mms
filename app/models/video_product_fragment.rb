@@ -37,7 +37,7 @@ end
 # video_fragment_id int(11)              true            false  
 # video_detail_id   int(11)              true            false  
 # order             int(11)              true            false  
-# status            int(11)              true            false  
+# status            int(11)              true    10      false  
 # created_at        datetime             false           false  
 # updated_at        datetime             false           false  
 #

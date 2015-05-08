@@ -195,10 +195,13 @@ end
 # published               tinyint(1)           true            false  
 # publish_start           time                 true            false  
 # publish_stop            time                 true            false  
-# status                  int(11)              true            false  
+# status                  int(11)              true    10      false  
 # created_at              datetime             false           false  
 # updated_at              datetime             false           false  
 # transcoding_strategy_id int(11)              true            false  
 # name                    varchar(255)         true            false  
+# mkv_video_id            int(11)              true            false  
+# check_status            int(11)              true    10      false  
+# checker_id              int(11)              true            false  
 #
 #------------------------------------------------------------------------------

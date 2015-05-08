@@ -251,7 +251,6 @@ end
 # user_video_id  int(11)              true            false  
 # created_at     datetime             false           false  
 # updated_at     datetime             false           false  
-# video          varchar(255)         true            false  
 # width          int(11)              true            false  
 # height         int(11)              true            false  
 # fps            int(11)              true            false  
@@ -260,5 +259,8 @@ end
 # video_codec    varchar(255)         true            false  
 # audio_codec    varchar(255)         true            false  
 # resolution     varchar(255)         true            false  
+# public         tinyint(1)           true    0       false  
+# public_video   varchar(255)         true            false  
+# private_video  varchar(255)         true            false  
 #
 #------------------------------------------------------------------------------
