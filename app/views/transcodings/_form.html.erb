@@ -81,31 +81,43 @@
 
   <div class="form-group">
     <%= f.label :视频码流 ,  :class => "col-sm-3 control-label" %><br>
-          <div class="col-md-8">
-    <%= f.number_field :video_bitrate,  class: 'form-control' %>
-    <span>视频平均码率,值范围[10,50000],单位Kbps</span>
+    <div class="col-md-8">
+      <div class="input-group">
+        <%= f.number_field :video_bitrate,  class: 'form-control' %>
+        <span class="input-group-addon">Kbps</span>
+      </div>
+      <span>视频平均码率,值范围[10,50000],单位Kbps</span>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :音频码流,  :class => "col-sm-3 control-label"  %><br>
-          <div class="col-md-8">
-    <%= f.number_field :audio_bitrate,  class: 'form-control'  %>
-    <span>输出文件的音频码率,[8,1000],单位Kbps,默认值是128</span>
+    <div class="col-md-8">
+      <div class="input-group">
+        <%= f.number_field :audio_bitrate,  class: 'form-control'  %>
+        <span class="input-group-addon">Kbps</span>
+      </div>
+      <span>输出文件的音频码率,[8,1000],单位Kbps,默认值是128</span>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :视频帧率,  :class => "col-sm-3 control-label" %><br>
           <div class="col-md-8">
-    <%= f.number_field :video_fps ,  class: 'form-control' %>
+      <div class="input-group">
+        <%= f.number_field :video_fps ,  class: 'form-control' %>
+        <span class="input-group-addon">帧/每秒</span>
+      </div>
     <span>帧率,默认值取输入文件帧率,当输入文件帧率超过60时取60,值范围(0,60]</span>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :关键帧间隔 ,  :class => "col-sm-3 control-label" %><br>
-          <div class="col-md-8">
-    <%= text_field_tag :video_main_frame_time  , (@transcoding.video_fps && @transcoding.video_gop && (@transcoding.video_gop.to_i / @transcoding.video_fps.to_i)),  class: 'form-control' %>
-    <span>关键帧间隔时间 ,值范围[8,50],默认值10</span>
+    <div class="col-md-8">
+      <div class="input-group">
+        <%= text_field_tag :video_main_frame_time  , (@transcoding.video_fps && @transcoding.video_gop && (@transcoding.video_gop.to_i / @transcoding.video_fps.to_i)),  class: 'form-control' %>
+        <span class="input-group-addon">Kbps</span>
+      </div>
+      <span>关键帧间隔时间 ,值范围[8,50],默认值10</span>
     </div>
   </div>
   <div class="form-group">
@@ -118,16 +130,19 @@
  -->  
     </div>
 </div>
-  <div class="form-group">
-    <%= f.label :缓冲区大小,  :class => "col-sm-3 control-label"  %><br>
-          <div class="col-md-6">
-    <%= f.number_field :video_bufsize ,  class: 'form-control' %>
-    <span>缓冲区大小,默认值6000,值范围[1000,128000],单位Kb</span>
+<div class="form-group">
+  <%= f.label :缓冲区大小,  :class => "col-sm-3 control-label"  %><br>
+  <div class="col-md-8">
+    <div class="input-group">
+      <%= f.number_field :video_bufsize ,  class: 'form-control' %>
+      <span class="input-group-addon">kb</span>
     </div>
+    <span>缓冲区大小,默认值6000,值范围[1000,128000],单位Kb</span>
   </div>
-  <div class="form-group">
+</div>
+<div class="form-group">
     <%= f.label :长宽 , :class => "col-sm-3 control-label" %>
-          <div class="col-md-6">
+          <div class="col-md-8">
     <%= select_tag(:width_and_height,  options_for_select(Settings.transcoding.width_and_height.invert.to_a, "#{@transcoding.width}|#{@transcoding.height}"), {:class => 'form-control player_size' }) %>
     <span>宽,默认值是视频原始宽度,值范围[128,4096],单位px</span>
     </div>
