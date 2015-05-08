@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :video_product_groups do
     member do
       get 'download'
+      patch 'check', :controller => 'video_product_group_check_status'
     end
   end
   resources :user_videos

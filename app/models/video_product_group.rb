@@ -4,8 +4,10 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_products
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
+  has_many :snapshots
   belongs_to :transcoding_strategy
   belongs_to :checker, :class_name => 'User'
+  scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
 
   module STATUS
     SUBMITTED = 10
@@ -72,19 +74,17 @@ class VideoProductGroup < ActiveRecord::Base
     Delayed::Worker.logger
   end
 
-  def create_products
-    logger.info 'Start process video product group'
-    video_product_group = self
-    logger.debug "video product group id: #{video_product_group.id}"
-    user_video = self.user_video
+  def check_dependent(user_video)
     dependent_video = user_video.mkv_video
 
-    if dependent_video.nil?
-      logger.error "Cannot find mkv video for user video. id: #{user_video.id}"
-      self.status = STATUS::FAILED
+    if dependent_video.nil? || dependent_video.NONE?
+      user_video.delay.create_mkv
+      logger.warn "Cannot find mkv video for user video. id: #{user_video.id}"
+      logger.warn 'Create mkv video from user video.'
+      self.status = STATUS::WAIT_FOR_DEPENDENCY
       self.save!
-      self.delay.create_products
-      return
+      self.delay(run_at: 5.seconds.from_now).create_products_from_mkv
+      return false
     end
 
     logger.debug "[dependent video id: #{dependent_video.id}]"
@@ -92,43 +92,95 @@ class VideoProductGroup < ActiveRecord::Base
       logger.info 'Wait for next loop because dependent video is in processing'
       self.status = STATUS::WAIT_FOR_DEPENDENCY
       self.save!
-      self.delay.create_products
-      return
+      self.delay(run_at: 5.seconds.from_now).create_products_from_mkv
+      return false
     end
 
-    if dependent_video.ONLY_REMOTE?
+    unless dependent_video.LOCAL?
       logger.info 'Dependent video is only in remote server(OSS), download before cut'
       self.status = STATUS::DOWNLOADING
       self.save!
       dependent_video.download!
     end
+    true
+  end
 
+  def create_products_from_mkv
+    logger.info 'Start process video product group'
+    user_video = self.user_video
+    return unless check_dependent(user_video)
+
+    dependent_video = user_video.mkv_video
+
+    if self.transcoding_strategy.present?
+      create_products_by_transcoding_strategy(dependent_video)
+    else
+      create_products_for_directly_publish(dependent_video)
+    end
+  end
+
+  def create_products_from_origin
+    self.status = STATUS::PROCESSING
+    self.save!
+    self.transcoding_strategy.transcodings.each do |transcoding|
+      product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
+      product.transcode_video(self.user_video.original_video, transcoding)
+    end
+    self.user_video.original_video.create_snapshot(self)
+  end
+
+  def create_products_by_transcoding_strategy(dependent_video)
     logger.info 'Start to make video product fragment'
     self.status = STATUS::PROCESSING
     self.save!
     self.mkv_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
     self.mkv_video.fetch_video_info
     self.mkv_video.load_local_file! unless self.mkv_video.REMOTE?
-    self.mkv_video.create_snapshot
+    self.mkv_video.create_snapshot(self)
     self.mkv_video.remove_local_file!
 
     self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
       product.transcode_video(self.mkv_video, transcoding)
     end
-
     self.save!
   end
 
-  def check_status
+  def create_products_for_directly_publish(dependent_video)
+    logger.info 'Start to make packaged video product'
+    self.status = STATUS::PROCESSING
+    self.save!
+    # self.mkv_video = dependent_video.copy_mkv_video_for_package
+    self.mkv_video = VideoDetail.create.copy_video_info_from! dependent_video
+    product = VideoProduct.create(:video_product_group => self)
+    product.copy_package_mkv!(self.user_video.mkv_video)
+    user_video.original_video.create_snapshot(self)
+    self.status = STATUS::FINISHED
+    self.save!
+  end
+
+  def check_all_finished
     not_all_finished = self.video_products.any? { |products| !products.FINISHED? }
     unless not_all_finished
       self.status = VideoProductGroup::STATUS::FINISHED
-      FileUtils.rm self.mkv_video.get_full_path
-      self.mkv_video.delete
-      self.mkv_video = nil
+      self.mkv_video.remove_local_file!
       self.save!
     end
+  end
+
+  ######################################################
+  # check status
+  ######################################################
+
+  def check(checker_admin, result)
+    if [CHECK_STATUS::ACCEPTED, CHECK_STATUS::REJECT, CHECK_STATUS::PENDING].include?(result)
+      self.check_status = result
+      self.checker = checker_admin
+    end
+  end
+
+  def NEED_CHECK?
+    [CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING].include? self.check_status
   end
 
 end
@@ -145,10 +197,13 @@ end
 # published               tinyint(1)           true            false  
 # publish_start           time                 true            false  
 # publish_stop            time                 true            false  
-# status                  int(11)              true            false  
+# status                  int(11)              true    10      false  
 # created_at              datetime             false           false  
 # updated_at              datetime             false           false  
 # transcoding_strategy_id int(11)              true            false  
 # name                    varchar(255)         true            false  
+# mkv_video_id            int(11)              true            false  
+# check_status            int(11)              true    10      false  
+# checker_id              int(11)              true            false  
 #
 #------------------------------------------------------------------------------

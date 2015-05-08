@@ -6,41 +6,6 @@ module MTSWorker
       job = self.original_video.create_transcoding_video_job(transcoding, public)
       self.mini_video = job.target if transcoding.nil? || transcoding.mini_transcoding?
       return
-
-      # video_detail = self.original_video
-      # transcoding = Transcoding.find_mini if transcoding.nil?
-      # template_id = transcoding.aliyun_template_id
-      # suffix = transcoding.id == 1 ? Settings.file_server.mini_suffix : transcoding.id.to_s
-      # output_object_uri = video_detail.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
-      # logger.debug 'create transcoding job'
-      # logger.debug "[template id: #{template_id}]"
-      # output_bucket = public ? Settings.aliyun.oss.public_bucket : Settings.aliyun.oss.private_bucket
-      # request_id, job_result = submit_job(video_detail.bucket,
-      #                                     video_detail.uri,
-      #                                     output_object_uri,
-      #                                     template_id,
-      #                                     Settings.aliyun.mts.pipeline_id,
-      #                                     :output_bucket => output_bucket)
-      # if job_result.success
-      #   transcoded_video_detail = video_detail.dup
-      #   self.mini_video = transcoded_video_detail if transcoding.mini_transcoding?
-      #   transcoded_video_detail.transcoding = transcoding if transcoding.present?
-      #   transcoded_video_detail.uri = output_object_uri
-      #   transcoded_video_detail.status = VideoDetail::STATUS::PROCESSING
-      #   transcoded_video_detail.public = public
-      #   transcoded_video_detail.save!
-      #   # change carrierwave mounted column
-      #   if public
-      #     transcoded_video_detail.update_column(:public_video, File.basename(output_object_uri))
-      #   else
-      #     transcoded_video_detail.update_column(:private_video, File.basename(output_object_uri))
-      #   end
-      #   self.save!
-      #   TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
-      # else
-      #   logger.error 'create transcoding job failed!'
-      #   raise 'create transcoding job failed!'
-      # end
     end
   end
 
@@ -48,7 +13,7 @@ module MTSWorker
     include MTSUtils::All
 
     def create_transcoding_video_job(transcoding = nil, public = false)
-      transcoding = Transcoding.find_mini if transcoding.nil?
+      transcoding = Transcoding.find_mini_template if transcoding.nil?
       template_id = transcoding.aliyun_template_id
       suffix = transcoding.mini_transcoding? ? Settings.file_server.mini_suffix : transcoding.id.to_s
       output_object_uri = self.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
@@ -79,6 +44,11 @@ module MTSWorker
         logger.error 'create transcoding job failed!'
         raise 'create transcoding job failed!'
       end
+    end
+
+    def create_fetch_video_info_job
+      request_id, meta_info_job = submit_meta_info_job(self.bucket, self.uri)
+      MetaInfoJob.create(:job_id => meta_info_job.job_id, :target => self)
     end
   end
 
@@ -126,20 +96,17 @@ module MTSWorker
               job.status = MtsJob::STATUS::FINISHED
               job.finish_time = Time.now
 
-              user_video = job.target
-              original_video = user_video.original_video
+              video_detail = job.target
               properties = result.properties
 
-              user_video.width = properties.width
-              user_video.height = properties.height
-              user_video.duration = properties.duration
-              original_video.width = user_video.width
-              original_video.height = user_video.height
-              original_video.duration = user_video.duration
-              original_video.fps = properties.fps
-              original_video.rate = properties.bitrate
-              original_video.size = properties.file_size
-              original_video.format = properties.file_format
+              video_detail.width = properties.width
+              video_detail.height = properties.height
+              video_detail.duration = properties.duration
+              video_detail.fps = properties.fps
+              video_detail.rate = properties.bitrate
+              video_detail.size = properties.file_size
+              video_detail.format = properties.file_format
+              video_detail.save!
             when MTSUtils::Status::FAIL
               job.status = MtsJob::STATUS::FAILED
               job.code = result.code

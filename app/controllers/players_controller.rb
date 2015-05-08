@@ -94,8 +94,7 @@ class PlayersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def restrict_player
-      # 第一个用户为超级用户
-      if @current_user.uid == 1
+      if @current_user.admin?
         return
       end
       # 只能操作自己的player

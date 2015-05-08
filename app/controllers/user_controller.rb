@@ -3,7 +3,7 @@ class UserController < ApplicationController
       # 只能操作自己的帐户, 第一个用户为超级用户,  例外
   before_action :restrict_user, only: [:show, :edit, :update,  :destroy]
     # 只有超级用户才有手动创建用户的权限 
-  before_action :only_root, only: [:create, :index]
+  before_action :only_admin, only: [:create, :index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /user
@@ -74,8 +74,7 @@ class UserController < ApplicationController
     end
 
     def restrict_user
-      # 第一个用户为超级用户
-      if @current_user.uid == 1
+      if @current_user.admin?
           return
       end
       # 只能操作自己的帐户

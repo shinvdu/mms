@@ -56,8 +56,7 @@ class TagsController < ApplicationController
     end
 
     def restrict_tag_only_root
-      # 第一个用户为超级用户
-      if @current_user.uid == 1
+      if @current_user.admin?
         return
       else
         redirect_to :root 

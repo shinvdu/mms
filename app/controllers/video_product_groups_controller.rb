@@ -1,7 +1,9 @@
 class VideoProductGroupsController < ApplicationController
+  before_action :authenticate_account!, :check_login
+
   def create
     user_video = UserVideo.find(product_data_params[:user_video_id])
-    if !user_video.GOT_LOW_RATE?
+    unless user_video.present? && user_video.GOT_LOW_RATE? && user_video.EDITABLE?
       respond_to do |format|
         format.html { redirect_to user_videos_path }
         format.json { render :json => 'fail' }
@@ -23,7 +25,7 @@ class VideoProductGroupsController < ApplicationController
     end
     video_product_group = VideoProductGroup.create(:name => product_data_params[:name].strip, :user_video => user_video, :transcoding_strategy => strategy)
     video_product_group.create_fragments(video_cut_points)
-    video_product_group.delay.create_products
+    video_product_group.delay.create_products_from_mkv
 
     respond_to do |format|
       format.html { redirect_to user_videos_path }

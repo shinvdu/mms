@@ -28,8 +28,12 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def store_dir
-    return uuid if self.transcoding.nil? || self.fragment || self.transcoding.mini? || self.user_video_id.present?
-    return "product_#{self.id}"
+    return uuid if self.transcoding.nil? || self.fragment || self.transcoding.mini_transcoding? || self.user_video_id.present?
+    "product_#{self.id}"
+  end
+
+  def remote_file_name
+    File.basename self.uri if self.uri.present?
   end
 
   def bucket
@@ -66,6 +70,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def full_cache_path!
+    # BE CAREFUL, move cache file to full_path immediately. It will not be removed automatically
     self.video.cache_stored_file!
     Rails.root.join('public', self.video.cache_dir, self.video.cache_name)
   end
@@ -86,12 +91,12 @@ class VideoDetail < ActiveRecord::Base
     sub_video
   end
 
-  def create_mkv_video
-    if self.user_video.ext_name == '.mkv'
+  def create_mkv_video(input_path = nil)
+    output_path = self.get_full_path.split('.')[0..-2].append('mkv').join('.')
+    if self.user_video.ext_name == '.mkv' && input_path == output_path
       return self
     end
-    input_path = self.get_full_path
-    output_path = self.get_full_path.split('.')[0..-2].append('mkv').join('.')
+    input_path ||= self.get_full_path
     `ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}`
     mkv_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     mkv_video.uri = self.uri.split('.')[0..-2].append('mkv').join('.')
@@ -117,7 +122,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def remove_local_file!
-    FileUtils.rm self.get_full_path
+    FileUtils.rm self.get_full_path if File.exist? self.get_full_path
     if self.REMOTE?
       self.status = STATUS::ONLY_REMOTE
     else
@@ -167,24 +172,55 @@ class VideoDetail < ActiveRecord::Base
     new_video
   end
 
+  def copy_video_info_from!(video_detail)
+    self.set_attributes_by_hash(video_detail.copy_attributes)
+    self.md5 = video_detail.md5
+    self.public = false
+    self.uri = video_detail.uri.split('.').insert(-2, self.id).join('.')
+    self.status = VideoDetail::STATUS::NONE
+    self.save!
+    self
+  end
+
+  def publish_video!(local_path)
+    self.public = true
+    File.open local_path do |f|
+      self.video = f
+    end
+    self.status = VideoDetail::STATUS::ONLY_REMOTE
+    self.save!
+
+  end
+
   def download!
+    self.status = VideoDetail::STATUS::PROCESSING
+    self.save!
     file_path = self.get_full_path
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"
-    FileUtils.cp cache_path, file_path
+    FileUtils.mv cache_path, file_path
+    # FileUtils.cp cache_path, file_path
+    # TODO disable callback may solve this problem?
     # must cp before save, save will remove cached file
     self.status = VideoDetail::STATUS::BOTH
     self.save!
   end
 
-  def create_snapshot
+  def create_snapshot(video_product_group)
     n = Settings.aliyun.mts.snapshot_number
     # create n snapshots from 10% to 90%
     (0..n).to_a.map { |i| self.duration*0.8/n*i+self.duration*0.1 }.each_with_index do |time, idx|
       uri = File.join(File.dirname(self.uri), [self.id, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
-      snapshot = Snapshot.create(:time => time, :uri => uri, :video_detail => self)
+      snapshot = Snapshot.create(:time => time,
+                                 :uri => uri,
+                                 :video_detail => self,
+                                 :video_product_group => video_product_group)
       snapshot.create_mts_job
     end
+  end
+
+  def fetched_info?
+    self.md5.present?
   end
 
   def ONLY_REMOTE?
@@ -195,8 +231,16 @@ class VideoDetail < ActiveRecord::Base
     self.status == STATUS::ONLY_REMOTE || self.status == STATUS::BOTH
   end
 
+  def LOCAL?
+    self.status == STATUS::ONLY_LOCAL || self.status == STATUS::BOTH
+  end
+
   def PROCESSING?
     self.status == STATUS::PROCESSING
+  end
+
+  def NONE?
+    self.status == STATUS::NONE
   end
 
 end
@@ -218,7 +262,6 @@ end
 # user_video_id  int(11)              true            false  
 # created_at     datetime             false           false  
 # updated_at     datetime             false           false  
-# video          varchar(255)         true            false  
 # width          int(11)              true            false  
 # height         int(11)              true            false  
 # fps            int(11)              true            false  
@@ -227,5 +270,8 @@ end
 # video_codec    varchar(255)         true            false  
 # audio_codec    varchar(255)         true            false  
 # resolution     varchar(255)         true            false  
+# public         tinyint(1)           true    0       false  
+# public_video   varchar(255)         true            false  
+# private_video  varchar(255)         true            false  
 #
 #------------------------------------------------------------------------------

@@ -1,0 +1,2 @@
+module VideoProductGroupCheckStatusHelper
+end
