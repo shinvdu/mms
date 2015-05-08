@@ -17,9 +17,13 @@ class UserVideo < ActiveRecord::Base
     # GOT_META = 30
     PRETRANSCODING = 40
     GOT_LOW_RATE = 50
-    BAD_FORMAT_FOR_PACKAGE = 91
-    BAD_FORMAT_FOR_MTS = 92
     ORIGIN_DELETED = 99
+  end
+
+  module FORMAT_STATUS
+    NORMAL = 0
+    BAD_FORMAT_FOR_PACKAGE = 1
+    BAD_FORMAT_FOR_MTS = 2
   end
 
   module PUBLISH_STRATEGY
@@ -46,6 +50,10 @@ class UserVideo < ActiveRecord::Base
     self.status == STATUS::GOT_LOW_RATE
   end
 
+  def EDITABLE?
+    [FORMAT_STATUS::NORMAL, FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE].include? self.format_status
+  end
+
   ######################################################
   # asynchronous method
   ######################################################
@@ -54,9 +62,8 @@ class UserVideo < ActiveRecord::Base
     video_detail = self.original_video
     video_detail.fetch_video_info
     video_detail.load_local_file!
-    if self.publish_strategy == UserVideo::PUBLISH_STRATEGY::PACKAGE &&
-        (!video_detail.video_codec.downcase.index('h264') || !video_detail.audio_codec.downcase.index('aac'))
-      self.status = UserVideo::STATUS::BAD_FORMAT_FOR_PACKAGE
+    if !video_detail.video_codec.downcase.index('h264') || !video_detail.audio_codec.downcase.index('aac')
+      self.format_status = UserVideo::FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
     end
     # check publish strategy
     # currently only edit
@@ -84,7 +91,7 @@ class UserVideo < ActiveRecord::Base
   def publish_by_strategy
     case self.publish_strategy
       when PUBLISH_STRATEGY::PACKAGE
-        return if self.status == STATUS::BAD_FORMAT_FOR_PACKAGE
+        return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
         if self.mkv_video.nil? || !self.mkv_video.LOCAL?
           logger.info "mkv video not created, wait for next loop. id: #{self.id}"
           self.delay(run_at: 5.seconds.from_now).publish_by_strategy
@@ -93,7 +100,7 @@ class UserVideo < ActiveRecord::Base
         video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self)
         video_product_group.create_products_from_mkv
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
-        return if self.status == STATUS::BAD_FORMAT_FOR_MTS
+        return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
         video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :transcoding_strategy => self.default_transcoding_strategy)
         video_product_group.create_products_from_origin
     end

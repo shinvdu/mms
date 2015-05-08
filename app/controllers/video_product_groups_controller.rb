@@ -3,7 +3,7 @@ class VideoProductGroupsController < ApplicationController
 
   def create
     user_video = UserVideo.find(product_data_params[:user_video_id])
-    if !user_video.GOT_LOW_RATE?
+    unless user_video.present? && user_video.GOT_LOW_RATE? && user_video.EDITABLE?
       respond_to do |format|
         format.html { redirect_to user_videos_path }
         format.json { render :json => 'fail' }
