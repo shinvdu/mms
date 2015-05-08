@@ -148,7 +148,7 @@
     <div class="col-md-8">
       <div class="input-group">
         <%= text_field_tag :video_main_frame_time  , (@transcoding.video_fps && @transcoding.video_gop && (@transcoding.video_gop.to_i / @transcoding.video_fps.to_i)),  class: 'form-control' %>
-        <span class="input-group-addon">Kbps</span>
+        <span class="input-group-addon">秒</span>
       </div>
       <span>(必填，默认值10秒，范围8-50)</span>
     </div>
