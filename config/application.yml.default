@@ -33,9 +33,8 @@ defaults: &defaults
   default_per_page: 15
   player: 
     sizes:  
-      480|320: 480 * 320 
-      1080|720: 1080 * 720 
-      1920|1080: 1920 * 1080 
+      853|480: 853x480
+      1280|720: 1280x720 
   transcoding: 
     video_codec:  H.264
     container:  
@@ -56,8 +55,10 @@ defaults: &defaults
       aac: aac
       mp3: mp3
     width_and_height:  
-      保留|长宽: 保留长宽
-      1024|768: 1024 * 768
+      640|360: 640x360
+      854|480: 854x480
+      1280|720: 1280x720
+      1920|1080: 1920x1080
 
 production:
   <<: *defaults
