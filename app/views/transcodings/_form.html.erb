@@ -204,9 +204,11 @@
     <%= f.hidden_field :audio_channels, :value => 2 %>
     <%= f.hidden_field :video_profile, :value => Settings.transcoding.video_profile %>
   <hr>  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-5 col-sm-6">
+        <%= f.submit '保存转码方案', :class => 'btn btn-info text-center' %>
+    </div>
+  </div>                    
 <% end %>
 </div>
   </div>

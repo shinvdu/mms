@@ -19,7 +19,7 @@
         <td><%= logo.name %></td>
         <td><%= image_tag(logo.uri_url(:normal)) if logo.uri? %></td>
         <td><%= logo.user && logo.user.nickname %></td>
-        <td><%=  logo.created_at %></td>
+        <td><%=  logo.created_at && logo.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td>
           <%= link_to '预览', logo_path(logo) %>
           <%= link_to '修改', edit_logo_path(logo),  'data-no-turbolink' => true  %>

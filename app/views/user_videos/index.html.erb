@@ -29,7 +29,7 @@
             </select>
           </td>
           <td>100MB</td>
-          <td><%= user_video.created_at  %></td>
+          <td><%= user_video.created_at && user_video.created_at.strftime("%Y-%m-%d %H:%M:%S")  %></td>
           <td>完成</td>
           <td>
             <a href="<%= user_video_path(user_video) %>">查看</a>

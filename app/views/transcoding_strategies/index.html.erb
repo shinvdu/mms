@@ -42,8 +42,8 @@
 
           </td>
           <td><%=  transcoding_strategy.user &&  transcoding_strategy.user.nickname %></td>
-        <td><%=  transcoding_strategy.created_at  %></td>
-        <td><%=  transcoding_strategy.updated_at  %></td>
+        <td><%=  transcoding_strategy.created_at && transcoding_strategy.created_at.strftime("%Y-%m-%d %H:%M:%S")   %></td>
+        <td><%=  transcoding_strategy.updated_at && transcoding_strategy.updated_at.strftime("%Y-%m-%d %H:%M:%S")   %></td>
           <td>
             <a href="<%= transcoding_strategy_path(transcoding_strategy)  %>">查看</a>
             <a href="<%= edit_transcoding_strategy_path(transcoding_strategy)  %>">修改</a>

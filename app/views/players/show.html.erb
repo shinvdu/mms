@@ -9,30 +9,12 @@
 <%=  render 'players/nav' %>
 <div class="tab-panel current" id="add-player">
 <p id="notice"><%= notice %></p>
-<h3>Video setup preview</h3>
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'btn-return-link' %> |
+<%= link_to '编辑', edit_player_path(@player),  'data-no-turbolink' => true  %> 
+
+  </div>
+  <h3>播放器 <%= @player.name %> 预览</h3>
 <%= render 'common/player'  %>    
-<p>
-  <strong>Name:</strong>
-  <%= @player.name %>
-</p>
-<p>
-  <strong>Color:</strong>
-  <%= @player.color %>
-</p>
-
-<p>
-  <strong>Logo:</strong>
-  <%=  image_tag(@player.logo.uri) if @player.logo &&  @player.logo.uri? %>
-    <%=  %>
-</p>
-
-<p>
-  <strong>Autoplay:</strong>
-  <%= @player.autoplay %>
-</p>
-
-
-<%= link_to 'Edit', edit_player_path(@player) %> |
-<%= link_to 'Back', players_path %>
 
 </div>

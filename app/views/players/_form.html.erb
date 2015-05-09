@@ -1,4 +1,3 @@
-<hr>
 <%= form_for(@player, html: {class: "form-horizontal"}) do |f| %>
   <% if @player.errors.any? %>
     <div id="error_explanation">
@@ -91,8 +90,8 @@
   </div>
   <hr>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit  %>
+    <div class="col-sm-offset-2 col-sm-6">
+        <%= f.submit '保存播放器', :class => 'btn btn-info text-center' %>
     </div>
-  </div>
+  </div>                    
   <% end %>
