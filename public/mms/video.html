@@ -436,7 +436,7 @@
 	    <div class="panel-links"><a class="btn-return-link" href="#video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
 	    <div class="panel-content">
 	      <div class="row">
-		<div class="col-md-8">
+		<div class="col-md-9">
 		  <form class="form-horizontal">
 	            <div class="form-group">
 		      <label class="col-md-3 control-label">添加转码模板</label>
@@ -525,9 +525,17 @@
 			</select>
 		      </div>
 		      <div class="col-md-3">
-			说明:
-			<input class="form-control" type="text" placeholder="长/px">
-			<input class="form-control" type="text" placeholder="宽/px">
+			<div class="form-inline">
+			  <label>说明:&nbsp;</label>
+			  <div class="form-group">
+			    <label class="sr-only" for="video-length">Email address</label>
+			    <input type="text" class="form-control" id="video-length" placeholder="长/px">
+			  </div>
+			  <div class="form-group">
+			    <label class="sr-only" for="exampleInputPassword3">Password</label>
+			    <input type="text" class="form-control" id="video-width" placeholder="宽/px">
+			  </div>
+			</div>
 		      </div>
 	            </div>
 	            <div class="form-group">
