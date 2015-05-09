@@ -46,7 +46,42 @@ body {
     .header .user-options .user-name {
       display: inline-block;
       padding-left: 10px;
-      padding-right: 10px; }
+      padding-right: 10px;
+      position: relative; }
+      .header .user-options .user-name > a {
+        display: block; }
+        .header .user-options .user-name > a:link, .header .user-options .user-name > a:visited {
+          color: #7f8999;
+          text-decoration: none; }
+        .header .user-options .user-name > a:hover, .header .user-options .user-name > a:active {
+          color: #3f4754;
+          text-decoration: none; }
+      .header .user-options .user-name .user-menu {
+        background-color: #fff;
+        box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        display: none;
+        position: absolute;
+        list-style: none;
+        margin: 0;
+        padding: 10px 0 30px;
+        top: 100%;
+        right: 0;
+        width: 155px;
+        text-align: left;
+        z-index: 1; }
+        .header .user-options .user-name .user-menu li {
+          margin: 0; }
+          .header .user-options .user-name .user-menu li a {
+            color: #8c9ddd;
+            display: block;
+            padding: 0 50px 0 30px; }
+            .header .user-options .user-name .user-menu li a:link, .header .user-options .user-name .user-menu li a:visted, .header .user-options .user-name .user-menu li a:active {
+              text-decoration: none; }
+            .header .user-options .user-name .user-menu li a:hover {
+              background-color: #8c9ddd;
+              color: #fff;
+              text-decoration: none; }
 
 .content {
   background-color: #f7f7f7;

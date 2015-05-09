@@ -77,6 +77,61 @@ body {
 	    display: inline-block;
 	    padding-left: 10px;
 	    padding-right: 10px;
+	    position: relative;
+
+	    >a {
+		display: block;
+		
+		&:link,
+		&:visited {
+		    color: $text-color-gray-2;
+		    text-decoration: none;
+		}
+
+		&:hover,
+		&:active {
+		    color: $text-color-gray-1;
+		    text-decoration: none;
+		}
+	    }
+	    
+	    .user-menu {
+		background-color: #fff;
+		box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+		border-radius: 4px;
+		display: none;
+		position: absolute;
+		list-style: none;
+		margin: 0;
+		padding: 10px 0 30px;
+		top: 100%;
+		right: 0;
+		width: 155px;
+		text-align: left;
+		z-index: 1;
+
+		li {
+		    margin: 0;
+
+		    a {
+			color: $color-purple;
+			display: block;
+			padding: 0 50px 0 30px;
+
+			&:link,
+			&:visted,
+			&:active {
+			    text-decoration: none;
+			}
+
+			&:hover {
+			    background-color: $color-purple;
+			    color: #fff;
+			    text-decoration: none;
+			}
+		    }
+		}
+	    }
 	}
     }
 }
