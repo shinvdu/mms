@@ -42,7 +42,7 @@
         </tr>
         <tr>
           <th scope="row">关键帧间隔</th>
-          <td><%= @transcoding.video_gop /  @transcoding.video_fps  %> 秒</td>
+          <td><%= @transcoding.video_gop /  @transcoding.video_fps if @transcoding.video_gop &&  @transcoding.video_fps  %> 秒</td>
         </tr>
         <tr>
           <th scope="row">视频隔行扫描</th>
