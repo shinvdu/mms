@@ -4,13 +4,9 @@ $(document).ready(function(){
 	    $('#user-menu').toggle();
 	    e.preventDefault();
 	});
-
-/*
-	$('#user-name').on('blur', function(e) {
-	    $('#user-menu').hide();
-	    e.preventDefault();
-	});
-*/
+    });
+    $('#navbar').load('navbar.html', function() {
+	$(this).find('a[href="' + document.location.pathname.match(/\/([\w=]+\.html)/)[1] + '"]').parent().addClass('active');
     });
     $('#footer').load('footer.html');
 });
