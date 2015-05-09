@@ -102,8 +102,8 @@ module MTSUtils
 
     def query_meta_info_list_job(job_ids)
       params = {'Action' => 'QueryMetaInfoJobList',
-                'JobIds' => job_ids.join(',')
-      }
+                'MetaInfoJobIds' => job_ids.join(',')
+      }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
       non_exist_job_ids = []
@@ -362,7 +362,7 @@ module MTSUtils
         @state = var['State']
         @code = var['Code']
         @message = var['Message']
-        @properties = AliyunProperties.new var['AliyunProperties']
+        @properties = AliyunProperties.new var['Properties']
         @user_data = var['UserData']
         @creation_time = var['CreationTime']
       end

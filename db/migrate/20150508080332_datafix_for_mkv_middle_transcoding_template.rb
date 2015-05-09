@@ -1,5 +1,8 @@
 class DatafixForMkvMiddleTranscodingTemplate < ActiveRecord::Migration
   def change
+    transcoding = Transcoding.find(1)
+    transcoding.disabled = false
+    transcoding.save!
     Transcoding.create! :name => 'pre-mkv-middle-template',
                         :user_id => 1,
                         :container => 'mp4',

@@ -60,6 +60,10 @@ var main = function() {
 	e.preventDefault();
     });
 
+    $('#user-name').on('click', function(e) {
+	$('#user-menu').toggle();
+	e.preventDefault();
+    });
 };
 
 $(document).ready(main);

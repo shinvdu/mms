@@ -7,7 +7,7 @@ class Transcoding < ActiveRecord::Base
 
   validates :name, presence: true
   validates :container, presence: true, inclusion: {in: %w(mp4 flv ts m3u8), message: "%{value} is not a valid format"}
-  validates :video_codec,  inclusion: {in: %w(H.264), message: "%{value} is not a valid 编解码格式"},  :allow_nil => true
+  validates :video_codec, inclusion: {in: %w(H.264), message: "%{value} is not a valid 编解码格式"}, :allow_nil => true
   validates :video_profile, presence: true, inclusion: {in: %w(baseline main high ), message: "%{value} is not a valid 编码级别"}
   validates :video_bitrate, numericality: {only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}, :allow_nil => true
   validates :video_crf, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 51}, :allow_nil => true
@@ -19,8 +19,8 @@ class Transcoding < ActiveRecord::Base
   validates :video_scanmode, presence: true, inclusion: {in: %w(interlaced progressive), message: "%{value} is not a valid 扫描模式"}
   validates :video_bufsize, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 1000, less_than_or_equal_to: 128000}
   validates :video_maxrate, numericality: {only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}, :allow_nil => true
-  validates :video_bitrate_bnd_max,  numericality: {only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}, :allow_nil => true
-  validates :video_bitrate_bnd_min,  numericality: {only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}, :allow_nil => true
+  validates :video_bitrate_bnd_max, numericality: {only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}, :allow_nil => true
+  validates :video_bitrate_bnd_min, numericality: {only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 50000}, :allow_nil => true
   validates :audio_codec, presence: true, inclusion: {in: %w(aac mp3), message: "%{value} is not a valid 音频编解码格式"}
   validates :audio_samplerate, presence: true, inclusion: {in: [22050, 32000, 44100, 48000, 96000], message: "%{value} is not a valid 采样率"}
   validates :audio_bitrate, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 8, less_than_or_equal_to: 1000}
@@ -34,6 +34,19 @@ class Transcoding < ActiveRecord::Base
   end
 
   include MTSWorker::TranscodingWorker
+
+  def do_save
+    begin
+      transaction do
+        self.save!
+        upload_and_save!
+        self
+      end
+    rescue Exception => e
+      logger.error e.message, e
+      nil
+    end
+  end
 
   def destroy!
     self.delay.delete_template(self) if self.aliyun_template_id.present?

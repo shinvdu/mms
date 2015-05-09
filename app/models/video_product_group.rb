@@ -155,6 +155,7 @@ class VideoProductGroup < ActiveRecord::Base
     self.mkv_video = VideoDetail.create.copy_video_info_from! dependent_video
     product = VideoProduct.create(:video_product_group => self)
     product.copy_package_mkv!(self.user_video.mkv_video)
+    product.video_detail.fetch_video_info
     user_video.original_video.create_snapshot(self)
     self.status = STATUS::FINISHED
     self.save!
@@ -174,9 +175,10 @@ class VideoProductGroup < ActiveRecord::Base
   ######################################################
 
   def check(checker_admin, result)
-    if [CHECK_STATUS::ACCEPTED, CHECK_STATUS::REJECT, CHECK_STATUS::PENDING].include?(result)
+    if [CHECK_STATUS::ACCEPTED, CHECK_STATUS::REJECT, CHECK_STATUS::PENDING].include? result
       self.check_status = result
       self.checker = checker_admin
+      self.save!
     end
   end
 
