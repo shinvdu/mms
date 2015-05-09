@@ -530,7 +530,7 @@ body {
 	padding-top: 5px;
     }
 
-    form > .form-group:last-child {
+    form>.form-group:last-child {
 	margin-top: 35px;
     }
 
@@ -544,6 +544,18 @@ body {
 		padding-left: 5px;
 		padding-right: 5px;
 	    }
+	}
+    }
+}
+
+.panel-add-player {
+    .row>.col-md-6:last-child {
+	padding-top: 100px;
+	text-align: center;
+
+	img {
+	    width: 280px;
+	    height: 200px;
 	}
     }
 }

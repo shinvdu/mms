@@ -345,6 +345,13 @@ body {
       padding-left: 5px;
       padding-right: 5px; }
 
+.panel-add-player .row > .col-md-6:last-child {
+  padding-top: 100px;
+  text-align: center; }
+  .panel-add-player .row > .col-md-6:last-child img {
+    width: 280px;
+    height: 200px; }
+
 /* Need to be fixed */
 .panel-content-display {
   padding: 10px 50px; }
