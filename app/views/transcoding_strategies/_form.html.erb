@@ -1,4 +1,7 @@
-<%= form_for(@transcoding_strategy) do |f| %>
+  <div class="row">
+<div class="col-md-8">
+
+<%= form_for(@transcoding_strategy, html:{class: 'form-horizontal'}) do |f| %>
     <% if @transcoding_strategy.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@transcoding_strategy.errors.count, "error") %> prohibited this transcoding_strategy from
@@ -11,23 +14,36 @@
           </ul>
         </div>
     <% end %>
-
-    <div class="field">
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :名称,  :class => "col-md-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name ,  class: 'form-control' %>
     </div>
-    <div class="field">
-      <%= f.label :note %><br>
-      <%= f.text_area :note %>
+  </div>
+    <div class="form-group">
+    <%= f.label :备注,  :class => "col-md-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_area :note ,  class: 'form-control' %>
     </div>
-    <div>
+  </div>
+    <div class="form-group">
+    <%= f.label :转码模板,  :class => "col-md-3 control-label" %>
+    <div class="col-sm-8">
       <% Transcoding.visiable(current_user).each do |transcoding| %>
           <%= f.check_box :transcodings, { :multiple => true, :checked => @existing_transcodings.index(transcoding).present? }, transcoding.id, nil %>
           <%= label_tag "transcoding_strategy[transcodings][#{transcoding.id}]", transcoding.name  %>
+          <br>
       <% end %>
     </div>
-    <div class="actions">
-      <%= f.submit %>
+  </div>
+    <hr>
+    <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-6">
+        <%= f.submit '保存转码方案', :class => 'btn btn-info text-center' %>
     </div>
+  </div>                    
 
 <% end %>
+
+</div>
+</div>

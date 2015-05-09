@@ -1,6 +1,12 @@
 <%=  render 'user_videos/nav' %>
 <div class="tab-panel current" id="video-transcoding-template">
 <p id="notice"><%= notice %></p>
+	<div class="panel-links">
+		<%= link_to '&lt;&lt; 返回转码方案'.html_safe, transcoding_strategies_path, :class => 'btn-return-link' %> | 
+		<%= link_to '编辑', edit_transcoding_strategy_path(@transcoding_strategy)  %> 
+	</div>
+	<h4 class="col-sm-offset-2 col-sm-6">转码方案 <%=  @transcoding_strategy.name %> </h4>
+	<hr>
 
 <p>
   <strong>Name:</strong>
@@ -8,16 +14,7 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @transcoding_strategy.user_id %>
-</p>
-
-<p>
   <strong>Note:</strong>
   <%= @transcoding_strategy.note %>
 </p>
-
-<%= link_to 'Edit', edit_transcoding_strategy_path(@transcoding_strategy) %> |
-<%= link_to 'Back', transcoding_strategies_path %>
-
 </div>
