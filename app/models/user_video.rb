@@ -85,6 +85,7 @@ class UserVideo < ActiveRecord::Base
       logger.debug 'original video is not h264/acc, call mts to transcode'
       transcode_job = create_transcoding_video_job(Transcoding.find_pre_middle_template)
       transcode_job.post_process_command = "UserVideo.find(#{self.id}).pre_middle_transcode_finished"
+      transcode_job.save!
       self.pre_mkv_video = transcode_job.target
     end
     self.save!
@@ -110,6 +111,7 @@ class UserVideo < ActiveRecord::Base
 
   def pre_middle_transcode_finished
     self.mkv_video = self.pre_mkv_video.create_mkv_video(self.pre_mkv_video.full_cache_path!)
+    self.mkv_video.fetch_video_info
     self.mkv_video.save!
     self.pre_mkv_video.destroy
     self.pre_mkv_video = nil

@@ -5,7 +5,7 @@ module MTSWorker
     def create_transcoding_video_job(transcoding = nil, public = false)
       job = self.original_video.create_transcoding_video_job(transcoding, public)
       self.mini_video = job.target if transcoding.nil? || transcoding.mini_transcoding?
-      return
+      job
     end
   end
 

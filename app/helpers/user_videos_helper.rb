@@ -12,6 +12,7 @@ module UserVideosHelper
   end
 
   def format_file_size(size)
+    return '' if size.nil?
     size *= 1.0
     unit = 'B'
     if size > 1024

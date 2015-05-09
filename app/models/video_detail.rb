@@ -149,7 +149,6 @@ class VideoDetail < ActiveRecord::Base
       self.height = movie.height
       if user_video.present? && user_video.original_video == self
         user_video.duration = self.duration
-        user_video.size = self.size
         user_video.width = self.width
         user_video.height = self.height
       end
