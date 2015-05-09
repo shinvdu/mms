@@ -80,12 +80,12 @@ module MTSWorker
   module Scheduled
     include MTSUtils::All
 
-    def query_meta_info_list_job
+    def query_meta_info_jobs
       jobs = MetaInfoJob.not_finished
       job_map = Hash[jobs.collect { |j| [j.job_id, j] }]
       job_ids = jobs.map { |j| j.job_id }
       job_ids.each_slice(10).each do |ids|
-        request_id, result_list, not_exist_list = query_job_list(ids)
+        request_id, result_list, not_exist_list = query_meta_info_list_job(ids)
         puts result_list
         result_list.each do |result|
           job = job_map[result.job_id]
