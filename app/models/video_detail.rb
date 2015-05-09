@@ -101,6 +101,7 @@ class VideoDetail < ActiveRecord::Base
     mkv_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     mkv_video.uri = self.uri.split('.')[0..-2].append('mkv').join('.')
     mkv_video.status = VideoDetail::STATUS::ONLY_LOCAL
+    mkv_video.fetch_video_info
     mkv_video
   end
 
@@ -146,6 +147,11 @@ class VideoDetail < ActiveRecord::Base
       self.resolution = movie.resolution
       self.width = movie.width
       self.height = movie.height
+      if user_video.present? && user_video.original_video == self
+        user_video.duration = self.duration
+        user_video.width = self.width
+        user_video.height = self.height
+      end
     end
   end
 

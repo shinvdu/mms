@@ -3,7 +3,7 @@ class VideoProductGroupCheckStatusController < ApplicationController
 
   def check
     video_product_group = VideoProductGroup.find(params[:id])
-    video_product_group.check(current_user, params[:check_result])
+    video_product_group.check(current_user, params[:check_result].to_i)
     redirect_referrer_or_default
   end
 end

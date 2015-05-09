@@ -28,7 +28,7 @@
               <option><%=  user_video.default_transcoding_strategy && user_video.default_transcoding_strategy.name %></option>
             </select>
           </td>
-          <td>100MB</td>
+          <td><%= format_file_size(user_video.original_video.size)  %></td>
           <td><%= user_video.created_at  %></td>
           <td>完成</td>
           <td>

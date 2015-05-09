@@ -13,6 +13,9 @@ class ScheduledWorker
     safe_exception do
       query_snapshot_jobs
     end
+    safe_exception do
+      query_meta_info_jobs
+    end
   end
 
   handle_asynchronously :mts_query_loop, :queue => Settings.aliyun.mts.scheduled_queue, :run_at => Proc.new { 5.seconds.from_now }
