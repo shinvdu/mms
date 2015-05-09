@@ -1,4 +1,6 @@
-<%= form_for(@advertise_strategy) do |f| %>
+  <div class="row">
+<div class="col-md-6">
+<%= form_for(@advertise_strategy, html:{class: 'form-horizontal'}) do |f| %>
   <% if @advertise_strategy.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@advertise_strategy.errors.count, "error") %> prohibited this advertise_strategy from being saved:</h2>
@@ -10,36 +12,49 @@
       </ul>
     </div>
   <% end %>
+  <div class="form-group">
+    <%= f.label :名称,  :class => "col-md-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name ,  class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :片头广告,  :class => "col-md-3 control-label"  %>
+    <div class="col-md-8">
+      <%= f.select :front_ad, [['aa']] , {}, {:class => 'form-control'} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :片尾广告,  :class => "col-md-3 control-label"  %>
+    <div class="col-md-8">
+      <%= f.select :end_ad, [['aa']] , {}, {:class => 'form-control'} %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :暂停广告,  :class => "col-md-3 control-label"  %>
+    <div class="col-md-8">
+      <%= f.select :pause_ad, [['aa']] , {}, {:class => 'form-control'} %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <div class="form-group">
+    <%= f.label :悬浮广告,  :class => "col-md-3 control-label"  %>
+    <div class="col-md-8">
+      <%= f.select :float_ad, [['aa']] , {}, {:class => 'form-control'} %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :front_ad %><br>
-    <%= f.number_field :front_ad %>
+    <div class="form-group">
+    <%= f.label :滚动字幕,  :class => "col-md-3 control-label"  %>
+    <div class="col-md-8">
+      <%= f.select :scroll_ad, [['aa']] , {}, {:class => 'form-control'} %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :end_ad %><br>
-    <%= f.number_field :end_ad %>
-  </div>
-  <div class="field">
-    <%= f.label :pause_ad %><br>
-    <%= f.number_field :pause_ad %>
-  </div>
-  <div class="field">
-    <%= f.label :float_ad %><br>
-    <%= f.number_field :float_ad %>
-  </div>
-  <div class="field">
-    <%= f.label :scroll_ad %><br>
-    <%= f.number_field :scroll_ad %>
-  </div>
-  <div class="field">
-    <%= f.label :data %><br>
-    <%= f.text_area :data %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <hr>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-6">
+        <%= f.submit '保存广告方案', :class => 'btn btn-info text-center' %>
+    </div>
+  </div>                    
 <% end %>
+  </div>
+  </div>

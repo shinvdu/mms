@@ -1,6 +1,12 @@
-<h1>Editing Advertise Strategy</h1>
+<%=  render 'advertise/nav' %>
+<div class="tab-panel current" id="add-player">
+	<div class="panel-links">
+		<%= link_to '&lt;&lt; 返回广告方案列表'.html_safe, advertise_strategies_path, :class => 'btn-return-link' %> | 
+		<%= link_to '查看', @advertise_strategy %> 
+	</div>
+	<div class="clearfix">
+		<h4  class="col-sm-offset-1 col-sm-6">修改广告方案</h4>
+	</div>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @advertise_strategy %> |
-<%= link_to 'Back', advertise_strategies_path %>
+</div>
