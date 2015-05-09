@@ -5,9 +5,9 @@ defaults: &defaults
     email: admin@15class.com
     password: 123123123
   mms:
-    name:  未谷云
+    name:  未谷云视频
     domain:  www.wgcloud.com
-  title: 多媒体管理系统
+  title: 未谷云视频
   cool: mms
   logo: 
     origin:  
@@ -31,11 +31,34 @@ defaults: &defaults
       height:  50
   m3u8_dir: public/m3u8
   default_per_page: 15
-  player:
-    sizes:
-      480|320: 480 * 320
-      1080|720: 1080 * 720
-      1920|1080: 1920 * 1080
+  player: 
+    sizes:  
+      853|480: 853x480
+      1280|720: 1280x720 
+  transcoding: 
+    video_codec:  H.264
+    container:  
+      mp4: mp4
+      flv: flv
+      m3u8: m3u8
+      ts: ts
+    video_profile:  high
+    video_bitrate:  1000
+    video_preset:  
+      slow: slow
+      slower: slower
+      veryslow: veryslow
+      veryfast: veryfast
+      fast: fast
+      medium: medium
+    audio_codec:  
+      aac: aac
+      mp3: mp3
+    width_and_height:  
+      640|360: 640x360
+      854|480: 854x480
+      1280|720: 1280x720
+      1920|1080: 1920x1080
 
 production:
   <<: *defaults

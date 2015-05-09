@@ -1,72 +1,66 @@
 <%= render 'user_videos/nav' %>
 <div class="tab-panel current" id="video-transcoding-solution">
+    <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回模板列表'.html_safe, transcodings_path, :class => 'btn-return-link' %> |
+<%= link_to '编辑', edit_transcoding_path(@transcoding) %> 
+  </div>
+
 <p id="notice"><%= notice %></p>
-
-<dl class="dl-horizontal">
-  <dt>Name</dt>
-  <dd><%= @transcoding.name %></dd>
-
-  <dt>username</dt>
-  <dd><%= @transcoding.user && @transcoding.user.nickname %></dd>
-  
-  <dt>容器格式</dt>
-  <dd><%= @transcoding.container  %></dd>
-  
-  <dt>编解码格式</dt>
-  <dd><%= @transcoding.video_codec  %></dd>
-  
-  <dt>编码级别</dt>
-  <dd><%= @transcoding.video_profile  %></dd>
-  
-  <dt>视频平均码率</dt>
-  <dd><%= @transcoding.video_bitrate  %></dd>
-  
-  <dt>码率-质量控制因子</dt>
-  <dd><%= @transcoding.video_crf  %></dd>
-  
-  <dt>宽</dt>
-  <dd><%= @transcoding.width  %></dd>
-  
-  <dt>高</dt>
-  <dd><%= @transcoding.height  %></dd>
-  
-  <dt>帧率</dt>
-  <dd><%= @transcoding.video_fps  %></dd>
-  
-  <dt>关键帧间最大帧数</dt>
-  <dd><%= @transcoding.video_gop  %></dd>
-  
-  <dt>视频算法器预置</dt>
-  <dd><%= @transcoding.video_preset  %></dd>
-  
-  <dt>缓冲区大小</dt>
-  <dd><%= @transcoding.video_bufsize  %></dd>
-  
-  <dt>视频码率峰值</dt>
-  <dd><%= @transcoding.video_maxrate  %></dd>
-  
-  <dt>视频总码率上限</dt>
-  <dd><%= @transcoding.video_bitrate_bnd_max  %></dd>
-  
-  <dt>视频总码率下限</dt>
-  <dd><%= @transcoding.video_bitrate_bnd_min  %></dd>
-  
-  <dt>音频编解码格式</dt>
-  <dd><%= @transcoding.audio_codec  %></dd>
-  
-  <dt>采样率</dt>
-  <dd><%= @transcoding.audio_samplerate  %></dd>
-  
-  <dt>音频码率</dt>
-  <dd><%= @transcoding.audio_bitrate  %></dd>
-  
-  <dt>声道数</dt>
-  <dd><%= @transcoding.audio_channels  %></dd>
-  
-</dl>
-
-
-<%= link_to 'Edit', edit_transcoding_path(@transcoding) %> |
-<%= link_to 'Back', transcodings_path %>
+<h1>转码模板 <%= @transcoding.name %></h1>
+<table class="table table-striped">
+        <tr>
+          <th scope="row">名称</th>
+          <td><%= @transcoding.name %></td>
+        </tr>
+        <tr>
+          <th scope="row">转码速度</th>
+          <td><%= @transcoding.video_preset  %></td>
+        </tr>
+        <tr>
+          <th scope="row">输出格式</th>
+          <td><%= @transcoding.container  %></td>
+        </tr>
+        <tr>
+          <th scope="row">视频编码</th>
+          <td><%= @transcoding.video_codec  %></td>
+        </tr>
+        <tr>
+          <th scope="row">音频编码</th>
+          <td><%= @transcoding.audio_codec  %></td>
+        </tr>
+        <tr>
+          <th scope="row">视频码流</th>
+          <td><%= @transcoding.video_bitrate  %> Kbps</td>
+        </tr>
+        <tr>
+          <th scope="row">音频码率</th>
+          <td><%= @transcoding.audio_bitrate  %> Kbps</td>
+        </tr>
+        <tr>
+          <th scope="row">视频帧率</th>
+          <td><%= @transcoding.video_fps  %> 帧/每秒</td>
+        </tr>
+        <tr>
+          <th scope="row">关键帧间隔</th>
+          <td><%= @transcoding.video_gop /  @transcoding.video_fps  %> 秒</td>
+        </tr>
+        <tr>
+          <th scope="row">视频隔行扫描</th>
+          <td><%= @transcoding.video_scanmode  == 'interlaced' ? '是' : '否' %></td>
+        </tr>
+        <tr>
+          <th scope="row">缓冲区大小</th>
+          <td><%= @transcoding.video_bufsize  %> Kb</td>
+        </tr>
+        <tr>
+          <% 
+          size_desc = '保持原视频长宽' if not (@transcoding.width || @transcoding.height)
+          size_desc = "指定宽度，按比例缩放, 宽度为 #{@transcoding.height}" if @transcoding.height
+          size_desc = "指定长度，按比例缩放, 长度为#{@transcoding.width}" if @transcoding.width
+           %>
+          <th scope="row">视频长宽</th>
+          <td><%= size_desc  %></td>
+        </tr>
+    </table>
 
 </div>

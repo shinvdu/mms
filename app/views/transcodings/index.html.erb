@@ -37,10 +37,10 @@
         <td><%=  transcoding.created_at  %></td>
         <td><%=  transcoding.updated_at  %></td>
         <td>
-            <a href="<%= transcoding_path(transcoding)  %>">查看</a>
-    <a href="<%= edit_transcoding_path(transcoding)  %>">修改</a>
-    <%= link_to '删除', transcoding, method: :delete, data: { confirm: '你确定要删除?' } %>
-        </td>
+          <%= link_to '查看', transcoding_path(transcoding) %>
+            <%= link_to '修改', edit_transcoding_path(transcoding),  'data-no-turbolink' => true  %>
+            <%= link_to '删除', transcoding, method: :delete, data: { confirm: '你确定要删除?' } %>
+          </td>
         <td>1 231456</td>
       </tr>
       <% end %>
