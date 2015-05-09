@@ -76,12 +76,11 @@ body {
             color: #8c9ddd;
             display: block;
             padding: 0 50px 0 30px; }
-            .header .user-options .user-name .user-menu li a:link, .header .user-options .user-name .user-menu li a:visted, .header .user-options .user-name .user-menu li a:active {
+            .header .user-options .user-name .user-menu li a:link, .header .user-options .user-name .user-menu li a:hover, .header .user-options .user-name .user-menu li a:visited, .header .user-options .user-name .user-menu li a:active {
               text-decoration: none; }
             .header .user-options .user-name .user-menu li a:hover {
               background-color: #8c9ddd;
-              color: #fff;
-              text-decoration: none; }
+              color: #fff; }
 
 .content {
   background-color: #f7f7f7;
@@ -336,8 +335,15 @@ body {
   .panel-content .input-horizontal-helper-text {
     padding-left: 0;
     padding-top: 5px; }
-  .panel-content .form-group:last-child {
+  .panel-content form > .form-group:last-child {
     margin-top: 35px; }
+  .panel-content .form-inline .form-group {
+    margin-left: 0;
+    margin-right: 0; }
+    .panel-content .form-inline .form-group input {
+      width: 50px;
+      padding-left: 5px;
+      padding-right: 5px; }
 
 /* Need to be fixed */
 .panel-content-display {
