@@ -113,6 +113,7 @@ class UserVideo < ActiveRecord::Base
     self.mkv_video = self.pre_mkv_video.create_mkv_video(self.pre_mkv_video.full_cache_path!)
     self.mkv_video.fetch_video_info
     self.mkv_video.save!
+    self.pre_mkv_video.remove_local_file
     self.pre_mkv_video.destroy
     self.pre_mkv_video = nil
     self.save!
