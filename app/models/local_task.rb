@@ -17,7 +17,7 @@ end
 # Name                SQL Type             Null    Default Primary
 # ------------------- -------------------- ------- ------- -------
 # id                  int(11)              false           true   
-# status              int(11)              true            false  
+# status              int(11)              true    10      false  
 # target_id           int(11)              true            false  
 # finish_time         datetime             true            false  
 # message             varchar(255)         true            false  

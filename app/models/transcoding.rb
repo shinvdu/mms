@@ -2,8 +2,8 @@ class Transcoding < ActiveRecord::Base
   belongs_to :user
   has_many :transcoding_strategy_relationships
   scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
-  scope :find_mini, -> { order('id desc').find_by_mini(true) }
-  scope :find_middle_template, -> { order('id desc').find_by_middle(true) }
+  scope :find_mini_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::MINI_TEMPLATE) }
+  scope :find_pre_middle_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::PRE_MIDDLE_TEMPLATE) }
 
   validates :name, presence: true
   validates :container, presence: true, inclusion: {in: %w(mp4 flv ts m3u8), message: "%{value} is not a valid format"}
@@ -25,6 +25,13 @@ class Transcoding < ActiveRecord::Base
   validates :audio_samplerate, presence: true, inclusion: {in: [22050, 32000, 44100, 48000, 96000], message: "%{value} is not a valid 采样率"}
   validates :audio_bitrate, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 8, less_than_or_equal_to: 1000}
   validates :audio_channels, presence: true, inclusion: {in: [1, 2, 3, 4, 5, 6, 7, 8], message: "%{value} is not a valid 声道数"}
+
+  module SPECIAL_TEMPLATE
+    NONE = 0
+    MINI_TEMPLATE = 1
+    MIDDLE_TEMPLATE = 2
+    PRE_MIDDLE_TEMPLATE = 3
+  end
 
   include MTSWorker::TranscodingWorker
 
@@ -81,7 +88,7 @@ class Transcoding < ActiveRecord::Base
   end
 
   def mini_transcoding?
-    self.mini
+    self.special_template == SPECIAL_TEMPLATE::MINI_TEMPLATE
   end
 end
 
@@ -99,11 +106,8 @@ end
 # audio_codec           varchar(255)         true            false  
 # audio_samplerate      int(11)              true            false  
 # audio_bitrate         int(11)              true            false  
-# video_line_scan       int(11)              true            false  
-# h_w_percent           int(11)              true            false  
 # width                 int(11)              true            false  
 # height                int(11)              true            false  
-# data                  text                 true            false  
 # created_at            datetime             false           false  
 # updated_at            datetime             false           false  
 # video_codec           varchar(255)         true            false  
@@ -119,7 +123,9 @@ end
 # state                 varchar(255)         true            false  
 # aliyun_template_id    varchar(255)         true            false  
 # video_bitrate_bnd_min int(11)              true            false  
-# disabled              tinyint(1)           true            false  
+# disabled              tinyint(1)           true    0       false  
 # disable_time          datetime             true            false  
+# share                 tinyint(1)           true    0       false  
+# special_template      int(11)              true    0       false  
 #
 #------------------------------------------------------------------------------

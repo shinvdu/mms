@@ -32,7 +32,7 @@ class TagsRelationshipsController < ApplicationController
     @user_video = UserVideo.find @tags_relationship.user_video_id
 
       # 第一个用户为超级用户
-    if @current_user.uid == 1
+    if @current_user.admin?
       # 只允许增加自己的视频和检签关系
     elsif not (@tag && @user_video &&   (@user_video.owner_id == @current_user.uid))
       redirect_to :root 
@@ -81,8 +81,7 @@ class TagsRelationshipsController < ApplicationController
     end
 # restrict_tag_operation
     def restrict_tag_operation
-      # 第一个用户为超级用户
-      if @current_user.uid == 1
+      if @current_user.admin?
         return
       end
       # 只能操作自己的player

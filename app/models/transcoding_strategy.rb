@@ -16,5 +16,6 @@ end
 # note       text                 true            false  
 # created_at datetime             false           false  
 # updated_at datetime             false           false  
+# share      tinyint(1)           true            false  
 #
 #------------------------------------------------------------------------------

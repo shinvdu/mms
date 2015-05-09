@@ -1,19 +1,24 @@
 class User < ActiveRecord::Base
-    self.primary_key = "uid"
-    has_one :account
-    has_one :logo
-    has_many :player
-    has_many :resource
-    has_many :strategy
-    has_many :transcoding
-    has_many :transcoding_strategy
-    has_many :transcoding_strategy_relationship
-    has_many :tag
-    has_many :tags_relationship
-    has_many :user_videos, :foreign_key => :owner_id
-    mount_uploader :avar, AvatarUploader
+  self.primary_key = "uid"
+  has_one :account
+  has_one :logo
+  has_many :player
+  has_many :resource
+  has_many :strategy
+  has_many :transcoding
+  has_many :transcoding_strategy
+  has_many :transcoding_strategy_relationship
+  has_many :tag
+  has_many :tags_relationship
+  has_many :user_videos, :foreign_key => :owner_id
+  mount_uploader :avar, AvatarUploader
 
-    alias_attribute :id, :uid
+  alias_attribute :id, :uid
+
+  def admin?
+    # TODO 第一个用户为超级用户
+    self.id == 1
+  end
 end
 
 #------------------------------------------------------------------------------

@@ -6,7 +6,11 @@ class UserVideosController < ApplicationController
   end
 
   def new
-    @strategy = []
+    @publish_strategy = {
+        '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
+        '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
+        '转码并编辑' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
+    }
   end
 
   def show
@@ -19,12 +23,13 @@ class UserVideosController < ApplicationController
       redirect_to session.delete(:return_to)
       return
     end
-    video_name = user_video_params[:video_name]
-    video = user_video_params[:video]
-    user_video = UserVideo.new.set_by_video(current_user, video_name, video)
-    user_video.default_transcoding_strategy_id = user_video_params[:default_transcoding_strategy]
+    user_video = UserVideo.new(:owner => current_user,
+                               :video_name => user_video_params[:video_name],
+                               :publish_strategy => user_video_params[:publish_strategy],
+                               :default_transcoding_strategy_id => user_video_params[:default_transcoding_strategy]
+    ).set_video(user_video_params[:video])
     user_video.save!
-    video.close
+    user_video.delay.publish_by_strategy
 
     respond_to do |format|
       format.html { redirect_to user_videos_path }
@@ -39,6 +44,6 @@ class UserVideosController < ApplicationController
   end
 
   def user_video_params
-    params.require(:user_video).permit(:video_name, :video, :default_transcoding_strategy)
+    params.require(:user_video).permit(:video_name, :video, :default_transcoding_strategy, :publish_strategy)
   end
 end

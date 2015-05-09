@@ -1,5 +1,5 @@
 class UserVideo < ActiveRecord::Base
-  has_many :videos, :class_name => 'VideoDetail', :dependent => :destroy
+  has_many :videos, :class_name => 'VideoDetail'
   has_many :video_product_groups
   has_many :video_cut_points
   has_many :tags_relationship
@@ -7,6 +7,7 @@ class UserVideo < ActiveRecord::Base
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
   belongs_to :mkv_video, :class_name => 'VideoDetail'
+  belongs_to :pre_mkv_video, :class_name => 'VideoDetail'
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
 
   alias_attribute :publish_strategy, :strategy
@@ -17,11 +18,16 @@ class UserVideo < ActiveRecord::Base
     # GOT_META = 30
     PRETRANSCODING = 40
     GOT_LOW_RATE = 50
-    BAD_FORMAT_FOR_PACKAGE = 91
     ORIGIN_DELETED = 99
   end
 
-  module STRATEGY
+  module FORMAT_STATUS
+    NORMAL = 0
+    BAD_FORMAT_FOR_PACKAGE = 1
+    BAD_FORMAT_FOR_MTS = 2
+  end
+
+  module PUBLISH_STRATEGY
     PACKAGE = 1
     TRANSCODING_AND_PUBLISH = 2
     TRANSCODING_AND_EDIT = 3
@@ -29,9 +35,7 @@ class UserVideo < ActiveRecord::Base
 
   include MTSWorker::UserVideoWorker
 
-  def set_by_video(owner, videoName, video)
-    self.owner = owner
-    self.video_name = videoName
+  def set_video(video)
     self.file_name = video.original_filename
     self.ext_name = File.extname(self.file_name)
 
@@ -39,7 +43,7 @@ class UserVideo < ActiveRecord::Base
     video_detail.save!
     self.original_video = video_detail
     self.status = STATUS::PREUPLOADED
-    async_fetch_video_info_and_upload
+    self.delay.fetch_video_info_and_upload
     self
   end
 
@@ -47,27 +51,28 @@ class UserVideo < ActiveRecord::Base
     self.status == STATUS::GOT_LOW_RATE
   end
 
+  def EDITABLE?
+    [FORMAT_STATUS::NORMAL, FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE].include? self.format_status
+  end
+
   ######################################################
   # asynchronous method
   ######################################################
 
-  def async_fetch_video_info_and_upload
+  def fetch_video_info_and_upload
     video_detail = self.original_video
     video_detail.fetch_video_info
-    video_detail.load_local_file! unless self.publish_strategy == UserVideo::STRATEGY::PACKAGE
-    if self.publish_strategy == UserVideo::STRATEGY::PACKAGE &&
-        (video_detail.video_codec.downcase.index('h264') || video_detail.audio_codec.downcase.index('aac'))
-      self.status = UserVideo::STATUS::BAD_FORMAT_FOR_PACKAGE
-      return
+    video_detail.load_local_file!
+    if !video_detail.video_codec.downcase.index('h264') || !video_detail.audio_codec.downcase.index('aac')
+      self.format_status = UserVideo::FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
     end
     # check publish strategy
     # currently only edit
     create_transcoding_video_job(nil, true)
     create_mkv
     self.status = UserVideo::STATUS::PRETRANSCODING
+    self.save!
   end
-
-  handle_asynchronously :async_fetch_video_info_and_upload
 
   def create_mkv
     video_detail = self.original_video
@@ -78,11 +83,39 @@ class UserVideo < ActiveRecord::Base
       # TODO MTS doesn't support mkv right now
       # middle_template is not created
       logger.debug 'original video is not h264/acc, call mts to transcode'
-      transcode_job = create_transcoding_video_job(Transcoding.find_middle_template)
-      self.mkv_video = transcode_job.target
+      transcode_job = create_transcoding_video_job(Transcoding.find_pre_middle_template)
+      transcode_job.post_process_command = "UserVideo.find(#{self.id}).pre_middle_transcode_finished"
+      self.pre_mkv_video = transcode_job.target
     end
     self.save!
   end
+
+  def publish_by_strategy
+    case self.publish_strategy
+      when PUBLISH_STRATEGY::PACKAGE
+        return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
+        if self.mkv_video.nil? || !self.mkv_video.LOCAL?
+          logger.info "mkv video not created, wait for next loop. id: #{self.id}"
+          self.delay(run_at: 5.seconds.from_now).publish_by_strategy
+          return
+        end
+        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
+        video_product_group.create_products_from_mkv
+      when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
+        return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
+        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :transcoding_strategy => self.default_transcoding_strategy)
+        video_product_group.create_products_from_origin
+    end
+  end
+
+  def pre_middle_transcode_finished
+    self.mkv_video = self.pre_mkv_video.create_mkv_video(self.pre_mkv_video.full_cache_path!)
+    self.mkv_video.save!
+    self.pre_mkv_video.destroy
+    self.pre_mkv_video = nil
+    self.save!
+  end
+
 end
 
 #------------------------------------------------------------------------------
@@ -107,5 +140,8 @@ end
 # transcoding_strategy_id         int(11)              true            false  
 # default_transcoding_strategy_id int(11)              true            false  
 # strategy                        int(11)              true            false  
+# mkv_video_id                    int(11)              true            false  
+# format_status                   int(11)              true    0       false  
+# pre_mkv_video_id                int(11)              true            false  
 #
 #------------------------------------------------------------------------------

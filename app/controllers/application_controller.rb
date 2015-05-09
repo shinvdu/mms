@@ -32,13 +32,13 @@ class ApplicationController < ActionController::Base
   end
 
   # back to default
-  def redirect_back_or_default(default)
+  def redirect_back_or_default(default = nil)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
 
   # go to referer
-  def redirect_referrer_or_default(default)
+  def redirect_referrer_or_default(default = nil)
     redirect_to(request.referrer || default)
   end
 
@@ -59,9 +59,8 @@ class ApplicationController < ActionController::Base
     flash[:danger] = msg
   end
 
-  def only_root
-      # 第一个用户为超级用户
-      if @current_user.uid == 1
+  def only_admin
+      if @current_user.admin?
         return
       else
         redirect_to :root 

@@ -58,9 +58,16 @@ class VideoProduct < ActiveRecord::Base
     self.save!
   end
 
+  def copy_package_mkv!(mkv_video_detail)
+    self.video_detail = VideoDetail.create.copy_video_info_from! mkv_video_detail
+    self.video_detail.publish_video! mkv_video_detail.get_full_path
+    self.status = VideoProduct::STATUS::FINISHED
+    self.save!
+  end
+
   def video_transcode_finished
     self.status = STATUS::FINISHED
-    self.video_product_group.check_status
+    self.video_product_group.check_all_finished
     self.save!
   end
 end
@@ -75,7 +82,7 @@ end
 # video_detail_id        int(11)              true            false  
 # transcoding_id         int(11)              true            false  
 # progress               int(11)              true            false  
-# status                 int(11)              true            false  
+# status                 int(11)              true    10      false  
 # created_at             datetime             false           false  
 # updated_at             datetime             false           false  
 #

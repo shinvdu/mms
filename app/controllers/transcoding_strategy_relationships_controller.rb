@@ -29,8 +29,7 @@ class TranscodingStrategyRelationshipsController < ApplicationController
 
     @transcoding = Transcoding.find @transcoding_strategy_relationship.transcoding_id
     @transcoding_strategy = TranscodingStrategy.find @transcoding_strategy_relationship.transcoding_strategy_id
-      # 第一个用户为超级用户
-    if @current_user.uid == 1
+    if @current_user.admin?
       # 只允许增加自己的视频和检签关系
     elsif not (@transcoding && @transcoding_strategy &&  (@transcoding.user_id == @current_user.uid) && (@transcoding_strategy.user_id == @current_user.uid))
       redirect_to :root 
@@ -66,8 +65,7 @@ class TranscodingStrategyRelationshipsController < ApplicationController
 
 # restrict_transcoding_strategy_operation
     def restrict_transcoding_strategy_operation
-      # 第一个用户为超级用户
-      if @current_user.uid == 1
+      if @current_user.admin?
         return
       end
       # 只能操作自己的transcoding_strategy_relationship
