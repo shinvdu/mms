@@ -31,11 +31,33 @@ defaults: &defaults
       height:  50
   m3u8_dir: public/m3u8
   default_per_page: 15
-  player:
-    sizes:
-      480|320: 480 * 320
-      1080|720: 1080 * 720
-      1920|1080: 1920 * 1080
+  player: 
+    sizes:  
+      480|320: 480 * 320 
+      1080|720: 1080 * 720 
+      1920|1080: 1920 * 1080 
+  transcoding: 
+    video_codec:  H.264
+    container:  
+      mp4: mp4
+      flv: flv
+      m3u8: m3u8
+      ts: ts
+    video_profile:  high
+    video_bitrate:  1000
+    video_preset:  
+      slow: slow
+      slower: slower
+      veryslow: veryslow
+      veryfast: veryfast
+      fast: fast
+      medium: medium
+    audio_codec:  
+      aac: aac
+      mp3: mp3
+    width_and_height:  
+      保留|长宽: 保留长宽
+      1024|768: 1024 * 768
 
 production:
   <<: *defaults
