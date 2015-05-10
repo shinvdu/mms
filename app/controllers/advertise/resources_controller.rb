@@ -21,6 +21,8 @@ class Advertise::ResourcesController < ApplicationController
   # GET /advertise/resources/new
   def new
     @advertise_resource = Advertise::Resource.new
+    @advertise_resource.file_type = 'image'
+    @advertise_resource.ad_type = 'all'
   end
 
   # GET /advertise/resources/1/edit
@@ -30,17 +32,21 @@ class Advertise::ResourcesController < ApplicationController
   # POST /advertise/resources
   # POST /advertise/resources.json
   def create
-    if user_video_params[:video].blank?
+    if advertise_resource_params[:file_type] == 'video' && advertise_resource_params[:video].blank?
       session[:return_to] ||= request.referer
       notice_warning '请选择资源文件'
       redirect_to session.delete(:return_to)
       return
     end
-    @advertise_resource = Advertise::Resource.new({
-                                :name => advertise_resource_params[:name],
-                                :file_type => advertise_resource_params[:file_type],
-                                :ad_type => advertise_resource_params[:ad_type],
-                                      }).set_ad_video(advertise_resource_params[:resource])
+    if advertise_resource_params[:file_type] == 'image'
+      @advertise_resource = Advertise::Resource.new(advertise_resource_params)
+    else
+      @advertise_resource = Advertise::Resource.new({
+        :name => advertise_resource_params[:name],
+        :file_type => advertise_resource_params[:file_type],
+        :ad_type => advertise_resource_params[:ad_type]
+        }).set_ad_video(advertise_resource_params[:resource])
+    end
     respond_to do |format|
       if @advertise_resource.save!
         format.html { redirect_to @advertise_resource, notice: 'Resource was successfully created.' }
