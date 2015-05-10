@@ -2,6 +2,7 @@ class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
   has_many :snapshots
+  has_one :advertise_resource, :class_name => 'Advertise::Resource'
   mount_uploader :public_video, PublicVideoUploader
   mount_uploader :private_video, PrivateVideoUploader
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
