@@ -101,6 +101,6 @@ class Advertise::ResourcesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advertise_resource_params
-      params.require(:advertise_resource).permit(:name, :file_type, :ad_type, :filesize, :uri, :resource, :ad_word, :data)
+      params.require(:advertise_resource).permit(:name, :user_id, :file_type, :ad_type, :filesize, :uri, :resource, :ad_word, :data)
     end
 end

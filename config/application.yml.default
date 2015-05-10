@@ -90,7 +90,8 @@ defaults: &defaults
     file_type:  
       视频: video 
       图像: image
-    use_type:  
+    ad_type:  
+      全部可用: all
       片头广告: ad_front 
       片尾广告: ad_end
       暂停广告: ad_pause

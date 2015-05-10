@@ -7,7 +7,8 @@
     <thead>
       <tr>
         <th>名称</th>
-        <th>user</th>
+        <th>资源类型</th>
+        <th>广告类型</th>
         <th>创建时间</th>
         <th>操作</th>
       </tr>
@@ -16,12 +17,13 @@
       <% @advertise_resources.each do |advertise_resource|  %>
       <tr>
         <td><%= advertise_resource.name %></td>
-        <td><%= advertise_resource.user && advertise_resource.user.uid %></td>
+        <td><%= Settings.advertise_resource.file_type.invert[advertise_resource.file_type] if advertise_resource.file_type %></td>
+        <td><%= Settings.advertise_resource.ad_type.invert[advertise_resource.ad_type] if advertise_resource.ad_type %></td>
         <td><%=  advertise_resource.created_at %></td>
         <td>
           <%= link_to '预览', advertise_resource_path(advertise_resource) %>
-          <%= link_to '修改', edit_advertise_resource_path(advertise_resource) %>
-          <td><%= link_to '删除', advertise_resource, method: :delete, data: { confirm: '你确定要删除?' } %></td>
+          <%= link_to '修改', edit_advertise_resource_path(advertise_resource),  'data-no-turbolink' => true  %>
+          <%= link_to '删除', advertise_resource, method: :delete, data: { confirm: '你确定要删除?' } %>
         </td>
       </tr>
       <% end %>
