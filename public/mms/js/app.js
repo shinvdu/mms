@@ -2,7 +2,7 @@
 
 var main = function() {
     var currentPanel = document.location.hash;
-    if(currentPanel !== '#') {
+    if(currentPanel !== '#' && currentPanel !== '') {
 	$('.nav-tab > .nav-square > li').removeClass('current');
 	$('.nav-tab > .nav-square > li').find('a[href="' + currentPanel + '"]').parent().addClass('current');
 	$('.tab-panel').removeClass('current');
