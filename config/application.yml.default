@@ -59,6 +59,16 @@ defaults: &defaults
       854|480: 854x480
       1280|720: 1280x720
       1920|1080: 1920x1080
+  advertise_resource: 
+    file_type:  
+      视频: video 
+      图像: image
+    use_type:  
+      片头广告: ad_front 
+      片尾广告: ad_end
+      暂停广告: ad_pause
+      悬浮广告: ad_float
+      滚动广告: ad_scroll
 
 production:
   <<: *defaults
