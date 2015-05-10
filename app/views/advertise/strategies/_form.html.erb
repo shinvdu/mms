@@ -21,32 +21,63 @@
   <div class="form-group">
     <%= f.label :片头广告,  :class => "col-md-3 control-label"  %>
     <div class="col-md-8">
-      <%= f.select :front_ad, [['aa']] , {}, {:class => 'form-control'} %>
+      <% 
+      ad_front = {}
+      Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_front']).each do |ad |
+        ad_front[ad.name] = ad.id
+      end
+       %>
+      <%= f.select :front_ad, ad_front , {}, {:class => 'form-control'} %>
     </div>
   </div>
   <div class="form-group">
+    <% 
+    ad_end = {}
+    Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_end']).each do |ad |
+      ad_end[ad.name] = ad.id
+    end
+    %>
     <%= f.label :片尾广告,  :class => "col-md-3 control-label"  %>
     <div class="col-md-8">
-      <%= f.select :end_ad, [['aa']] , {}, {:class => 'form-control'} %>
+      <%= f.select :end_ad, ad_end , {}, {:class => 'form-control'} %>
     </div>
   </div>
+
   <div class="form-group">
+    <% 
+    ad_pause = {}
+    Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_pause']).each do |ad |
+      ad_pause[ad.name] = ad.id
+    end
+    %>
     <%= f.label :暂停广告,  :class => "col-md-3 control-label"  %>
     <div class="col-md-8">
-      <%= f.select :pause_ad, [['aa']] , {}, {:class => 'form-control'} %>
+      <%= f.select :pause_ad, ad_pause , {}, {:class => 'form-control'} %>
     </div>
   </div>
 
     <div class="form-group">
+      <% 
+      ad_float = {}
+      Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_float']).each do |ad |
+        ad_float[ad.name] = ad.id
+      end
+      %>
     <%= f.label :悬浮广告,  :class => "col-md-3 control-label"  %>
     <div class="col-md-8">
-      <%= f.select :float_ad, [['aa']] , {}, {:class => 'form-control'} %>
+      <%= f.select :float_ad, ad_float , {}, {:class => 'form-control'} %>
     </div>
   </div>
     <div class="form-group">
+       <% 
+      ad_scroll = {}
+      Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_scroll']).each do |ad |
+        ad_scroll[ad.name] = ad.id
+      end
+      %>     
     <%= f.label :滚动字幕,  :class => "col-md-3 control-label"  %>
     <div class="col-md-8">
-      <%= f.select :scroll_ad, [['aa']] , {}, {:class => 'form-control'} %>
+      <%= f.select :scroll_ad, ad_scroll, {}, {:class => 'form-control'} %>
     </div>
   </div>
   <hr>
