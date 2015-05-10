@@ -1,3 +1,27 @@
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $("#advertise_resource_resource").hide();
+    $('#advertise_resource_file_type').on('change', function (e) {
+      var optionSelected = $("option:selected", this);
+      var valueSelected = this.value;
+      switch(valueSelected)
+      {
+        case 'image':
+        $("#advertise_resource_resource").hide();
+        $("#advertise_resource_uri").show();
+        // 执行代码块 1
+        break;
+        case 'video':
+        $("#advertise_resource_resource").show();
+        $("#advertise_resource_uri").hide();
+        // 执行代码块 2
+        break;
+        default:
+      }
+    });
+  });
+
+</script>
   <div class="row">
 <div class="col-md-10">
 
@@ -24,7 +48,7 @@
   <div class="form-group">
     <%= f.label :资源类型,  :class => "col-md-3 control-label"  %>
     <div class="col-md-8">
-      <%= f.select :ad_type, Settings.advertise_resource.file_type , {}, {:class => 'form-control'} %>
+      <%= f.select :file_type, Settings.advertise_resource.file_type , {}, {:class => 'form-control'} %>
     </div>
   </div>
   <div class="form-group">
