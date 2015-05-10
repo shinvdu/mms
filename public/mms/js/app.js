@@ -1,6 +1,14 @@
 'use strict'
 
 var main = function() {
+    var currentPanel = document.location.hash;
+    if(currentPanel !== '#') {
+	$('.nav-tab > .nav-square > li').removeClass('current');
+	$('.nav-tab > .nav-square > li').find('a[href="' + currentPanel + '"]').parent().addClass('current');
+	$('.tab-panel').removeClass('current');
+	$(currentPanel).addClass('current');
+    }
+    
     $('.nav-tab > .nav-square a').on('click', function(e) {
 	var panelID = $(this).attr('href'),
 	    currentTab = $(this).parent();
