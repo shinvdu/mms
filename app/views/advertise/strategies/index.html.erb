@@ -13,8 +13,7 @@
   <table class="table table-hover panel-table">
     <thead>
       <tr>
-        <th>编号</th>
-        <th>广告资源</th>
+        <th>名称</th>
         <th>片头广告</th>
         <th>片尾广告</th>
         <th>暂停广告</th>
@@ -26,43 +25,12 @@
     <tbody>
       <% @advertise_strategies.each do | strategy| %>
       <tr>
-        <td><%=  strategy.id %></td>
         <td><%=  strategy.name %></td>
-        <td>
-    <select class="form-control">
-      <option>广告资源1</option>
-      <option>广告资源2</option>
-      <option>广告资源3</option>
-    </select>
-        </td>
-        <td>
-    <select class="form-control">
-      <option>广告资源1</option>
-      <option>广告资源2</option>
-      <option>广告资源3</option>
-    </select>
-        </td>
-        <td>
-    <select class="form-control">
-      <option>广告资源1</option>
-      <option>广告资源2</option>
-      <option>广告资源3</option>
-    </select>
-        </td>
-        <td>
-    <select class="form-control">
-      <option>广告资源1</option>
-      <option>广告资源2</option>
-      <option>广告资源3</option>
-    </select>
-        </td>
-        <td>
-    <select class="form-control">
-      <option>广告资源1</option>
-      <option>广告资源2</option>
-      <option>广告资源3</option>
-    </select>
-        </td>
+        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.front_ad) ) && resource.name %></td>
+        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.end_ad) ) && resource.name %></td>
+        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.pause_ad) ) && resource.name %></td>
+        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.float_ad) ) && resource.name %></td>
+        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.scroll_ad) ) && resource.name %></td>
         <td>
     <a href="<%=  edit_advertise_strategy_path(strategy) %>">修改</a>
     <%= link_to '删除', strategy, method: :delete, data: { confirm: '你确定要删除?' } %>

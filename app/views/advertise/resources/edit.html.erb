@@ -1,6 +1,15 @@
-<h1>Editing Advertise Resource</h1>
+<%=  render 'advertise/nav' %>
+<div class="tab-panel current" id="add-player">
+	<div class="panel-links">
+		<%= link_to '&lt;&lt; 返回模板列表'.html_safe, advertise_resources_path, :class => 'btn-return-link' %> |
+		<%= link_to '查看', @advertise_resource %> 
+	</div>
+
+	<div class="form-group">
+		<label class="col-md-5 control-label text-center">编辑广告资源</label>
+	</div>
+	<hr>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @advertise_resource %> |
-<%= link_to 'Back', advertise_resources_path %>
+</div>
