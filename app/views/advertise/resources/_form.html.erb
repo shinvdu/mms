@@ -30,7 +30,7 @@
   <div class="form-group">
     <%= f.label :广告类型,  :class => "col-md-3 control-label"  %>
     <div class="col-md-8">
-      <%= f.select :use_type, Settings.advertise_resource.use_type , {}, {:class => 'form-control'} %>
+      <%= f.select :ad_type, Settings.advertise_resource.use_type , {}, {:class => 'form-control'} %>
     </div>
   </div>
   <div class="form-group">
@@ -38,6 +38,7 @@
     <div class="col-sm-8">
       <%= image_tag(@advertise_resource.uri_url) if @advertise_resource.uri?  && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
       <%= video_tag(@advertise_resource.uri_url, :controls => true) if @advertise_resource.uri?  && @advertise_resource.file_type &&  @advertise_resource.file_type == 'video' %>
+      <%= f.file_field :resource %>
       <%= f.file_field :uri %>
       <%= f.hidden_field :uri_cache %>
     </div>

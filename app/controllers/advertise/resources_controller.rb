@@ -30,10 +30,19 @@ class Advertise::ResourcesController < ApplicationController
   # POST /advertise/resources
   # POST /advertise/resources.json
   def create
-    @advertise_resource = Advertise::Resource.new(advertise_resource_params)
-
+    if user_video_params[:video].blank?
+      session[:return_to] ||= request.referer
+      notice_warning '请选择资源文件'
+      redirect_to session.delete(:return_to)
+      return
+    end
+    @advertise_resource = Advertise::Resource.new({
+                                :name => advertise_resource_params[:name],
+                                :file_type => advertise_resource_params[:file_type],
+                                :ad_type => advertise_resource_params[:ad_type],
+                                      }).set_ad_video(advertise_resource_params[:resource])
     respond_to do |format|
-      if @advertise_resource.save
+      if @advertise_resource.save!
         format.html { redirect_to @advertise_resource, notice: 'Resource was successfully created.' }
         format.json { render :show, status: :created, location: @advertise_resource }
       else
@@ -86,6 +95,6 @@ class Advertise::ResourcesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def advertise_resource_params
-      params.require(:advertise_resource).permit(:name, :file_type, :ad_type, :use_type, :filesize, :uri, :ad_word, :data)
+      params.require(:advertise_resource).permit(:name, :file_type, :ad_type, :filesize, :uri, :resource, :ad_word, :data)
     end
 end

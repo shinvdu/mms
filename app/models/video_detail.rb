@@ -55,6 +55,20 @@ class VideoDetail < ActiveRecord::Base
     self
   end
 
+  def set_ad_video(ad_video, video)
+    self.advertise_resource = ad_video
+    self.uuid = UUIDTools::UUID.random_create.to_s
+    self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
+    self.status = STATUS::ONLY_LOCAL
+
+    # TODO save file to file server
+    temp_path = Rails.root.join(Settings.file_server.dir, self.uri)
+    dir = File.dirname(temp_path)
+    FileUtils.makedirs(dir) if !File.directory?(dir)
+    FileUtils.mv(video.path, temp_path)
+    self
+  end
+
   def set_attributes_by_hash(params)
     params.each do |k, v|
       send "#{k}=", v
