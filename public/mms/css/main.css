@@ -103,18 +103,25 @@ body {
     position: relative; }
     .navbar ul ul {
       display: none;
+      background-color: #8c9ddd;
+      box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
       border-radius: 4px;
-      padding: 0;
+      list-style: none;
+      padding: 5px 0;
       position: absolute;
-      top: 100%; }
+      top: 100%;
+      z-index: 1; }
       .navbar ul ul li {
         float: none;
         position: relative; }
         .navbar ul ul li a {
+          display: block;
           background-color: #8c9ddd;
           color: #fff;
-          padding: 15px 10px; }
-          .navbar ul ul li a:hover {
+          padding: 15px 40px 15px 15px; }
+          .navbar ul ul li a:link, .navbar ul ul li a:hover, .navbar ul ul li a:visited, .navbar ul ul li a:active {
+            text-decoration: none; }
+          .navbar ul ul li a:hover, .navbar ul ul li a:active {
             background-color: #7989c4; }
     .navbar ul li {
       border: none;
@@ -136,7 +143,7 @@ body {
         background: #8c9ddd; }
         .navbar ul li.active > a {
           background: #8c9ddd; }
-          .navbar ul li.active > a:hover {
+          .navbar ul li.active > a:hover, .navbar ul li.active > a:active {
             background: #7989c4; }
   .navbar .navbar-form {
     margin-right: 0;
