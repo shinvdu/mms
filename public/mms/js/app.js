@@ -1,7 +1,11 @@
 'use strict'
 
 var main = function() {
-    var currentPanel = document.location.hash;
+    var currentPanel = document.location.hash,
+	options = {hidden:false},
+	mplayer = videojs("video-display");
+    mplayer.rangeslider(options);
+	
     if(currentPanel !== '#' && currentPanel !== '') {
 	$('.nav-tab > .nav-square > li').removeClass('current');
 	$('.nav-tab > .nav-square > li').find('a[href="' + currentPanel + '"]').parent().addClass('current');
@@ -71,6 +75,10 @@ var main = function() {
     $('#user-name').on('click', function(e) {
 	$('#user-menu').toggle();
 	e.preventDefault();
+    });
+
+    $('#btn-add-clip').on('click', {mplayer: mplayer}, function(e) {
+	var aaa = 'aaa';
     });
 };
 
