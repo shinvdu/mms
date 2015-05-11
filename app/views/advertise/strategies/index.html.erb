@@ -26,11 +26,26 @@
       <% @advertise_strategies.each do | strategy| %>
       <tr>
         <td><%=  strategy.name %></td>
-        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.front_ad) ) && resource.name %></td>
-        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.end_ad) ) && resource.name %></td>
-        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.pause_ad) ) && resource.name %></td>
-        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.float_ad) ) && resource.name %></td>
-        <td><%= ( resource = Advertise::Resource.find_by_id(strategy.scroll_ad) ) && resource.name %></td>
+        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.front_ad) )  && advertise_resource_path(resource) %>">
+          <%=  resource  && resource.name %>
+        </a>
+        </td>
+        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.end_ad) )  && advertise_resource_path(resource) %>">
+          <%=  resource  && resource.name %>
+        </a>
+        </td>
+        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.pause_ad) )  && advertise_resource_path(resource) %>">
+          <%=  resource  && resource.name %>
+        </a>
+        </td>
+        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.float_ad) )  && advertise_resource_path(resource) %>">
+          <%=  resource  && resource.name %>
+        </a>
+        </td>
+        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.scroll_ad) )  && advertise_resource_path(resource) %>">
+          <%=  resource  && resource.name %>
+        </a>
+        </td>
         <td>
     <a href="<%=  edit_advertise_strategy_path(strategy) %>">修改</a>
     <%= link_to '删除', strategy, method: :delete, data: { confirm: '你确定要删除?' } %>
