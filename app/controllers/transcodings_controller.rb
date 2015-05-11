@@ -26,7 +26,7 @@ class TranscodingsController < ApplicationController
     @transcoding.video_bitrate = 10000
     @transcoding.video_crf = 26
 
-    # @transcoding.video_fps = 30
+    @transcoding.video_fps = 25
     @transcoding.video_gop = 250
     @transcoding.video_preset = 'slow'
     @transcoding.video_scanmode = 'progressive'

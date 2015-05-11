@@ -51,7 +51,7 @@ class PublicVideoUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    model.remote_file_name
+    model.public_remote_file_name
   end
 
 end
