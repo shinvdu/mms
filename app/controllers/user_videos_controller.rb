@@ -1,6 +1,6 @@
 class UserVideosController < ApplicationController
   before_action :authenticate_account!, :check_login
-  before_action :generate_publish_strategy, :only => [:index, :new]
+  before_action :generate_publish_strategy, :only => [:index, :new, :show]
 
   def index
     @user_videos = UserVideo.where(owner_id: current_user.uid).page(params[:page])
@@ -37,7 +37,7 @@ class UserVideosController < ApplicationController
   def republish
     user_video = UserVideo.find(params[:id])
     if [UserVideo::PUBLISH_STRATEGY::PACKAGE, UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
-        UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT].include? republish_params[:publish_strategy]
+        UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT].include? republish_params[:publish_strategy].to_i
       user_video.delay.publish_by_strategy(republish_params[:publish_strategy].to_i,
                                            TranscodingStrategy.find(republish_params[:transcoding_strategy]))
     end
@@ -54,7 +54,7 @@ class UserVideosController < ApplicationController
     @publish_strategy = {
         '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
         '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
-        '转码并编辑' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
+        '编辑后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
     }
   end
 
