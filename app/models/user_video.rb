@@ -95,7 +95,7 @@ class UserVideo < ActiveRecord::Base
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
         if self.mkv_video.nil? || !self.mkv_video.LOCAL?
           logger.info "mkv video not created, wait for next loop. id: #{self.id}"
-          self.delay(run_at: 5.seconds.from_now).publish_by_strategy(publish_strategy, transcoding_strategy)
+          self.delay(run_at: 1.seconds.from_now).publish_by_strategy(publish_strategy, transcoding_strategy)
           return
         end
         self.transaction do

@@ -125,7 +125,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def copy_attributes
-    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5')
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5', 'status')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -198,6 +198,7 @@ class VideoDetail < ActiveRecord::Base
     `mkvmerge  -o #{output_path} #{file_paths.join(' +')}`
 
     file_paths.each_with_index { |path| FileUtils.rm path }
+    new_video.status = VideoDetail::STATUS::ONLY_LOCAL
     new_video.save!
     new_video
   end
