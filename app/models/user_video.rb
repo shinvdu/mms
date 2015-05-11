@@ -80,8 +80,6 @@ class UserVideo < ActiveRecord::Base
       logger.debug 'original video is h264/acc, package it locally'
       self.mkv_video = self.original_video.create_mkv_video
     else
-      # TODO MTS doesn't support mkv right now
-      # middle_template is not created
       logger.debug 'original video is not h264/acc, call mts to transcode'
       transcode_job = create_transcoding_video_job(Transcoding.find_pre_middle_template)
       transcode_job.post_process_command = "UserVideo.find(#{self.id}).pre_middle_transcode_finished"
@@ -91,21 +89,27 @@ class UserVideo < ActiveRecord::Base
     self.save!
   end
 
-  def publish_by_strategy
-    case self.publish_strategy
+  def publish_by_strategy(publish_strategy, transcoding_strategy)
+    case publish_strategy
       when PUBLISH_STRATEGY::PACKAGE
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
         if self.mkv_video.nil? || !self.mkv_video.LOCAL?
           logger.info "mkv video not created, wait for next loop. id: #{self.id}"
-          self.delay(run_at: 5.seconds.from_now).publish_by_strategy
+          self.delay(run_at: 5.seconds.from_now).publish_by_strategy(publish_strategy, transcoding_strategy)
           return
         end
-        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
-        video_product_group.create_products_from_mkv
+        self.transaction do
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
+          video_product_group.create_products_from_mkv
+        end
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
-        video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :transcoding_strategy => self.default_transcoding_strategy)
-        video_product_group.create_products_from_origin
+        self.transaction do
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :transcoding_strategy => transcoding_strategy)
+          video_product_group.create_products_from_origin
+        end
+      when PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
+        # nothing to do now
     end
   end
 

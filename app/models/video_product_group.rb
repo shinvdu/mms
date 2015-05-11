@@ -108,10 +108,9 @@ class VideoProductGroup < ActiveRecord::Base
 
   def create_products_from_mkv
     logger.info 'Start process video product group'
-    user_video = self.user_video
-    return unless check_dependent(user_video)
+    return unless check_dependent(self.user_video)
 
-    dependent_video = user_video.mkv_video
+    dependent_video = self.user_video.mkv_video
 
     if self.transcoding_strategy.present?
       create_products_by_transcoding_strategy(dependent_video)
@@ -155,7 +154,6 @@ class VideoProductGroup < ActiveRecord::Base
     self.mkv_video = VideoDetail.create.copy_video_info_from! dependent_video
     product = VideoProduct.create(:video_product_group => self)
     product.copy_package_mkv!(self.user_video.mkv_video)
-    product.video_detail.fetch_video_info
     user_video.original_video.create_snapshot(self)
     self.status = STATUS::FINISHED
     self.save!

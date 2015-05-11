@@ -1,16 +1,12 @@
 class UserVideosController < ApplicationController
   before_action :authenticate_account!, :check_login
+  before_action :generate_publish_strategy, :only => [:index, :new]
 
   def index
     @user_videos = UserVideo.where(owner_id: current_user.uid).page(params[:page])
   end
 
   def new
-    @publish_strategy = {
-        '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
-        '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
-        '转码并编辑' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
-    }
   end
 
   def show
@@ -29,7 +25,8 @@ class UserVideosController < ApplicationController
                                :default_transcoding_strategy_id => user_video_params[:default_transcoding_strategy]
     ).set_video(user_video_params[:video])
     user_video.save!
-    user_video.delay.publish_by_strategy
+    user_video.delay.publish_by_strategy(user_video_params[:publish_strategy].to_i,
+                                         TranscodingStrategy.find(user_video_params[:default_transcoding_strategy]))
 
     respond_to do |format|
       format.html { redirect_to user_videos_path }
@@ -37,10 +34,32 @@ class UserVideosController < ApplicationController
     end
   end
 
-  def destroy
+  def republish
     user_video = UserVideo.find(params[:id])
-    user_video.destroy
+    if [UserVideo::PUBLISH_STRATEGY::PACKAGE, UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
+        UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT].include? republish_params[:publish_strategy]
+      user_video.delay.publish_by_strategy(republish_params[:publish_strategy].to_i,
+                                           TranscodingStrategy.find(republish_params[:transcoding_strategy]))
+    end
+    redirect_to user_video_path
+  end
+
+  def destroy
+    # user_video = UserVideo.find(params[:id])
+    # user_video.destroy
     redirect_to user_videos_path
+  end
+
+  def generate_publish_strategy
+    @publish_strategy = {
+        '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
+        '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
+        '转码并编辑' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
+    }
+  end
+
+  def republish_params
+    params.require(:republish).permit(:publish_strategy, :transcoding_strategy)
   end
 
   def user_video_params
