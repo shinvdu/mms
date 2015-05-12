@@ -13,6 +13,25 @@ class UserVideosController < ApplicationController
     @user_video = UserVideo.find(params[:id])
   end
 
+  def edit
+    @user_video = UserVideo.find(params[:id])
+  end
+  
+  def update
+    @user_video = UserVideo.find(params[:id])
+
+    respond_to do |format|
+      if @user_video.save
+        format.html { redirect_to @user_video, notice: 'Player was successfully updated.' }
+        format.json { render :show, status: :updated, location: @user_video }
+      else
+        format.html { render :new }
+        format.json { render json: @user_video.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
+
   def create
     if user_video_params[:video].blank?
       session[:return_to] ||= request.referer
@@ -63,6 +82,6 @@ class UserVideosController < ApplicationController
   end
 
   def user_video_params
-    params.require(:user_video).permit(:video_name, :video, :default_transcoding_strategy, :publish_strategy)
+    params.require(:user_video).permit(:video_name, :video, :compose_strategy,  :default_transcoding_strategy, :publish_strategy)
   end
 end

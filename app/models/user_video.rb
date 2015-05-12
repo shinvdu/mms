@@ -11,6 +11,7 @@ class UserVideo < ActiveRecord::Base
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
 
   alias_attribute :publish_strategy, :strategy
+  attr_accessor :compose_strategy
 
   module STATUS
     PREUPLOADED = 10
