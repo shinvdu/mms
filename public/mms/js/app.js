@@ -78,7 +78,8 @@ var main = function() {
     });
 
     $('#btn-add-clip').on('click', {mplayer: mplayer}, function(e) {
-	var aaa = 'aaa';
+	var clipCanvas = document.createElement('canvas');
+	clipCanvas.getContext('2d').drawImage(e.data.mplayer.player().el().firstChild, 0, 0, 75, 75);
     });
 };
 

@@ -30,6 +30,13 @@
       <%= f.submit 'Submit' %>
   <% end %>
 </div>
+<dov>
+  <%= form_for :republish, :url => republish_user_video_path(@user_video), :method => :post do |f| %>
+      <%= f.select :publish_strategy, @publish_strategy %>
+      <%= f.collection_select :transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
+      <%= f.submit '发布' %>
+  <% end %>
+</dov>
 <div>
   <% @user_video.video_product_groups.each do |g| %>
       <div>

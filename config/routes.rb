@@ -40,7 +40,11 @@ Rails.application.routes.draw do
       patch 'check', :controller => 'video_product_group_check_status'
     end
   end
-  resources :user_videos
+  resources :user_videos do
+    member do
+      post 'republish'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

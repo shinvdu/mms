@@ -33,8 +33,12 @@ class VideoDetail < ActiveRecord::Base
     "product_#{self.id}"
   end
 
-  def remote_file_name
-    File.basename self.uri if self.uri.present?
+  def public_remote_file_name
+    File.basename self.uri if self.uri.present? && self.public
+  end
+
+  def private_remote_file_name
+    File.basename self.uri if self.uri.present? && !self.public
   end
 
   def bucket
@@ -107,11 +111,11 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def create_mkv_video(input_path = nil)
+    input_path ||= self.get_full_path
     output_path = self.get_full_path.split('.')[0..-2].append('mkv').join('.')
     if self.user_video.ext_name == '.mkv' && input_path == output_path
       return self
     end
-    input_path ||= self.get_full_path
     `ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}`
     mkv_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     mkv_video.uri = self.uri.split('.')[0..-2].append('mkv').join('.')
@@ -121,7 +125,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def copy_attributes
-    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5')
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5', 'status')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -155,6 +159,7 @@ class VideoDetail < ActiveRecord::Base
   require 'streamio-ffmpeg'
 
   def fetch_video_info
+    return if !File.exist? self.get_full_path
     self.md5 = Digest::MD5.file(self.get_full_path).hexdigest
     movie = FFMPEG::Movie.new(self.get_full_path)
     if movie.valid?
@@ -193,6 +198,7 @@ class VideoDetail < ActiveRecord::Base
     `mkvmerge  -o #{output_path} #{file_paths.join(' +')}`
 
     file_paths.each_with_index { |path| FileUtils.rm path }
+    new_video.status = VideoDetail::STATUS::ONLY_LOCAL
     new_video.save!
     new_video
   end
@@ -214,7 +220,6 @@ class VideoDetail < ActiveRecord::Base
     end
     self.status = VideoDetail::STATUS::ONLY_REMOTE
     self.save!
-
   end
 
   def download!
@@ -223,9 +228,7 @@ class VideoDetail < ActiveRecord::Base
     file_path = self.get_full_path
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"
-    FileUtils.mv cache_path, file_path
-    # FileUtils.cp cache_path, file_path
-    # TODO disable callback may solve this problem?
+    FileUtils.cp cache_path, file_path
     # must cp before save, save will remove cached file
     self.status = VideoDetail::STATUS::BOTH
     self.save!
