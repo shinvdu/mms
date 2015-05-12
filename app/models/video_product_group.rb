@@ -2,6 +2,7 @@ class VideoProductGroup < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :user_video
   belongs_to :mkv_video, :class_name => 'VideoDetail'
+  belongs_to :player
   has_many :video_products
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments

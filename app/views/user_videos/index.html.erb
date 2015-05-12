@@ -29,18 +29,24 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <img class="img-rounded" src="./images/header-bg.jpg" alt="video-preview">
+              <a href="<%= user_video_path(user_video) %>">
+                <% if user_video.original_video.snapshots.present? %>
+                    <%= image_tag user_video.original_video.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
+                <% else %>
+                    <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
+                <% end %>
+              </a>
               <select class="form-control">
                 <option>方案1</option>
                 <option>方案2</option>
                 <option>方案3</option>
               </select>
-              状态: <%= user_video.get_status_name  %>
+              状态: <%= user_video.get_status_name %>
             </div>
             <div class="col-md-9">
               <div class="row">
                 <div class="col-md-12">
-                  名称: <%= user_video.video_name  %>
+                  名称: <%= user_video.video_name %>
                 </div>
               </div>
               <div class="row">
@@ -54,7 +60,7 @@
               <div class="row">
                 <div class="col-md-3">
                   时长:
-                  <% if user_video.original_video.present? %>
+                  <% if user_video.original_video && user_video.original_video.duration %>
                       <%= user_video.original_video.duration.to_time %>
                   <% else %>
                       未知
@@ -81,7 +87,7 @@
                 <div class="col-md-12">
                   <button class="btn btn-blue">编辑</button>
                   <button class="btn btn-blue">代码</button>
-                  <button class="btn btn-blue" id="btn-video-clip">剪辑</button>
+                  <button class="btn btn-blue btn-video-clip-action" id="btn-video-clip" data-href="<%= edit_user_video_path(user_video) %>">剪辑</button>
                   <button class="btn btn-gray">删除</button>
                 </div>
               </div>
@@ -92,9 +98,14 @@
   </div>
 </div>
 
-
-
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.btn-video-clip-action').click(function(e) {
+            e.preventDefault();
+            location.href = $(e.target).attr('data-href');
+        });
+    })
+</script>
 
 <!--
 <div class="tab-panel current" id="video-list">
@@ -132,10 +143,10 @@
           <td>完成</td>
           <td>
             <%= form_for :republish, :url => republish_user_video_path(user_video), :method => :post do |f| %>
-                <%= f.select :publish_strategy, @publish_strategy %>
-                <%= f.collection_select :transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
-                <%= f.submit '发布' %>
-            <% end %>
+        <%= f.select :publish_strategy, @publish_strategy %>
+        <%= f.collection_select :transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
+        <%= f.submit '发布' %>
+    <% end %>
           </td>
           <td>
             <%= link_to '删除', user_video, method: :delete, data: {confirm: '你确定要删除?'} %>

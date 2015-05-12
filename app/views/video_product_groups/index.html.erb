@@ -30,11 +30,13 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <% if g.snapshots.present? %>
-                  <%= image_tag g.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
-              <% else %>
-                  <span>截图制作中</span>
-              <% end %>
+              <a href="<%= video_product_group_path(g) %>">
+                <% if g.snapshots.present? %>
+                    <%= image_tag g.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
+                <% else %>
+                    <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
+                <% end %>
+              </a>
               <!--
               <select class="form-control">
                 <option>方案1</option>
