@@ -154,6 +154,7 @@ development:
     mts:
       mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
       pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
       pipeline_id: ff91fad66cff4bb894511d98575c2078
 
 test:
