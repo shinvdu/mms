@@ -3,145 +3,140 @@
 <% style '/mms/css/rangeslider.css' %>
 <% javascript '/mms/js/jquery-ui.js' %>
 <% javascript '/mms/js/rangeslider.js' %>
-  <script>
+<script>
     videojs.options.flash.swf = "/player1/video-js.swf";
-  </script>
+</script>
 
-<%=  render 'user_videos/nav' %>
-	  <div class="tab-panel current" id="video-clip">
-	    <div class="panel-links"><a class="btn-return-link" href="#video-list">&lt;&lt; 返回视频列表</a></div>
-	    <div class="panel-content-display">
-	      <div class="row">
-		<div class="col-md-12">
-		  剪辑视频文件：［<%=  @user_video.video_name %>］
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第一步：分割视频
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <video id="video-display" class="video-js vjs-default-skin" controls preload="meta"  autopaly="false" width="853" height="480" data-setup='{}'>
-		  	<source src="<%= @user_video.mini_video.get_full_url %>" type='video/mp4' />
-		    	<p class="vjs-no-js">
-			  To view this video please enable JavaScript, and consider upgrading to a web browser
-			  that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-			</p>
-		  </video>
-		</div>
-		<div class="video-clip-list">
-		  <a href="#">
-		    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		  </a>
-		  <div id="video_cut_list">
-		  </div>
-		  <div class="video-clip-add">
-		  	<a id="btn-add-clip" href="javascript:void(0);">+</a>
-		  </div>
+<%= render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-clip">
+  <div class="panel-links"><a class="btn-return-link" href="#video-list">&lt;&lt; 返回视频列表</a></div>
+  <div class="panel-content-display">
+    <div class="row">
+      <div class="col-md-12">
+        剪辑视频文件：［<%= @user_video.video_name %>］
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+        第一步：分割视频
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <video id="video-display" class="video-js vjs-default-skin" controls preload="meta" autopaly="false" width="853" height="480" data-setup='{}'>
+          <source src="<%= @user_video.mini_video.get_full_url %>" type='video/mp4'/>
+          <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser
+            that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+          </p>
+        </video>
+      </div>
+      <div class="video-clip-list">
+        <a href="#">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </a>
 
-		  <a href="#">
-		    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		  </a>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第二步：选择需要合并的视频
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="video-clip-merge">
-		  <div class="video-clip-list">
-		    <a href="#" style="visibility: hidden">
-		      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-		    </a>
-		    <div id="video_select_list">
-		    </div>
-		    <a href="#" style="visibility: hidden">
-		      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-		    </a>
-		  </div>
-		  <div class="video-clip-action-bar">
-		    <div>
-		      <a class="btn btn-purple" href="javascript:composing_video();">合并视频</a>
-		      <button class="btn btn-gray">取消</button>
-		    </div>
-		    <div>
-		      40%
-		      <div class="progress">
-			<div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-			  <span class="sr-only">40% Complete</span>
-			</div>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第三步：选择播放器/转码方案
-		</div>
-	      </div>
-	      <script type="text/javascript">
-	      // jQuery(document).ready(function($) {
-	      	function composing_video(){
-	      		var cons = [];
-	      		var eles = element_lists();
-	      		eles.forEach(function(p){
-	      			cons.push({
-	      				user_video_id: "<%= @user_video.id %>",
-	      				name: "<%= @user_video.video_name %>",
-	      				start_time: p.start,
-	      				stop_time: p.end
-	      			})
-	      		})
-	      		$('#user_video_compose_strategy').val(JSON.stringify(cons));
-	      	}
+        <div id="video_cut_list">
+        </div>
+        <div class="video-clip-add">
+          <a id="btn-add-clip" href="javascript:void(0);">+</a>
+        </div>
 
-	      </script>
-	      <%= form_for(@user_video,  :url => video_product_groups_path(format: :html) ) do |f| %>
-	      <div class="row">
-		<div class="col-md-offset-2 col-md-8">
-		  <div class="row">
-		    <div class="col-md-6">
-		    	<% 
-		    	players = {}
-		    	players_db = Player.where(user_id: @current_user.id);
-		    	players_db.each do |p|
-		    		players[p.name] = p.id
-		    	end
-		    	 %>
-		    	<%= f.select :players, players, {}, :class => 'form-control' %>
-		    </div>
-		    <div class="col-md-6">
-		    	<% 
-		    	strategies = {}
-		    	default_transcoding_strategies = TranscodingStrategy.where(user_id: @current_user.id);
-		    	default_transcoding_strategies.each do |s|
-		    		strategies[s.name] = s.id
-		    	end
-		    	 %>
-		    	<%= f.select :default_transcoding_strategy, strategies, {}, :class => 'form-control' %>
-		    </div>
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第四步：保存/提交
-		</div>
-	      </div>
-	      <%= f.hidden_field :compose_strategy %>
-	      <div class="text-center">
-	      	<%= f.submit :保存, :class => 'btn btn-green'  %>
-		<a class="btn btn-blue">返回</a>
-	      </div>
-	      <% end %>
-	    </div>
-	  </div>
+        <a href="#">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+        第二步：选择需要合并的视频
+      </div>
+    </div>
+    <div class="row">
+      <div class="video-clip-merge">
+        <div class="video-clip-list">
+          <a href="#" style="visibility: hidden">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          </a>
+
+          <div id="video_select_list">
+          </div>
+          <a href="#" style="visibility: hidden">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+        第三步：选择播放器/转码方案
+      </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.btn-save-action').click(function composing_video() {
+                var cons = [];
+                var eles = element_lists();
+                eles.forEach(function(p) {
+                    cons.push({
+                        user_video_id: "<%= @user_video.id %>",
+                        name: "",
+                        start_time: p.start,
+                        stop_time: p.end
+                    })
+                })
+                $('#product_data_compose_strategy').val(JSON.stringify(cons));
+            })
+        })
+    </script>
+    <%= form_for :product_data, :url => video_product_groups_path(format: :html), :class => 'form-horizontal' do |f| %>
+        <div class="row">
+          <div class="col-md-offset-2 col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <%
+                   players = {}
+                   players_db = Player.where(user_id: @current_user.id);
+                   players_db.each do |p|
+                     players[p.name] = p.id
+                   end
+                %>
+                <%= f.select :player_id, players, {}, :class => 'form-control' %>
+              </div>
+              <div class="col-md-6">
+                <%
+                   strategies = {}
+                   default_transcoding_strategies = TranscodingStrategy.where(user_id: @current_user.id);
+                   default_transcoding_strategies.each do |s|
+                     strategies[s.name] = s.id
+                   end
+                %>
+                <%= f.select :transcoding_strategy_id, strategies, {}, :class => 'form-control' %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
+            第四步：保存/提交
+          </div>
+          <div class="form-group">
+            <%= f.label :视频标题, :class => "col-md-3 control-label" %>
+            <div class="col-sm-8">
+              <%= f.text_field :name, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <%= f.hidden_field :compose_strategy %>
+        <%= f.hidden_field :user_video_id, :value => @user_video.id %>
+        <div class="text-center">
+          <%= f.submit :保存, :class => 'btn btn-green btn-save-action' %>
+          <a class="btn btn-blue">返回</a>
+        </div>
+    <% end %>
+  </div>
+</div>

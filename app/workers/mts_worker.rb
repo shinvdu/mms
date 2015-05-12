@@ -106,6 +106,7 @@ module MTSWorker
               video_detail.format = properties.file_format
               video_detail.save!
             when MTSUtils::Status::FAIL
+              logger.error result.inspect
               job.status = MtsJob::STATUS::FAILED
               job.code = result.code
               job.message = result.message
@@ -186,6 +187,7 @@ module MTSWorker
               snapshot.status = Snapshot::STATUS::FINISHED
               snapshot.save!
             when MTSUtils::Status::FAIL
+              logger.error result.inspect
               job.status = MtsJob::STATUS::FAILED
               job.code = result.code
               job.message = result.message

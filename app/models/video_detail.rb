@@ -233,10 +233,11 @@ class VideoDetail < ActiveRecord::Base
     self.save!
   end
 
-  def create_snapshot(video_product_group)
-    n = Settings.aliyun.mts.snapshot_number
+  def create_snapshot(video_product_group, n = nil)
+    n ||= Settings.aliyun.mts.snapshot_number
     # create n snapshots from 10% to 90%
-    (0..n).to_a.map { |i| self.duration*0.8/n*i+self.duration*0.1 }.each_with_index do |time, idx|
+    iters = n > 0 ? (0..n).to_a.map { |i| self.duration*0.8/n*i+self.duration*0.1 } : [self.duration * 0.1]
+    iters.each_with_index do |time, idx|
       uri = File.join(File.dirname(self.uri), [self.id, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
       snapshot = Snapshot.create(:time => time,
                                  :uri => uri,

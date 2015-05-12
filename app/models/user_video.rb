@@ -20,6 +20,7 @@ class UserVideo < ActiveRecord::Base
     PRETRANSCODING = 40
     GOT_LOW_RATE = 50
     ORIGIN_DELETED = 99
+
   end
 
   module FORMAT_STATUS
@@ -57,6 +58,17 @@ class UserVideo < ActiveRecord::Base
     [FORMAT_STATUS::NORMAL, FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE].include? self.format_status
   end
 
+  def get_status_name
+    case self.status
+      when (STATUS::PREUPLOADED..STATUS::PRETRANSCODING)
+        '处理中'
+      when STATUS::GOT_LOW_RATE
+        '完成'
+      else
+        '未知状态'
+    end
+  end
+
   ######################################################
   # asynchronous method
   ######################################################
@@ -67,6 +79,7 @@ class UserVideo < ActiveRecord::Base
     video_detail.load_local_file!
     self.format_status = UserVideo::FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE if !video_detail.h264_aac?
     self.format_status = UserVideo::FORMAT_STATUS::BAD_FORMAT_FOR_MTS if !video_detail.mts_accept?
+    video_detail.create_snapshot(nil, 0)
     create_transcoding_video_job(nil, true)
     create_mkv
     self.status = UserVideo::STATUS::PRETRANSCODING

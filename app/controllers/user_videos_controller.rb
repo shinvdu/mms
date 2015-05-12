@@ -3,7 +3,7 @@ class UserVideosController < ApplicationController
   before_action :generate_publish_strategy, :only => [:index, :new, :show]
 
   def index
-    @user_videos = UserVideo.where(owner_id: current_user.uid).page(params[:page])
+    @user_videos = UserVideo.where(owner_id: current_user.uid).order('id desc').page(params[:page])
   end
 
   def new
@@ -33,22 +33,29 @@ class UserVideosController < ApplicationController
   end
 
   def create
-    if user_video_params[:video].blank?
+    video = user_video_params[:video]
+    video_name = user_video_params[:video_name].strip
+    publish_strategy = user_video_params[:publish_strategy].to_i
+    default_transcoding_strategy = user_video_params[:default_transcoding_strategy].to_i
+
+    if video.blank?
       session[:return_to] ||= request.referer
       redirect_to session.delete(:return_to)
       return
     end
     user_video = UserVideo.new(:owner => current_user,
-                               :video_name => user_video_params[:video_name],
-                               :publish_strategy => user_video_params[:publish_strategy],
-                               :default_transcoding_strategy_id => user_video_params[:default_transcoding_strategy]
-    ).set_video(user_video_params[:video])
+                               :video_name => video_name,
+                               :publish_strategy => publish_strategy,
+                               :default_transcoding_strategy_id => default_transcoding_strategy
+    ).set_video(video)
     user_video.save!
-    user_video.delay.publish_by_strategy(user_video_params[:publish_strategy].to_i,
-                                         TranscodingStrategy.find(user_video_params[:default_transcoding_strategy]))
+    user_video.delay.publish_by_strategy(publish_strategy,
+                                         TranscodingStrategy.find(default_transcoding_strategy))
 
     respond_to do |format|
-      format.html { redirect_to video_product_groups_path }
+      format.html do
+        redirect_to video_product_groups_path
+      end
       format.json { render :json => 'succeed' }
     end
   end
@@ -71,7 +78,7 @@ class UserVideosController < ApplicationController
 
   def generate_publish_strategy
     @publish_strategy = {
-        '编辑后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT,
+        '等待编辑' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT,
         '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
         '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
     }
@@ -82,6 +89,6 @@ class UserVideosController < ApplicationController
   end
 
   def user_video_params
-    params.require(:user_video).permit(:video_name, :video, :players,  :compose_strategy,  :default_transcoding_strategy, :publish_strategy)
+    params.require(:user_video).permit(:video_name, :video, :players, :compose_strategy, :default_transcoding_strategy, :publish_strategy)
   end
 end
