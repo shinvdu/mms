@@ -275,40 +275,31 @@
 	      </div>
 	      <div class="row">
 		<div class="col-md-12">
-		  <video id="video-display" class="video-js vjs-default-skin" controls preload="meta"  autopaly="false" width="853" height="480" data-setup='{}'>
-		  	<source src="http://static.smartisanos.cn/common/video/t1-ui.mp4" type='video/mp4' />
-		    	<p class="vjs-no-js">
-			  To view this video please enable JavaScript, and consider upgrading to a web browser
-			  that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-			</p>
+		  <video id="video-display" class="video-js vjs-default-skin" data-setup='{}' controls preload="meta" autopaly="false" width="853" height="480">
+		    <source src="videos/yukino.mp4" type='video/mp4' />
+		    <p class="vjs-no-js">
+		      To view this video please enable JavaScript, and consider upgrading to a web browser
+		      that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+		    </p>
 		  </video>
 		</div>
-		<div class="video-clip-list">
+		<div class="video-clip-list-container">
 		  <a href="#">
 		    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 		  </a>
-		  <div id="video_cut_list">
-		  	<div class="video-clip-pill cut_active" data-start="2" data-end="4" sort_number="2">
-		  		<a href="javascript:void(0));" class=""><span class="add">+</span></a>
-		  		<a href="javascript:void(0);"  class=""><span class="remove">-</span></a>
-		  		<div>
-		  			<div class="clip-number">001</div>
-		  			<div class="clip-time">02:30</div>
-		  		</div>
-		  	</div>
-		  	<div class="video-clip-pill" data-start="6" data-end="8">
-		  		<input type="checkbox">
-		  		<div>
-		  			<div class="clip-number">001</div>
-		  			<div class="clip-time">02:30</div>
-		  		</div>
-		  	</div>
-
+		  <div id="video-clip-list">
+		    <div class="video-clip-pill clip-active" data-start="2" data-end="4" sort_number="2">
+		      <a href="javascript:void(0)" class="add-clip">+</a>
+		      <a href="javascript:void(0)" class="remove-clip">-</a>
+		      <div>
+		  	<div class="clip-number">001</div>
+		  	<div class="clip-time">02:30</div>
+		      </div>
+		    </div>
 		  </div>
 		  <div class="video-clip-add">
-		  	<a id="btn-add-clip" href="javascript:void(0);">+</a>
+		    <a id="btn-add-clip" href="javascript:void(0)">+</a>
 		  </div>
-
 		  <a href="#">
 		    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 		  </a>
@@ -322,7 +313,7 @@
 	      </div>
 	      <div class="row">
 		<div class="video-clip-merge">
-		  <div class="video-clip-list">
+		  <div class="video-clip-list-container">
 		    <a href="#" style="visibility: hidden">
 		      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 		    </a>

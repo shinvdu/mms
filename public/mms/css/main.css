@@ -399,23 +399,23 @@ body {
     width: 100px;
     height: 100px; }
 
-.video-clip-list {
+.video-clip-list-container {
   background-color: #7f8999;
   width: 853px;
   float: left;
   margin-left: 15px;
   position: relative;
   padding: 5px 3px; }
-  .video-clip-list > a {
+  .video-clip-list-container > a {
     display: inline-block;
     font-size: 30px;
     margin-top: 22px; }
-    .video-clip-list > a:last-child {
+    .video-clip-list-container > a:last-child {
       position: absolute;
       right: 0; }
-
-#video_cut_list {
-  display: inline; }
+  .video-clip-list-container > div {
+    display: inline-block;
+    vertical-align: top; }
 
 .video-clip-pill {
   background: url("../images/header-bg.jpg") no-repeat;
@@ -425,49 +425,60 @@ body {
   display: inline-block;
   vertical-align: top;
   position: relative; }
-  .video-clip-pill span {
-    color: white;
-    font-size: 1.5em;
-    font-weight: bolder;
-    line-height: 16px;
-    padding: 3px 6px;
-    width: 20px;
-    height: 25px;
+  .video-clip-pill > a {
+    border-radius: 50%;
+    behavior: url(PIE.htc);
+    color: #fff;
     display: inline-block;
-    border-radius: 1px; }
-    .video-clip-pill span.add {
-      background-color: #5cb85c;
-      float: left; }
-    .video-clip-pill span.remove {
-      background-color: #d9534f;
-      float: right; }
+    font-size: 18px;
+    height: 20px;
+    line-height: 15px;
+    padding: 1px;
+    position: absolute;
+    text-align: center;
+    top: 3px;
+    width: 20px; }
+    .video-clip-pill > a:link, .video-clip-pill > a:hover, .video-clip-pill > a:visited, .video-clip-pill > a:active {
+      text-decoration: none; }
+    .video-clip-pill > a.add-clip {
+      background-color: #4fbf91;
+      left: 3px; }
+      .video-clip-pill > a.add-clip:hover {
+        background-color: #39a478;
+        color: #a7b3c4; }
+    .video-clip-pill > a.remove-clip {
+      background-color: #e64c3c;
+      right: 3px; }
+      .video-clip-pill > a.remove-clip:hover {
+        background-color: #bf392b;
+        color: #a7b3c4; }
   .video-clip-pill + .video-clip-pill {
     margin-left: 8px; }
   .video-clip-pill + .video-clip-add {
-    margin-left: 5px; }
+    margin-left: 8px; }
   .video-clip-pill > div {
     position: absolute;
     right: 0;
     bottom: 0; }
-    .video-clip-pill > div > .clip-number {
+    .video-clip-pill > div > .clip-time-start {
       background-color: #4fbf91;
       border-radius: 5px 0 0 5px;
       color: #fff; }
-    .video-clip-pill > div > .clip-time {
+    .video-clip-pill > div > .clip-time-end {
       background-color: #a7b3c4;
       border-radius: 5px 0 0 5px;
       color: #3f4754; }
-
-.cut_active {
-  border: 1px solid #5cb85c; }
+  .video-clip-pill.clip-active {
+    border: 1px solid #f7b520;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15); }
+    .video-clip-pill.clip-active:hover {
+      border: 1px solid #f39b00; }
 
 .video-clip-add {
   background-color: #3f4754;
   border-radius: 4px;
   width: 75px;
   height: 75px;
-  display: inline-block;
-  vertical-align: top;
   text-align: center; }
   .video-clip-add a {
     display: block;
@@ -480,13 +491,13 @@ body {
       text-decoration: none; }
 
 .video-clip-merge {
-  background-color: cyan;
+  background-color: #a7b3c4;
   border-radius: 4px;
   position: relative;
   margin-left: 15px;
   width: 853px;
   height: 200px; }
-  .video-clip-merge .video-clip-list {
+  .video-clip-merge .video-clip-list-container {
     background: transparent;
     margin-left: 0; }
   .video-clip-merge .video-clip-action-bar {
