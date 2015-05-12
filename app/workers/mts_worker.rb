@@ -18,8 +18,7 @@ module MTSWorker
       template_id = transcoding.aliyun_template_id
       suffix = transcoding.mini_transcoding? ? Settings.file_server.mini_suffix : transcoding.id.to_s
       output_object_uri = self.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
-      logger.debug 'create transcoding job'
-      logger.debug "[template id: #{template_id}]"
+      logger.info "create transcoding job [video detail id: #{self.id}] [template id: #{template_id}]"
       output_bucket = public ? Settings.aliyun.oss.public_bucket : Settings.aliyun.oss.private_bucket
       request_id, job_result = submit_job(self.bucket,
                                           self.uri,
@@ -42,7 +41,6 @@ module MTSWorker
         end
         TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
       else
-        logger.error 'create transcoding job failed!'
         raise 'create transcoding job failed!'
       end
     end
@@ -87,7 +85,6 @@ module MTSWorker
       job_ids = jobs.map { |j| j.job_id }
       job_ids.each_slice(10).each do |ids|
         request_id, result_list, not_exist_list = query_meta_info_list_job(ids)
-        puts result_list
         result_list.each do |result|
           job = job_map[result.job_id]
           case result.state
@@ -130,10 +127,9 @@ module MTSWorker
       job_ids = jobs.map { |j| j.job_id }
       job_ids.each_slice(10).each do |ids|
         request_id, result_list, not_exist_list = query_job_list(ids)
-        logger.debug result_list
         result_list.each do |result|
           job = job_map[result.job_id]
-          logger.info "Checking for #{job.id}, status is #{result.state}"
+          logger.info "Checking for #{job.type} [id: #{job.id}], status is #{result.state}"
           case result.state
             when MTSUtils::Status::TRANSCODING
               job.status = MtsJob::STATUS::PROCESSING
@@ -176,10 +172,9 @@ module MTSWorker
       job_ids = jobs.map { |j| j.job_id }
       job_ids.each_slice(10).each do |ids|
         request_id, result_list, not_exist_list = query_snapshot_job_list(ids)
-        logger.debug result_list
         result_list.each do |result|
           job = job_map[result.job_id]
-          logger.info "Checking for #{job.id}, status is #{result.state}"
+          logger.info "Checking for #{job.type} [id: #{job.id}], status is #{result.state}"
           case result.state
             when MTSUtils::Status::SNAPSHOTING
               job.status = MtsJob::STATUS::PROCESSING
@@ -203,6 +198,10 @@ module MTSWorker
           job_map[str].target.save!
         end
       end
+    end
+
+    def logger
+      Rails.logger
     end
   end
 end

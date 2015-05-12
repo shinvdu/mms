@@ -13,3 +13,4 @@ module Log4r
   end
 
 end
+

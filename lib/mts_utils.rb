@@ -66,7 +66,7 @@ module MTSUtils
       begin
         CGI.escape(var).sub('+', '%20').sub('%7E', '~')
       rescue Exception => e
-        puts e
+        logger.error e
       end
     end
 
@@ -75,13 +75,12 @@ module MTSUtils
     def execute(url, file = nil)
       host, query = url.split('?')
       begin
-        # puts host, query
         res = RestClient.post host, query
       rescue Exception => e
-        puts e.response
+        logger.error e
         raise e
       end
-      puts res
+      # logger.debug res
       res.to_s
     end
   end

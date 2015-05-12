@@ -22,7 +22,7 @@ log4r_config:
     formatter:
       type        : PatternFormatter
       date_pattern: '%Y-%m-%d %H:%M:%S'
-      pattern     : "%d [%5l] [%T]: %m"
+      pattern     : "%d [%5l] [%T]: %M"
   - type: StdoutOutputter
     name: std
     formatter:

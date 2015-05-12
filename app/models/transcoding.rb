@@ -43,7 +43,7 @@ class Transcoding < ActiveRecord::Base
         self
       end
     rescue Exception => e
-      logger.error e.message, e
+      logger.error e
       nil
     end
   end
@@ -78,7 +78,7 @@ class Transcoding < ActiveRecord::Base
         new_transcoding
       end
     rescue Exception => e
-      logger e, e.message
+      logger e
       logger "updating by create transcoding failed. id: #{self.id}"
       nil
     end
@@ -94,7 +94,7 @@ class Transcoding < ActiveRecord::Base
         self
       end
     rescue Exception => e
-      logger.error e, e.message
+      logger.error e
       logger.error "updating transcoding template failed. id: #{self.id}"
       nil
     end
