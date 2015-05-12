@@ -31,33 +31,6 @@ defaults: &defaults
       height:  50
   m3u8_dir: public/m3u8
   default_per_page: 15
-  aliyun_input_format:
-    container:  3gp avi flv mp4 m3u8 mpg asf wmv mkv mov ts webm
-    video_codec:
-      h.264/avc: h.264/avc
-      h.263: h.263
-      h.263+: h.263+
-      mpeg-1: "mpeg-1"
-      mpeg-2: "mpeg-2"
-      mpeg-4: "mpeg-4"
-      mjpeg: "mjpeg"
-      vp8: "vp8"
-      vp9: "vp9"
-      quicktime: "quicktime"
-      realvideo: "realvideo"
-      windows media video: "windows media video"
-    audio_codec:
-      aac: aac
-      ac-3: "ac-3"
-      adpcm: adpcm
-      amr: amr
-      dsd: dsd
-      mp1: mp1
-      mp2: mp2
-      mp3: mp3
-      pcm: pcm
-      realaudio: realaudio
-      windows media audio: windows media audio
   player:
     sizes:
       853|480: 853x480
