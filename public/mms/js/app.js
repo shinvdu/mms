@@ -2,7 +2,7 @@
 function element_lists() {
 	var container = []
 	$('#video_select_list').children().each(function(){
-		p = $(this)
+		var p = $(this)
 		var start  = p.attr('data-start');
 		var end  = p.attr('data-end');
 		container.push({start: start, end: end})
@@ -32,7 +32,7 @@ var main = function() {
 		var start = Math.floor(time.start);
 		var end = Math.floor(time.end);
 		get_new_cut_element();
-		mplayer.setValueSlider(end + 2, end+5);
+		mplayer.setValueSlider(end, end+5);
 	})
 
 	function in_selected(start_time, hash){
