@@ -45,6 +45,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'kaminari'
 gem 'streamio-ffmpeg'
+gem 'log4r'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

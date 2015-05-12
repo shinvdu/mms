@@ -1,6 +1,15 @@
-require 'logger'
-# log_file = File.open("log/debug.log", "a")
-# Logger.new MultiIO.new(STDOUT, log_file)
-log = Logger.new STDOUT
-Rails.logger = log
-Delayed::Worker.logger = log
+module Log4r
+  class Logger
+    def formatter()
+    end
+  end
+
+  # monkey patch log4r for better trace
+  PatternFormatter::DirectiveTable['T'] =
+      '(event.tracer.nil? ? "no trace" : event.tracer[0].split(File::SEPARATOR).last(3).join(File::SEPARATOR))'
+
+  Rails.logger.outputters.each do |outputter|
+    PatternFormatter.create_format_methods(outputter.formatter)
+  end
+
+end
