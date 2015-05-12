@@ -16,7 +16,7 @@ class UserVideosController < ApplicationController
   def edit
     @user_video = UserVideo.find(params[:id])
   end
-  
+
   def update
     @user_video = UserVideo.find(params[:id])
 
@@ -82,6 +82,6 @@ class UserVideosController < ApplicationController
   end
 
   def user_video_params
-    params.require(:user_video).permit(:video_name, :video, :compose_strategy,  :default_transcoding_strategy, :publish_strategy)
+    params.require(:user_video).permit(:video_name, :video, :players,  :compose_strategy,  :default_transcoding_strategy, :publish_strategy)
   end
 end

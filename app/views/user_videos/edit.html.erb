@@ -13,7 +13,7 @@
 	    <div class="panel-content-display">
 	      <div class="row">
 		<div class="col-md-12">
-		  剪辑视频文件：［视频文件的名称］
+		  剪辑视频文件：［<%=  @user_video.video_name %>］
 		</div>
 	      </div>
 	      <div class="row">
@@ -25,7 +25,7 @@
 	      <div class="row">
 		<div class="col-md-12">
 		  <video id="video-display" class="video-js vjs-default-skin" controls preload="meta"  autopaly="false" width="853" height="480" data-setup='{}'>
-		  	<source src="http://static.smartisanos.cn/common/video/t1-ui.mp4" type='video/mp4' />
+		  	<source src="<%= @user_video.mini_video.get_full_url %>" type='video/mp4' />
 		    	<p class="vjs-no-js">
 			  To view this video please enable JavaScript, and consider upgrading to a web browser
 			  that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -84,7 +84,7 @@
 	      <div class="row">
 		<div class="col-md-12">
 		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第三步：选择播放器/广告方案
+		  第三步：选择播放器/转码方案
 		</div>
 	      </div>
 	      <script type="text/javascript">
@@ -109,18 +109,24 @@
 		<div class="col-md-offset-2 col-md-8">
 		  <div class="row">
 		    <div class="col-md-6">
-		      <select class="form-control">
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-		      </select>
+		    	<% 
+		    	players = {}
+		    	players_db = Player.where(user_id: @current_user.id);
+		    	players_db.each do |p|
+		    		players[p.name] = p.id
+		    	end
+		    	 %>
+		    	<%= f.select :players, players, {}, :class => 'form-control' %>
 		    </div>
 		    <div class="col-md-6">
-		      <select class="form-control">
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-		      </select>
+		    	<% 
+		    	strategies = {}
+		    	default_transcoding_strategies = TranscodingStrategy.where(user_id: @current_user.id);
+		    	default_transcoding_strategies.each do |s|
+		    		strategies[s.name] = s.id
+		    	end
+		    	 %>
+		    	<%= f.select :default_transcoding_strategy, strategies, {}, :class => 'form-control' %>
 		    </div>
 		  </div>
 		</div>
