@@ -63,11 +63,8 @@ class UserVideo < ActiveRecord::Base
     video_detail = self.original_video
     video_detail.fetch_video_info
     video_detail.load_local_file!
-    if !video_detail.video_codec.downcase.index('h264') || !video_detail.audio_codec.downcase.index('aac')
-      self.format_status = UserVideo::FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
-    end
-    # check publish strategy
-    # currently only edit
+    self.format_status = UserVideo::FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE if !video_detail.h264_aac?
+    self.format_status = UserVideo::FORMAT_STATUS::BAD_FORMAT_FOR_MTS if !video_detail.mts_accept?
     create_transcoding_video_job(nil, true)
     create_mkv
     self.status = UserVideo::STATUS::PRETRANSCODING
