@@ -18,7 +18,7 @@
             <td><%= product.transcoding.present? ? product.transcoding.name : '---' %></td>
             <td>
               <% if product.FINISHED? %>
-                  <%= link_to 'download', download_video_product_path(product) %>
+                  <%= link_to 'preview', video_product_path(product) %>
               <% end %>
             </td>
           </tr>
