@@ -8,7 +8,6 @@
       <tr>
         <th>名称</th>
         <th>LOGO</th>
-        <th>用户</th>
         <th>创建时间</th>
         <th>操作</th>
       </tr>
@@ -18,7 +17,6 @@
       <tr>
         <td><%= logo.name %></td>
         <td><%= image_tag(logo.uri_url(:normal)) if logo.uri? %></td>
-        <td><%= logo.user && logo.user.nickname %></td>
         <td><%=  logo.created_at && logo.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
         <td>
           <%= link_to '预览', logo_path(logo) %>

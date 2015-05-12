@@ -5,9 +5,9 @@ class MtsJob < ActiveRecord::Base
     SUBMITTED = 10
     PROCESSING = 20
     FINISHED = 30
-    CANCELED = 40
-    FAILED = 50
-    MISSING = 60
+    CANCELED = 90
+    FAILED = 91
+    MISSING = 92
   end
 
   def post_process

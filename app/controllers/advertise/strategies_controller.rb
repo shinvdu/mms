@@ -33,7 +33,7 @@ class Advertise::StrategiesController < ApplicationController
 
     respond_to do |format|
       if @advertise_strategy.save
-        format.html { redirect_to @advertise_strategy, notice: 'Strategy was successfully created.' }
+        format.html { redirect_to advertise_strategies_path, notice: 'Strategy was successfully created.' }
         format.json { render :show, status: :created, location: @advertise_strategy }
       else
         format.html { render :new }

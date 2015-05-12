@@ -1,11 +1,11 @@
 class Advertise::ResourcesController < ApplicationController
-  before_action :authenticate_account!#, except: [:show]  
-  before_action  only: [:create, :update] do 
+  before_action :authenticate_account! #, except: [:show]
+  before_action only: [:create, :update] do
     set_user_id('advertise_resource')
   end
 
   before_action :set_advertise_resource, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_advertise_resource, only: [:index, :show, :edit, :update,  :destroy]
+  before_action :restrict_advertise_resource, only: [:show, :edit, :update, :destroy]
 
   # GET /advertise/resources
   # GET /advertise/resources.json
@@ -32,7 +32,7 @@ class Advertise::ResourcesController < ApplicationController
   # POST /advertise/resources
   # POST /advertise/resources.json
   def create
-    if advertise_resource_params[:file_type] == 'video' && advertise_resource_params[:video].blank?
+    if advertise_resource_params[:file_type] == 'video' && advertise_resource_params[:resource].blank?
       session[:return_to] ||= request.referer
       notice_warning '请选择资源文件'
       redirect_to session.delete(:return_to)
@@ -41,11 +41,11 @@ class Advertise::ResourcesController < ApplicationController
     if advertise_resource_params[:file_type] == 'image'
       @advertise_resource = Advertise::Resource.new(advertise_resource_params)
     else
-      @advertise_resource = Advertise::Resource.new({
-        :name => advertise_resource_params[:name],
-        :file_type => advertise_resource_params[:file_type],
-        :ad_type => advertise_resource_params[:ad_type]
-        }).set_ad_video(advertise_resource_params[:resource])
+      @advertise_resource = Advertise::Resource.new(:user => current_user,
+                                                    :name => advertise_resource_params[:name],
+                                                    :file_type => advertise_resource_params[:file_type],
+                                                    :ad_type => advertise_resource_params[:ad_type]
+      ).set_ad_video(advertise_resource_params[:resource])
     end
     respond_to do |format|
       if @advertise_resource.save!
@@ -83,24 +83,24 @@ class Advertise::ResourcesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_advertise_resource
-      @advertise_resource = Advertise::Resource.find(params[:id])
-    end    
+  # Use callbacks to share common setup or constraints between actions.
+  def set_advertise_resource
+    @advertise_resource = Advertise::Resource.find(params[:id])
+  end
 
-    def restrict_advertise_resource
-      if @current_user.admin?
-        return
-      end
-      # 只能操作自己的player
-      if @current_user.uid != @advertise_resource.user_id
-        redirect_to :root 
-        return
-      end
+  def restrict_advertise_resource
+    if @current_user.admin?
+      return
     end
+    # 只能操作自己的player
+    if @current_user.uid != @advertise_resource.user_id
+      redirect_to :root
+      return
+    end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def advertise_resource_params
-      params.require(:advertise_resource).permit(:name, :user_id, :file_type, :ad_type, :filesize, :uri, :resource, :ad_word, :data)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def advertise_resource_params
+    params.require(:advertise_resource).permit(:name, :user_id, :file_type, :ad_type, :filesize, :uri, :resource, :ad_word, :data)
+  end
 end
