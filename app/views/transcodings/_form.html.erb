@@ -64,7 +64,7 @@
 </script>
 <div class="panel-content">
   <div class="row">
-<div class="col-md-10">
+<div class="col-md-9">
   <%= form_for(@transcoding, html:{class: 'form-horizontal'}) do |f| %>
   <% if @transcoding.errors.any? %>
     <div id="error_explanation">
@@ -78,43 +78,44 @@
     </div>
   <% end %>
   <div class="form-group">
-    <%= f.label :名称,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-8">
+    <%= f.label :模板名称,  :class => "col-md-3 control-label" %>
+    <div class="col-sm-6">
       <%= f.text_field :name ,  class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :输出格式,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
-      <%= f.select :container, Settings.transcoding.container , {}, {:class => 'form-control'} %>
+    <div class="col-md-6">
+      <p class="form-control-static">mp4</p>
+      <%= f.hidden_field :container  %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :转码速度 ,  :class => "col-md-3 control-label" %>
-          <div class="col-md-8">
+          <div class="col-md-6">
     <%= f.select :video_preset, Settings.transcoding.video_preset , {}, {:class => 'form-control'} %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :视频编码,  :class => "col-md-3 control-label"  %>
-          <div class="col-md-8">
+          <div class="col-md-6">
     <%= f.text_field :video_codec, :value => Settings.transcoding.video_codec, :readonly => true,  class: 'form-control'  %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :音频编码,  :class => "col-md-3 control-label"  %>
-          <div class="col-md-8">
+          <div class="col-md-6">
     <%= f.select :audio_codec, Settings.transcoding.audio_codec , {}, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
     <%= f.label :视频码流 ,  :class => "col-md-3 control-label" %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="input-group">
         <%= f.number_field :video_bitrate,  class: 'form-control' %>
         <span class="input-group-addon">Kbps</span>
@@ -124,7 +125,7 @@
   </div>
   <div class="form-group">
     <%= f.label :音频码流,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="input-group">
         <%= f.number_field :audio_bitrate,  class: 'form-control'  %>
         <span class="input-group-addon">Kbps</span>
@@ -135,7 +136,7 @@
 
   <div class="form-group">
     <%= f.label :视频帧率,  :class => "col-md-3 control-label" %>
-          <div class="col-md-8">
+          <div class="col-md-6">
       <div class="input-group">
         <%= f.number_field :video_fps ,  class: 'form-control' %>
         <span class="input-group-addon">帧/每秒</span>
@@ -145,7 +146,7 @@
   </div>
   <div class="form-group">
     <%= f.label :关键帧间隔 ,  :class => "col-md-3 control-label" %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <div class="input-group">
         <%= text_field_tag :video_main_frame_time  , (@transcoding.video_fps && @transcoding.video_gop && (@transcoding.video_gop.to_i / @transcoding.video_fps.to_i)),  class: 'form-control' %>
         <span class="input-group-addon">秒</span>
@@ -155,7 +156,7 @@
   </div>
   <div class="form-group">
     <%= f.label :视频隔行扫描,  :class => "col-md-3 control-label"  %>
-          <div class="col-md-8">
+          <div class="col-md-6">
     <%= check_box_tag(:scanmode, '1',  checked = @transcoding.video_scanmode == 'interlaced') %><span>是</span>
 
 <!--     interlaced
@@ -165,7 +166,7 @@
 </div>
 <div class="form-group">
   <%= f.label :视频缓冲,  :class => "col-md-3 control-label"  %>
-  <div class="col-md-8">
+  <div class="col-md-6">
     <div class="input-group">
       <%= f.number_field :video_bufsize ,  class: 'form-control' %>
       <span class="input-group-addon">kb</span>
@@ -175,7 +176,7 @@
 </div>
 <div class="form-group">
     <%= f.label :视频长宽 , :class => "col-md-3 control-label" %>
-          <div class="col-md-8">
+          <div class="col-md-6">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
   <div class="btn-group" role="group">
     <%
