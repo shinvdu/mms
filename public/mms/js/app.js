@@ -51,7 +51,7 @@ var main = function() {
 	};
 
     if($('#video-display').length !== 0) {
-	mplayer= videojs("video-display"),
+	mplayer = videojs("video-display");
 	mplayer.rangeslider(options);
     }
 
