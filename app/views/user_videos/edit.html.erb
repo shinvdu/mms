@@ -104,7 +104,7 @@
 	      	}
 
 	      </script>
-	      <%= form_for(@user_video) do |f| %>
+	      <%= form_for(@user_video,  :url => video_product_groups_path(format: :html) ) do |f| %>
 	      <div class="row">
 		<div class="col-md-offset-2 col-md-8">
 		  <div class="row">
