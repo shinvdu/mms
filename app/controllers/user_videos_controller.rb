@@ -29,7 +29,7 @@ class UserVideosController < ApplicationController
                                          TranscodingStrategy.find(user_video_params[:default_transcoding_strategy]))
 
     respond_to do |format|
-      format.html { redirect_to user_videos_path }
+      format.html { redirect_to video_product_groups_path }
       format.json { render :json => 'succeed' }
     end
   end

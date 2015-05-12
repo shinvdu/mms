@@ -1,6 +1,14 @@
 class VideoProductGroupsController < ApplicationController
   before_action :authenticate_account!, :check_login
 
+  def index
+    @video_product_groups = VideoProductGroup.where(:owner => current_user).page(params[:page])
+  end
+
+  def show
+    @video_product_group = VideoProductGroup.find(params[:id])
+  end
+
   def create
     user_video = UserVideo.find(product_data_params[:user_video_id])
     unless user_video.present? && user_video.GOT_LOW_RATE? && user_video.EDITABLE?
