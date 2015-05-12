@@ -1,0 +1,174 @@
+defaults: &defaults
+  default_admin:
+    id: 1
+    username: admin
+    email: admin@15class.com
+    password: 123123123
+  mms:
+    name:  未谷云视频
+    domain:  www.wgcloud.com
+  title: 未谷云视频
+  cool: mms
+  logo: 
+    origin:  
+      width: 100 
+      height:  100
+    normal:  
+      width:  80
+      height:  80
+    small:  
+      width:  50
+      height:  50
+  avar: 
+    origin:  
+      width: 200 
+      height:  200
+    normal:  
+      width:  100
+      height:  100
+    small:  
+      width:  50
+      height:  50
+  m3u8_dir: public/m3u8
+  default_per_page: 15
+  aliyun_input_format:
+    container:  3gp avi flv mp4 m3u8 mpg asf wmv mkv mov ts webm
+    video_codec:
+      h.264/avc: h.264/avc
+      h.263: h.263
+      h.263+: h.263+
+      mpeg-1: "mpeg-1"
+      mpeg-2: "mpeg-2"
+      mpeg-4: "mpeg-4"
+      mjpeg: "mjpeg"
+      vp8: "vp8"
+      vp9: "vp9"
+      quicktime: "quicktime"
+      realvideo: "realvideo"
+      windows media video: "windows media video"
+    audio_codec:
+      aac: aac
+      ac-3: "ac-3"
+      adpcm: adpcm
+      amr: amr
+      dsd: dsd
+      mp1: mp1
+      mp2: mp2
+      mp3: mp3
+      pcm: pcm
+      realaudio: realaudio
+      windows media audio: windows media audio
+  player:
+    sizes:
+      853|480: 853x480
+      1280|720: 1280x720
+  transcoding:
+    video_codec:  H.264
+    container:
+      mp4: mp4
+      flv: flv
+      m3u8: m3u8
+      ts: ts
+    video_profile:  high
+    video_bitrate:  1000
+    video_preset:
+      slow: slow
+      slower: slower
+      veryslow: veryslow
+      veryfast: veryfast
+      fast: fast
+      medium: medium
+    audio_codec:
+      aac: aac
+      mp3: mp3
+    width_and_height:
+      640|360: 640x360
+      854|480: 854x480
+      1280|720: 1280x720
+      1920|1080: 1920x1080
+  advertise_resource:
+    file_type:
+      视频: video
+      图像: image
+    ad_type:
+      全部可用: all
+      片头广告: ad_front
+      片尾广告: ad_end
+      暂停广告: ad_pause
+      悬浮广告: ad_float
+      滚动广告: ad_scroll
+  aliyun:
+    oss: &defaults-aliyun-oss
+      download_proxy: http://
+      proxy: http://
+      host: oss-cn-hangzhou.aliyuncs.com
+      user_video_dir: video
+    mts: &defaults-aliyun-mts
+      host: mts.aliyuncs.com
+      scheduled_queue: mts_query_scheduled
+      snapshot_ext: png
+      snapshot_number: 5
+      accepted_containers: [3gp, avi, flv, mp4, m3u8, mpg, asf, wmv, mkv, mov, ts, webm]
+      accepted_video_codec: [h.264, h264, avc, h263, h263+, h.263, h.263+, mpeg1, mpeg2, mpeg4, mpeg-1, mpeg-2, mpeg-4, mjpeg, vp8, vp9, quicktime, realvideo, windows media video]
+      accepted_audio_codec: [aac, ac3, ac-3, adpcm, amr, dsd, mp1, mp2, mp3, pcm, realaudio, windows media audio]
+  file_server:
+    dir: public/uploads
+    fragment_dir: public/uploads/fragments
+    mini_suffix: mini
+    video_cut_scheduled_queue: fs_video_cut_scheduled
+
+production:
+  <<: *defaults
+  default_url_options:
+    host:  localhost
+    port:  3000
+  email:
+    address:  smtp.exmail.qq.com
+    port:  465
+    domain:  qq.com
+    user:  silas@kanda.cn.com
+    password:  "xxx"
+    authentication:  plain
+    ssl:  true
+
+development:
+  <<: *defaults
+  email:
+    address:  smtp.exmail.qq.com
+    port:  465
+    domain:  qq.com
+    user:  silas@kanda.cn.com
+    password:  "xxx"
+    authentication:  plain
+    ssl:  true
+  default_url_options:
+    host:  localhost
+    port:  3000
+  neat_setting: 800
+  aliyun:
+    access_id: 1cnDtYk8fMS0lyoM
+    access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
+    oss:
+      <<: *defaults-aliyun-oss
+      private_bucket: wgc-private
+      public_bucket: wgc-public
+    mts:
+      <<: *defaults-aliyun-mts
+      mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
+      pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
+      pipeline_id: ff91fad66cff4bb894511d98575c2078
+
+test:
+  <<: *defaults
+  default_url_options: 
+    host:  localhost
+    port:  3000
+  email: 
+    address:  smtp.exmail.qq.com
+    port:  465
+    domain:  qq.com
+    user:  silas@kanda.cn.com
+    password:  "xxxx"
+    authentication:  plain
+    ssl:  true
