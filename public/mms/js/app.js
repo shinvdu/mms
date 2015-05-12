@@ -5,7 +5,7 @@ var main = function() {
 	options = {hidden:false},
 	mplayer = videojs("video-display");
 	mplayer.rangeslider(options);
-
+	$('#video_select_list').sortable();
 	// var cut_hash = {
 	// 	2: {
 	// 		'dom':  
@@ -18,19 +18,28 @@ var main = function() {
 		set_selection($(this));
 	})
 	$("#btn-add-clip").bind('click', function(){
+		var time = mplayer.getValueSlider();
+		var start = Math.floor(time.start);
+		var end = Math.floor(time.end);
 		get_new_cut_element();
+		mplayer.setValueSlider(end + 2, end+5);
 	})
-
-	// $("span.remove").bind('click', function(){
-	// 	remote_self($(this))
-	// })
 
 	function in_selected(start_time, hash){
 		// $('#video_cut_list').append();
 	}
 
-	function remote_self (p) {
+	function remove_cut_element(p) {
+	          var item = p.parent();
+	          var start = item.attr('data-start');
+	          var end = item.attr('data-end');
+	          $('#video_select_list').children('[data-start=' + start+ ']').remove();
+	          remove_self(p); 
+	}
+
+	function remove_self (p) {
 	          p.parent().remove();
+
 	}
 
 	function select_cut_element(p){
@@ -40,7 +49,7 @@ var main = function() {
 	          var dom_head = $('<div></div>').addClass('video-clip-pill').attr('data-start', start).attr('data-end', end);
 	          var remove = $('<a href="javascript:void(0)"></a>').append($('<span></span>').addClass('remove').text('-'));
 	          remove.bind('click', function(){
-	          	remote_self($(this))
+	          	remove_self($(this))
 		});
 	          dom_head.append(remove);
 	          var dom_sub = $('<div></div>');
@@ -71,7 +80,7 @@ var main = function() {
 		var remove = $('<a href="javascript:void(0)"></a>').append($('<span></span>').addClass('remove').text('-'));
 
 		remove.bind('click', function(){
-		  	remote_self($(this))
+		  	remove_cut_element($(this))
 			// console.log('minus')
 		});
 		dom_head.append(remove)
