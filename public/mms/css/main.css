@@ -425,8 +425,24 @@ body {
   display: inline-block;
   vertical-align: top;
   position: relative; }
+  .video-clip-pill span {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bolder;
+    line-height: 16px;
+    padding: 3px 6px;
+    width: 20px;
+    height: 25px;
+    display: inline-block;
+    border-radius: 1px; }
+    .video-clip-pill span.add {
+      background-color: #5cb85c;
+      float: left; }
+    .video-clip-pill span.remove {
+      background-color: #d9534f;
+      float: right; }
   .video-clip-pill + .video-clip-pill {
-    margin-left: 5px; }
+    margin-left: 8px; }
   .video-clip-pill + .video-clip-add {
     margin-left: 5px; }
   .video-clip-pill > div {

@@ -667,9 +667,27 @@ body {
     display: inline-block;
     vertical-align: top;
     position: relative;
-
+    span{
+    	color: white;
+    	font-size: 1.5em;
+    	font-weight: bolder;
+    	line-height: 16px;
+    	padding: 3px 6px;
+    	width: 20px;
+    	height:  25px;
+    	display: inline-block;
+    	border-radius: 1px;
+    	&.add{
+    		background-color: #5cb85c;
+    		float: left;
+    	}
+    	&.remove{
+    		background-color: #d9534f;
+    		float: right;
+    	}
+    }
     &+& {
-	margin-left: 5px;
+	margin-left: 8px;
     }
 
     &+.video-clip-add {
