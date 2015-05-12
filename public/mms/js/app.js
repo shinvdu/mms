@@ -1,4 +1,14 @@
 'use strict'
+function element_lists() {
+	var container = []
+	$('#video_select_list').children().each(function(){
+		p = $(this)
+		var start  = p.attr('data-start');
+		var end  = p.attr('data-end');
+		container.push({start: start, end: end})
+	})
+	return container;
+}
 
 var main = function() {
     var currentPanel = document.location.hash,
@@ -107,7 +117,7 @@ var main = function() {
 		p.addClass('cut_active')
 		// active = start
 	}
-	
+
     if(currentPanel !== '#' && currentPanel !== '') {
 	$('.nav-tab > .nav-square > li').removeClass('current');
 	$('.nav-tab > .nav-square > li').find('a[href="' + currentPanel + '"]').parent().addClass('current');
