@@ -98,12 +98,12 @@ defaults: &defaults
       悬浮广告: ad_float
       滚动广告: ad_scroll
   aliyun:
-    oss:
+    oss: &defaults-aliyun-oss
       download_proxy: http://
       proxy: http://
       host: oss-cn-hangzhou.aliyuncs.com
       user_video_dir: video
-    mts:
+    mts: &defaults-aliyun-mts
       host: mts.aliyuncs.com
       scheduled_queue: mts_query_scheduled
       snapshot_ext: png
@@ -149,9 +149,11 @@ development:
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:
+      <<: *defaults-aliyun-oss
       private_bucket: wgc-private
       public_bucket: wgc-public
     mts:
+      <<: *defaults-aliyun-mts
       mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
       pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
       ad_template_id: b299bc2d3597879801e76ddcc7cca372
