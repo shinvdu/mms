@@ -32,11 +32,12 @@
         <tr>
           <td><%= transcoding_strategy.name %></td>
           <td>
-            <select class="pull-right btn-select btn-select-white">
             <% transcoding_strategy.transcodings.each do |transcoding | %>
-              <option><%= transcoding && transcoding.name %></option>
+            <a href="<%=  transcoding_path(transcoding) %>">
+              <%= transcoding && transcoding.name %> 
+            </a>
+            <%= ', ' if transcoding_strategy.transcodings.last.name != transcoding.name %>
               <% end %>
-            </select>
 
           </td>
           <td><%=  transcoding_strategy.user &&  transcoding_strategy.user.nickname %></td>

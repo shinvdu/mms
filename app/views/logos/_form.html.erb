@@ -54,7 +54,7 @@ $(function () {
       <div class="logo_images" style="display: <%=  controller.action_name == 'new' ? 'none' : 'show' %>">
     <div class="container">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
           <!-- <h3 class="page-header">Demo:</h3> -->
           <div class="img-container">
             <%= image_tag(@logo.uri()) if @logo.uri? %>
@@ -88,11 +88,11 @@ $(function () {
       </div>
     </div>
   </div>
-  <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png", :onchange => 'readURL(this); show_images()' %>
+  <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png, image/jpg, image/jpeg", :onchange => 'readURL(this); show_images()' %>
       <%= f.hidden_field :uri_cache %>
       <hr>
       <%= f.submit '保存' , :class => 'btn btn-green' %>
-      <!-- <button class="btn btn-gray" type="button">取消</button> -->
+      <a class="btn btn-gray" href="<%= logos_path  %>">取消</a>
     <% end %>
 
 

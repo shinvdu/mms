@@ -36,12 +36,12 @@
       <% end %>
     </div>
   </div>
-    <hr>
-    <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-6">
-        <%= f.submit '保存转码方案', :class => 'btn btn-info text-center' %>
+  <div class="form-group">
+    <div class="col-md-offset-3 col-md-6">
+        <%= f.submit '保存', :class => 'btn btn-green' %>
+      <a class="btn btn-gray" href="<%= transcoding_strategies_path %>">取消</a>
     </div>
-  </div>                    
+  </div>
 
 <% end %>
 

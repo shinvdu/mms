@@ -1,3 +1,11 @@
+<% style '/player1/video-js.css' %>
+<% style '/player1/videojs.watermark.css' %>
+<% javascript '/player1/video.js' %>
+<% javascript '/player1/videojs.watermark.js' %>
+  <script>
+    videojs.options.flash.swf = "/player1/video-js.swf";
+  </script>
+
 <%= form_for(@player, html: {class: "form-horizontal"}) do |f| %>
   <% if @player.errors.any? %>
     <div id="error_explanation">
@@ -11,15 +19,17 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :播放器名称,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+    <%= f.label :播放器名称,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
       <%= f.text_field :name ,  class: 'form-control' %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :播放器颜色,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+    <%= f.label :播放器颜色,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
       <label class="radio-inline">
         <%= radio_button("player", "color", "black", :checked => true ) %> 黑色
       </label>
@@ -32,15 +42,15 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :LOGO,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
+    <%= f.label :LOGO,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
 
     <%= f.select :logo_id, @logos , {}, {:class => 'form-control' } %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :LOGO的位置,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
+    <%= f.label :LOGO的位置,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
     <%= f.select :logo_position, {
       '右上角' =>  :top_right ,  
       '左上角' => :left_top, 
@@ -50,20 +60,20 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :自动播放,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+    <%= f.label :自动播放,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
     <%= f.check_box :autoplay %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :分享功能,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
+    <%= f.label :分享功能,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
     <%= f.select :share, {:打开 => true, :关闭 => false} , {}, {:class => 'form-control' }%>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :全屏功能,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
+    <%= f.label :全屏功能,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
     <%= f.check_box :full_screen %>
     </div>
   </div>
@@ -81,17 +91,37 @@
   });
   </script>
   <div class="form-group">
-    <%= f.label :长宽 ,  :class => "col-sm-2 control-label" %>
-    <div class="col-sm-6">
+    <%= f.label :长宽 ,  :class => "col-md-4 control-label" %>
+    <div class="col-md-8">
       <%= select_tag(:player_size,  options_for_select(Settings.player.sizes.invert.to_a, "#{@player.width}|#{@player.height}"), {:class => 'form-control player_size' }) %>
       <%= f.hidden_field :width, :id => 'player_width' %>
       <%= f.hidden_field :height, :id => 'player_height' %>
     </div>
   </div>
-  <hr>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-6">
-        <%= f.submit '保存播放器', :class => 'btn btn-info text-center' %>
+    <div class="col-md-offset-4 col-md-8">
+        <%= f.submit '保存', :class => 'btn btn-green ' %>
+      <a class="btn btn-info" href="javascript:void(0);">预览</a>
+    </div>
+  </div>
+
+  <% end %>
+  </div>                    
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  video = videojs("wgcloud_video_1", {width: 500px });
+  fun
+})
+</script>
+    <div class="col-md-6">
+      <!-- <img class="img-thumbnail" src="/cropper/assets/img/picture.jpg" alt="logo"> -->
+      <video id="wgcloud_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" width="454" controls preload="meta" >
+          <source src="http://static.smartisanos.cn/common/video/t1-ui.mp4" type='video/mp4' />
+
+          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+    <div class="vjs-big-play-button" role="button" aria-live="polite" tabindex="0" aria-label="play video"><span aria-hidden="true"></span>
+
+
     </div>
   </div>                    
-  <% end %>

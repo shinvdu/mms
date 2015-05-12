@@ -120,8 +120,8 @@
         <%= f.number_field :video_bitrate,  class: 'form-control' %>
         <span class="input-group-addon">Kbps</span>
       </div>
-      <span>(必填，范围10-50000)</span>
     </div>
+          <div class="col-md-3 input-horizontal-helper-text">(必填，范围10-50000)</div>
   </div>
   <div class="form-group">
     <%= f.label :音频码流,  :class => "col-md-3 control-label"  %>
@@ -130,8 +130,8 @@
         <%= f.number_field :audio_bitrate,  class: 'form-control'  %>
         <span class="input-group-addon">Kbps</span>
       </div>
-      <span>(必填，范围8-1000)</span>
     </div>
+    <div class="col-md-3 input-horizontal-helper-text">(必填，范围8-1000)</div>
   </div>
 
   <div class="form-group">
@@ -141,8 +141,8 @@
         <%= f.number_field :video_fps ,  class: 'form-control' %>
         <span class="input-group-addon">帧/每秒</span>
       </div>
-      <span>(必填，默认值25帧/秒，范围1-60)</span>
     </div>
+    <div class="col-md-3 input-horizontal-helper-text">(必填，默认值25帧/秒，范围1-60)</div>
   </div>
   <div class="form-group">
     <%= f.label :关键帧间隔 ,  :class => "col-md-3 control-label" %>
@@ -151,8 +151,8 @@
         <%= text_field_tag :video_main_frame_time  , (@transcoding.video_fps && @transcoding.video_gop && (@transcoding.video_gop.to_i / @transcoding.video_fps.to_i)),  class: 'form-control' %>
         <span class="input-group-addon">秒</span>
       </div>
-      <span>(必填，默认值10秒，范围8-50)</span>
     </div>
+    <div class="col-md-3 input-horizontal-helper-text">(必填，默认值10秒，范围8-50)</div>
   </div>
   <div class="form-group">
     <%= f.label :视频隔行扫描,  :class => "col-md-3 control-label"  %>
@@ -171,8 +171,8 @@
       <%= f.number_field :video_bufsize ,  class: 'form-control' %>
       <span class="input-group-addon">kb</span>
     </div>
-      <span>(必填，默认值6000，范围[1000,128000])</span>
   </div>
+    <div class="col-md-3 input-horizontal-helper-text">(必填，默认值6000，范围[1000,128000])</div>
 </div>
 <div class="form-group">
     <%= f.label :视频长宽 , :class => "col-md-3 control-label" %>
@@ -204,12 +204,14 @@
     <%= f.hidden_field :audio_samplerate, :value => 44100  %>
     <%= f.hidden_field :audio_channels, :value => 2 %>
     <%= f.hidden_field :video_profile, :value => Settings.transcoding.video_profile %>
-  <hr>  
+
   <div class="form-group">
-    <div class="col-sm-offset-5 col-sm-6">
-        <%= f.submit '保存转码方案', :class => 'btn btn-info text-center' %>
+    <div class="col-md-offset-3 col-md-6">
+      <%= f.submit '保存', :class => 'btn btn-green' %>
+      <a class="btn btn-gray" href="<%= transcodings_path %>">取消</a>
     </div>
-  </div>                    
+  </div>
+
 <% end %>
 </div>
   </div>
