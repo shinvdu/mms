@@ -414,6 +414,9 @@ body {
       position: absolute;
       right: 0; }
 
+#video_cut_list {
+  display: inline; }
+
 .video-clip-pill {
   background: url("../images/header-bg.jpg") no-repeat;
   border-radius: 4px;
@@ -438,6 +441,9 @@ body {
       background-color: #a7b3c4;
       border-radius: 5px 0 0 5px;
       color: #3f4754; }
+
+.cut_active {
+  border: 1px solid #5cb85c; }
 
 .video-clip-add {
   background-color: #3f4754;

@@ -655,6 +655,9 @@ body {
 	}
     }
 }
+#video_cut_list{
+	display: inline;
+}
 
 .video-clip-pill {
     background: url('../images/header-bg.jpg') no-repeat;
@@ -672,7 +675,6 @@ body {
     &+.video-clip-add {
 	margin-left: 5px;
     }
-
     >div {
 	position: absolute;
 	right: 0;
@@ -691,6 +693,10 @@ body {
 	}
     }
 }
+.cut_active{
+	border: 1px solid #5cb85c;
+}
+
 
 .video-clip-add {
     background-color: $text-color-gray-1;
