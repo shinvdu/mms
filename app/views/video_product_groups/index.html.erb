@@ -1,0 +1,47 @@
+<%= render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-list">
+  <table class="table table-hover panel-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>视频名称</th>
+      <th>视频分类</th>
+      <th>转码方案</th>
+      <th>文件总大小</th>
+      <th>生成时间</th>
+      <th>状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @video_product_groups.each do |g| %>
+        <tr>
+          <td><%= image_tag g.snapshots.first.get_full_url, :style => "width:80px;", :alt => "截图制作中" %></td>
+          <td><%= link_to g.name, video_product_group_path(g) %></td>
+          <td>
+            <select class="form-control">
+              <option>分类1</option>
+              <option>分类2</option>
+              <option>分类3</option>
+            </select>
+          </td>
+          <td><%= g.transcoding_strategy.name %></td>
+          <td><%= format_file_size(g.total_size) %></td>
+          <td><%= g.created_at && g.created_at.strftime("%Y-%m-%d") %></td>
+          <td><%= g.get_status %></td>
+          <td>
+            <%= link_to '删除', g, method: :delete, data: {confirm: '你确定要删除?'} %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <br/>
+  <br/>
+
+  <div class="panel-footer">
+    <%= paginate @video_product_groups %>
+    <button type="button" class="btn btn-purple">选择文件</button>
+    <button type="button" class="btn btn-green">上传文件</button>
+  </div>
+</div>

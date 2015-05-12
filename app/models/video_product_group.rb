@@ -54,6 +54,11 @@ class VideoProductGroup < ActiveRecord::Base
     file_path
   end
 
+  def total_size
+    return unless self.FINISHED?
+    self.video_products.reduce {|sum, product| product.video_detail.size}
+  end
+
   def get_status
     stat = self.status
     if stat != STATUS::FINISHED
@@ -65,6 +70,10 @@ class VideoProductGroup < ActiveRecord::Base
       self.save! if self.changed?
     end
     stat
+  end
+
+  def FINISHED?
+    self.status == STATUS::FINISHED
   end
 
   #####################################################
