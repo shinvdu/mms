@@ -8,25 +8,6 @@
     <label class="col-md-5 control-label text-center">上传新视频</label>
   </div>
 
-<script type="text/javascript">
-  jQuery(document).ready(function($) {
-    $('#user_video_publish_strategy').on('change', function (e) {
-      var optionSelected = $("option:selected", this);
-      var valueSelected = this.value;
-      switch(valueSelected)
-      {
-        case '1':
-        $("#user_video_default_transcoding_strategy").val('');
-        $("#user_video_default_transcoding_strategy_item").hide();
-        break;
-        default:
-        $("#user_video_default_transcoding_strategy_item").show();
-      }
-    });
-  });
-
-</script>
-
   <%= form_for :user_video, :html => {:multipart => true, class: "form-horizontal"}, :url => user_videos_path(:user_video, :format => :html) do |f| %>
   <div class="form-group">
     <%= f.label :视频名称,  :class => "col-sm-2 control-label" %>

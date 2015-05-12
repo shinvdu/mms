@@ -7,6 +7,11 @@ $text-color-gray-3: #a7b3c4;
 $color-purple: #8c9ddd;
 $color-dark-purple: #7989c4;
 $color-green: #4fbf91;
+$color-dark-green: #39a478;
+$color-yellow: #f7b520;
+$color-dark-yellow: #f39b00;
+$color-red: #e64c3c;
+$color-dark-red: #bf392b;
 
 *,
 *:before,
@@ -34,7 +39,7 @@ body {
 }
 
 .header {
-    background: image-url("header-bg.jpg")  no-repeat;
+    background: image-url("footer-bg.jpg")  no-repeat;
     background-size: cover;
     margin-top: -75px;
     padding: 20px 0;
@@ -636,7 +641,7 @@ body {
     }
 }
 
-.video-clip-list {
+.video-clip-list-container {
     background-color: $text-color-gray-2;
     width: 853px;
     float: left;
@@ -654,9 +659,11 @@ body {
 	    right: 0;
 	}
     }
-}
-#video_cut_list, #video_select_list{
-	display: inline;
+
+    >div {
+	display: inline-block;
+	vertical-align: top;
+    }
 }
 
 .video-clip-pill {
@@ -667,62 +674,89 @@ body {
     display: inline-block;
     vertical-align: top;
     position: relative;
-    span{
-    	color: white;
-    	font-size: 1.5em;
-    	font-weight: bolder;
-    	line-height: 16px;
-    	padding: 3px 6px;
-    	width: 20px;
-    	height:  25px;
-    	display: inline-block;
-    	border-radius: 1px;
-    	&.add{
-    		background-color: #5cb85c;
-    		float: left;
-    	}
-    	&.remove{
-    		background-color: #d9534f;
-    		float: right;
-    	}
+    >a {
+	border-radius: 50%;
+	behavior: url(PIE.htc);
+	color: #fff;
+	display: inline-block;
+	font-size: 18px;
+	height: 20px;
+	line-height: 15px;
+	padding: 1px;
+	position: absolute;
+	text-align: center;
+	top: 3px;
+	width: 20px;
+
+	&:link,
+	&:hover,
+	&:visited,
+	&:active {
+	    text-decoration: none;
+	}
+
+	&.add-clip {
+	    background-color: $color-green;
+	    left: 3px;
+
+	    &:hover {
+		background-color: $color-dark-green;
+		color: $text-color-gray-3;
+	    }
+	}
+
+	&.remove-clip {
+	    background-color: $color-red;
+	    right: 3px;
+	    
+	    &:hover {
+		background-color: $color-dark-red;
+		color: $text-color-gray-3;
+	    }
+	}
     }
+    
     &+& {
 	margin-left: 8px;
     }
 
     &+.video-clip-add {
-	margin-left: 5px;
+	margin-left: 8px;
     }
+    
     >div {
 	position: absolute;
 	right: 0;
 	bottom: 0;
 
-	>.clip-number {
+	>.clip-time-start {
 	    background-color: $color-green;
 	    border-radius: 5px 0 0 5px;
 	    color: #fff;
 	}
 
-	>.clip-time {
+	>.clip-time-end {
 	    background-color: $text-color-gray-3;
 	    border-radius: 5px 0 0 5px;
 	    color: $text-color-gray-1;
 	}
     }
-}
-.cut_active{
-	border: 1px solid #5cb85c;
-}
+    
+    &.clip-active {
+	border: 1px solid $color-yellow;
+	box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
 
+	&:hover {
+	    border: 1px solid $color-dark-yellow;
+	}
+    }
+}
 
 .video-clip-add {
     background-color: $text-color-gray-1;
     border-radius: 4px;
     width: 75px;
     height: 75px;
-    display: inline-block;
-    vertical-align: top;
     text-align: center;
 
     a {
@@ -743,14 +777,14 @@ body {
 }
 
 .video-clip-merge {
-    background-color: cyan;
+    background-color: $text-color-gray-3;
     border-radius: 4px;
     position: relative;
     margin-left: 15px;
     width: 853px;
     height: 200px;
 
-    .video-clip-list {
+    .video-clip-list-container {
 	background: transparent;
 	margin-left: 0;
     }

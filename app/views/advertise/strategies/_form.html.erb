@@ -1,5 +1,5 @@
   <div class="row">
-<div class="col-md-6">
+<div class="col-md-8">
 <%= form_for(@advertise_strategy, html:{class: 'form-horizontal'}) do |f| %>
   <% if @advertise_strategy.errors.any? %>
     <div id="error_explanation">
@@ -14,13 +14,14 @@
   <% end %>
   <div class="form-group">
     <%= f.label :名称,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <%= f.text_field :name ,  class: 'form-control' %>
     </div>
+    <div class="col-md-3 input-horizontal-helper-text">（5-20字符）</div>
   </div>
   <div class="form-group">
     <%= f.label :片头广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <% 
       ad_front = {}
       Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_front']).each do |ad |
@@ -38,7 +39,7 @@
     end
     %>
     <%= f.label :片尾广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <%= f.select :end_ad, ad_end , {}, {:class => 'form-control'} %>
     </div>
   </div>
@@ -51,7 +52,7 @@
     end
     %>
     <%= f.label :暂停广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <%= f.select :pause_ad, ad_pause , {}, {:class => 'form-control'} %>
     </div>
   </div>
@@ -64,7 +65,7 @@
       end
       %>
     <%= f.label :悬浮广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <%= f.select :float_ad, ad_float , {}, {:class => 'form-control'} %>
     </div>
   </div>
@@ -76,16 +77,16 @@
       end
       %>     
     <%= f.label :滚动字幕,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
+    <div class="col-md-6">
       <%= f.select :scroll_ad, ad_scroll, {}, {:class => 'form-control'} %>
     </div>
   </div>
-  <hr>
   <div class="form-group">
-    <div class="col-sm-offset-3 col-sm-6">
-        <%= f.submit '保存广告方案', :class => 'btn btn-info text-center' %>
+    <div class="col-md-offset-3 col-md-6">
+        <%= f.submit '保存', :class => 'btn btn-green ' %>
+      <a class="btn btn-gray" href="<%= advertise_strategies_path %>">取消</a>
     </div>
-  </div>                    
-<% end %>
+  </div>
+  <% end %>
   </div>
   </div>
