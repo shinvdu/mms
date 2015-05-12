@@ -9,6 +9,7 @@ class VideoProductGroup < ActiveRecord::Base
   belongs_to :transcoding_strategy
   belongs_to :checker, :class_name => 'User'
   scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
+  before_save :set_uuid
 
   module STATUS
     SUBMITTED = 10
@@ -74,8 +75,27 @@ class VideoProductGroup < ActiveRecord::Base
     stat
   end
 
+  def get_status_name
+    case self.get_status
+      when (STATUS::SUBMITTED..STATUS::UPLOADING)
+        '处理中'
+      when STATUS::FINISHED
+        '完成'
+      when STATUS::FAILED
+        '失败'
+      else
+        '未知状态'
+    end
+  end
+
   def FINISHED?
     self.status == STATUS::FINISHED
+  end
+
+  require 'uuidtools'
+
+  def set_uuid
+    self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
 
   #####################################################

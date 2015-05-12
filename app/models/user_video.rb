@@ -20,6 +20,7 @@ class UserVideo < ActiveRecord::Base
     PRETRANSCODING = 40
     GOT_LOW_RATE = 50
     ORIGIN_DELETED = 99
+
   end
 
   module FORMAT_STATUS
@@ -55,6 +56,17 @@ class UserVideo < ActiveRecord::Base
 
   def EDITABLE?
     [FORMAT_STATUS::NORMAL, FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE].include? self.format_status
+  end
+
+  def get_status_name
+    case self.status
+      when (STATUS::PREUPLOADED..STATUS::PRETRANSCODING)
+        '处理中'
+      when STATUS::GOT_LOW_RATE
+        '完成'
+      else
+        '未知状态'
+    end
   end
 
   ######################################################
