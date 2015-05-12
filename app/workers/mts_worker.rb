@@ -2,6 +2,7 @@ module MTSWorker
   module UserVideoWorker
     include MTSUtils::All
 
+    # if transcoding == nil, it will be mini_transcoding template
     def create_transcoding_video_job(transcoding = nil, public = false)
       job = self.original_video.create_transcoding_video_job(transcoding, public)
       self.mini_video = job.target if transcoding.nil? || transcoding.mini_transcoding?

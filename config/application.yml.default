@@ -31,9 +31,9 @@ defaults: &defaults
       height:  50
   m3u8_dir: public/m3u8
   default_per_page: 15
-  aliyun_input_format: 
+  aliyun_input_format:
     container:  3gp avi flv mp4 m3u8 mpg asf wmv mkv mov ts webm
-    video_codec: 
+    video_codec:
       h.264/avc: h.264/avc
       h.263: h.263
       h.263+: h.263+
@@ -46,7 +46,7 @@ defaults: &defaults
       quicktime: "quicktime"
       realvideo: "realvideo"
       windows media video: "windows media video"
-    audio_codec: 
+    audio_codec:
       aac: aac
       ac-3: "ac-3"
       adpcm: adpcm
@@ -58,41 +58,41 @@ defaults: &defaults
       pcm: pcm
       realaudio: realaudio
       windows media audio: windows media audio
-  player: 
-    sizes:  
+  player:
+    sizes:
       853|480: 853x480
-      1280|720: 1280x720 
-  transcoding: 
+      1280|720: 1280x720
+  transcoding:
     video_codec:  H.264
-    container:  
+    container:
       mp4: mp4
       flv: flv
       m3u8: m3u8
       ts: ts
     video_profile:  high
     video_bitrate:  1000
-    video_preset:  
+    video_preset:
       slow: slow
       slower: slower
       veryslow: veryslow
       veryfast: veryfast
       fast: fast
       medium: medium
-    audio_codec:  
+    audio_codec:
       aac: aac
       mp3: mp3
-    width_and_height:  
+    width_and_height:
       640|360: 640x360
       854|480: 854x480
       1280|720: 1280x720
       1920|1080: 1920x1080
-  advertise_resource: 
-    file_type:  
-      视频: video 
+  advertise_resource:
+    file_type:
+      视频: video
       图像: image
-    ad_type:  
+    ad_type:
       全部可用: all
-      片头广告: ad_front 
+      片头广告: ad_front
       片尾广告: ad_end
       暂停广告: ad_pause
       悬浮广告: ad_float
@@ -144,6 +144,9 @@ development:
       scheduled_queue: mts_query_scheduled
       snapshot_ext: png
       snapshot_number: 5
+      accepted_containers: [3gp, avi, flv, mp4, m3u8, mpg, asf, wmv, mkv, mov, ts, webm]
+      accepted_video_codec: [h.264, h264, avc, h263, h263+, h.263, h.263+, mpeg1, mpeg2, mpeg4, mpeg-1, mpeg-2, mpeg-4, mjpeg, vp8, vp9, quicktime, realvideo, windows media video]
+      accepted_audio_codec: [aac, ac3, ac-3, adpcm, amr, dsd, mp1, mp2, mp3, pcm, realaudio, windows media audio]
   file_server:
     dir: public/uploads
     fragment_dir: public/uploads/fragments
