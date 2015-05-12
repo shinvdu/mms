@@ -26,6 +26,7 @@ module ApplicationHelper
 			:home => :home,
 			:user_videos => :video,
 			:transcodings => :video,
+			:video_product_groups => :video,
 			:transcoding_strategies => :video,
 			:strategies => :ad,
 			:resources => :ad,
