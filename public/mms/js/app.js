@@ -13,9 +13,86 @@ function element_lists() {
 var main = function() {
     var currentPanel = document.location.hash,
 	options = {hidden:false},
+	mplayer,
+
+	getNewClip = function() {
+	    var clipStart = videojs.formatTime(mplayer.getValueSlider().start),
+		clipEnd = videojs.formatTime(mplayer.getValueSlider().end),
+		clipCanvas = document.createElement('canvas'),
+		prevTime = mplayer.currentTime();
+
+	    mplayer.currentTime(mplayer.getValueSlider().start)
+		.on('seeked', function() {
+		    clipCanvas.getContext('2d').drawImage(mplayer.player().el().firstChild, 0, 0, 75, 75);
+		    $('.video-clip-pill').removeClass('clip-active');
+		    $('<div/>', { 'class': 'video-clip-pill clip-active', 'data-start': clipStart, 'data-end': clipEnd })
+			.append($('<a/>', { 'class': 'add-clip', 'href': 'javascript:void(0)', 'text': '+' }))
+			.append($('<a/>', { 'class': 'remove-clip', 'href': 'javascript:void(0)', 'text': '-'  }))
+			.append($('<div/>')
+				.append($('<div/>', { 'class': 'clip-time-start', 'text': clipStart }))
+				.append($('<div/>', { 'class': 'clip-time-end', 'text': clipEnd }))
+			       )
+			.css('background-image', 'url(' + clipCanvas.toDataURL() + ')')
+			.on('click', setClipSelection)
+			.appendTo($('#video-clip-list'));
+		    mplayer.currentTime(prevTime).off('seeked');
+		})
+	},
+
+	setClipSelection = function() {
+	    var start = p.attr('data-start');
+	    var end = p.attr('data-end');
+	    mplayer.setValueSlider(start, end);
+	    mplayer.pause();
+	    mplayer.currentTime(start);
+	    $(".cut_active").removeClass('cut_active');
+	    p.addClass('cut_active')
+	    // active = start
+	};
+
+    if($('#video-display').length !== 0) {
 	mplayer = videojs("video-display");
 	mplayer.rangeslider(options);
-	$('#video_select_list').sortable();
+    }
+
+	    
+
+/*    
+	    var dom_head = $('<div></div>').addClass('video-clip-pill').addClass('cut_active').attr('data-start', start).attr('data-end', end).append($('<input type="checkbox">'));
+	    var dom_sub = $('<div></div>');
+	    var dom_start = $('<div></div>').addClass('clip-number').text(start);
+	    var dom_end = $('<div></div>').addClass('clip-time').text(end);
+	    dom_sub.append(dom_start).append(dom_end);
+	    dom_head.append(dom_sub);
+	    dom_head.bind('click', function(){
+		// $(".cut_active").removeClass('cut_active');
+		set_selection($(this));
+	    })
+	    $('#video_cut_list').append(dom_head);
+	};
+*/
+    
+
+    // var cut_hash = {
+    // 	2: {
+    // 		'dom':  
+    // 		'time': [2, 4]
+    // 	}
+    // };
+    // var active = 2;
+
+    $(".video-clip-pill").bind('click', function(e){
+	set_selection($(this));
+    })
+
+    function in_selected(start_time, hash){
+	// $('#video_cut_list').append();
+    }
+
+    function set_selection(p){
+    }
+    
+//	$('#video_select_list').sortable();
 	// var cut_hash = {
 	// 	2: {
 	// 		'dom':  
@@ -189,10 +266,13 @@ var main = function() {
 	e.preventDefault();
     });
 
-    $('#btn-add-clip').on('click', {mplayer: mplayer}, function(e) {
-	var clipCanvas = document.createElement('canvas');
-	clipCanvas.getContext('2d').drawImage(e.data.mplayer.player().el().firstChild, 0, 0, 75, 75);
+    $('#btn-add-clip').on('click', getNewClip);
+
+    /*
+    function(e) {
+	.
     });
+    */
 };
 
 $(document).ready(main);
