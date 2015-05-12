@@ -21,23 +21,68 @@ var main = function() {
 		get_new_cut_element();
 	})
 
+	// $("span.remove").bind('click', function(){
+	// 	remote_self($(this))
+	// })
+
 	function in_selected(start_time, hash){
 		// $('#video_cut_list').append();
 	}
+
+	function remote_self (p) {
+	          p.parent().remove();
+	}
+
+	function select_cut_element(p){
+	          var item = p.parent();
+	          var start = item.attr('data-start');
+	          var end = item.attr('data-end');
+	          var dom_head = $('<div></div>').addClass('video-clip-pill').attr('data-start', start).attr('data-end', end);
+	          var remove = $('<a href="javascript:void(0)"></a>').append($('<span></span>').addClass('remove').text('-'));
+	          remove.bind('click', function(){
+	          	remote_self($(this))
+		});
+	          dom_head.append(remove);
+	          var dom_sub = $('<div></div>');
+	          var dom_start = $('<div></div>').addClass('clip-number').text(start);
+	          var dom_end = $('<div></div>').addClass('clip-time').text(end);
+	          dom_sub.append(dom_start).append(dom_end);
+
+	          dom_head.append(dom_sub);
+	          dom_head.bind("click", function(){
+	          	set_selection($(this));
+	          })
+	          $('#video_select_list').append(dom_head);
+	      }
 
 	function get_new_cut_element(){
 		$(".cut_active").removeClass('cut_active');
 		var time = mplayer.getValueSlider();
 		var start = Math.floor(time.start);
 		var end = Math.floor(time.end);
-		var dom_head = $('<div></div>').addClass('video-clip-pill').addClass('cut_active').attr('data-start', start).attr('data-end', end).append($('<input type="checkbox">'));
+
+		var dom_head = $('<div></div>').addClass('video-clip-pill').addClass('cut_active').attr('data-start', start).attr('data-end', end);
+		var add = $('<a href="javascript:void(0)"></a>').append($('<span></span>').addClass('add').text('+'))
+		add.bind('click', function(){
+		  	// console.log('plus')
+		  	select_cut_element($(this))
+		  });
+		dom_head.append(add);
+		var remove = $('<a href="javascript:void(0)"></a>').append($('<span></span>').addClass('remove').text('-'));
+
+		remove.bind('click', function(){
+		  	remote_self($(this))
+			// console.log('minus')
+		});
+		dom_head.append(remove)
+
 		var dom_sub = $('<div></div>');
 		var dom_start = $('<div></div>').addClass('clip-number').text(start);
 		var dom_end = $('<div></div>').addClass('clip-time').text(end);
 		dom_sub.append(dom_start).append(dom_end);
+
 		dom_head.append(dom_sub);
 		dom_head.bind("click", function(){
-			// $(".cut_active").removeClass('cut_active');
 			set_selection($(this));
 		})
 		$('#video_cut_list').append(dom_head);
