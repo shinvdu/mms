@@ -97,6 +97,25 @@ defaults: &defaults
       暂停广告: ad_pause
       悬浮广告: ad_float
       滚动广告: ad_scroll
+  aliyun:
+    oss:
+      download_proxy: http://
+      proxy: http://
+      host: oss-cn-hangzhou.aliyuncs.com
+      user_video_dir: video
+    mts:
+      host: mts.aliyuncs.com
+      scheduled_queue: mts_query_scheduled
+      snapshot_ext: png
+      snapshot_number: 5
+      accepted_containers: [3gp, avi, flv, mp4, m3u8, mpg, asf, wmv, mkv, mov, ts, webm]
+      accepted_video_codec: [h.264, h264, avc, h263, h263+, h.263, h.263+, mpeg1, mpeg2, mpeg4, mpeg-1, mpeg-2, mpeg-4, mjpeg, vp8, vp9, quicktime, realvideo, windows media video]
+      accepted_audio_codec: [aac, ac3, ac-3, adpcm, amr, dsd, mp1, mp2, mp3, pcm, realaudio, windows media audio]
+  file_server:
+    dir: public/uploads
+    fragment_dir: public/uploads/fragments
+    mini_suffix: mini
+    video_cut_scheduled_queue: fs_video_cut_scheduled
 
 production:
   <<: *defaults
@@ -130,28 +149,12 @@ development:
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:
-      download_proxy: http://
-      proxy: http://
-      host: oss-cn-hangzhou.aliyuncs.com
       private_bucket: wgc-private
       public_bucket: wgc-public
-      user_video_dir: video
     mts:
-      host: mts.aliyuncs.com
       mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
       pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
       pipeline_id: ff91fad66cff4bb894511d98575c2078
-      scheduled_queue: mts_query_scheduled
-      snapshot_ext: png
-      snapshot_number: 5
-      accepted_containers: [3gp, avi, flv, mp4, m3u8, mpg, asf, wmv, mkv, mov, ts, webm]
-      accepted_video_codec: [h.264, h264, avc, h263, h263+, h.263, h.263+, mpeg1, mpeg2, mpeg4, mpeg-1, mpeg-2, mpeg-4, mjpeg, vp8, vp9, quicktime, realvideo, windows media video]
-      accepted_audio_codec: [aac, ac3, ac-3, adpcm, amr, dsd, mp1, mp2, mp3, pcm, realaudio, windows media audio]
-  file_server:
-    dir: public/uploads
-    fragment_dir: public/uploads/fragments
-    mini_suffix: mini
-    video_cut_scheduled_queue: fs_video_cut_scheduled
 
 test:
   <<: *defaults
