@@ -77,6 +77,61 @@ body {
 	    display: inline-block;
 	    padding-left: 10px;
 	    padding-right: 10px;
+	    position: relative;
+
+	    >a {
+		display: block;
+		
+		&:link,
+		&:visited {
+		    color: $text-color-gray-2;
+		    text-decoration: none;
+		}
+
+		&:hover,
+		&:active {
+		    color: $text-color-gray-1;
+		    text-decoration: none;
+		}
+	    }
+	    
+	    .user-menu {
+		background-color: #fff;
+		box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
+		border-radius: 4px;
+		display: none;
+		position: absolute;
+		list-style: none;
+		margin: 0;
+		padding: 10px 0 30px;
+		top: 100%;
+		right: 0;
+		width: 155px;
+		text-align: left;
+		z-index: 1;
+
+		li {
+		    margin: 0;
+
+		    a {
+			color: $color-purple;
+			display: block;
+			padding: 0 50px 0 30px;
+
+			&:link,
+			&:hover,
+			&:visited,
+			&:active {
+			    text-decoration: none;
+			}
+
+			&:hover {
+			    background-color: $color-purple;
+			    color: #fff;
+			}
+		    }
+		}
+	    }
 	}
     }
 }
@@ -108,21 +163,34 @@ body {
 
 	ul {
 	    display: none;
+	    background-color: $color-purple;
+	    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
 	    border-radius: 4px;
-	    padding: 0;
+	    list-style: none;
+	    padding: 5px 0;
 	    position: absolute;
 	    top: 100%;
+	    z-index: 1;
 
 	    li {
 		float: none;
 		position: relative;
 
 		a {
+		    display: block;
 		    background-color: $color-purple;
 		    color: #fff;
-		    padding: 15px 10px;
+		    padding: 15px 40px 15px 15px;
+
+		    &:link,
+		    &:hover,
+		    &:visited,
+		    &:active {
+			text-decoration: none;
+		    }
 		    
-		    &:hover {
+		    &:hover,
+		    &:active {
 			background-color: $color-dark-purple;
 		    }
 		}
@@ -160,7 +228,8 @@ body {
 		> a {
 		    background: $color-purple;
 
-		    &:hover {
+		    &:hover,
+		    &:active {
 			background: $color-dark-purple;
 		    }
 		}
@@ -475,8 +544,33 @@ body {
 	padding-top: 5px;
     }
 
-    .form-group:last-child {
+    form>.form-group:last-child {
 	margin-top: 35px;
+    }
+
+    .form-inline {
+	.form-group {
+	    margin-left: 0;
+	    margin-right: 0;
+
+	    input {
+		width: 50px;
+		padding-left: 5px;
+		padding-right: 5px;
+	    }
+	}
+    }
+}
+
+.panel-add-player {
+    .row>.col-md-6:last-child {
+	padding-top: 100px;
+	text-align: center;
+
+	img {
+	    width: 280px;
+	    height: 200px;
+	}
     }
 }
 
@@ -542,3 +636,146 @@ body {
     }
 }
 
+.video-clip-list {
+    background-color: $text-color-gray-2;
+    width: 853px;
+    float: left;
+    margin-left: 15px;
+    position: relative;
+    padding: 5px 3px;
+
+    >a {
+	display: inline-block;
+	font-size: 30px;
+	margin-top: 22px;
+
+	&:last-child {
+	    position: absolute;
+	    right: 0;
+	}
+    }
+}
+#video_cut_list, #video_select_list{
+	display: inline;
+}
+
+.video-clip-pill {
+    background: image-url("header-bg.jpg")  no-repeat;
+    border-radius: 4px;
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    span{
+    	color: white;
+    	font-size: 1.5em;
+    	font-weight: bolder;
+    	line-height: 16px;
+    	padding: 3px 6px;
+    	width: 20px;
+    	height:  25px;
+    	display: inline-block;
+    	border-radius: 1px;
+    	&.add{
+    		background-color: #5cb85c;
+    		float: left;
+    	}
+    	&.remove{
+    		background-color: #d9534f;
+    		float: right;
+    	}
+    }
+    &+& {
+	margin-left: 8px;
+    }
+
+    &+.video-clip-add {
+	margin-left: 5px;
+    }
+    >div {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+
+	>.clip-number {
+	    background-color: $color-green;
+	    border-radius: 5px 0 0 5px;
+	    color: #fff;
+	}
+
+	>.clip-time {
+	    background-color: $text-color-gray-3;
+	    border-radius: 5px 0 0 5px;
+	    color: $text-color-gray-1;
+	}
+    }
+}
+.cut_active{
+	border: 1px solid #5cb85c;
+}
+
+
+.video-clip-add {
+    background-color: $text-color-gray-1;
+    border-radius: 4px;
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+
+    a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	line-height: 63px;
+	font-size: 75px;
+	color: $text-color-gray-3;
+
+	&:link,
+	&:hover,
+	&:visited,
+	&:active {
+	    text-decoration: none;
+	}
+    }
+}
+
+.video-clip-merge {
+    background-color: cyan;
+    border-radius: 4px;
+    position: relative;
+    margin-left: 15px;
+    width: 853px;
+    height: 200px;
+
+    .video-clip-list {
+	background: transparent;
+	margin-left: 0;
+    }
+
+    .video-clip-action-bar {
+	position: relative;
+	top: 70px;
+
+	>div:first-child {
+	    text-align: center;
+	}
+
+	>div:last-child {
+	    display: inline-block;
+	    width: 150px;
+	    position: absolute;
+	    right: 20px;
+	    bottom: 5px;
+	    text-align: right;
+	    color: $text-color-gray-2;
+
+	    .progress {
+		height: 5px;
+		margin-bottom: 0;
+	    }
+	}
+    }
+}

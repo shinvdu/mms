@@ -2,12 +2,10 @@ log4r_config:
   # define all loggers ...
   loggers:
     - name      : production
-      level     : WARN
       trace     : 'false'
       outputters :
       - rollingfile
     - name      : development
-      level     : DEBUG
       trace     : 'true'
       outputters :
       - rollingfile
@@ -17,6 +15,7 @@ log4r_config:
   outputters:
   - type: RollingFileOutputter
     name: rollingfile
+    level: DEBUG
     filename: "log/15class.log"
     maxsize: 100,000,000
     formatter:
@@ -25,6 +24,7 @@ log4r_config:
       pattern     : "%d [%5l] [%T]: %M"
   - type: StdoutOutputter
     name: std
+    level: INFO
     formatter:
       type: PatternFormatter
       date_pattern: '%Y-%m-%d %H:%M:%S'

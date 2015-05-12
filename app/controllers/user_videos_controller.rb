@@ -52,9 +52,9 @@ class UserVideosController < ApplicationController
 
   def generate_publish_strategy
     @publish_strategy = {
-        '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
+        '编辑后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT,
         '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
-        '编辑后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
+        '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
     }
   end
 

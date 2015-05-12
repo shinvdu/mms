@@ -33,7 +33,7 @@ class LogosController < ApplicationController
     @logo = Logo.new(logo_params)
 
     respond_to do |format|
-      if @logo.save
+      if @logo.save!
         format.html { redirect_to @logo, notice: 'Logo was successfully created.' }
         format.json { render :show, status: :created, location: @logo }
       else

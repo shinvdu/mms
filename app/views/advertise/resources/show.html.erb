@@ -1,51 +1,69 @@
-<%=  render 'advertise/nav' %>
+<%= render 'advertise/nav' %>
 <div class="tab-panel current" id="add-player">
 
-<p id="notice"><%= notice %></p>
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @advertise_resource.name %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @advertise_resource.name %>
+  </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @advertise_resource.user_id %>
-</p>
+  <p>
+    <strong>User:</strong>
+    <%= @advertise_resource.user_id %>
+  </p>
 
-<p>
-  <strong>File type:</strong>
-  <%= @advertise_resource.file_type %>
-</p>
+  <p>
+    <strong>File type:</strong>
+    <%= @advertise_resource.file_type %>
+  </p>
 
-<p>
-  <strong>Ad type:</strong>
-  <%= @advertise_resource.ad_type %>
-</p>
+  <p>
+    <strong>Ad type:</strong>
+    <%= @advertise_resource.ad_type %>
+  </p>
 
-<p>
-  <strong>Filesize:</strong>
-  <%= @advertise_resource.filesize %>
-</p>
+  <p>
+    <strong>Filesize:</strong>
+    <%= @advertise_resource.filesize %>
+  </p>
 
-<p>
-  <strong>Uri:</strong>
-    <%= image_tag(@advertise_resource.uri_url) if @advertise_resource.uri?  && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
-    <%= video_tag(@advertise_resource.uri_url, :size => "320x240", :controls => true) if @advertise_resource.uri?  && @advertise_resource.file_type &&  @advertise_resource.file_type == 'video' %>
-  <%= @advertise_resource.uri %>
-</p>
+  <p>
+    <strong>Uri:</strong>
+    <%= image_tag(@advertise_resource.uri_url) if @advertise_resource.uri? && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
+    <%= video_tag(@advertise_resource.uri_url, :size => "320x240", :controls => true) if @advertise_resource.uri? && @advertise_resource.file_type && @advertise_resource.file_type == 'video' %>
+    <%= @advertise_resource.uri %>
+  </p>
 
-<p>
-  <strong>Ad word:</strong>
-  <%= @advertise_resource.ad_word %>
-</p>
+  <p>
+    <strong>Ad word:</strong>
+    <%= @advertise_resource.ad_word %>
+  </p>
 
-<p>
-  <strong>Data:</strong>
-  <%= @advertise_resource.data %>
-</p>
+  <p>
+    <strong>Data:</strong>
+    <%= @advertise_resource.data %>
+  </p>
 
-<%= link_to 'Edit', edit_advertise_resource_path(@advertise_resource) %> |
-<%= link_to 'Back', advertise_resources_path %>
+  <% if @advertise_resource.transcoded_video.present? && @advertise_resource.transcoded_video.REMOTE? %>
+      <% style '/player1/video-js.css' %>
+      <% style '/player1/videojs.watermark.css' %>
+      <% javascript '/player1/video.js' %>
+      <% javascript '/player1/videojs.watermark.js' %>
+      <script>
+          videojs.options.flash.swf = "/player1/video-js.swf";
+      </script>
+      <p>
+        <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"
+               data-setup="{}">
+          <source src="<%= @advertise_resource.transcoded_video.get_full_url %>" type='video/mp4'/>
+          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+      </p>
+  <% end %>
+
+  <%= link_to 'Edit', edit_advertise_resource_path(@advertise_resource) %> |
+  <%= link_to 'Back', advertise_resources_path %>
 
 </div>

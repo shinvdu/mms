@@ -14,7 +14,7 @@ class PublicVideoUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     # "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-    "#{Settings.aliyun.oss.user_video_dir}/#{model.store_dir}"
+    model.store_dir
   end
 
   def initialize(*)

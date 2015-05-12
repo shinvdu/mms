@@ -2,7 +2,6 @@ class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
   has_many :snapshots
-  has_one :advertise_resource, :class_name => 'Advertise::Resource'
   mount_uploader :public_video, PublicVideoUploader
   mount_uploader :private_video, PrivateVideoUploader
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
@@ -29,7 +28,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def store_dir
-    return uuid if self.transcoding.nil? || self.fragment || self.transcoding.mini_transcoding? || self.user_video_id.present?
+    return File.dirname(self.uri) if self.transcoding.nil? || self.fragment || self.transcoding.mini_transcoding? || self.user_video_id.present?
     "product_#{self.id}"
   end
 
@@ -60,9 +59,8 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def set_ad_video(ad_video, video)
-    self.advertise_resource = ad_video
     self.uuid = UUIDTools::UUID.random_create.to_s
-    self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
+    self.uri = File.join(Settings.aliyun.oss.advertise_dir, self.uuid, "#{self.uuid}#{File.extname(video.original_filename)}")
     self.status = STATUS::ONLY_LOCAL
 
     # TODO save file to file server
@@ -253,9 +251,10 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def mts_accept?
+    logger.debug "check mts accept. [video detail id: #{self.id}] container: #{self.format} video codec: #{self.video_codec} audio_codec: #{self.audio_codec}"
     Settings.aliyun.mts.accepted_containers.any? { |container| self.format.downcase.index(container) } &&
         Settings.aliyun.mts.accepted_video_codec.any? { |vc| self.video_codec.downcase.index(vc) } &&
-        Settings.aliyun.mts.accepted_audio_codec.any? { |ac| self.format.downcase.index(ac) }
+        Settings.aliyun.mts.accepted_audio_codec.any? { |ac| self.audio_codec.downcase.index(ac) }
   end
 
   def fetched_info?
