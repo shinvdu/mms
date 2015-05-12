@@ -36,7 +36,7 @@ class ScheduledWorker
     begin
       yield
     rescue Exception => e
-      puts e, e.backtrace
+      logger.error e
     end
   end
 

@@ -1,0 +1,33 @@
+log4r_config:
+  # define all loggers ...
+  loggers:
+    - name      : production
+      level     : WARN
+      trace     : 'false'
+      outputters :
+      - rollingfile
+    - name      : development
+      level     : DEBUG
+      trace     : 'true'
+      outputters :
+      - rollingfile
+      - std
+
+  # define all outputters (incl. formatters)
+  outputters:
+  - type: RollingFileOutputter
+    name: rollingfile
+    filename: "log/15class.log"
+    maxsize: 100,000,000
+    formatter:
+      type        : PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: StdoutOutputter
+    name: std
+    formatter:
+      type: PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+
+

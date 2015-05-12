@@ -171,6 +171,7 @@ class VideoDetail < ActiveRecord::Base
       self.resolution = movie.resolution
       self.width = movie.width
       self.height = movie.height
+      self.format = movie.container
       if user_video.present? && user_video.original_video == self
         user_video.duration = self.duration
         user_video.width = self.width
@@ -245,6 +246,16 @@ class VideoDetail < ActiveRecord::Base
                                  :video_product_group => video_product_group)
       snapshot.create_mts_job
     end
+  end
+
+  def h264_aac?
+    self.video_codec.downcase.index('h264') && self.audio_codec.downcase.index('aac')
+  end
+
+  def mts_accept?
+    Settings.aliyun.mts.accepted_containers.any? { |container| self.format.downcase.index(container) } &&
+        Settings.aliyun.mts.accepted_video_codec.any? { |vc| self.video_codec.downcase.index(vc) } &&
+        Settings.aliyun.mts.accepted_audio_codec.any? { |ac| self.format.downcase.index(ac) }
   end
 
   def fetched_info?

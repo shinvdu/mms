@@ -1,0 +1,28 @@
+<h1>VideoProductGroup show</h1>
+<span>id:</span><%= @video_product_group.id %>
+<div>
+  <div>
+    <%= @video_product_group.name %><br/>
+    <%= @video_product_group.get_status %><br/>
+    <table>
+      <tr>
+        <th>id</th>
+        <th>status</th>
+        <th>trans name</th>
+        <th>download</th>
+      </tr>
+      <% @video_product_group.video_products.each do |product| %>
+          <tr>
+            <td><%= product.id %></td>
+            <td><%= product.status %></td>
+            <td><%= product.transcoding.present? ? product.transcoding.name : @user_video.video_name %></td>
+            <td>
+              <% if product.FINISHED? %>
+                  <%= link_to 'download', download_video_product_path(product) %>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

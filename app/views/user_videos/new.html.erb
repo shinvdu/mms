@@ -2,7 +2,7 @@
 <div class="tab-panel current" id="video-transcoding-template">
   <h1>upload new video</h1>
 
-  <%= form_for :user_video, :html => {:multipart => true}, :url => user_videos_path(:user_video, format: :html) do |f| %>
+  <%= form_for :user_video, :html => {:multipart => true}, :url => user_videos_path(:user_video) do |f| %>
       <p>
         <span>name:</span>
         <%= f.text_field :video_name %>

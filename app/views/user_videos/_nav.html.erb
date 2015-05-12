@@ -1,28 +1,34 @@
 <nav class="nav">
-    <ul class="nav-square clearfix">
-      <li class="current">
-        <a href="<%=  new_user_video_path %>">
-          <span class="square"></span>
-          上传视频
-        </a>
-      </li>
-      <li class="">
-        <a href="<%=  user_videos_path %>">
-          <span class="square"></span>
-          视频列表
-        </a>
-      </li>
-      <li class="">
-        <a href="<%= transcodings_path  %>">
-          <span class="square"></span>
-          转码模板
-        </a>
-      </li>
-      <li class="">
-        <a href="<%= transcoding_strategies_path  %>">
-          <span class="square"></span>
-          转码方案
-        </a>
-      </li>
-    </ul>
-      </nav>
+  <ul class="nav-square clearfix">
+    <li class="current">
+      <a href="<%= new_user_video_path %>">
+        <span class="square"></span>
+        上传视频
+      </a>
+    </li>
+    <li class="">
+      <a href="<%= video_product_groups_path %>">
+        <span class="square"></span>
+        视频列表
+      </a>
+    </li>
+    <li class="">
+      <a href="<%= transcodings_path %>">
+        <span class="square"></span>
+        转码模板
+      </a>
+    </li>
+    <li class="">
+      <a href="<%= transcoding_strategies_path %>">
+        <span class="square"></span>
+        转码方案
+      </a>
+    </li>
+    <li class="">
+      <a href="<%= user_videos_path %>">
+        <span class="square"></span>
+        原片管理
+      </a>
+    </li>
+  </ul>
+</nav>
