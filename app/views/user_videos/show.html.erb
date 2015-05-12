@@ -2,6 +2,15 @@
 <span>id:</span><%= @user_video.id %>
 <div>
   <% if @user_video.GOT_LOW_RATE? %>
+
+      <% style '/player1/video-js.css' %>
+      <% style '/player1/videojs.watermark.css' %>
+      <% javascript '/player1/video.js' %>
+      <% javascript '/player1/videojs.watermark.js' %>
+      <script>
+          videojs.options.flash.swf = "/player1/video-js.swf";
+      </script>
+
       <span><%= @user_video.mini_video.transcoding.name %>:</span>
       <%= link_to 'preview', @user_video.mini_video.get_full_url %><br/>
       <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"

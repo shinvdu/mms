@@ -3,6 +3,7 @@ class Transcoding < ActiveRecord::Base
   has_many :transcoding_strategy_relationships
   scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
   scope :find_mini_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::MINI_TEMPLATE) }
+  scope :find_ad_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::AD_TEMPLATE) }
   scope :find_pre_middle_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::PRE_MIDDLE_TEMPLATE) }
 
   validates :name, presence: true
@@ -31,6 +32,7 @@ class Transcoding < ActiveRecord::Base
     MINI_TEMPLATE = 1
     MIDDLE_TEMPLATE = 2
     PRE_MIDDLE_TEMPLATE = 3
+    AD_TEMPLATE = 4
   end
 
   include MTSWorker::TranscodingWorker

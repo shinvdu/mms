@@ -1,7 +1,7 @@
 <%=  render 'advertise/nav' %>
 <div class="tab-panel current" id="add-player">
   <div class="panel-header clearfix">
-    <a type="button" class="btn btn-green" href="<%= new_advertise_resource_path  %> ">添加广告资源</a>
+    <%= link_to '添加广告资源', new_advertise_resource_path, class: 'btn btn-green', 'data-no-turbolink' => true %>
   </div>
   <table class="table table-hover panel-table">
     <thead>
@@ -19,7 +19,7 @@
         <td><%= advertise_resource.name %></td>
         <td><%= Settings.advertise_resource.file_type.invert[advertise_resource.file_type] if advertise_resource.file_type %></td>
         <td><%= Settings.advertise_resource.ad_type.invert[advertise_resource.ad_type] if advertise_resource.ad_type %></td>
-        <td><%=  advertise_resource.created_at %></td>
+        <td><%=  advertise_resource.created_at.strftime("%Y-%m-%d") %></td>
         <td>
           <%= link_to '查看', advertise_resource_path(advertise_resource) %>
           <%= link_to '修改', edit_advertise_resource_path(advertise_resource),  'data-no-turbolink' => true  %>

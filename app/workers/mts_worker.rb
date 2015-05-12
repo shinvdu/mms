@@ -151,6 +151,7 @@ module MTSWorker
               video_detail.save!
               job.post_process
             when MTSUtils::Status::TRANSCODE_FAIL
+              logger.error result.inspect
               job.status = MtsJob::STATUS::FAILED
               job.code = result.code
               job.message = result.message

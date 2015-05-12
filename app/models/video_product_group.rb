@@ -56,7 +56,9 @@ class VideoProductGroup < ActiveRecord::Base
 
   def total_size
     return unless self.FINISHED?
-    self.video_products.reduce {|sum, product| product.video_detail.size}
+    sum = 0
+    self.video_products.each { |product| sum += product.video_detail.size }
+    sum
   end
 
   def get_status
