@@ -1,4 +1,113 @@
 <%= render 'user_videos/nav' %>
+
+
+<div class="tab-panel current" id="video-list">
+  <div class="panel-header clearfix">
+    <form class="pull-right" role="search">
+      <div class="form-group right-inner-addon">
+        <input type="search" class="form-control" placeholder="视频名称">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </div>
+      <input type="text" placeholder="2015/05/01">
+      至
+      <input type="text" placeholder="2015/05/01">
+      <select class="form-control">
+        <option>全部状态</option>
+        <option>全部状态</option>
+        <option>全部状态</option>
+      </select>
+    </form>
+    <%= button_to '上传文件', new_user_video_path, :class => 'btn btn-green', :method => :get %>
+  </div>
+  <div class="panel-content-display">
+    <% @user_videos.each do |user_video| %>
+        <div class="row">
+          <div class="row">
+            <div class="col-md-12">
+              <input type="checkbox">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <a href="<%= user_video_path(user_video) %>">
+                <% if user_video.original_video.snapshots.present? %>
+                    <%= image_tag user_video.original_video.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
+                <% else %>
+                    <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
+                <% end %>
+              </a>
+              <select class="form-control">
+                <option>方案1</option>
+                <option>方案2</option>
+                <option>方案3</option>
+              </select>
+              状态: <%= user_video.get_status_name %>
+            </div>
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-md-12">
+                  名称: <%= user_video.video_name %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  视频大小: <%= format_file_size(user_video.original_video.size) %>
+                </div>
+                <div class="col-md-9">
+                  创建时间: <%= user_video.created_at.strftime("%Y-%m-%d %H:%M") %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  时长:
+                  <% if user_video.original_video && user_video.original_video.duration %>
+                      <%= user_video.original_video.duration.to_time %>
+                  <% else %>
+                      未知
+                  <% end %>
+                </div>
+                <div class="col-md-9">
+                  播放次数: 1234次
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  拥有者: <%= user_video.owner.nickname %>
+                </div>
+                <div class="col-md-9">
+                  ID: <%= user_video.original_video.uuid %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button class="btn btn-blue">编辑</button>
+                  <button class="btn btn-blue">代码</button>
+                  <button class="btn btn-blue btn-video-clip-action" id="btn-video-clip" data-href="<%= edit_user_video_path(user_video) %>">剪辑</button>
+                  <button class="btn btn-gray">删除</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.btn-video-clip-action').click(function(e) {
+            e.preventDefault();
+            location.href = $(e.target).attr('data-href');
+        });
+    })
+</script>
+
+<!--
 <div class="tab-panel current" id="video-list">
   <table class="table table-hover panel-table">
     <thead>
@@ -34,10 +143,10 @@
           <td>完成</td>
           <td>
             <%= form_for :republish, :url => republish_user_video_path(user_video), :method => :post do |f| %>
-                <%= f.select :publish_strategy, @publish_strategy %>
-                <%= f.collection_select :transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
-                <%= f.submit '发布' %>
-            <% end %>
+        <%= f.select :publish_strategy, @publish_strategy %>
+        <%= f.collection_select :transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
+        <%= f.submit '发布' %>
+    <% end %>
           </td>
           <td>
             <%= link_to '删除', user_video, method: :delete, data: {confirm: '你确定要删除?'} %>
@@ -46,9 +155,6 @@
     <% end %>
     </tbody>
   </table>
-  <div class="panel-footer">
-    <%= paginate @user_videos %>
-<!--     <button type="button" class="btn btn-purple">选择文件</button>
-    <button type="button" class="btn btn-green">上传文件</button>
- -->  </div>
 </div>
+
+-->
