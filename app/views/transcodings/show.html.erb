@@ -2,10 +2,9 @@
 <div class="tab-panel current" id="video-transcoding-solution">
     <div class="panel-links">
     <%= link_to '&lt;&lt; 返回模板列表'.html_safe, transcodings_path, :class => 'btn-return-link' %> |
-<%= link_to '编辑', edit_transcoding_path(@transcoding) %> 
+<%= link_to '编辑', edit_transcoding_path(@transcoding), 'data-no-turbolink' => 'true' %>
   </div>
 
-<p id="notice"><%= notice %></p>
 <h1>转码模板 <%= @transcoding.name %></h1>
 <table class="table table-striped">
         <tr>

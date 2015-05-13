@@ -19,7 +19,7 @@ class PublicVideoUploader < CarrierWave::Uploader::Base
 
   def initialize(*)
     super
-    self.aliyun_bucket = 'wgc-public'
+    self.aliyun_bucket = Settings.aliyun.oss.public_bucket
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

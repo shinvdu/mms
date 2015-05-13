@@ -36,21 +36,30 @@ class UserVideosController < ApplicationController
     video = user_video_params[:video]
     video_name = user_video_params[:video_name].strip
     publish_strategy = user_video_params[:publish_strategy].to_i
-    default_transcoding_strategy = user_video_params[:default_transcoding_strategy].to_i
+    default_transcoding_strategy = user_video_params[:default_transcoding_strategy]
+    default_transcoding_strategy = default_transcoding_strategy.to_i if default_transcoding_strategy
 
     if video.blank?
       session[:return_to] ||= request.referer
+      notice_error '必须选择视频'
       redirect_to session.delete(:return_to)
       return
     end
-    user_video = UserVideo.new(:owner => current_user,
-                               :video_name => video_name,
-                               :publish_strategy => publish_strategy,
-                               :default_transcoding_strategy_id => default_transcoding_strategy
+    @user_video = UserVideo.new(:owner => current_user,
+                               :video_name => video_name
     ).set_video(video)
-    user_video.save!
-    user_video.delay.publish_by_strategy(publish_strategy,
-                                         TranscodingStrategy.find(default_transcoding_strategy))
+    unless @user_video.save
+      notice_error '输入视频名称'
+      redirect_to session.delete(:return_to)
+      return
+    end
+    case publish_strategy
+      when UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
+        @user_video.delay.publish_by_strategy(publish_strategy,
+                                             TranscodingStrategy.find(default_transcoding_strategy))
+      when UserVideo::PUBLISH_STRATEGY::PACKAGE
+        user_video.delay.publish_by_strategy(publish_strategy, nil)
+    end
 
     respond_to do |format|
       format.html do

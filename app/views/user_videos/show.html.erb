@@ -1,79 +1,37 @@
-<h1>Video show</h1>
-<span>id:</span><%= @user_video.id %>
-<div>
-  <% if @user_video.GOT_LOW_RATE? %>
+<%= render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-transcoding-solution">
 
-      <% style '/player1/video-js.css' %>
-      <% style '/player1/videojs.watermark.css' %>
-      <% javascript '/player1/video.js' %>
-      <% javascript '/player1/videojs.watermark.js' %>
-      <script>
-          videojs.options.flash.swf = "/player1/video-js.swf";
-      </script>
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回视频列表'.html_safe, video_product_groups_path, :class => 'btn-return-link' %> |
+  </div>
 
-      <span><%= @user_video.mini_video.transcoding.name %>:</span>
-      <%= link_to 'preview', @user_video.mini_video.get_full_url %><br/>
-      <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"
-             data-setup="{}">
-        <source src="<%= @user_video.mini_video.get_full_url %>" type='video/mp4'/>
-        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
-          <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-      </video>
-  <% end %>
+  <h1><%= @user_video.video_name %></h1>
+  <div>
+    <% if @user_video.GOT_LOW_RATE? %>
+
+        <% style '/player1/video-js.css' %>
+        <% style '/player1/videojs.watermark.css' %>
+        <% javascript '/player1/video.js' %>
+        <% javascript '/player1/videojs.watermark.js' %>
+        <script>
+            videojs.options.flash.swf = "/player1/video-js.swf";
+        </script>
+
+        <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"
+               data-setup="{}">
+          <source src="<%= @user_video.mini_video.get_full_url %>" type='video/mp4'/>
+          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+    <% end %>
+  </div>
+
 </div>
-<br/>
-<span>slice</span>
+
+
+
+
 <div>
-  <%= form_for :product_data, :url => video_product_groups_path(format: :json) do |f| %>
-      <%= f.hidden_field :user_video_id, :value => @user_video.id %>
-      <span>name: </span>
-      <%= f.text_field :name, value: 'hello ffmpeg' %>
-      <span>data: </span>
-      <%= f.text_area :cut_points, value: '[{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"0.123","stop_time":"9.432"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"4.989","stop_time":"9.2"},{"user_video_id":'+@user_video.id.to_s+',"name":"lala","start_time":"1.652","stop_time":"11.109"}]' %>
-      <br/>
-      <% if @user_video.default_transcoding_strategy.present? %>
-          <%= f.check_box :select_strategy %>
-          <%= f.label :select_strategy, 'change strategy' %>
-      <% end %>
-      <%= f.collection_select :strategy_id, TranscodingStrategy.visiable(current_user), :id, :name %>
-      <%= f.submit 'Submit' %>
-  <% end %>
-</div>
-<dov>
-  <%= form_for :republish, :url => republish_user_video_path(@user_video), :method => :post do |f| %>
-      <%= f.select :publish_strategy, @publish_strategy %>
-      <%= f.collection_select :transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
-      <%= f.submit '发布' %>
-  <% end %>
-</dov>
-<div>
-  <% @user_video.video_product_groups.each do |g| %>
-      <div>
-        <%= g.name %><br/>
-        <%= g.get_status %><br/>
-        <table>
-          <tr>
-            <th>id</th>
-            <th>status</th>
-            <th>trans name</th>
-            <th>download</th>
-          </tr>
-          <% g.video_products.each do |product| %>
-              <tr>
-                <td><%= product.id %></td>
-                <td><%= product.status %></td>
-                <td><%= product.transcoding.present? ? product.transcoding.name : @user_video.video_name %></td>
-                <td>
-                  <% if product.FINISHED? %>
-                      <%= link_to 'download', download_video_product_path(product) %>
-                  <% end %>
-                </td>
-              </tr>
-          <% end %>
-        </table>
-      </div>
-      <br/>
-  <% end %>
   <% if current_user.admin? %>
       <% VideoProductGroup.need_check.each do |g| %>
           uesr: <%= g.owner.nickname %><br/>
