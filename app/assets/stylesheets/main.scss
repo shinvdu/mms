@@ -670,6 +670,7 @@ body {
     border-radius: 4px;
     width: 75px;
     height: 75px;
+    margin: 4px;
     display: inline-block;
     vertical-align: top;
     position: relative;
@@ -693,7 +694,8 @@ body {
     	}
     }
     &+& {
-	margin-left: 8px;
+	// margin-left: 8px;
+	margin: 4px;
     }
 
     &+.video-clip-add {
@@ -754,7 +756,7 @@ body {
     position: relative;
     margin-left: 15px;
     width: 853px;
-    height: 200px;
+    min-height: 200px;
 
     .video-clip-list {
 	background: transparent;
