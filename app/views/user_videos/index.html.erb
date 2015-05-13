@@ -36,12 +36,7 @@
                     <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
                 <% end %>
               </a>
-              <select class="form-control">
-                <option>方案1</option>
-                <option>方案2</option>
-                <option>方案3</option>
-              </select>
-              状态: <%= user_video.get_status_name %>
+              状态: <%= user_video.status_str %>
             </div>
             <div class="col-md-9">
               <div class="row">
@@ -78,7 +73,7 @@
                   ID: <%= user_video.original_video.uuid %>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" style="display:none">
                 <div class="col-md-12">
                   TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
                 </div>
@@ -86,7 +81,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <button class="btn btn-blue">编辑</button>
-                  <button class="btn btn-blue">代码</button>
+                  <button class="btn btn-blue">发布</button>
                   <button class="btn btn-blue btn-video-clip-action" id="btn-video-clip" data-href="<%= edit_user_video_path(user_video) %>">剪辑</button>
                   <button class="btn btn-gray">删除</button>
                 </div>

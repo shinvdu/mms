@@ -76,7 +76,7 @@ class VideoProductGroup < ActiveRecord::Base
     stat
   end
 
-  def get_status_name
+  def status_str
     case self.get_status
       when (STATUS::SUBMITTED..STATUS::UPLOADING)
         '处理中'
@@ -87,6 +87,12 @@ class VideoProductGroup < ActiveRecord::Base
       else
         '未知状态'
     end
+  end
+
+  def duration_str
+    return self.mkv_video.duration.to_time if self.mkv_video && self.mkv_video.duration
+    return self.user_video.original_video.duration.to_time if self.user_video
+    '未知'
   end
 
   def FINISHED?
