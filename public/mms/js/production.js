@@ -34,6 +34,18 @@ var main = function() {
 		get_new_cut_element();
 		mplayer.setValueSlider(end, end+5);
 	})
+	function time_format(time) {
+	    var sec_num = parseInt(time, 10); // don't forget the second param
+	    var hours   = Math.floor(sec_num / 3600);
+	    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+	    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+	    if (hours   < 10) {hours   = "0"+hours;}
+	    if (minutes < 10) {minutes = "0"+minutes;}
+	    if (seconds < 10) {seconds = "0"+seconds;}
+	    var time    = hours+':'+minutes+':'+seconds;
+	    return time;
+	}
 
 	function in_selected(start_time, hash){
 		// $('#video_cut_list').append();
@@ -63,8 +75,8 @@ var main = function() {
 		});
 	          dom_head.append(remove);
 	          var dom_sub = $('<div></div>');
-	          var dom_start = $('<div></div>').addClass('clip-number').text(start);
-	          var dom_end = $('<div></div>').addClass('clip-time').text(end);
+	          var dom_start = $('<div></div>').addClass('clip-number').text(time_format(start));
+	          var dom_end = $('<div></div>').addClass('clip-time').text(time_format(end));
 	          dom_sub.append(dom_start).append(dom_end);
 
 	          dom_head.append(dom_sub);
@@ -96,8 +108,8 @@ var main = function() {
 		dom_head.append(remove)
 
 		var dom_sub = $('<div></div>');
-		var dom_start = $('<div></div>').addClass('clip-number').text(start);
-		var dom_end = $('<div></div>').addClass('clip-time').text(end);
+		var dom_start = $('<div></div>').addClass('clip-number').text(time_format(start));
+		var dom_end = $('<div></div>').addClass('clip-time').text(time_format(end));
 		dom_sub.append(dom_start).append(dom_end);
 
 		dom_head.append(dom_sub);
