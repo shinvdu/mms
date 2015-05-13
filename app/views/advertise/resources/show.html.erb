@@ -1,49 +1,47 @@
 <%= render 'advertise/nav' %>
 <div class="tab-panel current" id="add-player">
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回广告资源列表'.html_safe, advertise_resources_path, :class => 'btn-return-link' %> |
+  <%= link_to '编辑', edit_advertise_resource_path(@advertise_resource), 'data-no-turbolink' => true %>
+  </div>
 
-  <p id="notice"><%= notice %></p>
-
-  <p>
-    <strong>Name:</strong>
-    <%= @advertise_resource.name %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= @advertise_resource.user_id %>
-  </p>
-
-  <p>
-    <strong>File type:</strong>
-    <%= @advertise_resource.file_type %>
-  </p>
-
-  <p>
-    <strong>Ad type:</strong>
-    <%= @advertise_resource.ad_type %>
-  </p>
-
-  <p>
-    <strong>Filesize:</strong>
-    <%= @advertise_resource.filesize %>
-  </p>
-
-  <p>
-    <strong>Uri:</strong>
+  <div class="form-group clearfix">
+    <label class="col-md-5 control-label text-center">广告资源</label>
+  </div>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td scope="row">名称</td>
+        <td><%= @advertise_resource.name %></td>
+      </tr>
+      <tr>
+        <td scope="row">文件类型</td>
+        <% 
+        file_type = '视频' if @advertise_resource.file_type == 'video'
+        file_type = '图像' if @advertise_resource.file_type == 'image'
+         %>
+        <td><%=  file_type %></td>
+      </tr>
+      <tr>
+        <td scope="row">状态</td>
+        <td>处理中</td>
+      </tr>
+      <tr>
+        <td scope="row">广告类型</td>
+        <td><%= @advertise_resource.ad_type %></td>
+      </tr>
+      <tr>
+        <td scope="row">资源</td>
+        <td>
     <%= image_tag(@advertise_resource.uri_url) if @advertise_resource.uri? && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
     <%= video_tag(@advertise_resource.uri_url, :size => "320x240", :controls => true) if @advertise_resource.uri? && @advertise_resource.file_type && @advertise_resource.file_type == 'video' %>
     <%= @advertise_resource.uri %>
-  </p>
 
-  <p>
-    <strong>Ad word:</strong>
-    <%= @advertise_resource.ad_word %>
-  </p>
+        </td>
+      </tr>
+    </tbody>  
+  </table>
 
-  <p>
-    <strong>Data:</strong>
-    <%= @advertise_resource.data %>
-  </p>
 
   <% if @advertise_resource.transcoded_video.present? && @advertise_resource.transcoded_video.REMOTE? %>
       <% style '/player1/video-js.css' %>
@@ -62,8 +60,5 @@
         </video>
       </p>
   <% end %>
-
-  <%= link_to 'Edit', edit_advertise_resource_path(@advertise_resource) %> |
-  <%= link_to 'Back', advertise_resources_path %>
 
 </div>
