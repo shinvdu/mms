@@ -3,96 +3,99 @@
 <% javascript '/mms/js/mlogo.js' %>
 <% style '/cropper/dist/cropper.css' %>
 <% style '/mms/css/mlogo.css' %>
-    <script type="text/javascript">
-$(function () {
-    document.querySelector("#logo_form").addEventListener("submit", function(event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        var canvas = $('.img-container > img').cropper('getCroppedCanvas')
-        if (typeof canvas.toBlob !== "undefined") {
-            canvas.toBlob(function(blob){
-                formData.append("logo[uri]",blob, $('#logo_name').val());
-            } , "image/png", 0.75);
-        }else if (typeof canvas.msToBlob !== "undefined") {
-            var blob = canvas.msToBlob()
-            formData.append("logo[uri]",blob,  $('#logo_name').val());
-        }
+<script type="text/javascript">
+    $(function() {
+        document.querySelector("#logo_form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            var canvas = $('.img-container > img').cropper('getCroppedCanvas')
+            if (typeof canvas.toBlob !== "undefined") {
+                canvas.toBlob(function(blob) {
+                    formData.append("logo[uri]", blob, $('#logo_name').val());
+                }, "image/png", 0.75);
+            } else if (typeof canvas.msToBlob !== "undefined") {
+                var blob = canvas.msToBlob()
+                formData.append("logo[uri]", blob, $('#logo_name').val());
+            }
 
-    $.ajax({
-        url: '/logos<%= "/#{@logo.id}" if controller.action_name == 'edit' %>.json',
-        data: formData,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function(data) {
-          var success = '<div class="alert alert-success">上传成功, <a href="/logos/'  + data.id + '">查看</a> </div>'
-            $('#message').html(success)
-            window.scrollTo(0, 0);
-        },
-        error: function(xhr, error){
-          var failed = '<div class="alert alert-danger">上传失败 </div>'
-            $('#message').html(failed)
-            window.scrollTo(0, 0);
-        },
+            $.ajax({
+                url: '/logos<%= "/#{@logo.id}" if controller.action_name == 'edit' %>.json',
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data) {
+                    location.href = '<%= logos_path %>/' + data.id;
+//                    var success = '<div class="alert alert-success">上传成功, <a href="/logos/' + data.id + '">查看</a> </div>'
+//                    $('#message').html(success)
+//                    window.scrollTo(0, 0);
+                },
+                error: function(xhr, error) {
+                    var failed = '<div class="alert alert-danger">上传失败 </div>'
+                    $('#message').html(failed)
+                    window.scrollTo(0, 0);
+                },
+            });
+        }, false);
+
     });
-    }, false);
-
-});
 </script>
-    <%= form_for(@logo , html: {class: "form-horizontal", id: 'logo_form'}) do |f| %>
+<%= form_for(@logo, html: {class: "form-horizontal", id: 'logo_form'}) do |f| %>
     <% if @logo.errors.any? %>
-    <div id="error_explanation">
-      <h2> 发生两<%= pluralize(@logo.errors.count, "") %>个错误</h2>
-
-      <ul>
-        <% @logo.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-    <% end %>
-      <div class="logo_images" style="display: <%=  controller.action_name == 'new' ? 'none' : 'show' %>">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <!-- <h3 class="page-header">Demo:</h3> -->
-          <div class="img-container">
-            <%= image_tag(@logo.uri()) if @logo.uri? %>
-            <% if not  @logo.uri?  %>
-              <img src="/cropper/assets/img/picture.jpg" alt="Picture">
+        <div id="error_explanation">
+          <h2> 发生了<%= pluralize(@logo.errors.count, "") %>个错误</h2>
+          <ul>
+            <% @logo.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
             <% end %>
-          </div>
+          </ul>
         </div>
-        <div class="col-md-3">
-          <!-- <h3 class="page-header">Preview:</h3> -->
-          <div class="docs-preview clearfix">
-            <div class="clearfix">
-              <div class="img-preview preview-lg clearfix"></div><span style="display:block; margin-top:80px">100* 100</span>
-            </div>
-            <div class="clearfix">
-              <div class="img-preview preview-md"></div><span  style="display:block; margin-top:60px">80* 80</span>
-            </div>
-            <div class="clearfix">
-              <div class="img-preview preview-sm"></div><span  style="display:block; margin-top:30px">50* 50</span>
-            </div>
-            <div id="xie"></div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <%= f.label :LOGO名称,  :class => "col-sm-2 control-label" %>
-      <div class="col-sm-6">
-        <%= f.text_field :name ,  class: 'form-control' %>
-      </div>
-    </div>
-  </div>
-  <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png, image/jpg, image/jpeg", :onchange => 'readURL(this); show_images()' %>
-      <%= f.hidden_field :uri_cache %>
-      <hr>
-      <%= f.submit '保存' , :class => 'btn btn-green' %>
-      <a class="btn btn-gray" href="<%= logos_path  %>">取消</a>
     <% end %>
+    <div class="logo_images" style="display: <%= controller.action_name == 'new' ? 'none' : 'show' %>">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <!-- <h3 class="page-header">Demo:</h3> -->
+            <div class="img-container">
+              <%= image_tag(@logo.uri()) if @logo.uri? %>
+              <% if not @logo.uri? %>
+                  <img src="/cropper/assets/img/picture.jpg" alt="Picture">
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <!-- <h3 class="page-header">Preview:</h3> -->
+            <div class="docs-preview clearfix">
+              <div class="clearfix">
+                <div class="img-preview preview-lg clearfix"></div>
+                <span style="display:block; margin-top:80px">100* 100</span>
+              </div>
+              <div class="clearfix">
+                <div class="img-preview preview-md"></div>
+                <span style="display:block; margin-top:60px">80* 80</span>
+              </div>
+              <div class="clearfix">
+                <div class="img-preview preview-sm"></div>
+                <span style="display:block; margin-top:30px">50* 50</span>
+              </div>
+              <div id="xie"></div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :LOGO名称, :class => "col-sm-2 control-label" %>
+        <div class="col-sm-6">
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png, image/jpg, image/jpeg", :onchange => 'readURL(this); show_images()' %>
+    <%= f.hidden_field :uri_cache %>
+    <hr>
+    <%= f.submit '保存', :class => 'btn btn-green' %>
+    <a class="btn btn-gray" href="<%= logos_path %>">取消</a>
+<% end %>
 
 
