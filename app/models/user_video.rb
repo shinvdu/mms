@@ -9,6 +9,7 @@ class UserVideo < ActiveRecord::Base
   belongs_to :mkv_video, :class_name => 'VideoDetail'
   belongs_to :pre_mkv_video, :class_name => 'VideoDetail'
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
+  validates :video_name, presence: true
 
   alias_attribute :publish_strategy, :strategy
   attr_accessor :compose_strategy, :players
@@ -45,7 +46,9 @@ class UserVideo < ActiveRecord::Base
     video_detail.save!
     self.original_video = video_detail
     self.status = STATUS::PREUPLOADED
-    self.save!
+    unless self.save
+      return self
+    end
     self.delay.fetch_video_info_and_upload
     self
   end

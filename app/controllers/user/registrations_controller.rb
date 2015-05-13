@@ -13,7 +13,7 @@ class User::RegistrationsController < Devise::RegistrationsController
     super
     account = current_account
     if account.present?
-      user = User.new
+      user = User.new(:nickname => account.username)
       account.user = user
       account.save!
     end

@@ -90,13 +90,13 @@ class VideoProductGroup < ActiveRecord::Base
   end
 
   def duration_str
+    return '未知' unless self.FINISHED?
     return self.mkv_video.duration.to_time if self.mkv_video && self.mkv_video.duration
     return self.user_video.original_video.duration.to_time if self.user_video
-    '未知'
   end
 
   def FINISHED?
-    self.status == STATUS::FINISHED
+    self.get_status == STATUS::FINISHED
   end
 
   require 'uuidtools'
