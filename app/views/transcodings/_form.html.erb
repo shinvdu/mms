@@ -49,10 +49,12 @@
                 case 'width':
                     $('#item_and_height').hide()
                     $('#item_width_and').show()
+                    $("#transcoding_height").val('');
                     break;
                 case 'height':
                     $('#item_width_and').hide()
                     $('#item_and_height').show()
+                    $("#transcoding_width").val('');
                     break;
                 default:
                 // n 与 case 1 和 case 2 不同时执行的代码
@@ -156,7 +158,8 @@
           <div class="form-group">
             <%= f.label :视频隔行扫描, :class => "col-md-3 control-label" %>
             <div class="col-md-6">
-              <%= check_box_tag(:scanmode, '1', checked = @transcoding.video_scanmode == 'interlaced') %><span>是</span>
+              <%= check_box_tag(:scanmode, '1', checked = @transcoding.video_scanmode == 'interlaced') %>
+              <%= label_tag :scanmode, '是' %>
 
               <!--     interlaced
                   progressive
@@ -177,7 +180,7 @@
             <%= f.label :视频长宽, :class => "col-md-3 control-label" %>
             <div class="col-md-6">
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
+                <div class="btn-group" role="group" style="width:4px">
                   <%
                      width_and_height = 'keep' if not (@transcoding.width || @transcoding.height)
                      width_and_height = 'width' if @transcoding.width

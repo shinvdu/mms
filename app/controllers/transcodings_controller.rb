@@ -48,10 +48,10 @@ class TranscodingsController < ApplicationController
   # POST /transcodings
   # POST /transcodings.json
   def create
-    @transcoding = Transcoding.new(transcoding_params).do_save
+    @transcoding = Transcoding.new(transcoding_params)
 
     respond_to do |format|
-      if @transcoding
+      if @transcoding.do_save
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully created.' }
         format.json { render :show, status: :created, location: @transcoding }
       else

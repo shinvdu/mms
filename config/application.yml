@@ -103,6 +103,7 @@ defaults: &defaults
       proxy: http://
       host: oss-cn-hangzhou.aliyuncs.com
       user_video_dir: video
+      advertise_dir: advertise
     mts: &defaults-aliyun-mts
       host: mts.aliyuncs.com
       scheduled_queue: mts_query_scheduled

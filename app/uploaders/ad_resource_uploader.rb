@@ -21,6 +21,11 @@ class AdResourceUploader < CarrierWave::Uploader::Base
     self.aliyun_bucket = 'wgc-public'
   end
 
+  def initialize(*)
+    super
+    self.aliyun_bucket = Settings.aliyun.oss.public_bucket
+  end
+
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
