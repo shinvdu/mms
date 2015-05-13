@@ -8,7 +8,6 @@
 
 <%=  render 'players/nav' %>
 <div class="tab-panel current" id="add-player">
-<p id="notice"><%= notice %></p>
   <div class="panel-links">
     <%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'btn-return-link' %> |
 <%= link_to '编辑', edit_player_path(@player),  'data-no-turbolink' => true  %> 

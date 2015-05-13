@@ -18,7 +18,7 @@
         <option>全部状态</option>
       </select>
     </form>
-    <button class="btn btn-green">上传文件</button>
+    <%= button_to '上传文件', new_user_video_path, :class => 'btn btn-green', :method => :get %>
   </div>
   <div class="panel-content-display">
     <% @video_product_groups.each do |g| %>
@@ -76,7 +76,7 @@
                   ID: <%= g.uuid %>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" style="display:none;">
                 <div class="col-md-12">
                   TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
                 </div>
