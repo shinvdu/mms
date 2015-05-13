@@ -28,14 +28,16 @@
       </tr>
       <tr>
         <td scope="row">广告类型</td>
-        <td><%= @advertise_resource.ad_type %></td>
+        <% 
+        ad_types = Settings.advertise_resource.ad_type.invert
+         %>
+        <td><%=  ad_types[@advertise_resource.ad_type] %></td>
       </tr>
       <tr>
         <td scope="row">资源</td>
         <td>
     <%= image_tag(@advertise_resource.uri_url) if @advertise_resource.uri? && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
     <%= video_tag(@advertise_resource.uri_url, :size => "320x240", :controls => true) if @advertise_resource.uri? && @advertise_resource.file_type && @advertise_resource.file_type == 'video' %>
-    <%= @advertise_resource.uri %>
 
         </td>
       </tr>
