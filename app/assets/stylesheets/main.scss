@@ -7,6 +7,12 @@ $text-color-gray-3: #a7b3c4;
 $color-purple: #8c9ddd;
 $color-dark-purple: #7989c4;
 $color-green: #4fbf91;
+$color-dark-green: #39a478;
+$color-yellow: #f7b520;
+$color-dark-yellow: #f39b00;
+$color-red: #e64c3c;
+$color-dark-red: #bf392b;
+
 
 *,
 *:before,
@@ -743,7 +749,7 @@ body {
 }
 
 .video-clip-merge {
-    background-color: cyan;
+    background-color: $text-color-gray-3;
     border-radius: 4px;
     position: relative;
     margin-left: 15px;
