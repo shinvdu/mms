@@ -44,7 +44,7 @@
                 <option>方案3</option>
               </select>
               -->
-              状态: <%= g.get_status_name %>
+              状态: <%= g.status_str %>
             </div>
             <div class="col-md-9">
               <div class="row">
@@ -57,12 +57,7 @@
               </div>
               <div class="row">
                 <div class="col-md-3">
-                  时长:
-                  <% if g.mkv_video.present? %>
-                      <%= g.mkv_video.duration.to_time %>
-                  <% else %>
-                      未知
-                  <% end %>
+                  时长: <%= g.duration_str %>
                 </div>
                 <div class="col-md-9">
                   播放次数: 1234次

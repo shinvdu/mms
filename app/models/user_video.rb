@@ -58,7 +58,7 @@ class UserVideo < ActiveRecord::Base
     [FORMAT_STATUS::NORMAL, FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE].include? self.format_status
   end
 
-  def get_status_name
+  def status_str
     case self.status
       when (STATUS::PREUPLOADED..STATUS::PRETRANSCODING)
         '处理中'
