@@ -117,18 +117,20 @@
             <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
             第四步：保存/提交
           </div>
-          <div class="form-group">
-            <%= f.label :视频标题, :class => "col-md-3 control-label" %>
-            <div class="col-sm-8">
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-2">
+            <p class="pull-right">视频标题</p>
+            </div>
+            <div class="col-md-4">
               <%= f.text_field :name, class: 'form-control' %>
             </div>
           </div>
-        </div>
         <%= f.hidden_field :compose_strategy %>
         <%= f.hidden_field :user_video_id, :value => @user_video.id %>
-        <div class="text-center">
+        <div class="text-center" style="margin-top: 20px">
           <%= f.submit :保存, :class => 'btn btn-green btn-save-action' %>
-          <a class="btn btn-blue">返回</a>
+          <a class="btn btn-blue" href="<%= user_videos_path %>">返回</a>
         </div>
     <% end %>
   </div>
