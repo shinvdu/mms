@@ -18,7 +18,7 @@
         <option>全部状态</option>
       </select>
     </form>
-    <%= button_to '上传文件', new_user_video_path, :class => 'btn btn-green', :method => :get %>
+    <%= link_to '上传文件', new_user_video_path, :class => 'btn btn-green' %>
   </div>
   <div class="panel-content-display">
     <% @video_product_groups.each do |g| %>

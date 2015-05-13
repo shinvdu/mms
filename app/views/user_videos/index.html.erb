@@ -82,7 +82,7 @@
                 <div class="col-md-12">
                   <button class="btn btn-blue">编辑</button>
                   <button class="btn btn-blue">发布</button>
-                  <button class="btn btn-blue btn-video-clip-action" id="btn-video-clip" data-href="<%= edit_user_video_path(user_video) %>">剪辑</button>
+                  <%= link_to '剪辑', edit_user_video_path(user_video), :class =>"btn btn-blue btn-video-clip-action" %>
                   <button class="btn btn-gray">删除</button>
                 </div>
               </div>
@@ -93,63 +93,3 @@
   </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.btn-video-clip-action').click(function(e) {
-            e.preventDefault();
-            location.href = $(e.target).attr('data-href');
-        });
-    })
-</script>
-
-<!--
-<div class="tab-panel current" id="video-list">
-  <table class="table table-hover panel-table">
-    <thead>
-    <tr>
-      <th>视频名称</th>
-      <th>视频分类</th>
-      <th>转码方案</th>
-      <th>文件大小</th>
-      <th>上传时间</th>
-      <th>状态</th>
-      <th>发布</th>
-      <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @user_videos.each do |user_video| %>
-        <tr>
-          <td><%= link_to user_video.video_name, user_video_path(user_video) %></td>
-          <td>
-            <select class="form-control">
-              <option>分类1</option>
-              <option>分类2</option>
-              <option>分类3</option>
-            </select>
-          </td>
-          <td>
-            <select class="form-control">
-              <option><%= user_video.default_transcoding_strategy && user_video.default_transcoding_strategy.name %></option>
-            </select>
-          </td>
-          <td><%= format_file_size(user_video.original_video.size) %></td>
-          <td><%= user_video.created_at && user_video.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td>完成</td>
-          <td>
-            <%= form_for :republish, :url => republish_user_video_path(user_video), :method => :post do |f| %>
-        <%= f.select :publish_strategy, @publish_strategy %>
-        <%= f.collection_select :transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name %>
-        <%= f.submit '发布' %>
-    <% end %>
-          </td>
-          <td>
-            <%= link_to '删除', user_video, method: :delete, data: {confirm: '你确定要删除?'} %>
-          </td>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
-</div>
-
--->
