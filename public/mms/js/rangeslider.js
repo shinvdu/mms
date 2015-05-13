@@ -1023,7 +1023,7 @@ videojs.ControlTimePanelLeft.prototype.init_ = function(){
 videojs.ControlTimePanelLeft.prototype.createEl = function(){
 	return videojs.Component.prototype.createEl.call(this, 'div', {
 		className: 'vjs-controltimepanel-left-RS',
-		innerHTML: 'Start: <input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>'
+		innerHTML: '开始: <input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>'
 	});
 };
 
@@ -1062,7 +1062,7 @@ videojs.ControlTimePanelRight.prototype.init_ = function(){
 videojs.ControlTimePanelRight.prototype.createEl = function(){
 	return videojs.Component.prototype.createEl.call(this, 'div', {
 		className: 'vjs-controltimepanel-right-RS',
-		innerHTML: 'End: <input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>'
+		innerHTML: '结束: <input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>:<input type="text" id="controltimepanel" maxlength="2" value="00"/>'
 	});
 };
 
