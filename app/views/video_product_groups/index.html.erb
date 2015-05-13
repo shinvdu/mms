@@ -18,7 +18,7 @@
         <option>全部状态</option>
       </select>
     </form>
-    <button class="btn btn-green">上传文件</button>
+    <%= button_to '上传文件', new_user_video_path, :class => 'btn btn-green', :method => :get %>
   </div>
   <div class="panel-content-display">
     <% @video_product_groups.each do |g| %>
@@ -44,7 +44,7 @@
                 <option>方案3</option>
               </select>
               -->
-              状态: <%= g.get_status_name %>
+              状态: <%= g.status_str %>
             </div>
             <div class="col-md-9">
               <div class="row">
@@ -57,12 +57,7 @@
               </div>
               <div class="row">
                 <div class="col-md-3">
-                  时长:
-                  <% if g.mkv_video.present? %>
-                      <%= g.mkv_video.duration.to_time %>
-                  <% else %>
-                      未知
-                  <% end %>
+                  时长: <%= g.duration_str %>
                 </div>
                 <div class="col-md-9">
                   播放次数: 1234次
@@ -76,7 +71,7 @@
                   ID: <%= g.uuid %>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" style="display:none;">
                 <div class="col-md-12">
                   TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
                 </div>
@@ -85,7 +80,7 @@
                 <div class="col-md-12">
                   <button class="btn btn-blue">编辑</button>
                   <button class="btn btn-blue">代码</button>
-                  <button class="btn btn-blue" id="btn-video-clip">剪辑</button>
+                  <button class="btn btn-blue" id="btn-video-clip" style="display:none">剪辑</button>
                   <button class="btn btn-gray">删除</button>
                 </div>
               </div>

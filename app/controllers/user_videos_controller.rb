@@ -80,7 +80,7 @@ class UserVideosController < ApplicationController
     @publish_strategy = {
         '等待编辑' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT,
         '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
-        '封装为mkv直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
+        '封装为mp4直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
     }
   end
 
