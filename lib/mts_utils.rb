@@ -296,7 +296,7 @@ module MTSUtils
 
     def update_template(transcoding)
       params = {
-          'Action' => 'AddTemplate',
+          'Action' => 'UpdateTemplate',
           'TemplateId' => transcoding.aliyun_template_id,
           'Name' => transcoding.name,
           'Container' => {'Format' => transcoding.container}.to_json,

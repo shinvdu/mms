@@ -41,20 +41,22 @@
             var valueSelected = this.value;
             switch (valueSelected) {
                 case 'keep':
-                    $('#item_and_height').hide()
-                    $('#item_width_and').hide()
+                    $('#item_and_height').hide();
+                    $('#item_width_and').hide();
                     $("#transcoding_width").val('');
                     $("#transcoding_height").val('');
                     break;
                 case 'width':
-                    $('#item_and_height').hide()
-                    $('#item_width_and').show()
+                    $('#item_and_height').hide();
+                    $('#item_width_and').show();
                     $("#transcoding_height").val('');
+                    $('#width_and').change();
                     break;
                 case 'height':
-                    $('#item_width_and').hide()
-                    $('#item_and_height').show()
+                    $('#item_width_and').hide();
+                    $('#item_and_height').show();
                     $("#transcoding_width").val('');
+                    $('#and_height').change();
                     break;
                 default:
                 // n 与 case 1 和 case 2 不同时执行的代码
@@ -186,7 +188,7 @@
                      width_and_height = 'width' if @transcoding.width
                      width_and_height = 'height' if @transcoding.height
                   %>
-                  <%= select_tag(:width_and_height, options_for_select([['保持原视频长宽', 'keep'], ['指定宽度，按比例缩放', 'height'], ['指定长度，按比例缩放', 'width']], width_and_height), {:class => 'form-control player_size'}) %>
+                  <%= select_tag(:width_and_height, options_for_select([['保持原视频长宽', 'keep'], ['指定宽度，按比例缩放', 'height'], ['指定高度，按比例缩放', 'width']], width_and_height), {:class => 'form-control player_size'}) %>
                 </div>
                 <div class="btn-group" role="group" id="item_width_and" style="display: <%= 'none' if not @transcoding.width  %> ">
                   <%= select_tag(:width_and, options_for_select(Settings.transcoding.width_and_height.invert.to_a.map { |key, value| [key.split('x').first, value] }, "#{@transcoding.width}|#{@transcoding.height}"), {:class => 'form-control player_size'}) %>
