@@ -50,7 +50,8 @@ gem 'log4r'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  # 自动刷新页面
+  gem 'guard-livereload', '~> 2.4', require: false
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
