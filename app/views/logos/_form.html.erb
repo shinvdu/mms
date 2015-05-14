@@ -9,13 +9,14 @@
             event.preventDefault();
             var formData = new FormData(this);
             var canvas = $('.img-container > img').cropper('getCroppedCanvas')
+
             if (typeof canvas.toBlob !== "undefined") {
                 canvas.toBlob(function(blob) {
-                    formData.append("logo[uri]", blob, $('#logo_name').val());
+                    formData.append("logo[uri]", blob, $('#logo_file_name').text());
                 }, "image/png", 0.75);
             } else if (typeof canvas.msToBlob !== "undefined") {
                 var blob = canvas.msToBlob()
-                formData.append("logo[uri]", blob, $('#logo_name').val());
+                formData.append("logo[uri]", blob, $('#logo_file_name').text());
             }
 
             $.ajax({
@@ -88,6 +89,7 @@
         <%= f.label :LOGO名称, :class => "col-sm-2 control-label" %>
         <div class="col-sm-6">
           <%= f.text_field :name, class: 'form-control' %>
+          <span id="logo_file_name" class="hidden"><%= @logo.uri %></span>
         </div>
       </div>
     </div>

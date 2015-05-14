@@ -3,8 +3,10 @@ function readURL(input) {
         if($('#logo_name').val() == ''){
             $('#logo_name').val(input.files[0].name);
         }
+        $('#logo_file_name').text(input.files[0].name);
     }
 }   
+
 function show_images () {
     $('div.logo_images').show();
 }
