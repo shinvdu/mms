@@ -10,6 +10,11 @@ log4r_config:
       outputters :
       - rollingfile
       - std
+    - name      : test
+      trace     : 'true'
+      outputters :
+      - rollingfile
+      - std
 
   # define all outputters (incl. formatters)
   outputters:
