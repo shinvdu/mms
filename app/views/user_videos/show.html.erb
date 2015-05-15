@@ -9,10 +9,18 @@
   <div>
     <% if @user_video.GOT_LOW_RATE? %>
 
+        <% javascript '/mms/js/video.min.js' %>
+        <% style '/player1/video-js.css' %>
+        <% style '/mms/css/rangeslider.css' %>
+        <% javascript '/mms/js/jquery-ui.js' %>
+        <% javascript '/mms/js/rangeslider.js' %>
+
+        <!--
         <% style '/player1/video-js.css' %>
         <% style '/player1/videojs.watermark.css' %>
         <% javascript '/player1/video.js' %>
         <% javascript '/player1/videojs.watermark.js' %>
+        -->
         <script>
             videojs.options.flash.swf = "/player1/video-js.swf";
         </script>
@@ -57,7 +65,7 @@
             <tr>
               <% g.snapshots.each do |snapshot| %>
                   <td>
-                    <%= snapshot.time.to_i.to_time %>
+                    <%= snapshot.time.to_time %>
                   </td>
               <% end %>
             </tr>

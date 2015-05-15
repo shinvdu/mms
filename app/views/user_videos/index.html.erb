@@ -29,7 +29,7 @@
           </div>
           <div class="row">
             <div class="col-md-3">
-              <a href="<%= user_video_path(user_video) %>">
+              <a href="<%= user_video_path(user_video) %>" data-no-turbolink=true>
                 <% if user_video.original_video.snapshots.present? %>
                     <%= image_tag user_video.original_video.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
                 <% else %>
@@ -82,7 +82,7 @@
                 <div class="col-md-12">
                   <button class="btn btn-blue">编辑</button>
                   <button class="btn btn-blue">发布</button>
-                  <%= link_to '剪辑', edit_user_video_path(user_video), :class =>"btn btn-blue btn-video-clip-action" %>
+                  <%= link_to '剪辑', edit_user_video_path(user_video), :class => "btn btn-blue btn-video-clip-action",  'data-no-turbolink'=>'true' %>
                   <button class="btn btn-gray">删除</button>
                 </div>
               </div>
