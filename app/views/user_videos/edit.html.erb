@@ -120,12 +120,13 @@
           <div class="clearfix"></div>
           <div class="row">
             <div class="col-md-2">
-            <p class="pull-right">视频标题</p>
+              <p class="pull-right">视频标题</p>
             </div>
             <div class="col-md-4">
               <%= f.text_field :name, class: 'form-control' %>
             </div>
           </div>
+        </div>
         <%= f.hidden_field :compose_strategy %>
         <%= f.hidden_field :user_video_id, :value => @user_video.id %>
         <div class="text-center" style="margin-top: 20px">

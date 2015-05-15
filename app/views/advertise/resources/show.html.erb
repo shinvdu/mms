@@ -23,16 +23,12 @@
       <td><%= file_type %></td>
     </tr>
     <tr>
-      <td scope="row">状态</td>
-      <td>处理中</td>
+      <td scope="row">广告类型</td>
+      <%
+         ad_types = Settings.advertise_resource.ad_type.invert
+      %>
+      <td><%= ad_types[@advertise_resource.ad_type] %></td>
     </tr>
-      <tr>
-        <td scope="row">广告类型</td>
-        <% 
-        ad_types = Settings.advertise_resource.ad_type.invert
-         %>
-        <td><%=  ad_types[@advertise_resource.ad_type] %></td>
-      </tr>
     <tr>
       <td scope="row">资源</td>
       <td>
@@ -51,9 +47,11 @@
                   <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"
                          data-setup="{}">
                     <source src="<%= @advertise_resource.transcoded_video.get_full_url %>" type='video/mp4'/>
+                    <!--
                     <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web
                       browser that
                       <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                      -->
                   </video>
                 </p>
             <% else %>

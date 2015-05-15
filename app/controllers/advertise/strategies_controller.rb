@@ -47,7 +47,7 @@ class Advertise::StrategiesController < ApplicationController
   def update
     respond_to do |format|
       if @advertise_strategy.update(advertise_strategy_params)
-        format.html { redirect_to @advertise_strategy, notice: 'Strategy was successfully updated.' }
+        format.html { redirect_to advertise_strategies_path, notice: 'Strategy was successfully updated.' }
         format.json { render :show, status: :ok, location: @advertise_strategy }
       else
         format.html { render :edit }
