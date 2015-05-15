@@ -1,12 +1,12 @@
 'use strict'
 function element_lists() {
-	var container = []
-	$('#video_select_list').children().each(function(){
-		var p = $(this)
-		var start  = p.attr('data-start');
-		var end  = p.attr('data-end');
-		container.push({start: start, end: end})
-	})
+    var container = []
+    $('#video_select_list').children().each(function(){
+	var p = $(this)
+	var start  = p.attr('data-start');
+	var end  = p.attr('data-end');
+	container.push({start: start, end: end})
+    })
 	return container;
 }
 
@@ -22,13 +22,20 @@ var main = function() {
 		clipEnd = mplayer.getValueSlider().end,
 		clipFormatStart = videojs.formatTime(clipStart),
 		clipFormatEnd = videojs.formatTime(clipEnd),
-		clipCanvas = document.createElement('canvas'),
+		clipCanvas,
 		prevTime = mplayer.currentTime();
 
 	    mplayer.currentTime(mplayer.getValueSlider().start)
 		.on('seeked', function() {
-		    clipCanvas.getContext('2d').drawImage(mplayer.player().el().firstChild, 0, 0, 75, 75);
+		    clipCanvas = $('<canvas width="75" height="75"></canvas>')[0];
+		    if(clipCanvas.getContext) {
+			clipCanvas.getContext('2d').drawImage(mplayer.player().el().firstChild, 0, 0, 75, 75);
+		    }
+		    else {
+		    }
 		    $('.video-clip-pill').removeClass('clip-active');
+		    $(clipCanvas).appendTo($('#video-clip-list'));
+/*
 		    $('<div/>', { 'class': 'video-clip-pill clip-active', 'data-start': clipStart, 'data-end': clipEnd })
 			.append($('<a/>', { 'class': 'add-clip', 'href': 'javascript:void(0)', 'text': '+' })
 				.on('click', selectClip))
@@ -41,6 +48,7 @@ var main = function() {
 			.css('background-image', 'url(' + clipCanvas.toDataURL() + ')')
 			.on('click', setClipSelection)
 			.appendTo($('#video-clip-list'));
+*/
 		    mplayer.currentTime(prevTime).off('seeked');
 		    mplayer.setValueSlider(clipEnd, clipEnd + 60);
 		})
@@ -90,27 +98,36 @@ var main = function() {
 	    mplayer.currentTime(clipStart);
 	    $('.video-clip-pill').removeClass('clip-active');
 	    element.addClass('clip-active');
+	},
+
+	$frame = $('#clip-frame'),
+	$frameWrap = $frame.parent(),
+	slyOptions = {
+	    horizontal: 1,
+	    itemNav: 'basic',
+	    smart: 1,
+	    activateOn: 'click',
+	    mouseDragging: 1,
+	    touchDragging: 1,
+	    releaseSwing: 1,
+	    startAt: 3,
+	    speed: 300,
+	    elasticBounds: 1,
+	    easing: 'easeOutExpo',
+
+//	    forward: $wrap.find('.forward'),
+//	    backward: $wrap.find('.backward'),
+	    prev: $frameWrap.find('#clip-prev'),
+	    next: $frameWrap.find('#clip-next'),
+//	    prevPage: $wrap.find('.prevPage'),
+//	    nextPage: $wrap.find('.nextPage')
 	};
+
+    $frame.sly(slyOptions);
 
     if(mplayer) {
 	mplayer.rangeslider(options);
     }
-
-    // var cut_hash = {
-    // 	2: {
-    // 		'dom':  
-    // 		'time': [2, 4]
-    // 	}
-    // };
-    // var active = 2;
-    
-//	$('#video_select_list').sortable();
-	// var active = 2;
-/*
-	function in_selected(start_time, hash){
-		// $('#video_cut_list').append();
-	}
-*/
     
     if(currentPanel !== '#' && currentPanel !== '') {
 	$('.nav-tab > .nav-square > li').removeClass('current');

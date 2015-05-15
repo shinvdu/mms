@@ -642,21 +642,38 @@ body {
 }
 
 .video-clip-list-container {
-    background-color: $text-color-gray-2;
+    background: url('../images/clip-list-bg.jpg') no-repeat;
+    background-size: cover;
+    color: $text-color-gray-3;
     width: 853px;
-    float: left;
-    margin-left: 15px;
-    position: relative;
-    padding: 5px 3px;
+    height: 100px;
+    padding: 12px 3px;
 
-    >a {
-	display: inline-block;
-	font-size: 30px;
-	margin-top: 22px;
+    >button {
+	&.clip-prev,
+	&.clip-next {
+	    background: transparent;
+	    border: none;
+	    opacity: .5;
+	    width: 30px;
+	    height: 76px;
+	    font-size: 30px;
+	}
 
-	&:last-child {
-	    position: absolute;
-	    right: 0;
+	&.clip-prev {
+	    float: left;
+	}
+
+	&.clip-next {
+	    float: right;
+	}
+
+	&.video-clip-add {
+	    background-color: $text-color-gray-1;
+	    border-radius: 4px;
+	    width: 75px;
+	    height: 75px;
+	    text-align: center;
 	}
     }
 
@@ -667,10 +684,8 @@ body {
 }
 
 .video-clip-pill {
-    background: url('../images/header-bg.jpg') no-repeat;
-    border-radius: 4px;
-    width: 75px;
-    height: 75px;
+    width: 100px;
+    height: 100px;
     display: inline-block;
     vertical-align: top;
     position: relative;
@@ -719,10 +734,6 @@ body {
     &+& {
 	margin-left: 8px;
     }
-
-    &+.video-clip-add {
-	margin-left: 8px;
-    }
     
     >div {
 	position: absolute;
@@ -748,30 +759,6 @@ body {
 
 	&:hover {
 	    border: 1px solid $color-dark-yellow;
-	}
-    }
-}
-
-.video-clip-add {
-    background-color: $text-color-gray-1;
-    border-radius: 4px;
-    width: 75px;
-    height: 75px;
-    text-align: center;
-
-    a {
-	display: block;
-	width: 100%;
-	height: 100%;
-	line-height: 63px;
-	font-size: 75px;
-	color: $text-color-gray-3;
-
-	&:link,
-	&:hover,
-	&:visited,
-	&:active {
-	    text-decoration: none;
 	}
     }
 }
@@ -809,6 +796,32 @@ body {
 	    .progress {
 		height: 5px;
 		margin-bottom: 0;
+	    }
+	}
+    }
+}
+
+.frame {
+    width: 100%;
+    height: 160px;
+    padding: 0;
+
+    .slidee {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	list-style: none;
+
+	li {
+	    background-color: cyan;
+	    float: left;
+	    margin: 0 5px 0 0;
+	    padding: 0;
+	    width: 120px;
+	    height: 100%;
+
+	    &.active {
+		background-color: green;
 	    }
 	}
     }
