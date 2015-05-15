@@ -47,6 +47,8 @@ gem 'kaminari'
 gem 'streamio-ffmpeg'
 gem 'log4r'
 
+gem 'unicorn'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -59,5 +61,7 @@ group :development, :test do
   gem 'spring'
 
   gem 'annotate_models'
+  # 测试用的
+  gem "rspec-rails"
 end
 
