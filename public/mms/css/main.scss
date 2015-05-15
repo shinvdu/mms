@@ -1,4 +1,3 @@
-
 $bg-color: #f7f7f7;
 $text-color-gray-1: #3f4754;
 $text-color-gray-2: #7f8999;
@@ -642,7 +641,7 @@ body {
 }
 
 .video-clip-list-container {
-    background: url('../images/clip-list-bg.jpg') no-repeat;
+    background: image-url('clip-list-bg.jpg') no-repeat;
     background-size: cover;
     color: $text-color-gray-3;
     width: 853px;
@@ -685,127 +684,100 @@ body {
     }
 }
 
-.video-clip-pill {
-    width: 100px;
-    height: 100px;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    >a {
-	border-radius: 50%;
-	behavior: url(PIE.htc);
-	color: #fff;
-	display: inline-block;
-	font-size: 18px;
-	height: 20px;
-	line-height: 15px;
-	padding: 1px;
-	position: absolute;
-	text-align: center;
-	top: 3px;
-	width: 20px;
+.video-clip-merge-container {
+    &:before,
+    &:after {
+	content: '';
+	display: block;
+	height: 17px;
+	width: 853px;
+    }
+    
+    &:before {
+	background: image-url('merge-header-bg.png') no-repeat;
+	background-size: cover;
+    }
 
-	&:link,
-	&:hover,
-	&:visited,
-	&:active {
-	    text-decoration: none;
-	}
+    &:after {
+	background: image-url('merge-footer-bg.png') no-repeat;
+	background-size: cover;
+    }
 
-	&.add-clip {
-	    background-color: $color-green;
-	    left: 3px;
+    .video-clip-merge {
+	background-color: $text-color-gray-2;
+	min-height: 150px;
+	padding-left: 33px;
+	width: 853px;
 
-	    &:hover {
-		background-color: $color-dark-green;
-		color: $text-color-gray-3;
+	.video-clip-pill {
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	    float: left;
+	    height: 76px;
+	    margin: 0 10px 15px 0;
+	    padding: 0;
+	    width: 76px;
+
+	    &.active {
+		border: 1px solid $color-yellow;
 	    }
-	}
-
-	&.remove-clip {
-	    background-color: $color-red;
-	    right: 3px;
 	    
-	    &:hover {
-		background-color: $color-dark-red;
-		color: $text-color-gray-3;
+	    .clip-canvas-wraper {
+		background-color: cyan;
+		border-radius: 4px 4px 0 0;
+		width: 74px;
+		height: 48px;
+		position: relative;
+
+		>canvas {
+		    border-radius: 4px 4px 0 0;
+		    position: absolute;
+		    z-index: 0;
+		}
+
+		>div {
+		    height: 100%;
+		    position: relative;
+		}
+
+		button {
+		    border: none;
+		    border-radius: 50%;
+		    behavior: url(PIE.htc);
+		    color: #fff;
+		    height: 20px;
+		    padding: 1px;
+		    position: absolute;
+		    width: 20px;
+
+		    &.remove-clip {
+			background-color: $color-red;	
+			right: 1px;
+			
+			&:hover {
+			    background-color: $color-dark-red;
+			    color: $text-color-gray-3;
+			}
+		    }
+		}
 	    }
-	}
-    }
-    
-    &+& {
-	margin-left: 8px;
-    }
-    
-    >div {
-	position: absolute;
-	right: 0;
-	bottom: 0;
 
-	>.clip-time-start {
-	    background-color: $color-green;
-	    border-radius: 5px 0 0 5px;
-	    color: #fff;
-	}
-
-	>.clip-time-end {
-	    background-color: $text-color-gray-3;
-	    border-radius: 5px 0 0 5px;
-	    color: $text-color-gray-1;
-	}
-    }
-    
-    &.clip-active {
-	border: 1px solid $color-yellow;
-	box-shadow: 0 0 9px rgba(0, 0, 0, 0.15);
-
-	&:hover {
-	    border: 1px solid $color-dark-yellow;
-	}
-    }
-}
-
-.video-clip-merge {
-    background-color: $text-color-gray-3;
-    border-radius: 4px;
-    position: relative;
-    margin-left: 15px;
-    width: 853px;
-    height: 200px;
-
-    .video-clip-list-container {
-	background: transparent;
-	margin-left: 0;
-    }
-
-    .video-clip-action-bar {
-	position: relative;
-	top: 70px;
-
-	>div:first-child {
-	    text-align: center;
-	}
-
-	>div:last-child {
-	    display: inline-block;
-	    width: 150px;
-	    position: absolute;
-	    right: 20px;
-	    bottom: 5px;
-	    text-align: right;
-	    color: $text-color-gray-2;
-
-	    .progress {
-		height: 5px;
-		margin-bottom: 0;
+	    .clip-info {
+		background-color: $color-purple;
+		border-radius: 0 0 4px 4px;
+		color: #fff;
+		font-size: 10px;
+		width: 74px;
+		height: 26px;
+		text-align: center;
 	    }
 	}
     }
 }
 
 .frame {
-    width: 100%;
-    height: 160px;
+    height: 76px;
+    max-width: 700px;
     padding: 0;
 
     .slidee {
@@ -815,15 +787,77 @@ body {
 	list-style: none;
 
 	li {
-	    background-color: cyan;
+	    border: 1px solid transparent;
+	    border-radius: 4px;
 	    float: left;
-	    margin: 0 5px 0 0;
-	    padding: 0;
-	    width: 120px;
 	    height: 100%;
+	    margin: 0 10px 0 0;
+	    padding: 0;
+	    width: 76px;
 
 	    &.active {
-		background-color: green;
+		border: 1px solid $color-yellow;
+	    }
+
+	    .clip-canvas-wraper {
+		background-color: cyan;
+		border-radius: 4px 4px 0 0;
+		width: 74px;
+		height: 48px;
+		position: relative;
+
+		>canvas {
+		    border-radius: 4px 4px 0 0;
+		    position: absolute;
+		    z-index: 0;
+		}
+
+		>div {
+		    height: 100%;
+		    position: relative;
+		}
+
+		button {
+		    border: none;
+		    border-radius: 50%;
+		    behavior: url(PIE.htc);
+		    color: #fff;
+		    height: 20px;
+		    padding: 1px;
+		    position: absolute;
+		    width: 20px;
+
+		    &.add-clip {
+			background-color: $color-green;
+			right: 1px;
+
+			&:hover {
+			    background-color: $color-dark-green;
+			    color: $text-color-gray-3;
+			}
+		    }
+
+		    &.remove-clip {
+			background-color: $color-red;
+			right: 1px;
+			top: 23px;
+			
+			&:hover {
+			    background-color: $color-dark-red;
+			    color: $text-color-gray-3;
+			}
+		    }
+		}
+	    }
+
+	    .clip-info {
+		background-color: $color-purple;
+		border-radius: 0 0 4px 4px;
+		color: #fff;
+		font-size: 10px;
+		width: 74px;
+		height: 26px;
+		text-align: center;
 	    }
 	}
     }
