@@ -670,10 +670,12 @@ body {
 
 	&.video-clip-add {
 	    background-color: $text-color-gray-1;
+	    border: none;
 	    border-radius: 4px;
-	    width: 75px;
-	    height: 75px;
-	    text-align: center;
+	    width: 76px;
+	    height: 76px;
+	    line-height: 76px;
+	    font-size: 70px;
 	}
     }
 

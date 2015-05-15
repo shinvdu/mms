@@ -37,7 +37,7 @@ listener = Listen.to('.', './css/', only: /\.scss$/) do |modified, added, remove
   puts  "input: #{input} "
   outfile = "#{dir}/#{filename}.css"
   puts  "ouput: #{outfile}"
-  compile(input, outfile)
+  compile(environment, input, outfile)
   puts '-------------------------------------------------------------'
   # puts "added absolute path: #{added}"
   # puts "removed absolute path: #{removed}"
