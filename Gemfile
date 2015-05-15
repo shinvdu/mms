@@ -59,5 +59,7 @@ group :development, :test do
   gem 'spring'
 
   gem 'annotate_models'
+  # 测试用的
+  gem "rspec-rails"
 end
 
