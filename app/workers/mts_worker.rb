@@ -41,6 +41,10 @@ module MTSWorker
         end
         TranscodeJob.create(:job_id => job_result.job.job_id, :target => transcoded_video_detail)
       else
+        logger.error 'create transcoding job failed!'
+        logger.error job_result.code
+        logger.error job_result.message
+        logger.error job_result
         raise 'create transcoding job failed!'
       end
     end
@@ -66,7 +70,7 @@ module MTSWorker
     include MTSUtils::All
 
     def create_mts_job
-      request_id, snapshot_job = submit_snapshot_job(self.video_detail.bucket, self.video_detail.uri, self.time.to_i, self.uri,
+      request_id, snapshot_job = submit_snapshot_job(self.video_detail.bucket, self.video_detail.uri, (self.time*1000).to_i, self.uri,
                                                      :output_bucket => Settings.aliyun.oss.public_bucket)
       if snapshot_job.state == MTSUtils::Status::SUCCESS || snapshot_job.state == MTSUtils::Status::SNAPSHOTING
         SnapshotJob.create!(:job_id => snapshot_job.job_id, :target => self)
@@ -204,7 +208,8 @@ module MTSWorker
     end
 
     def logger
-      Rails.logger
+      # Rails.logger
+      Delayed::Worker.logger
     end
   end
 end
