@@ -1,5 +1,16 @@
 'use strict'
 
+function element_lists() {
+    var container = [];
+    $('#video-clip-merge').children().each(function(){
+	var p = $(this);
+	var start  = p.attr('data-start');
+	var end  = p.attr('data-end');
+	container.push({start: start, end: end});
+    })
+	return container;
+}
+
 var main = function() {
     var currentPanel = document.location.hash,
 	options = {
