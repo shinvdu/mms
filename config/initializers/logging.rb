@@ -14,3 +14,6 @@ module Log4r
 
 end
 
+Delayed::Worker.logger = Log4r::Logger['delayed_job']
+
+Delayed::Job.logger = Log4r::Logger['delayed_job_query']

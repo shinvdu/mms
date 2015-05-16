@@ -15,6 +15,14 @@ log4r_config:
       outputters :
       - rollingfile
       - std
+    - name      : delayed_job
+      trace     : 'true'
+      outputters :
+      - djlog
+    - name      : delayed_job_query
+      trace     : 'true'
+      outputters :
+      - djquerylog
 
   # define all outputters (incl. formatters)
   outputters:
@@ -32,6 +40,24 @@ log4r_config:
     level: INFO
     formatter:
       type: PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: RollingFileOutputter
+    name: djlog
+    level: DEBUG
+    filename: "log/dj.log"
+    maxsize: 20,000,000
+    formatter:
+      type        : PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: RollingFileOutputter
+    name: djquerylog
+    level: DEBUG
+    filename: "log/dj_query.log"
+    maxsize: 20,000,000
+    formatter:
+      type        : PatternFormatter
       date_pattern: '%Y-%m-%d %H:%M:%S'
       pattern     : "%d [%5l] [%T]: %M"
 
