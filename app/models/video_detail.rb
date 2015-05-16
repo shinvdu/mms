@@ -108,6 +108,20 @@ class VideoDetail < ActiveRecord::Base
     sub_video
   end
 
+  def create_mp4_video(input_path = nil)
+    input_path ||= self.get_full_path
+    output_path = self.get_full_path.split('.')[0..-2].append('mp4').join('.')
+    if self.user_video.ext_name == '.mp4' && input_path == output_path
+      return self
+    end
+    `ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}`
+    mp4_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
+    mp4_video.uri = self.uri.split('.')[0..-2].append('mp4').join('.')
+    mp4_video.status = VideoDetail::STATUS::ONLY_LOCAL
+    mp4_video.fetch_video_info
+    mp4_video
+  end
+
   def create_mkv_video(input_path = nil)
     input_path ||= self.get_full_path
     output_path = self.get_full_path.split('.')[0..-2].append('mkv').join('.')
@@ -123,7 +137,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def copy_attributes
-    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5', 'status')
+    self.attributes.except('id', 'public_video', 'private_video', 'created_at', 'md5', 'status', 'public')
   end
 
   def slice_video(input, output, start_time, stop_time)
@@ -131,12 +145,27 @@ class VideoDetail < ActiveRecord::Base
     `ffmpeg -i #{input} -ss #{start_time} -to #{stop_time} -vcodec copy -acodec copy -y #{output}`
   end
 
-  def load_local_file!
-    File.open(self.get_full_path) do |file|
+  def load_local_file!(path = nil)
+    path ||= self.get_full_path
+    File.open(path) do |file|
       self.video = file
       self.status = VideoDetail::STATUS::BOTH
       self.save!
     end
+  end
+
+  def load_local_file_to_public!
+    new_video = VideoDetail.create.set_attributes_by_hash(self.copy_attributes)
+    new_video.public = true
+    new_video.md5 = self.md5
+    new_video.create_uri_by_id_and_uuid
+    new_video.status = VideoDetail::STATUS::ONLY_REMOTE
+    new_video.load_local_file! self.get_full_path
+    new_video
+  end
+
+  def create_uri_by_id_and_uuid
+    self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}.#{self.id}#{user_video.ext_name}")
   end
 
   def remove_local_file
@@ -187,16 +216,17 @@ class VideoDetail < ActiveRecord::Base
     output_path = new_video.get_full_path
 
     file_paths = []
+    uuid = UUIDTools::UUID.random_create.to_s
     video_fragments.each_with_index do |frag, idx|
-      tmp_path = new_video.uri.split('.').insert(-2, idx).join('.')
-      file_paths.append tmp_path
+      tmp_path = "tmp/#{uuid}/#{idx}.mkv"
       cp = frag.video_cut_point
       time_str = "#{cp.start_time.to_time}-#{cp.stop_time.to_time}"
       `mkvmerge -o #{tmp_path} --split parts:#{time_str} #{input_path}`
+      file_paths.append tmp_path if File.exist? tmp_path
     end
     `mkvmerge  -o #{output_path} #{file_paths.join(' +')}`
 
-    file_paths.each_with_index { |path| FileUtils.rm path }
+    FileUtils.rmtree File.dirname(file_paths[0]) if file_paths.present?
     new_video.status = VideoDetail::STATUS::ONLY_LOCAL
     new_video.save!
     new_video

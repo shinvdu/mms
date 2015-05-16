@@ -58,7 +58,7 @@ class UserVideosController < ApplicationController
         @user_video.delay.publish_by_strategy(publish_strategy,
                                              TranscodingStrategy.find(default_transcoding_strategy))
       when UserVideo::PUBLISH_STRATEGY::PACKAGE
-        user_video.delay.publish_by_strategy(publish_strategy, nil)
+        @user_video.delay.publish_by_strategy(publish_strategy, nil)
     end
 
     respond_to do |format|
