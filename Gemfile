@@ -67,10 +67,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   # 文件改变自动执行测试
   gem 'guard-rspec', require: false
-end
-
-group  :test do
   # 模拟用户的行为进行测试
   gem 'capybara'
+  gem 'database_cleaner'
 end
-
