@@ -73,19 +73,19 @@ group :development, :test do
   # 文件改变自动执行测试
   gem 'guard-rspec', require: false
 
-  gem 'guard-spork'
-  gem 'spork'
+#  gem 'guard-spork'
+#  gem 'spork'
   # 模拟用户的行为进行测试
   gem 'capybara'
-  
+
   case HOST_OS
   when /darwin/i
-    gem 'rb-fsevent', :group => [:development,:test]
-    gem 'growl', :group => [:development,:test]
-    gem 'guard-pow', :group => [:development,:test]
+    gem 'rb-fsevent'
+    gem 'growl'
+    gem 'guard-pow'
   when /linux/i
-    gem 'libnotify', :group => [:development,:test]
-    gem 'rb-inotify', :group => :development [:development,:test]
+    gem 'libnotify'
+    gem 'rb-inotify'
 end
 
 end
