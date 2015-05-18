@@ -121,8 +121,8 @@ defaults: &defaults
 production:
   <<: *defaults
   default_url_options:
-    host:  localhost
-    port:  3000
+    host:  wgcloud.com
+    port:  80
   email:
     address:  smtp.exmail.qq.com
     port:  465
@@ -153,13 +153,11 @@ production:
 development:
   <<: *defaults
   email:
-    address:  smtp.exmail.qq.com
-    port:  465
-    domain:  qq.com
-    user:  silas@kanda.cn.com
-    password:  "xxx"
-    authentication:  plain
-    ssl:  true
+    address:  smtp.163.com
+    port:  25
+    domain:  163.com
+    user:  18217401108@163.com
+    password:  "xie&my_163163"
   default_url_options:
     host:  localhost
     port:  3000
