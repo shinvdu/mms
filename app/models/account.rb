@@ -14,6 +14,13 @@ class Account < ActiveRecord::Base
   		where(conditions.to_h).first
   	end
   end
+
+  def active_for_authentication?
+    #remember to call the super
+    #then put our own check to determine "active" state using 
+    #our own "is_active" column
+    super and self.is_active?
+  end
 end
 
 #------------------------------------------------------------------------------
@@ -37,6 +44,7 @@ end
 # confirmed_at           datetime             true            false  
 # confirmation_sent_at   datetime             true            false  
 # failed_attempts        int(11)              false   0       false  
+# unlock_token   varchar(255)         true            false  
 # locked_at              datetime             true            false  
 # user_id                int(11)              true            false  
 # created_at             datetime             true            false  
