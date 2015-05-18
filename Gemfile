@@ -78,7 +78,7 @@ group :development, :test do
 
   # gem 'guard-spork'
   # gem 'spork'
-  
+
   case HOST_OS
   when /darwin/i
     gem 'rb-fsevent'
