@@ -86,7 +86,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
       :address => Settings.email.address,
       :port => Settings.email.port,
-      :domain => Settings.email.port,
+      :domain => Settings.email.domain,
       :user_name => Settings.email.user,
       :password => Settings.email.password,
       authentication: 'plain',
