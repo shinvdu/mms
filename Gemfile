@@ -1,3 +1,6 @@
+require 'rbconfig'
+HOST_OS = RbConfig::CONFIG['host_os']
+
 source 'https://ruby.taobao.org'
 
 
@@ -49,6 +52,7 @@ gem 'log4r'
 
 gem 'unicorn'
 
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -59,8 +63,9 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
   gem 'annotate_models'
+
+
   # 测试用的
   gem "rspec-rails"
   # 方便生成测试数据
@@ -70,4 +75,18 @@ group :development, :test do
   # 模拟用户的行为进行测试
   gem 'capybara'
   gem 'database_cleaner'
+
+  # gem 'guard-spork'
+  # gem 'spork'
+  
+  case HOST_OS
+  when /darwin/i
+    gem 'rb-fsevent'
+    gem 'growl'
+    gem 'guard-pow'
+  when /linux/i
+    gem 'libnotify'
+    gem 'rb-inotify'
+end
+
 end
