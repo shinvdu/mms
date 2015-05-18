@@ -2,7 +2,7 @@ defaults: &defaults
   default_admin:
     id: 1
     username: admin
-    email: admin@15class.com
+    email: admin@wgcloud.com
     password: 123123123
   mms:
     name:  未谷云视频
@@ -121,27 +121,41 @@ defaults: &defaults
 production:
   <<: *defaults
   default_url_options:
-    host:  localhost
-    port:  3000
+    host:  wgcloud.com
+    port:  80
   email:
-    address:  smtp.exmail.qq.com
+    address:  smtp.wgcloud.com
     port:  465
-    domain:  qq.com
-    user:  silas@kanda.cn.com
-    password:  "xxx"
-    authentication:  plain
-    ssl:  true
+    domain:  wgcloud.com
+    user:  info@wgcloud.com
+    password:  "info_wgcloud"
+  default_url_options:
+    host:  www.wgcloud.com
+    port:  3000
+  neat_setting: 800
+  aliyun:
+    access_id: 1cnDtYk8fMS0lyoM
+    access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
+    oss:
+      <<: *defaults-aliyun-oss
+      private_bucket: wgc-private
+      public_bucket: wgc-public
+    mts:
+      <<: *defaults-aliyun-mts
+      mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
+      pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
+      pipeline_id: ff91fad66cff4bb894511d98575c2078
+
 
 development:
   <<: *defaults
   email:
-    address:  smtp.exmail.qq.com
-    port:  465
-    domain:  qq.com
-    user:  silas@kanda.cn.com
-    password:  "xxx"
-    authentication:  plain
-    ssl:  true
+    address:  smtp.163.com
+    port:  25
+    domain:  wgcloud.com
+    user:  18217401108@163.com
+    password:  "xie&my_163163"
   default_url_options:
     host:  localhost
     port:  3000
@@ -162,14 +176,26 @@ development:
 
 test:
   <<: *defaults
-  default_url_options: 
+  email:
+    address:  smtp.163.com
+    port:  25
+    domain:  wgcloud.com
+    user:  18217401108@163.com
+    password:  "xie&my_163163"
+  default_url_options:
     host:  localhost
     port:  3000
-  email: 
-    address:  smtp.exmail.qq.com
-    port:  465
-    domain:  qq.com
-    user:  silas@kanda.cn.com
-    password:  "xxxx"
-    authentication:  plain
-    ssl:  true
+  neat_setting: 800
+  aliyun:
+    access_id: 1cnDtYk8fMS0lyoM
+    access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
+    oss:
+      <<: *defaults-aliyun-oss
+      private_bucket: wgc-private
+      public_bucket: wgc-public
+    mts:
+      <<: *defaults-aliyun-mts
+      mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
+      pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
+      pipeline_id: ff91fad66cff4bb894511d98575c2078
