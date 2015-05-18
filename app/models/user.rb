@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   alias_attribute :id, :uid
   alias_attribute :avatar, :avar
   alias_attribute :phone, :mobile
-  alias_attribute :verified_at, :mobile_verify
+  alias_attribute :verified_at, :mobile_verify_at
 
   def admin?
     # TODO 第一个用户为超级用户
