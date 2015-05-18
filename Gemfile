@@ -49,6 +49,8 @@ gem 'daemons'
 gem 'kaminari'
 gem 'streamio-ffmpeg'
 gem 'log4r'
+# 发送短信
+gem 'smart_sms'
 
 gem 'unicorn'
 
