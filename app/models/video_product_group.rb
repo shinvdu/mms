@@ -30,7 +30,7 @@ class VideoProductGroup < ActiveRecord::Base
   end
 
   def create_fragments(cut_points)
-    cut_points.each do |cp, idx|
+    cut_points.each_with_index do |cp, idx|
       VideoFragment.create(:video_product_group => self,
                            :video_cut_point => cp,
                            :order => idx)
@@ -113,43 +113,45 @@ class VideoProductGroup < ActiveRecord::Base
     Delayed::Worker.logger
   end
 
-  def check_dependent(user_video)
-    dependent_video = user_video.mkv_video
-
-    if dependent_video.nil? || dependent_video.NONE?
-      user_video.delay.create_mkv
-      logger.warn "Cannot find mkv video for user video. id: #{user_video.id}"
-      logger.warn 'Create mkv video from user video.'
-      self.status = STATUS::WAIT_FOR_DEPENDENCY
-      self.save!
-      self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
-      return false
+  def check_dependent
+    self.video_cut_points.each do |cp|
+      dependent_video = cp.user_video.mkv_video
+      if dependent_video.nil? || dependent_video.NONE?
+        # user_video.delay.create_mkv
+        logger.warn "Cannot find mkv video for user video. [id: #{cp.user_video.id}]"
+        # logger.warn 'Create mkv video from user video.'
+        self.status = STATUS::WAIT_FOR_DEPENDENCY
+        self.save!
+        self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
+        return false
+      end
+      logger.debug "[dependent video id: #{dependent_video.id}]"
+      if dependent_video.PROCESSING?
+        logger.info 'Wait for next loop because dependent video is in processing'
+        self.status = STATUS::WAIT_FOR_DEPENDENCY
+        self.save!
+        self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
+        return false
+      end
     end
-
-    logger.debug "[dependent video id: #{dependent_video.id}]"
-    if dependent_video.PROCESSING?
-      logger.info 'Wait for next loop because dependent video is in processing'
-      self.status = STATUS::WAIT_FOR_DEPENDENCY
-      self.save!
-      self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
-      return false
-    end
-
-    unless dependent_video.LOCAL?
-      logger.info 'Dependent video is only in remote server(OSS), download before cut'
-      self.status = STATUS::DOWNLOADING
-      self.save!
-      dependent_video.download!
+    self.video_cut_points.each do |cp|
+      dependent_video = cp.user_video.mkv_video
+      unless dependent_video.LOCAL?
+        logger.info 'Dependent video is only in remote server(OSS), download before cut'
+        self.status = STATUS::DOWNLOADING
+        self.save!
+        dependent_video.download!
+      end
+      dependent_video.load_local_file_if_necessary!
     end
     true
   end
 
   def create_products_from_mkv
     logger.info 'Start process video product group'
-    return unless check_dependent(self.user_video)
+    return unless check_dependent
 
-    dependent_video = self.user_video.mkv_video
-    create_products_by_transcoding_strategy(dependent_video)
+    create_products_by_transcoding_strategy
   end
 
   def create_package_product
@@ -167,12 +169,12 @@ class VideoProductGroup < ActiveRecord::Base
     self.user_video.original_video.create_snapshot(self)
   end
 
-  def create_products_by_transcoding_strategy(dependent_video)
+  def create_products_by_transcoding_strategy
     logger.info 'Start to make video product fragment'
     self.status = STATUS::PROCESSING
     self.save!
-    self.temp_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
-    self.temp_video.fetch_video_info
+    # self.temp_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
+    self.temp_video = VideoDetail.create_mkv_video_by_fragments(self.video_fragments)
     self.temp_video.load_local_file! unless self.temp_video.REMOTE?
     self.temp_video.create_snapshot(self)
     self.temp_video.remove_local_file!

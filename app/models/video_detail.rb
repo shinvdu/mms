@@ -146,10 +146,21 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def load_local_file!(path = nil)
-    path ||= self.get_full_path
-    File.open(path) do |file|
+    local_path = path || self.get_full_path
+    logger.debug "load file: #{path}"
+    File.open(local_path) do |file|
       self.video = file
-      self.status = VideoDetail::STATUS::BOTH
+      self.status = local_path == path ? VideoDetail::STATUS::BOTH : STATUS::ONLY_REMOTE
+      self.save!
+    end
+  end
+
+  def load_local_file_if_necessary!(path = nil)
+    return if self.REMOTE?
+    local_path = path || self.get_full_path
+    File.open(local_path) do |file|
+      self.video = file
+      self.status = local_path == path ? VideoDetail::STATUS::BOTH : STATUS::ONLY_REMOTE
       self.save!
     end
   end
@@ -170,6 +181,7 @@ class VideoDetail < ActiveRecord::Base
 
   def remove_local_file
     FileUtils.rm self.get_full_path if File.exist? self.get_full_path
+    FileUtils.rmtree File.dirname(self.get_full_path) if (Dir.entries(File.dirname(self.get_full_path)) - %w{ . .. }).empty?
     if self.REMOTE?
       self.status = STATUS::ONLY_REMOTE
     else
@@ -186,7 +198,10 @@ class VideoDetail < ActiveRecord::Base
   require 'streamio-ffmpeg'
 
   def fetch_video_info
-    return if !File.exist? self.get_full_path
+    if !File.exist? self.get_full_path
+      logger.warn "fetch video info but not exist: #{self.get_full_path}"
+      return
+    end
     self.md5 = Digest::MD5.file(self.get_full_path).hexdigest
     movie = FFMPEG::Movie.new(self.get_full_path)
     if movie.valid?
@@ -207,27 +222,33 @@ class VideoDetail < ActiveRecord::Base
     end
   end
 
-  def create_mkv_video_by_fragments(video_fragments)
-    new_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
-    new_video.public = false
-    new_video.save!
-    new_video.uri = self.uri.split('.').insert(-2, new_video.id).join('.')
-    input_path = self.get_full_path
-    output_path = new_video.get_full_path
-
-    file_paths = []
+  def self.create_mkv_video_by_fragments(video_fragments)
     uuid = UUIDTools::UUID.random_create.to_s
+    new_video = VideoDetail.create(:public => false,
+                                   :uuid => uuid,
+                                   :uri => File.join(Settings.aliyun.oss.video_product_dir, uuid, "#{uuid}.mkv")
+    )
+    file_paths = []
+    logger.debug video_fragments.inspect
     video_fragments.each_with_index do |frag, idx|
       tmp_path = "tmp/#{uuid}/#{idx}.mkv"
-      cp = frag.video_cut_point
-      time_str = "#{cp.start_time.to_time}-#{cp.stop_time.to_time}"
-      `mkvmerge -o #{tmp_path} --split parts:#{time_str} #{input_path}`
-      file_paths.append tmp_path if File.exist? tmp_path
+      logger.info "create video fragment in #{tmp_path} [id: #{frag.id}]"
+      frag.slice_mkv_video(tmp_path)
+      if File.exist? tmp_path
+        logger.info 'create fragment succeed'
+        file_paths.append tmp_path
+      else
+        logger.warning 'create fragment fail'
+      end
     end
+    output_path = new_video.get_full_path
+    logger.info "merge video fragments to #{output_path}"
     `mkvmerge  -o #{output_path} #{file_paths.join(' +')}`
 
-    FileUtils.rmtree File.dirname(file_paths[0]) if file_paths.present?
+    FileUtils.rmtree File.dirname(file_paths.first) if file_paths.present?
+    # file_paths.each { |path| FileUtils.rm path }
     new_video.status = VideoDetail::STATUS::ONLY_LOCAL
+    new_video.fetch_video_info
     new_video.save!
     new_video
   end
@@ -252,12 +273,16 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def download!
-    self.status = VideoDetail::STATUS::PROCESSING
-    self.save!
     file_path = self.get_full_path
+    if File.exist? file_path
+      self.status = self.REMOTE? ? STATUS::BOTH : STATUS::ONLY_LOCAL
+      save! if changed?
+      return
+    end
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"
     FileUtils.cp cache_path, file_path
+    # TODO
     # must cp before save, save will remove cached file
     self.status = VideoDetail::STATUS::BOTH
     self.save!
@@ -301,7 +326,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def LOCAL?
-    self.status == STATUS::ONLY_LOCAL || self.status == STATUS::BOTH
+    File.exist? self.get_full_path
   end
 
   def PROCESSING?
