@@ -14,3 +14,23 @@ module Log4r
 
 end
 
+Delayed::Worker.class_eval do
+  def self.logger
+    Log4r::Logger['delayed_job']
+  end
+
+  def logger
+    Log4r::Logger['delayed_job']
+  end
+end
+
+Delayed::Job.class_eval do
+  def self.logger
+    Log4r::Logger['delayed_job_query']
+  end
+
+  def logger
+    Log4r::Logger['delayed_job_query']
+  end
+end
+

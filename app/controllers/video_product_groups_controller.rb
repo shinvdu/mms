@@ -10,22 +10,35 @@ class VideoProductGroupsController < ApplicationController
   end
 
   def create
-    user_video_id = product_data_params[:user_video_id].to_i
     compose_strategy = product_data_params[:compose_strategy]
     transcoding_strategy_id = product_data_params[:transcoding_strategy_id]
     name = product_data_params[:name].strip
     player_id = product_data_params[:player_id].to_i
 
-    user_video = UserVideo.find(user_video_id)
-    unless user_video.present? && user_video.GOT_LOW_RATE? && user_video.EDITABLE?
+    cut_points = JSON.parse(compose_strategy)
+    unless cut_points.present?
       respond_to do |format|
-        format.html { redirect_to user_videos_path }
-        format.json { render :json => 'fail' }
+        format.html do
+          notice_error '至少提交一段视频剪辑'
+          redirect_referrer_or_default
+        end
+        format.json { render :json => 'no transcoding strategy selected', :status => 400 }
       end
       return
     end
 
-    cut_points = JSON.parse(compose_strategy)
+    user_video_ids = cut_points.map { |cp| cp['user_video_id'] }
+    user_videos = UserVideo.where(:owner => current_user).find(user_video_ids)
+    user_videos.each do |uv|
+      unless uv.present? && uv.GOT_LOW_RATE? && uv.EDITABLE?
+        respond_to do |format|
+          format.html { redirect_to user_videos_path }
+          format.json { render :json => 'fail' }
+        end
+        return
+      end
+    end
+    user_video = user_videos.first if user_videos.one?
     video_cut_points = VideoCutPoint.create_by_user(cut_points)
 
     strategy = TranscodingStrategy.find(transcoding_strategy_id)
@@ -39,7 +52,7 @@ class VideoProductGroupsController < ApplicationController
     end
     video_product_group = VideoProductGroup.create(:name => name,
                                                    :user_video => user_video,
-                                                   :owner => user_video.owner,
+                                                   :owner => current_user,
                                                    :player => player,
                                                    :transcoding_strategy => strategy)
     video_product_group.create_fragments(video_cut_points)

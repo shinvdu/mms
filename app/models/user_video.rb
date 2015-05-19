@@ -94,6 +94,7 @@ class UserVideo < ActiveRecord::Base
     if video_detail.video_codec.downcase.index('h264') && video_detail.audio_codec.downcase.index('aac')
       logger.debug 'original video is h264/acc, package it locally'
       self.mkv_video = self.original_video.create_mkv_video
+      upload_and_remove_local_mkv
     else
       logger.debug 'original video is not h264/acc, call mts to transcode'
       transcode_job = create_transcoding_video_job(Transcoding.find_pre_middle_template)
@@ -131,6 +132,14 @@ class UserVideo < ActiveRecord::Base
     self.pre_mkv_video.status = VideoDetail::STATUS::NONE
     self.pre_mkv_video.save!
     self.save!
+    upload_and_remove_local_mkv
+  end
+
+  def upload_and_remove_local_mkv
+    transaction do
+      self.mkv_video.load_local_file!
+      self.mkv_video.remove_local_file!
+    end
   end
 
 end
