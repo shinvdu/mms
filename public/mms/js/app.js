@@ -11,7 +11,17 @@ function element_lists() {
 }
 
 var main = function() {
-    var currentPanel = document.location.hash,
+	// 维护前端的消息更新
+	(function poll() {
+		setTimeout(function() {
+			$.ajax({ url: "http://localhost:3000/user/messages.json", success: function(data) {
+				// sales.setValue(data.value);
+				console.log(data);
+			}, dataType: 'json', complete: poll });
+		}, 2000);
+	})();
+
+	var currentPanel = document.location.hash,
 	options = {
 	    hidden: false
 	},
@@ -96,22 +106,6 @@ var main = function() {
 	mplayer.rangeslider(options);
     }
 
-    // var cut_hash = {
-    // 	2: {
-    // 		'dom':  
-    // 		'time': [2, 4]
-    // 	}
-    // };
-    // var active = 2;
-    
-//	$('#video_select_list').sortable();
-	// var active = 2;
-/*
-	function in_selected(start_time, hash){
-		// $('#video_cut_list').append();
-	}
-*/
-    
     if(currentPanel !== '#' && currentPanel !== '') {
 	$('.nav-tab > .nav-square > li').removeClass('current');
 	$('.nav-tab > .nav-square > li').find('a[href="' + currentPanel + '"]').parent().addClass('current');
