@@ -188,6 +188,8 @@ test:
     host:  localhost
     port:  3000
   neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
