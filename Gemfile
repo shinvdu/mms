@@ -72,12 +72,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   # 文件改变自动执行测试
   gem 'guard-rspec', require: false
-  gem 'database_cleaner'
-
-#  gem 'guard-spork'
-#  gem 'spork'
   # 模拟用户的行为进行测试
   gem 'capybara'
+  gem 'database_cleaner'
+
+  # gem 'guard-spork'
+  # gem 'spork'
 
   case HOST_OS
   when /darwin/i

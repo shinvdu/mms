@@ -1,7 +1,7 @@
 class VideoProductGroup < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :user_video
-  belongs_to :mkv_video, :class_name => 'VideoDetail'
+  belongs_to :temp_video, :class_name => 'VideoDetail'
   belongs_to :player
   has_many :video_products
   has_many :video_fragments, -> { order('video_fragments.order') }
@@ -91,7 +91,7 @@ class VideoProductGroup < ActiveRecord::Base
 
   def duration_str
     return '未知' unless self.FINISHED?
-    return self.mkv_video.duration.to_time if self.mkv_video && self.mkv_video.duration
+    return self.temp_video.duration.to_time if self.temp_video && self.temp_video.duration
     return self.user_video.original_video.duration.to_time if self.user_video
   end
 
@@ -149,12 +149,12 @@ class VideoProductGroup < ActiveRecord::Base
     return unless check_dependent(self.user_video)
 
     dependent_video = self.user_video.mkv_video
+    create_products_by_transcoding_strategy(dependent_video)
+  end
 
-    if self.transcoding_strategy.present?
-      create_products_by_transcoding_strategy(dependent_video)
-    else
-      create_products_for_directly_publish(dependent_video)
-    end
+  def create_package_product
+    logger.info 'Start process video product group'
+    create_products_for_directly_publish(self.user_video.original_video)
   end
 
   def create_products_from_origin
@@ -171,15 +171,15 @@ class VideoProductGroup < ActiveRecord::Base
     logger.info 'Start to make video product fragment'
     self.status = STATUS::PROCESSING
     self.save!
-    self.mkv_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
-    self.mkv_video.fetch_video_info
-    self.mkv_video.load_local_file! unless self.mkv_video.REMOTE?
-    self.mkv_video.create_snapshot(self)
-    self.mkv_video.remove_local_file!
+    self.temp_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
+    self.temp_video.fetch_video_info
+    self.temp_video.load_local_file! unless self.temp_video.REMOTE?
+    self.temp_video.create_snapshot(self)
+    self.temp_video.remove_local_file!
 
     self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
-      product.transcode_video(self.mkv_video, transcoding)
+      product.transcode_video(self.temp_video, transcoding)
     end
     self.save!
   end
@@ -188,9 +188,9 @@ class VideoProductGroup < ActiveRecord::Base
     logger.info 'Start to make packaged video product'
     self.status = STATUS::PROCESSING
     self.save!
-    self.mkv_video = VideoDetail.create.copy_video_info_from! dependent_video
+    self.temp_video = VideoDetail.create.copy_video_info_from! dependent_video
     product = VideoProduct.create(:video_product_group => self)
-    product.copy_package_mkv!(self.user_video.mkv_video)
+    product.publish_mp4!(dependent_video)
     user_video.original_video.create_snapshot(self)
     self.status = STATUS::FINISHED
     self.save!
@@ -200,7 +200,7 @@ class VideoProductGroup < ActiveRecord::Base
     not_all_finished = self.video_products.any? { |products| !products.FINISHED? }
     unless not_all_finished
       self.status = VideoProductGroup::STATUS::FINISHED
-      self.mkv_video.remove_local_file!
+      self.temp_video.remove_local_file!
       self.save!
     end
   end

@@ -108,14 +108,9 @@ class UserVideo < ActiveRecord::Base
     case publish_strategy
       when PUBLISH_STRATEGY::PACKAGE
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
-        if self.mkv_video.nil? || !self.mkv_video.LOCAL?
-          logger.info "mkv video not created, wait for next loop. id: #{self.id}"
-          self.delay(run_at: 1.seconds.from_now).publish_by_strategy(publish_strategy, transcoding_strategy)
-          return
-        end
         self.transaction do
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
-          video_product_group.create_products_from_mkv
+          video_product_group.create_package_product
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
@@ -133,8 +128,8 @@ class UserVideo < ActiveRecord::Base
     self.mkv_video.fetch_video_info
     self.mkv_video.save!
     self.pre_mkv_video.remove_local_file
-    self.pre_mkv_video.destroy
-    self.pre_mkv_video = nil
+    self.pre_mkv_video.status = VideoDetail::STATUS::NONE
+    self.pre_mkv_video.save!
     self.save!
   end
 

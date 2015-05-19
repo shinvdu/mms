@@ -2,7 +2,7 @@ defaults: &defaults
   default_admin:
     id: 1
     username: admin
-    email: admin@15class.com
+    email: admin@wgcloud.com
     password: 123123123
   mms:
     name:  未谷云视频
@@ -121,16 +121,14 @@ defaults: &defaults
 production:
   <<: *defaults
   default_url_options:
-    host:  localhost
-    port:  3000
+    host:  wgcloud.com
+    port:  80
   email:
-    address:  smtp.exmail.qq.com
+    address:  smtp.wgcloud.com
     port:  465
-    domain:  qq.com
-    user:  silas@kanda.cn.com
-    password:  "xxx"
-    authentication:  plain
-    ssl:  true
+    domain:  wgcloud.com
+    user:  info@wgcloud.com
+    password:  "info_wgcloud"
   default_url_options:
     host:  www.wgcloud.com
     port:  3000
@@ -153,13 +151,11 @@ production:
 development:
   <<: *defaults
   email:
-    address:  smtp.exmail.qq.com
-    port:  465
-    domain:  qq.com
-    user:  silas@kanda.cn.com
-    password:  "xxx"
-    authentication:  plain
-    ssl:  true
+    address:  smtp.163.com
+    port:  25
+    domain:  wgcloud.com
+    user:  18217401108@163.com
+    password:  "xie&my_163163"
   default_url_options:
     host:  localhost
     port:  3000
@@ -180,17 +176,12 @@ development:
 
 test:
   <<: *defaults
-  default_url_options:
-    host:  localhost
-    port:  3000
   email:
-    address:  smtp.exmail.qq.com
-    port:  465
-    domain:  qq.com
-    user:  silas@kanda.cn.com
-    password:  "xxx"
-    authentication:  plain
-    ssl:  true
+    address:  smtp.163.com
+    port:  25
+    domain:  wgcloud.com
+    user:  18217401108@163.com
+    password:  "xie&my_163163"
   default_url_options:
     host:  localhost
     port:  3000
