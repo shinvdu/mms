@@ -19,15 +19,9 @@ Rails.application.routes.draw do
   resources :logos
 
   get 'home/index'
-  devise_for :accounts, controllers: { registrations: "user/registrations" }
   root 'home#index'
-  # match ':controller/:action', :via => :all
-  resources :user,  :as => :users do
-    collection do
-        get 'short'
-        post 'toggle'
-    end
-  end
+  devise_for :accounts, controllers: { registrations: "user/registrations" }
+  resources :user,  :as => :users
 
   resources :video_products do
     member do

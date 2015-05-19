@@ -242,8 +242,10 @@ end
 # updated_at              datetime             false           false  
 # transcoding_strategy_id int(11)              true            false  
 # name                    varchar(255)         true            false  
-# mkv_video_id            int(11)              true            false  
+# temp_video_id           int(11)              true            false  
 # check_status            int(11)              true    10      false  
 # checker_id              int(11)              true            false  
+# uuid                    varchar(255)         true            false  
+# player_id               int(11)              true            false  
 #
 #------------------------------------------------------------------------------

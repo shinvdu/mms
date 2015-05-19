@@ -102,6 +102,7 @@ class VideoDetail < ActiveRecord::Base
     sub_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     sub_video.uri = self.uri.split('.').insert(-2, suffix).join('.')
     File.open(output_path) { |f| sub_video.video = f }
+    sub_video.fetch_video_info
     sub_video.status = VideoDetail::STATUS::BOTH
     sub_video.fragment = true
     sub_video.save!
