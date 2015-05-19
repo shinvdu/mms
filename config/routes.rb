@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notifications
   namespace :admin , :as => :admin do
     get 'users' => 'user#users', :as => :users
     get 'index' => 'user#users'
