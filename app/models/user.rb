@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :transcoding_strategy_relationship
   has_many :tag
   has_many :tags_relationship
+  has_many :notification
   has_many :user_videos, :foreign_key => :owner_id
   mount_uploader :avar, AvatarUploader
   # 短信验证

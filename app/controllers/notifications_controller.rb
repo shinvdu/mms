@@ -1,10 +1,11 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_account! #, except: [:show]
   before_action :set_notification, only: [:show, :edit, :update, :destroy]
 
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    @notifications = Notification.where(user_id: current_user.uid).page(params[:page]).order(created_at: :desc)
   end
 
   # GET /notifications/1
