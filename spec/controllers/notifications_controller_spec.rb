@@ -63,10 +63,28 @@ RSpec.describe NotificationsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested notification as @notification" do
       notification = FactoryGirl.create(:notification)
-      notification.user = @account.user
+      user_video = FactoryGirl.create(:user_video)
+      user = @account.user
+      user_video.owner = user
+      user_video.save!
+      
+      notification.target_id = user_video.id
+      notification.user = user
+      notification.is_read = true
       notification.save!
+      expect(notification).to be_is_read
+
+      target_object = notification.get_target_object
+      expect(target_object).not_to be_nil
+
+      object_name = notification.target_type.underscore
+      path = send("#{object_name}_path",  target_object)
+
       get :show, {:id => notification.to_param} 
-      expect(assigns(:notification)).to eq(notification)
+
+      expect(response).to redirect_to(path)
+      # expect(assigns(:notification)).to eq(notification)
+      # expect(response).to redirect_to(notifications_url)
     end
   end
   
