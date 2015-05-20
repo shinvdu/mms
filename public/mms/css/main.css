@@ -21,7 +21,7 @@ body {
   padding-bottom: 200px; }
 
 .header {
-  background: url("../images/header-bg.jpg") no-repeat;
+  background: url('../images/header-bg.jpg') no-repeat;
   background-size: cover;
   margin-top: -75px;
   padding: 20px 0;
@@ -150,7 +150,7 @@ body {
     margin-top: 13px; }
 
 .footer {
-  background: url("../images/header-bg.jpg") no-repeat;
+  background: url('../images/header-bg.jpg') no-repeat;
   background-size: cover;
   padding: 30px 0;
   margin-bottom: -200px;
@@ -400,121 +400,157 @@ body {
     height: 100px; }
 
 .video-clip-list-container {
-  background-color: #7f8999;
+  background: url('../images/clip-list-bg.jpg') no-repeat;
+  background-size: cover;
+  color: #a7b3c4;
   width: 853px;
-  float: left;
-  margin-left: 15px;
-  position: relative;
-  padding: 5px 3px; }
-  .video-clip-list-container > a {
-    display: inline-block;
-    font-size: 30px;
-    margin-top: 22px; }
-    .video-clip-list-container > a:last-child {
-      position: absolute;
-      right: 0; }
+  height: 100px;
+  padding: 12px 3px; }
+  .video-clip-list-container > button.clip-prev, .video-clip-list-container > button.clip-next {
+    background: transparent;
+    border: none;
+    opacity: .5;
+    width: 30px;
+    height: 76px;
+    font-size: 30px; }
+  .video-clip-list-container > button.clip-prev {
+    float: left; }
+  .video-clip-list-container > button.clip-next {
+    float: right; }
+  .video-clip-list-container > button.video-clip-add {
+    background-color: #3f4754;
+    border: none;
+    border-radius: 4px;
+    width: 76px;
+    height: 76px;
+    line-height: 76px;
+    font-size: 70px; }
   .video-clip-list-container > div {
     display: inline-block;
     vertical-align: top; }
 
-.video-clip-pill {
-  background: url("../images/header-bg.jpg") no-repeat;
-  border-radius: 4px;
-  width: 75px;
-  height: 75px;
-  display: inline-block;
-  vertical-align: top;
-  position: relative; }
-  .video-clip-pill > a {
-    border-radius: 50%;
-    behavior: url(PIE.htc);
-    color: #fff;
-    display: inline-block;
-    font-size: 18px;
-    height: 20px;
-    line-height: 15px;
-    padding: 1px;
-    position: absolute;
-    text-align: center;
-    top: 3px;
-    width: 20px; }
-    .video-clip-pill > a:link, .video-clip-pill > a:hover, .video-clip-pill > a:visited, .video-clip-pill > a:active {
-      text-decoration: none; }
-    .video-clip-pill > a.add-clip {
-      background-color: #4fbf91;
-      left: 3px; }
-      .video-clip-pill > a.add-clip:hover {
-        background-color: #39a478;
-        color: #a7b3c4; }
-    .video-clip-pill > a.remove-clip {
-      background-color: #e64c3c;
-      right: 3px; }
-      .video-clip-pill > a.remove-clip:hover {
-        background-color: #bf392b;
-        color: #a7b3c4; }
-  .video-clip-pill + .video-clip-pill {
-    margin-left: 8px; }
-  .video-clip-pill + .video-clip-add {
-    margin-left: 8px; }
-  .video-clip-pill > div {
-    position: absolute;
-    right: 0;
-    bottom: 0; }
-    .video-clip-pill > div > .clip-time-start {
-      background-color: #4fbf91;
-      border-radius: 5px 0 0 5px;
-      color: #fff; }
-    .video-clip-pill > div > .clip-time-end {
-      background-color: #a7b3c4;
-      border-radius: 5px 0 0 5px;
-      color: #3f4754; }
-  .video-clip-pill.clip-active {
-    border: 1px solid #f7b520;
-    box-shadow: 0 0 9px rgba(0, 0, 0, 0.15); }
-    .video-clip-pill.clip-active:hover {
-      border: 1px solid #f39b00; }
-
-.video-clip-add {
-  background-color: #3f4754;
-  border-radius: 4px;
-  width: 75px;
-  height: 75px;
-  text-align: center; }
-  .video-clip-add a {
-    display: block;
-    width: 100%;
-    height: 100%;
-    line-height: 63px;
-    font-size: 75px;
-    color: #a7b3c4; }
-    .video-clip-add a:link, .video-clip-add a:hover, .video-clip-add a:visited, .video-clip-add a:active {
-      text-decoration: none; }
-
-.video-clip-merge {
-  background-color: #a7b3c4;
-  border-radius: 4px;
-  position: relative;
-  margin-left: 15px;
-  width: 853px;
-  height: 200px; }
-  .video-clip-merge .video-clip-list-container {
-    background: transparent;
-    margin-left: 0; }
-  .video-clip-merge .video-clip-action-bar {
-    position: relative;
-    top: 70px; }
-    .video-clip-merge .video-clip-action-bar > div:first-child {
+.video-clip-merge-container:before, .video-clip-merge-container:after {
+  content: '';
+  display: block;
+  height: 17px;
+  width: 853px; }
+.video-clip-merge-container:before {
+  background: url('../images/merge-header-bg.png') no-repeat;
+  background-size: cover; }
+.video-clip-merge-container:after {
+  background: url('../images/merge-footer-bg.png') no-repeat;
+  background-size: cover; }
+.video-clip-merge-container .video-clip-merge {
+  background-color: #7f8999;
+  min-height: 150px;
+  padding-left: 33px;
+  width: 853px; }
+  .video-clip-merge-container .video-clip-merge .video-clip-pill {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    float: left;
+    height: 76px;
+    margin: 0 10px 15px 0;
+    padding: 0;
+    width: 76px; }
+    .video-clip-merge-container .video-clip-merge .video-clip-pill.active {
+      border: 1px solid #f7b520; }
+    .video-clip-merge-container .video-clip-merge .video-clip-pill .clip-canvas-wraper {
+      background-color: cyan;
+      border-radius: 4px 4px 0 0;
+      width: 74px;
+      height: 48px;
+      position: relative; }
+      .video-clip-merge-container .video-clip-merge .video-clip-pill .clip-canvas-wraper > canvas {
+        border-radius: 4px 4px 0 0;
+        position: absolute;
+        z-index: 0; }
+      .video-clip-merge-container .video-clip-merge .video-clip-pill .clip-canvas-wraper > div {
+        height: 100%;
+        position: relative; }
+      .video-clip-merge-container .video-clip-merge .video-clip-pill .clip-canvas-wraper button {
+        border: none;
+        border-radius: 50%;
+        behavior: url(PIE.htc);
+        color: #fff;
+        height: 20px;
+        padding: 1px;
+        position: absolute;
+        width: 20px; }
+        .video-clip-merge-container .video-clip-merge .video-clip-pill .clip-canvas-wraper button.remove-clip {
+          background-color: #e64c3c;
+          right: 1px; }
+          .video-clip-merge-container .video-clip-merge .video-clip-pill .clip-canvas-wraper button.remove-clip:hover {
+            background-color: #bf392b;
+            color: #a7b3c4; }
+    .video-clip-merge-container .video-clip-merge .video-clip-pill .clip-info {
+      background-color: #8c9ddd;
+      border-radius: 0 0 4px 4px;
+      color: #fff;
+      font-size: 10px;
+      width: 74px;
+      height: 26px;
       text-align: center; }
-    .video-clip-merge .video-clip-action-bar > div:last-child {
-      display: inline-block;
-      width: 150px;
-      position: absolute;
-      right: 20px;
-      bottom: 5px;
-      text-align: right;
-      color: #7f8999; }
-      .video-clip-merge .video-clip-action-bar > div:last-child .progress {
-        height: 5px;
-        margin-bottom: 0; }
 
-/*# sourceMappingURL=main.css.map */
+.frame {
+  height: 76px;
+  max-width: 700px;
+  padding: 0; }
+  .frame .slidee {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    list-style: none; }
+    .frame .slidee li {
+      border: 1px solid transparent;
+      border-radius: 4px;
+      float: left;
+      height: 100%;
+      margin: 0 10px 0 0;
+      padding: 0;
+      width: 76px; }
+      .frame .slidee li.active {
+        border: 1px solid #f7b520; }
+      .frame .slidee li .clip-canvas-wraper {
+        background-color: cyan;
+        border-radius: 4px 4px 0 0;
+        width: 74px;
+        height: 48px;
+        position: relative; }
+        .frame .slidee li .clip-canvas-wraper > canvas {
+          border-radius: 4px 4px 0 0;
+          position: absolute;
+          z-index: 0; }
+        .frame .slidee li .clip-canvas-wraper > div {
+          height: 100%;
+          position: relative; }
+        .frame .slidee li .clip-canvas-wraper button {
+          border: none;
+          border-radius: 50%;
+          behavior: url(PIE.htc);
+          color: #fff;
+          height: 20px;
+          padding: 1px;
+          position: absolute;
+          width: 20px; }
+          .frame .slidee li .clip-canvas-wraper button.add-clip {
+            background-color: #4fbf91;
+            right: 1px; }
+            .frame .slidee li .clip-canvas-wraper button.add-clip:hover {
+              background-color: #39a478;
+              color: #a7b3c4; }
+          .frame .slidee li .clip-canvas-wraper button.remove-clip {
+            background-color: #e64c3c;
+            right: 1px;
+            top: 23px; }
+            .frame .slidee li .clip-canvas-wraper button.remove-clip:hover {
+              background-color: #bf392b;
+              color: #a7b3c4; }
+      .frame .slidee li .clip-info {
+        background-color: #8c9ddd;
+        border-radius: 0 0 4px 4px;
+        color: #fff;
+        font-size: 10px;
+        width: 74px;
+        height: 26px;
+        text-align: center; }
