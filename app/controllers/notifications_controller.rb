@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_account! #, except: [:show]
   before_action :set_notification, only: [:show, :destroy]
-  before_action  only: [:index, :show, :destroy] do 
+  before_action  only: [:show, :destroy] do 
     permission_access(:notification)
   end
 

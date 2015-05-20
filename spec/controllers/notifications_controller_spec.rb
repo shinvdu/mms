@@ -34,20 +34,27 @@ RSpec.describe NotificationsController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # NotificationsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  # let(:valid_session) { {} }
+
+  login_user
 
   describe "GET #index" do
     it "assigns all notifications as @notifications" do
-      notification = Notification.create! valid_attributes
-      get :index, {}, valid_session
+      notification = FactoryGirl.create(:notification)
+      notification.user = @account.user
+      notification.save!
+      get 'index'
+      expect(response).to be_success
       expect(assigns(:notifications)).to eq([notification])
     end
   end
 
   describe "GET #show" do
     it "assigns the requested notification as @notification" do
-      notification = Notification.create! valid_attributes
-      get :show, {:id => notification.to_param}, valid_session
+      notification = FactoryGirl.create(:notification)
+      notification.user = @account.user
+      notification.save!
+      get :show, {:id => notification.to_param} 
       expect(assigns(:notification)).to eq(notification)
     end
   end
