@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
     # TODO 第一个用户为超级用户
     self.id == 1
   end
+
+  def unread_messages
+    messages = Notification.where(user_id: self.uid).where(is_read: nil).order(created_at: :desc)
+  end
+
 end
 
 #------------------------------------------------------------------------------
