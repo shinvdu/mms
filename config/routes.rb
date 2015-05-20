@@ -25,8 +25,7 @@ Rails.application.routes.draw do
   # match ':controller/:action', :via => :all
   resources :user,  :as => :users do
     collection do
-        get 'messages'
-        post 'toggle'
+      get 'messages'
     end
   end
 

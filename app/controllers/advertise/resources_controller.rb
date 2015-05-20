@@ -10,7 +10,7 @@ class Advertise::ResourcesController < ApplicationController
   # GET /advertise/resources
   # GET /advertise/resources.json
   def index
-    @advertise_resources = Advertise::Resource.where(user_id: current_user.uid).page(params[:page])
+    @advertise_resources = current_user.advertise_resources.page(params[:page])
   end
 
   # GET /advertise/resources/1

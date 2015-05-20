@@ -19,26 +19,24 @@ class TranscodingsController < ApplicationController
 
   # GET /transcodings/new
   def new
-    @transcoding = Transcoding.new
-    @transcoding.container = 'mp4'
-    @transcoding.video_codec = 'H.264'
-    @transcoding.video_profile = 'high'
-    @transcoding.video_bitrate = 10000
-    @transcoding.video_crf = 26
-
-    @transcoding.video_fps = 25
-    @transcoding.video_gop = 250
-    @transcoding.video_preset = 'slow'
-    @transcoding.video_scanmode = 'progressive'
-    @transcoding.video_bufsize = 6000
-    @transcoding.video_maxrate = 10000
-    @transcoding.video_bitrate_bnd_max = 10000
-    @transcoding.video_bitrate_bnd_min = 1000
-    @transcoding.audio_codec = 'aac'
-    @transcoding.audio_samplerate = 44100
-    @transcoding.audio_bitrate = 128
-    @transcoding.audio_channels = 2
-
+    @transcoding = Transcoding.new(:container => 'mp4',
+                                   :video_codec => 'H.264',
+                                   :video_profile => 'high',
+                                   :video_bitrate => 10000,
+                                   :video_crf => 26,
+                                   :video_fps => 25,
+                                   :video_gop => 250,
+                                   :video_preset => 'slow',
+                                   :video_scanmode => 'progressive',
+                                   :video_bufsize => 6000,
+                                   :video_maxrate => 10000,
+                                   :video_bitrate_bnd_max => 10000,
+                                   :video_bitrate_bnd_min => 1000,
+                                   :audio_codec => 'aac',
+                                   :audio_samplerate => 44100,
+                                   :audio_bitrate => 128,
+                                   :audio_channels => 2
+    )
   end
 
   # GET /transcodings/1/edit
@@ -85,8 +83,8 @@ class TranscodingsController < ApplicationController
   # DELETE /transcodings/1
   # DELETE /transcodings/1.json
   def destroy
-    belong_strategy = TranscodingStrategyRelationship.joins(:transcoding_strategy, :user)
-                          .where(['transcoding_id = ? and users.uid = ?', @transcoding, current_user]).present?
+    belong_strategy = current_user.transcoding_strategies.joins(:transcoding_strategy_relationships)
+                          .where(:transcoding_strategy_relationships => {:transcoding_id => @transcoding}).present?
     belong_video = VideoDetail.where(:transcoding => @transcoding).present?
     if !belong_strategy
       if belong_video || belong_video
