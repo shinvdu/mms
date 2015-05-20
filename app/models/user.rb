@@ -6,6 +6,16 @@ class User < ActiveRecord::Base
   has_many :advertise_resources, :class_name => 'Advertise::Resource'
   has_many :advertise_strategies, :class_name => 'Advertise::Strategy'
   has_many :transcoding_strategies
+  # has_one :logo
+  # has_many :player
+  # has_many :resource
+  # has_many :strategy
+  # has_many :transcoding
+  # has_many :transcoding_strategy
+  # has_many :transcoding_strategy_relationship
+  # has_many :tag
+  # has_many :tags_relationship
+  has_many :notification
   has_many :user_videos, :foreign_key => :owner_id
   mount_uploader :avar, AvatarUploader
   # 短信验证

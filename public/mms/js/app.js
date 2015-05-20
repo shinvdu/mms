@@ -11,16 +11,6 @@ function element_lists() {
 }
 
 var main = function() {
-	// 维护前端的消息更新
-	(function poll() {
-		setTimeout(function() {
-			$.ajax({ url: "http://localhost:3000/user/messages.json", success: function(data) {
-				// sales.setValue(data.value);
-				console.log(data);
-			}, dataType: 'json', complete: poll });
-		}, 2000);
-	})();
-
 	var currentPanel = document.location.hash,
 	options = {
 	    hidden: false
