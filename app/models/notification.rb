@@ -1,6 +1,10 @@
 class Notification < ActiveRecord::Base
 	belongs_to :user
 	validates_uniqueness_of :user_id, :title, :target_id, :target_type
+	def get_target_object
+		tclass = Object.const_get(self.target_type)
+		tclass.find_by_id(self.id)
+	end
 end
 
 
