@@ -12,6 +12,17 @@ class UserController < ApplicationController
     # @users = User.all
   end
 
+  def messages
+    respond_to do |format|
+      format.json { 
+        json_data = {
+          width: 300,
+          height: 304
+        }
+        render json: json_data
+      }
+    end
+  end
   # GET /user/1
   # GET /user/1.json
   def show
