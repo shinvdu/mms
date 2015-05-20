@@ -23,13 +23,13 @@ RSpec.describe NotificationsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Notification. As you add validations to Notification, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  # let(:valid_attributes) {
+  #   skip("Add a hash of attributes valid for your model")
+  # }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  # let(:invalid_attributes) {
+  #   skip("Add a hash of attributes invalid for your model")
+  # }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -49,6 +49,17 @@ RSpec.describe NotificationsController, type: :controller do
     end
   end
 
+  describe "GET #unread" do
+    it "assigns all unread notifications as @notifications" do
+      notification = FactoryGirl.create(:notification)
+      notification.user = @account.user
+      notification.save!
+      get 'index'
+      expect(response).to be_success
+      expect(assigns(:notifications)).to eq([notification])
+    end
+  end
+
   describe "GET #show" do
     it "assigns the requested notification as @notification" do
       notification = FactoryGirl.create(:notification)
@@ -58,6 +69,17 @@ RSpec.describe NotificationsController, type: :controller do
       expect(assigns(:notification)).to eq(notification)
     end
   end
+  
+  # describe "GET #show" do
+  #   it "assigns the requested notification as @notification" do
+  #     notification = FactoryGirl.create(:notification)
+  #     notification.user = @account.user
+  #     notification.save!
+  #     get :show, {:id => notification.to_param} 
+  #     expect(assigns(:notification)).to eq(notification)
+  #   end
+  # end
+
 
   # describe "GET #new" do
   #   it "assigns a new notification as @notification" do
@@ -150,17 +172,21 @@ RSpec.describe NotificationsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested notification" do
-      notification = Notification.create! valid_attributes
+     notification = FactoryGirl.create(:notification)
+     notification.user = @account.user
+     notification.save!     
       expect {
-        delete :destroy, {:id => notification.to_param}, valid_session
+        delete :destroy, {:id => notification.to_param} 
       }.to change(Notification, :count).by(-1)
     end
 
     it "redirects to the notifications list" do
-      notification = Notification.create! valid_attributes
-      delete :destroy, {:id => notification.to_param}, valid_session
-      expect(response).to redirect_to(notifications_url)
-    end
-  end
+     notification = FactoryGirl.create(:notification)
+     notification.user = @account.user
+     notification.save!     
+     delete :destroy, {:id => notification.to_param}
+     expect(response).to redirect_to(notifications_url)
+   end
+ end
 
 end
