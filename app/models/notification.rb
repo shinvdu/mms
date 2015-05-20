@@ -5,6 +5,15 @@ class Notification < ActiveRecord::Base
 		tclass = Object.const_get(self.target_type)
 		tclass.find_by_id(self.id)
 	end
+
+	def self.system_message(user_id, message, target_object)
+		n = Notification.new
+		n.user_id = user_id
+		n.title = message
+		n.target_id = target_object.id
+		n.target_object = target_object.class
+		n.save
+	end
 end
 
 
