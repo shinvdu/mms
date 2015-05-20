@@ -17,6 +17,17 @@ class ApplicationController < ActionController::Base
     params[model.to_sym][user_id.to_sym] = current_user.uid
   end
 
+  def permission_access(model)
+    current_model = instance_variable_get("@#{model.to_s}")
+    if @current_user.admin?
+      return
+    end
+    if @current_user.uid != current_model.user_id
+      redirect_to :root 
+      return
+    end
+  end
+
   # for seo
   def set_seo_meta(title = '', meta_keywords = '', meta_description = '')
     if title.length > 0

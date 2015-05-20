@@ -52,94 +52,94 @@ RSpec.describe NotificationsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new notification as @notification" do
-      get :new, {}, valid_session
-      expect(assigns(:notification)).to be_a_new(Notification)
-    end
-  end
+  # describe "GET #new" do
+  #   it "assigns a new notification as @notification" do
+  #     get :new, {}, valid_session
+  #     expect(assigns(:notification)).to be_a_new(Notification)
+  #   end
+  # end
 
-  describe "GET #edit" do
-    it "assigns the requested notification as @notification" do
-      notification = Notification.create! valid_attributes
-      get :edit, {:id => notification.to_param}, valid_session
-      expect(assigns(:notification)).to eq(notification)
-    end
-  end
+  # describe "GET #edit" do
+  #   it "assigns the requested notification as @notification" do
+  #     notification = Notification.create! valid_attributes
+  #     get :edit, {:id => notification.to_param}, valid_session
+  #     expect(assigns(:notification)).to eq(notification)
+  #   end
+  # end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Notification" do
-        expect {
-          post :create, {:notification => valid_attributes}, valid_session
-        }.to change(Notification, :count).by(1)
-      end
+  # describe "POST #create" do
+  #   context "with valid params" do
+  #     it "creates a new Notification" do
+  #       expect {
+  #         post :create, {:notification => valid_attributes}, valid_session
+  #       }.to change(Notification, :count).by(1)
+  #     end
 
-      it "assigns a newly created notification as @notification" do
-        post :create, {:notification => valid_attributes}, valid_session
-        expect(assigns(:notification)).to be_a(Notification)
-        expect(assigns(:notification)).to be_persisted
-      end
+  #     it "assigns a newly created notification as @notification" do
+  #       post :create, {:notification => valid_attributes}, valid_session
+  #       expect(assigns(:notification)).to be_a(Notification)
+  #       expect(assigns(:notification)).to be_persisted
+  #     end
 
-      it "redirects to the created notification" do
-        post :create, {:notification => valid_attributes}, valid_session
-        expect(response).to redirect_to(Notification.last)
-      end
-    end
+  #     it "redirects to the created notification" do
+  #       post :create, {:notification => valid_attributes}, valid_session
+  #       expect(response).to redirect_to(Notification.last)
+  #     end
+  #   end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved notification as @notification" do
-        post :create, {:notification => invalid_attributes}, valid_session
-        expect(assigns(:notification)).to be_a_new(Notification)
-      end
+  #   context "with invalid params" do
+  #     it "assigns a newly created but unsaved notification as @notification" do
+  #       post :create, {:notification => invalid_attributes}, valid_session
+  #       expect(assigns(:notification)).to be_a_new(Notification)
+  #     end
 
-      it "re-renders the 'new' template" do
-        post :create, {:notification => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
+  #     it "re-renders the 'new' template" do
+  #       post :create, {:notification => invalid_attributes}, valid_session
+  #       expect(response).to render_template("new")
+  #     end
+  #   end
+  # end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  # describe "PUT #update" do
+  #   context "with valid params" do
+  #     let(:new_attributes) {
+  #       skip("Add a hash of attributes valid for your model")
+  #     }
 
-      it "updates the requested notification" do
-        notification = Notification.create! valid_attributes
-        put :update, {:id => notification.to_param, :notification => new_attributes}, valid_session
-        notification.reload
-        skip("Add assertions for updated state")
-      end
+  #     it "updates the requested notification" do
+  #       notification = Notification.create! valid_attributes
+  #       put :update, {:id => notification.to_param, :notification => new_attributes}, valid_session
+  #       notification.reload
+  #       skip("Add assertions for updated state")
+  #     end
 
-      it "assigns the requested notification as @notification" do
-        notification = Notification.create! valid_attributes
-        put :update, {:id => notification.to_param, :notification => valid_attributes}, valid_session
-        expect(assigns(:notification)).to eq(notification)
-      end
+  #     it "assigns the requested notification as @notification" do
+  #       notification = Notification.create! valid_attributes
+  #       put :update, {:id => notification.to_param, :notification => valid_attributes}, valid_session
+  #       expect(assigns(:notification)).to eq(notification)
+  #     end
 
-      it "redirects to the notification" do
-        notification = Notification.create! valid_attributes
-        put :update, {:id => notification.to_param, :notification => valid_attributes}, valid_session
-        expect(response).to redirect_to(notification)
-      end
-    end
+  #     it "redirects to the notification" do
+  #       notification = Notification.create! valid_attributes
+  #       put :update, {:id => notification.to_param, :notification => valid_attributes}, valid_session
+  #       expect(response).to redirect_to(notification)
+  #     end
+  #   end
 
-    context "with invalid params" do
-      it "assigns the notification as @notification" do
-        notification = Notification.create! valid_attributes
-        put :update, {:id => notification.to_param, :notification => invalid_attributes}, valid_session
-        expect(assigns(:notification)).to eq(notification)
-      end
+  #   context "with invalid params" do
+  #     it "assigns the notification as @notification" do
+  #       notification = Notification.create! valid_attributes
+  #       put :update, {:id => notification.to_param, :notification => invalid_attributes}, valid_session
+  #       expect(assigns(:notification)).to eq(notification)
+  #     end
 
-      it "re-renders the 'edit' template" do
-        notification = Notification.create! valid_attributes
-        put :update, {:id => notification.to_param, :notification => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
+  #     it "re-renders the 'edit' template" do
+  #       notification = Notification.create! valid_attributes
+  #       put :update, {:id => notification.to_param, :notification => invalid_attributes}, valid_session
+  #       expect(response).to render_template("edit")
+  #     end
+  #   end
+  # end
 
   describe "DELETE #destroy" do
     it "destroys the requested notification" do
