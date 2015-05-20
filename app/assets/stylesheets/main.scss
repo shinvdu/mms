@@ -1,4 +1,3 @@
-
 $bg-color: #f7f7f7;
 $text-color-gray-1: #3f4754;
 $text-color-gray-2: #7f8999;
@@ -12,7 +11,6 @@ $color-yellow: #f7b520;
 $color-dark-yellow: #f39b00;
 $color-red: #e64c3c;
 $color-dark-red: #bf392b;
-
 
 *,
 *:before,
@@ -40,7 +38,7 @@ body {
 }
 
 .header {
-    background: image-url("footer-bg.jpg")  no-repeat;
+    background: image-url('header-bg.jpg') no-repeat;
     background-size: cover;
     margin-top: -75px;
     padding: 20px 0;
@@ -250,7 +248,7 @@ body {
 }
 
 .footer {
-    background: image-url("footer-bg.jpg")  no-repeat;
+    background: image-url('header-bg.jpg') no-repeat;
     background-size: cover;
     padding: 30px 0;
     margin-bottom: -200px;
@@ -642,147 +640,224 @@ body {
     }
 }
 
-.video-clip-list {
-    background-color: #eee;
+.video-clip-list-container {
+    background: image-url('clip-list-bg.jpg') no-repeat;
+    background-size: cover;
+    color: $text-color-gray-3;
     width: 853px;
-    float: left;
-    margin-left: 15px;
-    position: relative;
-    padding: 5px 3px;
+    height: 100px;
+    padding: 12px 3px;
 
-    >a {
-	display: inline-block;
-	font-size: 30px;
-	margin-top: 22px;
+    >button {
+	&.clip-prev,
+	&.clip-next {
+	    background: transparent;
+	    border: none;
+	    opacity: .5;
+	    width: 30px;
+	    height: 76px;
+	    font-size: 30px;
+	}
 
-	&:last-child {
-	    position: absolute;
-	    right: 0;
+	&.clip-prev {
+	    float: left;
+	}
+
+	&.clip-next {
+	    float: right;
+	}
+
+	&.video-clip-add {
+	    background-color: $text-color-gray-1;
+	    border: none;
+	    border-radius: 4px;
+	    width: 76px;
+	    height: 76px;
+	    line-height: 76px;
+	    font-size: 70px;
 	}
     }
-}
-#video_cut_list{
-	display: inline;
-}
 
-.video-clip-pill {
-    background: image-url("header-bg.jpg")  no-repeat;
-    border-radius: 4px;
-    width: 75px;
-    height: 75px;
-    margin: 4px;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-    span{
-    	color: white;
-    	font-size: 1.5em;
-    	font-weight: bolder;
-    	line-height: 16px;
-    	padding: 3px 6px;
-    	width: 20px;
-    	height:  25px;
-    	display: inline-block;
-    	border-radius: 1px;
-    	&.add{
-    		background-color: #5cb85c;
-    		float: left;
-    	}
-    	&.remove{
-    		background-color: #d9534f;
-    		float: right;
-    	}
-    }
-    &+& {
-	// margin-left: 8px;
-	margin: 4px;
-    }
-
-    &+.video-clip-add {
-	margin-left: 5px;
-    }
     >div {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-
-	>.clip-number {
-	    background-color: $color-green;
-	    border-radius: 5px 0 0 5px;
-	    color: #fff;
-	}
-
-	>.clip-time {
-	    background-color: $text-color-gray-3;
-	    border-radius: 5px 0 0 5px;
-	    color: $text-color-gray-1;
-	}
+	display: inline-block;
+	vertical-align: top;
     }
 }
-.cut_active{
-	border: 1px solid #5cb85c;
-}
 
-
-.video-clip-add {
-    background-color: $text-color-gray-1;
-    border-radius: 4px;
-    width: 75px;
-    height: 75px;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-
-    a {
+.video-clip-merge-container {
+    &:before,
+    &:after {
+	content: '';
 	display: block;
-	width: 100%;
-	height: 100%;
-	line-height: 63px;
-	font-size: 75px;
-	color: $text-color-gray-3;
+	height: 17px;
+	width: 853px;
+    }
+    
+    &:before {
+	background: image-url('merge-header-bg.png') no-repeat;
+	background-size: cover;
+    }
 
-	&:link,
-	&:hover,
-	&:visited,
-	&:active {
-	    text-decoration: none;
+    &:after {
+	background: image-url('merge-footer-bg.png') no-repeat;
+	background-size: cover;
+    }
+
+    .video-clip-merge {
+	background-color: $text-color-gray-2;
+	min-height: 150px;
+	padding-left: 33px;
+	width: 853px;
+
+	.video-clip-pill {
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	    float: left;
+	    height: 76px;
+	    margin: 0 10px 15px 0;
+	    padding: 0;
+	    width: 76px;
+
+	    &.active {
+		border: 1px solid $color-yellow;
+	    }
+	    
+	    .clip-canvas-wraper {
+		background-color: cyan;
+		border-radius: 4px 4px 0 0;
+		width: 74px;
+		height: 48px;
+		position: relative;
+
+		>canvas {
+		    border-radius: 4px 4px 0 0;
+		    position: absolute;
+		    z-index: 0;
+		}
+
+		>div {
+		    height: 100%;
+		    position: relative;
+		}
+
+		button {
+		    border: none;
+		    border-radius: 50%;
+		    behavior: url(PIE.htc);
+		    color: #fff;
+		    height: 20px;
+		    padding: 1px;
+		    position: absolute;
+		    width: 20px;
+
+		    &.remove-clip {
+			background-color: $color-red;	
+			right: 1px;
+			
+			&:hover {
+			    background-color: $color-dark-red;
+			    color: $text-color-gray-3;
+			}
+		    }
+		}
+	    }
+
+	    .clip-info {
+		background-color: $color-purple;
+		border-radius: 0 0 4px 4px;
+		color: #fff;
+		font-size: 10px;
+		width: 74px;
+		height: 26px;
+		text-align: center;
+	    }
 	}
     }
 }
 
-.video-clip-merge {
-    background-color: #eee;
-    border-radius: 4px;
-    position: relative;
-    margin-left: 15px;
-    width: 853px;
-    min-height: 200px;
+.frame {
+    height: 76px;
+    max-width: 700px;
+    padding: 0;
 
-    .video-clip-list {
-	background: transparent;
-	margin-left: 0;
-    }
+    .slidee {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	list-style: none;
 
-    .video-clip-action-bar {
-	position: relative;
-	top: 70px;
+	li {
+	    border: 1px solid transparent;
+	    border-radius: 4px;
+	    float: left;
+	    height: 100%;
+	    margin: 0 10px 0 0;
+	    padding: 0;
+	    width: 76px;
 
-	>div:first-child {
-	    text-align: center;
-	}
+	    &.active {
+		border: 1px solid $color-yellow;
+	    }
 
-	>div:last-child {
-	    display: inline-block;
-	    width: 150px;
-	    position: absolute;
-	    right: 20px;
-	    bottom: 5px;
-	    text-align: right;
-	    color: $text-color-gray-2;
+	    .clip-canvas-wraper {
+		background-color: cyan;
+		border-radius: 4px 4px 0 0;
+		width: 74px;
+		height: 48px;
+		position: relative;
 
-	    .progress {
-		height: 5px;
-		margin-bottom: 0;
+		>canvas {
+		    border-radius: 4px 4px 0 0;
+		    position: absolute;
+		    z-index: 0;
+		}
+
+		>div {
+		    height: 100%;
+		    position: relative;
+		}
+
+		button {
+		    border: none;
+		    border-radius: 50%;
+		    behavior: url(PIE.htc);
+		    color: #fff;
+		    height: 20px;
+		    padding: 1px;
+		    position: absolute;
+		    width: 20px;
+
+		    &.add-clip {
+			background-color: $color-green;
+			right: 1px;
+
+			&:hover {
+			    background-color: $color-dark-green;
+			    color: $text-color-gray-3;
+			}
+		    }
+
+		    &.remove-clip {
+			background-color: $color-red;
+			right: 1px;
+			top: 23px;
+			
+			&:hover {
+			    background-color: $color-dark-red;
+			    color: $text-color-gray-3;
+			}
+		    }
+		}
+	    }
+
+	    .clip-info {
+		background-color: $color-purple;
+		border-radius: 0 0 4px 4px;
+		color: #fff;
+		font-size: 10px;
+		width: 74px;
+		height: 26px;
+		text-align: center;
 	    }
 	}
     }
