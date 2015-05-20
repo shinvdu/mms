@@ -30,7 +30,15 @@ class User < ActiveRecord::Base
 
   def admin?
     # TODO 第一个用户为超级用户
-    self.id == 1
+    self.role == Settings.role.root
+  end
+
+  Settings.role.values.each do |role|
+    class_eval <<-METHOD, __FILE__, __LINE__ + 1
+        def #{role}?
+          self.role == '#{role}'
+        end
+    METHOD
   end
 
   def unread_messages

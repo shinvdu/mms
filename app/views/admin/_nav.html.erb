@@ -1,28 +1,36 @@
-      <nav class="nav-">
-	<ul class="nav-square clearfix">
-	  <li class="current">
-	    <a href="<%= admin_users_path  %>">
-	      <span class="square"></span>
-	      用户管理
-	    </a>
-	  </li>
-	  <li class="">
-	    <a href="#manage-permission">
-	      <span class="square"></span>
-	      权限管理
-	    </a>
-	  </li>
-	  <li class="">
-	    <a href="#manage-api">
-	      <span class="square"></span>
-	      API管理
-	    </a>
-	  </li>
-	  <li class="">
-	    <a href="#manage-log">
-	      <span class="square"></span>
-	      操作日志
-	    </a>
-	  </li>
-	</ul>
-      </nav>
+<nav class="nav-">
+  <ul class="nav-square clearfix">
+    <li class="current">
+      <a href="<%= admin_users_path %>">
+        <span class="square"></span>
+        用户管理
+      </a>
+    </li>
+    <li class="">
+      <a href="#manage-permission">
+        <span class="square"></span>
+        权限管理
+      </a>
+    </li>
+    <li class="">
+      <a href="#manage-api">
+        <span class="square"></span>
+        API管理
+      </a>
+    </li>
+    <li class="">
+      <a href="#manage-log">
+        <span class="square"></span>
+        操作日志
+      </a>
+    </li>
+    <% if can? :check, VideoProductGroup %>
+        <li class="">
+          <a href="<%= video_product_group_check_statuses_path %>">
+            <span class="square"></span>
+            视频审核
+          </a>
+        </li>
+    <% end %>
+  </ul>
+</nav>
