@@ -1,7 +1,11 @@
 <% javascript 'home.js' %>
 <% javascript '/player1/video.js' %>
 <% style '/player1/video.css' %>
+
 <h1>Welcome to <%= Settings.mms.name %></h1>
 
 <p>Find me in app/views/home/index.html.erb</p>
+<% if current_user %>
+ <a href="<%= edit_user_path(current_user) %>"> my account</a>
+<% end %>
 
