@@ -1,6 +1,16 @@
 class User < ActiveRecord::Base
   self.primary_key = "uid"
   has_one :account
+  # has_one :logo
+  # has_many :player
+  # has_many :resource
+  # has_many :strategy
+  # has_many :transcoding
+  # has_many :transcoding_strategy
+  # has_many :transcoding_strategy_relationship
+  # has_many :tag
+  # has_many :tags_relationship
+  has_many :notifications
   has_many :logos
   has_many :players
   has_many :advertise_resources, :class_name => 'Advertise::Resource'
@@ -22,6 +32,8 @@ class User < ActiveRecord::Base
   has_sms_verification
 
   alias_attribute :id, :uid
+  alias_attribute :phone, :mobile
+  alias_attribute :verified_at, :mobile_verify_at
   alias_attribute :avatar, :avar
   alias_attribute :phone, :mobile
   alias_attribute :verified_at, :mobile_verify_at
