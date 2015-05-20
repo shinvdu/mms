@@ -14,7 +14,7 @@ class NotificationsController < ApplicationController
   # GET /notifications/unread
   # GET /notifications/unread.json
   def unread
-    @notifications = Notification.where(user_id: current_user.uid).where(is_read: nil).page(params[:page]).order(created_at: :desc)
+    @notifications = Notification.where(user_id: current_user.uid).where(is_read: false).page(params[:page]).order(created_at: :desc)
   end
 
   # GET /notifications/1
