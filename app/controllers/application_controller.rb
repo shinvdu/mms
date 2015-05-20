@@ -37,6 +37,15 @@ class ApplicationController < ActionController::Base
     n.save
   end
 
+  def system_message(user_id, message, target_object)
+    n = Notification.new
+    n.user_id = user_id
+    n.title = message
+    n.target_id = target_object.id
+    n.target_object = target_object.class
+    n.save
+  end
+  
   # for seo
   def set_seo_meta(title = '', meta_keywords = '', meta_description = '')
     if title.length > 0
