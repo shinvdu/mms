@@ -12,13 +12,14 @@ class User < ActiveRecord::Base
   has_many :tags_relationship
   has_many :notification
   has_many :user_videos, :foreign_key => :owner_id
-  mount_uploader :avar, AvatarUploader
+  # mount_uploader :avar, AvatarUploader
   # 短信验证
   has_sms_verification
 
   alias_attribute :id, :uid
   alias_attribute :phone, :mobile
   alias_attribute :verified_at, :mobile_verify_at
+
 
   def admin?
     # TODO 第一个用户为超级用户
