@@ -3,7 +3,7 @@ class Notification < ActiveRecord::Base
 	validates_uniqueness_of :user_id, :title, :target_id, :target_type
 	def get_target_object
 		tclass = Object.const_get(self.target_type)
-		tclass.find_by_id(self.id)
+		tclass.find_by_id(self.target_id)
 	end
 
 	def self.system_message(user_id, message, target_object)

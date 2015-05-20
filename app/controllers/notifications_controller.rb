@@ -11,9 +11,20 @@ class NotificationsController < ApplicationController
     @notifications = Notification.where(user_id: current_user.uid).page(params[:page]).order(created_at: :desc)
   end
 
+  # GET /notifications/unread
+  # GET /notifications/unread.json
+  def unread
+    @notifications = Notification.where(user_id: current_user.uid).where(is_read: nil).page(params[:page]).order(created_at: :desc)
+  end
+
   # GET /notifications/1
   # GET /notifications/1.json
   def show
+    @notification.is_read = true
+    @notification.save!
+    target_object = @notification.get_target_object
+    object_name = @notification.target_type.underscore
+    redirect_to send("#{object_name}_path",  target_object)
   end
 
   # DELETE /notifications/1
