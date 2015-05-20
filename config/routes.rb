@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   resources :logos
 
   get 'home/index'
+  devise_for :accounts, controllers: { registrations: "user/registrations", sessions: 'user/sessions' }
   root 'home#index'
-  devise_for :accounts, controllers: { registrations: "user/registrations" }
   resources :user,  :as => :users
 
   resources :video_products do
