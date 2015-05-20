@@ -1,5 +1,4 @@
 class Notification < ActiveRecord::Base
-<<<<<<< HEAD
 	belongs_to :user
 	validates_uniqueness_of :user_id, :title, :target_id, :target_type
 	def get_target_object
@@ -21,6 +20,3 @@ end
 # | created_at  | datetime     | NO   |     | NULL    |                |
 # | updated_at  | datetime     | NO   |     | NULL    |                |
 # +-------------+--------------+------+-----+---------+----------------+
-=======
-end
->>>>>>> notification
