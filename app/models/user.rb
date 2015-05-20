@@ -32,8 +32,6 @@ class User < ActiveRecord::Base
   has_sms_verification
 
   alias_attribute :id, :uid
-  alias_attribute :phone, :mobile
-  alias_attribute :verified_at, :mobile_verify_at
   alias_attribute :avatar, :avar
   alias_attribute :phone, :mobile
   alias_attribute :verified_at, :mobile_verify_at
