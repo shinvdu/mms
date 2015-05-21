@@ -169,5 +169,6 @@ end
 # mkv_video_id                    int(11)              true            false  
 # format_status                   int(11)              true    0       false  
 # pre_mkv_video_id                int(11)              true            false  
+# description                     text                 true            false  
 #
 #------------------------------------------------------------------------------

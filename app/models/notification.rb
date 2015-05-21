@@ -29,3 +29,19 @@ end
 # | created_at  | datetime     | NO   |     | NULL    |                |
 # | updated_at  | datetime     | NO   |     | NULL    |                |
 # +-------------+--------------+------+-----+---------+----------------+
+
+#------------------------------------------------------------------------------
+# Notification
+#
+# Name        SQL Type             Null    Default Primary
+# ----------- -------------------- ------- ------- -------
+# id          int(11)              false           true   
+# user_id     int(11)              true            false  
+# is_read     tinyint(1)           true            false  
+# title       varchar(255)         true            false  
+# target_id   int(11)              true            false  
+# target_type varchar(255)         true            false  
+# created_at  datetime             false           false  
+# updated_at  datetime             false           false  
+#
+#------------------------------------------------------------------------------

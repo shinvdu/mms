@@ -54,7 +54,7 @@ end
 # ----------------- -------------------- ------- ------- -------
 # uid               int(11)              false           true   
 # nickname          varchar(255)         true            false  
-# role              int(11)              true            false  
+# role              varchar(255)         true            false  
 # sex               int(11)              true            false  
 # really_name       int(11)              true            false  
 # birthday          datetime             true            false  
@@ -65,6 +65,7 @@ end
 # token             varchar(255)         true            false  
 # scret_key         varchar(255)         true            false  
 # mobile            varchar(255)         true            false  
+# mobile_verify_at  datetime             true            false  
 # wechat            varchar(255)         true            false  
 # qq                varchar(255)         true            false  
 # weibo             varchar(255)         true            false  

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'user_videos/edit'
+
   resources :notifications
   namespace :admin , :as => :admin do
     get 'users' => 'user#users', :as => :users
