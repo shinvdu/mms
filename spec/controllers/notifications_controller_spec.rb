@@ -61,13 +61,13 @@ RSpec.describe NotificationsController, type: :controller do
   end
 
   describe "GET #show" do
-    it "assigns the requested notification as @notification" do
+    it "读取消息，并转到相应的页面" do
       notification = FactoryGirl.create(:notification)
       user_video = FactoryGirl.create(:user_video)
       user = @account.user
       user_video.owner = user
       user_video.save!
-      
+
       notification.target_id = user_video.id
       notification.user = user
       notification.is_read = true

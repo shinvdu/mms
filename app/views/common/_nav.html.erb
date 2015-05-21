@@ -1,42 +1,96 @@
 <% if current_user.present? %>
-    <nav class="navbar">
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group right-inner-addon">
-          <input type="search" class="form-control" placeholder="视频搜索">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-        </div>
-      </form>
-      <ul class="nav nav-pills" role="tablist">
-        <li class="<%= 'active' if top_menu_active :home %>" role="presentation">
-          <a href="/" role="tab">
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-            首页
-          </a>
-        </li>
-        <li role="presentation" class="<%= 'active' if top_menu_active :video %>">
-          <a href="<%= video_product_groups_path %>" role="tab">
-            <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
-            视频管理
-          </a>
-        </li>
-        <li role="presentation" class="<%= 'active' if top_menu_active :ad %>">
-          <a href="<%= advertise_strategies_path %>" role="tab">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-            广告管理
-          </a>
-        </li>
-        <li role="presentation" class="<%= 'active' if top_menu_active :player %>">
-          <a href="<%= players_path %>" role="tab">
-            <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
-            点播播放器
-          </a>
-        </li>
-        <li role="presentation" class="<%= 'active' if top_menu_active :admin %>">
-          <a href="<%= admin_path %>" role="tab">
-            <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
-            系统管理
-          </a>
-        </li>
-      </ul>
-    </nav>
+<nav class="navbar" id="navbar">
+ <form class="navbar-form navbar-right" role="search">
+  <div class="form-group right-inner-addon">
+    <input type="search" class="form-control" placeholder="视频搜索">
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+  </div>
+</form>
+<ul class="nav nav-pills" role="tablist">
+  <li role="presentation" class="<%= 'active' if top_menu_active :home %>">
+    <a href="/" role="tab">
+      <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+      首页
+    </a>
+  </li>
+  <li role="presentation"  class="<%= 'active' if top_menu_active :video %>">
+    <a href="<%= video_product_groups_path %>" role="tab">
+      <span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span>
+      视频管理
+    </a>
+    <ul>
+      <li>
+        <a href="<%= new_user_video_path %>"  data-no-turbolink='true' >上传视频</a>
+      </li>
+      <li>
+      <a href="<%= video_product_groups_path %>">视频列表</a>
+      </li>
+      <li>
+        <a href="<%= transcodings_path %>">转码模板</a>
+      </li>
+      <li>
+        <a href="<%= transcoding_strategies_path %>">转码方案</a>
+      </li>
+      <li>
+        <a href="<%= user_videos_path %>">原片管理</a>
+      </li>
+    </ul>
+  </li>
+  <li role="presentation"  class="<%= 'active' if top_menu_active :ad %>">
+    <a href="<%= advertise_strategies_path %>" role="tab">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+      广告管理
+    </a>
+    <ul>
+      <li>
+      <a href="<%=  advertise_strategies_path %>">广告方案</a>
+      </li>
+      <li>
+        <a href="<%= advertise_resources_path %>">广告资源</a>
+      </li>
+    </ul>
+  </li>
+  <li role="presentation"  class="<%= 'active' if top_menu_active :player %>">
+    <a href="<%= players_path %>" role="tab">
+      <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+      点播播放器
+    </a>
+    <ul>
+      <li>
+      <a href="<%= new_player_path  %>"  data-no-turbolink='true' >新增播放器</a>
+      </li>
+      <li>
+        <a class="navbar-link" href="<%= players_path  %>">播放器管理</a>
+      </li>
+      <li>
+        <a class="navbar-link" href="<%= logos_path  %>">LOGO</a>
+      </li>
+      <li>
+      <a href="<%= new_logo_path  %>"  data-no-turbolink='true' >上传LOGO</a>
+      </li>
+    </ul>
+  </li>
+  <li role="presentation" class="<%= 'active' if top_menu_active :admin %>">
+    <a href="<%= admin_path %>" role="tab">
+      <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span>
+      系统管理
+    </a>
+    <ul>
+      <li>
+        <a href="<%= admin_users_path  %>">用户管理</a>
+      </li>
+      <li>
+        <a class="navbar-link" href="#">权限管理</a>
+      </li>
+      <li>
+        <a class="navbar-link" href="#">API管理</a>
+      </li>
+      <li>
+        <a class="navbar-link" href="#">操作日志</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</nav>
 <% end %>
