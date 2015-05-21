@@ -21,7 +21,7 @@
     </div>
     <div class="field">
       <%= f.label :分类 %><br>
-      <%= f.select :video_list_id, @video_lists.to_select_options, {:selected => @video_list_id, :include_blank => '--未分类--'}, :class => 'form-control' %>
+      <%= f.collection_select :video_list_id, @video_lists, :id, :name, {:selected => @video_list_id, :include_blank => '--未分类--'}, :class => 'form-control' %>
     </div>
     <div class="actions">
       <%= f.submit %>

@@ -60,7 +60,7 @@ class UserVideosController < ApplicationController
 
   def update
     video_list_id = params[:user_video][:video_list_id].to_i if params[:user_video][:video_list_id].present?
-    @user_video.update_video_list(video_list_id)
+    @user_video.update_video_list!(video_list_id)
     respond_to do |format|
       if @user_video.update(user_video_params)
         format.html { render :show, notice: 'Video is successfully updated.' }
