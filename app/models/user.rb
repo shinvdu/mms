@@ -30,7 +30,15 @@ class User < ActiveRecord::Base
 
   def admin?
     # TODO 第一个用户为超级用户
-    self.id == 1
+    self.role == Settings.role.root
+  end
+
+  Settings.role.values.each do |role|
+    class_eval <<-METHOD, __FILE__, __LINE__ + 1
+        def #{role}?
+          self.role == '#{role}'
+        end
+    METHOD
   end
 
   def unread_messages
@@ -46,7 +54,7 @@ end
 # ----------------- -------------------- ------- ------- -------
 # uid               int(11)              false           true   
 # nickname          varchar(255)         true            false  
-# role              int(11)              true            false  
+# role              varchar(255)         true            false  
 # sex               int(11)              true            false  
 # really_name       int(11)              true            false  
 # birthday          datetime             true            false  
@@ -57,6 +65,7 @@ end
 # token             varchar(255)         true            false  
 # scret_key         varchar(255)         true            false  
 # mobile            varchar(255)         true            false  
+# mobile_verify_at  datetime             true            false  
 # wechat            varchar(255)         true            false  
 # qq                varchar(255)         true            false  
 # weibo             varchar(255)         true            false  

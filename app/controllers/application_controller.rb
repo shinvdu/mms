@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
   end
-  
+
   def set_user_id(model, user_id = 'user_id')
     params[model.to_sym][user_id.to_sym] = current_user.uid
   end
@@ -72,12 +72,12 @@ class ApplicationController < ActionController::Base
   end
 
   def only_admin
-      if @current_user.admin?
-        return
-      else
-        redirect_to :root 
-      end
+    if @current_user.admin?
+      return
+    else
+      redirect_to :root
     end
+  end
 
 
   protected
@@ -87,6 +87,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-     @current_user = current_account.user if current_account
+    @current_user = current_account.user if current_account
   end
 end

@@ -1,0 +1,13 @@
+<%= render 'user_videos/nav' %>
+<h1>VideoLists</h1>
+
+<%= render 'index_form' %>
+<br>
+<%= render 'new_form' %>
+
+<% if @video_list %>
+    <br>
+    <%= render 'show_form' %>
+    <%= render 'add_form' %>
+<% end %>
+

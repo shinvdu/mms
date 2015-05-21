@@ -1,0 +1,9 @@
+<%= form_for(@new_video_list) do |f| %>
+    <span>添加</span>
+    <div class="field">
+      <%= f.text_field :name %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
