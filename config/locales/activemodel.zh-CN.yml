@@ -1,35 +1,80 @@
 zh-CN:
+  activerecord:
+    models:
+      account: "帐户"
+      advertise_resource: "广告资源"
+      advertise_strategy: "广告方案"
+      logo: "LOGO"
+      notification: "消息"
+      player: "播放器"
+      tag: "视频标签"
+      transcoding_strategy: "转码策略"
+      transcoding: "转码方案"
+      user_video: "视频原片"
+      user: "用户"
+      video_detail: "视频"
+      video_product_group: "视频组"
+      video_product: "视频成片"
+    attributes:
+      account:
+        email: "登录邮箱"
+        username: "用户名"
+        password: "密码"
+        current_password: '当前密码'
+        password_confirmation: "确认密码"
+        reset_password_sent_at: "重置密码发送时间"
+        reset_password_token: "重置密码标记"
+        remember_created_at: "记住我设置时间"
+        sign_in_count: "登录次数"
+        current_sign_in_at: "本次登录时间"
+        last_sign_in_at: "上次登录时间"
+        current_sign_in_ip: "本次登录IP地址"
+        last_sign_in_ip: "上次登录IP地址"
+        created_at: "创建时间"
+        updated_at: "更新时间"
+      user:
+        nickname: "用户名"
+        role: "角色"
+        sex: "姓别"
   errors:
+    template: # ~ 2.3.5 backward compatible
+      header:
+        one: "有 1 个错误发生导致「%{model}」无法被保存。"
+        other: "有 %{count} 个错误发生导致「%{model}」无法被保存。"
+      body: "如下字段出现错误："
     # The default format to use in full error messages.
     format: "%{attribute} %{message}"
-
     # The values :model, :attribute and :value are always available for interpolation
     # The value :count is available when applicable. Can be used for pluralization.
     messages:
-      inclusion: "is not included in the list"
-      exclusion: "is reserved"
-      invalid: "is invalid"
-      confirmation: "doesn't match %{attribute}"
-      accepted: "must be accepted"
-      empty: "can't be empty"
-      blank: "can't be blank"
+      inclusion: "不包含于列表中"
+      exclusion: "是保留关键字"
+      invalid: "是无效的"
+      confirmation: "与确认值%{attribute}不匹配"
+      accepted: "必须是可被接受的"
+      empty: "不能留空"
+      blank: "不能为空"
       present: "must be blank"
       too_long:
-        one: "is too long (maximum is 1 character)"
-        other: "is too long (maximum is %{count} characters)" 
+        one: "过长（最长为 1个字符）"
+        other: "过长（最长为 %{count} 个字符）" 
       too_short:
-        one: "is too short (minimum is 1 character)"
-        other: "is too short (minimum is %{count} characters)"
+        one: "过短（最短为 1个字符）"
+        other: "过短（最短为 %{count} 个字符）"
       wrong_length:
-        one: "is the wrong length (should be 1 character)"
-        other: "is the wrong length (should be %{count} characters)"
-      not_a_number: "is not a number"
-      not_an_integer: "must be an integer"
-      greater_than: "must be greater than %{count}"
-      greater_than_or_equal_to: "must be greater than or equal to %{count}"
-      equal_to: "must be equal to %{count}"
-      less_than: "must be less than %{count}"
-      less_than_or_equal_to: "must be less than or equal to %{count}"
+        one: "长度非法（必须为 1个字符）"
+        other: "长度非法（必须为 %{count} 个字符）"
+      not_a_number: "不是数字"
+      not_an_integer: "必须是整数"
+      greater_than: "必须大于 %{count}"
+      greater_than_or_equal_to: "必须大于或等于 %{count}"
+      equal_to: "必须等于 %{count}"
+      less_than: "必须小于 %{count}"
+      less_than_or_equal_to: "必须小于或等于 %{count}"
       other_than: "must be other than %{count}"
-      odd: "must be odd"
-      even: "must be even"
+      odd: "必须为单数"
+      even: "必须为双数"
+      taken: "已经被使用"
+      record_invalid: "校验失败: %{errors}"
+      after: "必须在%{restriction}之后"
+      position: '位置'
