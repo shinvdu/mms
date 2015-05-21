@@ -1,7 +1,7 @@
 class UserVideosController < ApplicationController
   before_action :authenticate_account!, :check_login
   before_action :generate_publish_strategy, :only => [:index, :new, :show]
-  before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy]
+  before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
 
   def index
     @user_videos = UserVideo.where(owner_id: current_user.uid).order('id desc').page(params[:page])
@@ -14,6 +14,8 @@ class UserVideosController < ApplicationController
   end
 
   def edit
+    @video_lists = VideoList.get_by_user(current_user)
+    @video_list_id = @user_video.video_list.id if @user_video.video_list.present?
   end
 
   def clip
@@ -57,6 +59,8 @@ class UserVideosController < ApplicationController
   end
 
   def update
+    video_list_id = params[:user_video][:video_list_id].to_i if params[:user_video][:video_list_id].present?
+    @user_video.update_video_list(video_list_id)
     respond_to do |format|
       if @user_video.update(user_video_params)
         format.html { render :show, notice: 'Video is successfully updated.' }
@@ -78,6 +82,24 @@ class UserVideosController < ApplicationController
     redirect_to user_video_path
   end
 
+  def update_video_list
+    video_list_id = params[:video_list_id].to_i
+    @user_video.update_video_list!(video_list_id)
+    respond_to do |format|
+      format.html { redirect_to video_list_path(video_list_id), notice: 'Video is successfully updated.' }
+      format.json { render :show, status: :ok, location: @user_video }
+    end
+  end
+
+  def remove_video_list
+    video_list_id = params[:video_list_id].to_i
+    @user_video.remove_video_list!
+    respond_to do |format|
+        format.html { redirect_to video_list_path(video_list_id), notice: 'Video is successfully updated.' }
+        format.json { render :show, status: :ok, location: @user_video }
+    end
+  end
+
   def destroy
     # user_video = UserVideo.find(params[:id])
     # user_video.destroy
@@ -85,6 +107,7 @@ class UserVideosController < ApplicationController
   end
 
   private
+
   def set_user_video
     @user_video = UserVideo.find(params[:id])
   end

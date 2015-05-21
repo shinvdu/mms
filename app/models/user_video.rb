@@ -3,6 +3,8 @@ class UserVideo < ActiveRecord::Base
   has_many :video_product_groups
   has_many :video_cut_points
   has_many :tags_relationship
+  has_one :video_list_link
+  has_one :video_list, :through => :video_list_link
   belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
@@ -70,6 +72,30 @@ class UserVideo < ActiveRecord::Base
       else
         '未知状态'
     end
+  end
+
+  ######################################################
+  # video list
+  ######################################################
+
+  def update_video_list!(video_list_id)
+    if video_list_id.blank?
+      self.video_list_link.delete if self.video_list_link.present?
+      self.video_list_link = nil
+    else
+      if self.video_list_link.present?
+        self.video_list_link.update_attribute(:video_list, VideoList.find(video_list_id))
+      else
+        self.create_video_list_link(:video_list => VideoList.find(video_list_id))
+      end
+    end
+    self.save! if self.changed?
+  end
+
+  def remove_video_list!
+    self.video_list_link.delete if self.video_list_link.present?
+    self.video_list_link = nil
+    self.save! if self.changed?
   end
 
   ######################################################

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'video_lists/index'
+
   get 'user_videos/edit'
 
   resources :notifications
@@ -47,6 +49,10 @@ Rails.application.routes.draw do
       post 'republish'
       get 'clip'
     end
+  end
+  resources :video_lists do
+    resources :user_videos, :only => [:update], :action => :update_video_list
+    resources :user_videos, :only => [:destroy], :action => :remove_video_list
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
