@@ -27,9 +27,12 @@ Rails.application.routes.draw do
   devise_for :accounts, controllers: { registrations: "user/registrations", sessions: 'user/sessions' }
   root 'home#index'
   # match ':controller/:action', :via => :all
-  resources :user,  :as => :users do
+  resources :users do
     collection do
       get 'messages'
+    end
+    collection do
+      get 'company'
     end
   end
 

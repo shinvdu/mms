@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   before_action :authenticate_account!
       # 只能操作自己的帐户, 第一个用户为超级用户,  例外
   before_action :restrict_user, only: [:show, :edit, :update,  :destroy]
