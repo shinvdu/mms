@@ -2,6 +2,8 @@ class VideoList < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   has_many :video_list_links
   has_many :user_videos, :through => :video_list_links
+  has_many :video_product_group_list_links
+  has_many :video_product_groups, :through => :video_product_group_list_links
   scope :get_by_user, -> (user) {where(:owner => user)}
 end
 

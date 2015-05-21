@@ -7,7 +7,10 @@
 
 <% if @video_list %>
     <br>
-    <%= render 'show_form' %>
-    <%= render 'add_form' %>
+    <h4><%= @video_list.name %></h4>
+    <%= render 'show_user_videos_form' %>
+    <%= render 'show_video_product_groups_form' %>
+    <br>
+    <%= render 'add_user_videos_form' %>
 <% end %>
 

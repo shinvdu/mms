@@ -138,12 +138,14 @@ class UserVideo < ActiveRecord::Base
         self.transaction do
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
           video_product_group.create_package_product
+          video_product_group.set_video_list_by_user_video(self)
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
         self.transaction do
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :transcoding_strategy => transcoding_strategy)
           video_product_group.create_products_from_origin
+          video_product_group.set_video_list_by_user_video(self)
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
         # nothing to do now
