@@ -7,7 +7,7 @@ class Ability
 
     # TODO add ability control
     can :check, VideoProductGroup if user.admin? || user.system_admin? || user.helper?
-    # can :manage, :all
+    can :manage, :all
 
     # The first argument to `can` is the action you are giving the user
     # Define abilities for the passed in user here. For example:

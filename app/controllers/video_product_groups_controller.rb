@@ -55,6 +55,7 @@ class VideoProductGroupsController < ApplicationController
                                                    :owner => current_user,
                                                    :player => player,
                                                    :transcoding_strategy => strategy)
+    video_product_group.set_video_list_by_user_video(user_video) if user_video.present?
     video_product_group.create_fragments(video_cut_points)
     video_product_group.delay.create_products_from_mkv
 

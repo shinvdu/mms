@@ -4,10 +4,9 @@ Rails.application.routes.draw do
   get 'user_videos/edit'
 
   resources :notifications
-  namespace :admin , :as => :admin do
-    get 'users' => 'user#users', :as => :users
-    get 'index' => 'user#users'
-    get '/' => 'user#users'
+  namespace :admin do
+    get '/' => 'admin#index'
+    resources :users, :only => :index
   end
   resources :transcoding_strategy_relationships
   resources :tags_relationships
@@ -27,9 +26,12 @@ Rails.application.routes.draw do
   devise_for :accounts, controllers: { registrations: "user/registrations", sessions: 'user/sessions' }
   root 'home#index'
   # match ':controller/:action', :via => :all
-  resources :user,  :as => :users do
+  resources :users do
     collection do
       get 'messages'
+    end
+    collection do
+      get 'company'
     end
   end
 

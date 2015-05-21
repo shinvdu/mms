@@ -1,0 +1,11 @@
+<table>
+  <tr>
+    <th>成品名称</th>
+  </tr>
+  <% @video_list.video_product_groups.each do |g| %>
+      <tr>
+        <td><%= link_to g.name, video_product_group_path(g) %></td>
+      </tr>
+  <% end %>
+</table>
+

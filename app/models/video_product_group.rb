@@ -7,6 +7,8 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
   has_many :snapshots
+  has_one :video_product_group_list_link
+  has_one :video_list, :through => :video_product_group_list_link
   belongs_to :transcoding_strategy
   belongs_to :checker, :class_name => 'User'
   scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
@@ -103,6 +105,17 @@ class VideoProductGroup < ActiveRecord::Base
 
   def set_uuid
     self.uuid ||= UUIDTools::UUID.random_create.to_s
+  end
+
+  #####################################################
+  # video list
+  #####################################################
+
+  def set_video_list_by_user_video(user_video)
+    if user_video.present?
+      video_list = user_video.video_list
+      self.create_video_product_group_list_link(:video_list => video_list) if video_list.present?
+    end
   end
 
   #####################################################
