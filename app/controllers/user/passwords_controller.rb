@@ -11,9 +11,15 @@ class User::PasswordsController < Devise::PasswordsController
 
   # GET /resource/password/edit?reset_password_token=abcdef
   def edit
-    logger.info '================================================='
-    debugger
     super
+    reset_password_token = Devise.token_generator.digest(self, :reset_password_token, params[:reset_password_token])
+    user = Account.where(reset_password_token: reset_password_token).first
+    # debugger
+    if user.nil? || !(user.reset_password_sent_at)
+      notice_error '您己经使用过这个链接，你再次请求。'
+      redirect_to new_password_path(resource_name)
+      return
+    end
   end
 
   # PUT /resource/password
