@@ -6,6 +6,7 @@ class Account < ActiveRecord::Base
   attr_accessor :login
   belongs_to :user, foreign_key: :user_id
   validates_uniqueness_of :username
+  validates :username, presence: true
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
