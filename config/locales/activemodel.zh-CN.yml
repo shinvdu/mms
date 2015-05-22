@@ -169,6 +169,21 @@ zh-CN:
       video_product_group:
         owner_id: "用户"
         user_video_id: "原片视频"
+        published: "己发布"
+        publish_start: "发布开始时间"
+        publish_stop: "发布结束时间 "
+        status: "状态 "
+        transcoding_strategy_id: "转码策略"
+        name: "名字"
+        check_status: "检查状态"
+        uuid: "视频原片ID"
+        player_id: "播放器ID"
+      video_products:
+        video_product_group_id: "视频组"
+        video_detail_id: "视频地址"
+        transcoding_id: "转码方案"
+        progress: "进度"
+        status: "状态"
   errors:
     template: # ~ 2.3.5 backward compatible
       header:
