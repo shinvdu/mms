@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  scope :company_owners, -> {where(:role => Settings.role.company_owner)}
   self.primary_key = "uid"
   has_one :account
   has_many :notifications
@@ -31,6 +30,7 @@ class User < ActiveRecord::Base
         def #{role}?
           self.role == '#{role}'
         end
+        scope :#{role}s, -> {where(:role => Settings.role.#{role})}
     METHOD
   end
 

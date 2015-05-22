@@ -1,2 +1,19 @@
-<h1>Company::Companies#show</h1>
-<p>Find me in app/views/company/companies/show.html.erb</p>
+<%= render 'admin/nav' %>
+<div class="tab-panel current" id="manage-user">
+  <div class="panel-header clearfix">
+    <form class="pull-right" role="search">
+      <div class="form-group right-inner-addon">
+        <input class="form-control" placeholder="模版名称/用户名" type="search">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </div>
+    </form>
+    <a type="button" class="btn btn-green" href="<%= new_company_member_path(@company) %>">添加</a>
+  </div>
+
+  <h4>管理员</h4>
+  <%= render 'admins_form' %>
+
+  <h4>成员</h4>
+  <%= render 'members_form' %>
+</div>
+
