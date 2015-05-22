@@ -1,4 +1,4 @@
-<%= form_for :company_account, :url => company_owners_path do |f| %>
+<%= form_for :company_account, :url => companies_path do |f| %>
     <% if @company_account.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@company_account.errors.count, "error") %> prohibited this user from being saved:</h2>
