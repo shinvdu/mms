@@ -1,309 +1,359 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
     <title>MMS</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap-->
+    <link href="css/normalize.css" rel="stylesheet">
     <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="http://vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
     <link href="css/rangeslider.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
     <div class="site">
-      <div class="header" id="header"></div>
-
+      <div class="header">
+        <div class="container clearfix">
+          <div class="brand"><a href="index.html">MMS</a><span>www.mz.com</span></div>
+          <div class="user-options">
+            <div class="user-name">
+              <div id="user-name"><i class="fa fa-user"></i>MMS</div>
+              <ul id="user-menu" tabindex="1" class="user-menu">
+                <li><a href="user-config.html"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-bell-o"></i>消息中心</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-power-off"></i>退出</a></li>
+              </ul>
+            </div><a href="#"><i class="fa fa-power-off"></i></a>
+          </div>
+        </div>
+      </div>
       <div class="content">
         <div class="container">
-	  <nav class="navbar" id="navbar"></nav>
-
-	  <nav class="nav-tab">
-	    <ul class="nav-square clearfix">
-	      <li class="current">
-		<a href="#advertisement-solution">
-		  <span class="square"></span>
-		  广告方案
-		</a>
-	      </li>
-	      <li>
-		<a href="#advertisement-resource">
-		  <span class="square"></span>
-		  广告资源
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-
-	  <div class="tab-panel current" id="advertisement-solution">
-	    <div class="panel-header clearfix">
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="广告方案名称">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-	      </form>
-	      <button type="button" class="btn btn-green" id="btn-add-advertisement">添加广告方案</button>
-	    </div>
-	    <table class="table table-hover">
-	      <thead>
-		<tr>
-		  <th>编号</th>
-		  <th>广告资源</th>
-		  <th>片头广告</th>
-		  <th>片尾广告</th>
-		  <th>暂停广告</th>
-		  <th>悬浮广告</th>
-		  <th>滚动字幕</th>
-		  <th>操作</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		<tr>
-		  <td>1234567</td>
-		  <td>奥美国际广告方案</td>
-		  <td>
-		    <select class="form-control">
-		      <option>广告资源1</option>
-		      <option>广告资源2</option>
-		      <option>广告资源3</option>
-		    </select>
-		  </td>
-		  <td>
-		    <select class="form-control">
-		      <option>广告资源1</option>
-		      <option>广告资源2</option>
-		      <option>广告资源3</option>
-		    </select>
-		  </td>
-		  <td>
-		    <select class="form-control">
-		      <option>广告资源1</option>
-		      <option>广告资源2</option>
-		      <option>广告资源3</option>
-		    </select>
-		  </td>
-		  <td>
-		    <select class="form-control">
-		      <option>广告资源1</option>
-		      <option>广告资源2</option>
-		      <option>广告资源3</option>
-		    </select>
-		  </td>
-		  <td>
-		    <select class="form-control">
-		      <option>广告资源1</option>
-		      <option>广告资源2</option>
-		      <option>广告资源3</option>
-		    </select>
-		  </td>
-		  <td>
-		    <a href="#">修改</a>
-		    <a href="#">删除</a>
-		  </td>
-		</tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-		<ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-		</ul>
-	      </nav>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel" id="add-advertisement">
-	    <div class="panel-links"><a class="btn-return-link" href="#advertisement-solution">&lt;&lt; 返回广告方案列表</a></div>
-	    <div class="panel-content">
-	      <div class="row">
-		<div class="col-md-8">
-		  <form class="form-horizontal">
-	            <div class="form-group">
-		      <label class="col-md-3 control-label">添加广告方案</label>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="ad-solution-name">广告方案名称:</label>
-		      <div class="col-md-6">
-			<input class="form-control" id="ad-solution-name" type="text">
-		      </div>
-		      <div class="col-md-3 input-horizontal-helper-text">（5-20字符）</div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="ad-op-select">片头广告选择:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="ad-op-select">
-			  <option>片头广告选择</option>
-			  <option>片头广告选择</option>
-			  <option>片头广告选择</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="ad-ed-select">片尾广告选择:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="ad-ed-select">
-			  <option>片尾广告选择</option>
-			  <option>片尾广告选择</option>
-			  <option>片尾广告选择</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="ad-pause-select">暂停广告选择:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="ad-pause-select">
-			  <option>暂停广告选择</option>
-			  <option>暂停广告选择</option>
-			  <option>暂停广告选择</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="ad-suspension-select">悬浮广告选择:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="ad-suspension-select">
-			  <option>悬浮广告选择</option>
-			  <option>悬浮广告选择</option>
-			  <option>悬浮广告选择</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="ad-scroll-select">滚动广告选择:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="ad-scroll-select">
-			  <option>滚动广告选择</option>
-			  <option>滚动广告选择</option>
-			  <option>滚动广告选择</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <div class="col-md-offset-3 col-md-6">
-			<button class="btn btn-green" type="button">保存</button>
-			<button class="btn btn-gray" type="button">取消</button>
-		      </div>
-		    </div>
-		  </form>
-		</div>
-	      </div>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel" id="advertisement-resource">
-	    <div class="panel-header clearfix">
-	      <select class="pull-right btn-select btn-select-white">
-		<option>全部类型</option>
-		<option>全部类型</option>
-		<option>全部类型</option>
-	      </select>
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="资源名称/创建人">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-	      </form>
-	    </div>
-	    <table class="table table-hover panel-table">
-	      <thead>
-		<tr>
-		  <th>编号</th>
-		  <th>广告资源</th>
-		  <th>资源类型</th>
-		  <th>广告类型</th>
-		  <th>创建时间</th>
-		  <th>创建人</th>
-		  <th>操作</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		<tr>
-		  <td>1234567</td>
-		  <td>奥美国际广告方案</td>
-		  <td>
-		    <select class="form-control">
-		      <option>视频</option>
-		      <option>视频</option>
-		      <option>视频</option>
-		    </select>
-		  </td>
-		  <td>
-		    <select class="form-control">
-		      <option>广告资源1</option>
-		      <option>广告资源2</option>
-		      <option>广告资源3</option>
-		    </select>
-		  </td>
-		  <td>2015/04/26 17:31</td>
-		  <td>xiao2</td>
-		  <td>
-		    <a href="#">修改</a>
-		    <a href="#">删除</a>
-		  </td>
-		</tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-		<ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-		</ul>
-	      </nav>
-	    </div>
-	  </div>
-	</div>
+          <nav class="navbar clearfix">
+            <form>
+              <div class="right-inner-addon">
+                <input type="search" placeholder="视频搜索"/><i class="fa fa-search"></i>
+              </div>
+            </form>
+            <ul class="clearfix">
+              <li><a href="index.html"><i class="fa fa-home"></i>首页</a></li>
+              <li><a href="video.html"><i class="fa fa-video-camera"></i>视频管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="video.html?panel=video-upload"><i class="fa fa-fw fa-circle"></i>上传视频</a></li>
+                  <li><a href="video.html?panel=video-list"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
+                  <li><a href="video.html?panel=video-transcoding-template"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
+                  <li><a href="video.html?panel=video-transcoding-solution"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
+                </ul>
+              </li>
+              <li class="current"><a href="advertisement.html" role="tab"><i class="fa fa-cog"></i>广告管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="advertisement.html?panel=advertisement-solution"><i class="fa fa-fw fa-circle"></i>广告方案</a></li>
+                  <li><a href="advertisement.html?panel=advertisement-resource"><i class="fa fa-fw fa-circle"></i>广告资源</a></li>
+                </ul>
+              </li>
+              <li><a href="player.html" role="tab"><i class="fa fa-play-circle-o"></i>点播播放器</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="player.html?panel=add-player"><i class="fa fa-fw fa-circle"></i>新增播放器</a></li>
+                  <li><a href="player.html?panel=manage-player"><i class="fa fa-fw fa-circle"></i>播放器管理</a></li>
+                  <li><a href="player.html?panel=logo-list"><i class="fa fa-fw fa-circle"></i>LOGO</a></li>
+                  <li><a href="player.html?panel=upload-logo"><i class="fa fa-fw fa-circle"></i>上传LOGO</a></li>
+                </ul>
+              </li>
+              <li><a href="system.html" role="tab"><i class="fa fa-desktop"></i>系统管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="system.html?panel=manage-user"><i class="fa fa-fw fa-circle"></i>用户管理</a></li>
+                  <li><a href="system.html?panel=manage-permission"><i class="fa fa-fw fa-circle"></i>权限管理</a></li>
+                  <li><a href="system.html?panel=manage-api"><i class="fa fa-fw fa-circle"></i>API管理</a></li>
+                  <li><a href="system.html?panel=manage-log"><i class="fa fa-fw fa-circle"></i>操作日志</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <ul class="nav-panel clearfix">
+            <li class="current"><a href="?panel=advertisement-solution"><i class="fa fa-fw fa-square"></i>广告方案</a></li>
+            <li><a href="?panel=advertisement-resource"><i class="fa fa-fw fa-square"></i>广告资源</a></li>
+          </ul>
+          <div id="advertisement-solution" class="tab-panel current">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="广告方案名称"><i class="fa fa-search"></i>
+                </div>
+              </form>
+              <button class="btn-green">添加广告方案</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>编号</th>
+                  <th>广告资源</th>
+                  <th>片头广告</th>
+                  <th>片尾广告</th>
+                  <th>暂停广告</th>
+                  <th>悬浮广告</th>
+                  <th>滚动字幕</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                     
+                    1234567
+                  </td>
+                  <td>奥美国际广告方案</td>
+                  <td>
+                    <select>
+                      <option>广告资源1
+                      </option>
+                      <option>广告资源2
+                      </option>
+                      <option>广告资源3
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <select>
+                      <option>广告资源1
+                      </option>
+                      <option>广告资源2
+                      </option>
+                      <option>广告资源3
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <select>
+                      <option>广告资源1
+                      </option>
+                      <option>广告资源2
+                      </option>
+                      <option>广告资源3
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <select>
+                      <option>广告资源1
+                      </option>
+                      <option>广告资源2
+                      </option>
+                      <option>广告资源3
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <select>
+                      <option>广告资源1
+                      </option>
+                      <option>广告资源2
+                      </option>
+                      <option>广告资源3
+                      </option>
+                    </select>
+                  </td>
+                  <td><a href="#">修改</a><a href="#">删除</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="advertisement-resource" class="tab-panel">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="资源名称/创建人"><i class="fa fa-search"></i>
+                </div>
+                <div>
+                  <select>
+                    <option>全部类型1
+                    </option>
+                    <option>全部类型2
+                    </option>
+                    <option>全部类型3
+                    </option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>编号</th>
+                  <th>广告资源</th>
+                  <th>资源类型</th>
+                  <th>广告类型</th>
+                  <th>创建时间</th>
+                  <th>创建人</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                     
+                    1234567
+                  </td>
+                  <td>奥美国际广告方案</td>
+                  <td>
+                    <select>
+                      <option>视频1
+                      </option>
+                      <option>视频2
+                      </option>
+                      <option>视频3
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <select>
+                      <option>广告资源1
+                      </option>
+                      <option>广告资源2
+                      </option>
+                      <option>广告资源3
+                      </option>
+                    </select>
+                  </td>
+                  <td>2015/05/12 15:23</td>
+                  <td>xiao2</td>
+                  <td><a href="#">修改</a><a href="#">删除</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="add-advertisement" class="tab-panel">
+            <div class="panel-header"><a href="?panel=advertisement-solution">&lt;&lt; 返回广告方案列表</a></div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="form-title">添加广告方案</label>
+              </div>
+              <div class="form-group">
+                <label for="ad-solution-name">广告方案名称:</label>
+                <div>
+                  <input id="ad-solution-name" type="text">
+                  <div>(5-20字符)</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ad-op-select">片头广告选择:</label>
+                <div>
+                  <select id="ad-op-select">
+                    <option>片头广告选择1
+                    </option>
+                    <option>片头广告选择2
+                    </option>
+                    <option>片头广告选择3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ad-ed-select">片尾广告选择:</label>
+                <div>
+                  <select id="ad-ed-select">
+                    <option>片尾广告选择1
+                    </option>
+                    <option>片尾广告选择2
+                    </option>
+                    <option>片尾广告选择3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ad-pause-select">暂停广告选择:</label>
+                <div>
+                  <select id="ad-pause-select">
+                    <option>暂停广告选择1
+                    </option>
+                    <option>暂停广告选择2
+                    </option>
+                    <option>暂停广告选择3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ad-suspension-select">悬浮广告选择:</label>
+                <div>
+                  <select id="ad-suspension-select">
+                    <option>悬浮广告选择1
+                    </option>
+                    <option>悬浮广告选择2
+                    </option>
+                    <option>悬浮广告选择3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ad-scroll-select">滚动广告选择:</label>
+                <div>
+                  <select id="ad-scroll-select">
+                    <option>滚动广告选择1
+                    </option>
+                    <option>滚动广告选择2
+                    </option>
+                    <option>滚动广告选择3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="button-list">
+                  <button type="submit" class="btn-green">保存</button>
+                  <button class="btn-gray">取消</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      
-      <div class="footer" id="footer"></div>
+      <div class="footer">
+        <div class="container clearfix">
+          <ul>
+            <li><a href="index.html">未谷技术</a></li>
+            <li><a href="video.html">视频管理</a></li>
+            <li><a href="player.html">点播播放器</a></li>
+            <li><a href="advertisement.html">广告管理</a></li>
+            <li><a href="system.html">系统管理</a></li>
+            <li><a href="#">用户协议</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">平台</a></li>
+          </ul>
+          <div class="company-info">
+            <div>
+              <div class="short-line"></div><a href="#">关于我们</a>
+            </div>
+            <div>
+              <div class="short-line"></div>copyright &copy; 2015上海未谷信息技术有限公司<br>
+              沪ICP 备案 xxxxxxx
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
     <script src="js/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/URI.js"></script>
     <script src="js/sly.min.js"></script>
     <script src="js/video.min.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/rangeslider.js"></script>
-    <script src="js/dev.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

@@ -1,0 +1,148 @@
+.tab-panel
+  position relative
+  display none
+  min-height 500px
+  padding-bottom 50px
+  margin-top 20px
+  background-color #fff
+  border-radius 4px
+  box-shadow 0 0 9px rgba(0, 0, 0, 0.15)
+
+  &.current
+    display block
+
+  .panel-header
+    @extend .clearfix
+    height 50px
+    padding-top 10px
+    padding-left 25px
+  
+    form
+      float right
+      margin-right 15px
+
+      >div
+        float left
+        width 110px
+
+        &+div
+          margin-left 5px
+
+      .right-inner-addon
+        width 160px
+
+    >a
+      float right
+      margin-right 15px
+
+      &:link,
+      &:visited
+        color primary-color
+
+      &:hover,
+      &:active
+        text-decoration underline
+
+  >table
+    width 100%
+    text-align center
+
+    thead
+      color font-color-3
+
+      tr
+        height 30px
+        line-height 30px
+
+        th
+          font-weight normal
+
+    tbody
+      tr
+        height 40px
+        line-height 40px
+        border-bottom 1px solid cutting-line-color
+
+        td
+          padding-right 5px
+          padding-left 5px
+
+          a
+            &:link,
+            &:visited,
+            &:hover,
+            &:active
+              color primary-color
+
+            &:hover,
+            &:active
+              text-decoration underline
+  >form
+    margin-left 30px
+
+    &.form-horizontal
+      >.form-group
+        @extend .clearfix
+        width 520px
+
+        &+.form-group
+          margin-top 12px
+
+        >label
+          float left
+          display block
+          width 150px
+          height 32px
+          line-height 32px
+          text-align right
+
+          &.form-title
+            color font-color-3
+
+        >div
+          @extend .clearfix
+          float left
+          width 370px
+          padding-left 15px
+
+          &.button-list
+            padding-top 20px
+            margin-left 145px
+
+          >select
+          >div
+            float left
+            width 50%
+
+          >div
+            height 32px
+            line-height 32px
+            padding-left 15px
+
+            &.form-inline
+              @extend .clearfix
+
+              >*
+                float left
+
+                &+*
+                  margin-left 5px
+
+              >div
+                width 55px
+
+                >input
+                  padding-left 8px
+
+          >p
+            margin 0
+            padding 0
+  
+  .panel-footer
+    position absolute
+    bottom 0
+    width 100%
+    height 50px
+    padding-top 9px
+    padding-left 20px
+    border-top 1px solid cutting-line-color

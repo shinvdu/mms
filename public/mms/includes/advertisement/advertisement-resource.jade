@@ -1,0 +1,35 @@
+.tab-panel#advertisement-resource
+  .panel-header.clearfix
+    form.clearfix
+      .right-inner-addon
+        input(type='search' placeholder='资源名称/创建人')
+        i.fa.fa-search
+      div
+        +select('全部类型')
+  table
+    thead
+      tr
+        th 编号
+        th 广告资源
+        th 资源类型
+        th 广告类型
+        th 创建时间
+        th 创建人
+        th 操作
+    tbody
+      tr
+        td 
+          | 1234567
+        td
+          | 奥美国际广告方案
+        td
+          +select('视频')
+        td
+          +select('广告资源')
+        td
+          | 2015/05/12 15:23
+        td
+          | xiao2
+        td
+          a(href='#') 修改
+          a(href='#') 删除

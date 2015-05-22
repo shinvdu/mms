@@ -1,0 +1,24 @@
+.tab-panel#add-transcoding-solution
+  .panel-header
+    a(href='?panel=video-transcoding-solution') &lt;&lt; 返回方案列表
+  form.form-horizontal
+    .form-group
+      label.form-title 添加转码方案
+    .form-group
+      label(for='solution-name') 方案名称:
+      div
+        input#solution-name(type='text')
+    .form-group
+      label(for='template-select') 模版选择:
+      div
+        +select('high')#template-select
+    .form-group
+      label
+      div
+        p 
+          | 说明:<br>
+          | qwerqweqweqweqweqeqweqeqweq
+    .form-group
+      div.button-list
+        button.btn-green(type='submit') 保存
+        button.btn-gray 取消

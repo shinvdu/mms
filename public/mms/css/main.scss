@@ -436,14 +436,6 @@ body {
 	    text-align: center;
 	}
 
-	& > thead {
-	    background-color: $bg-color;
-
-	    th {
-		color: $text-color-gray-2;
-	    }
-	}
-	
 	& > thead > tr > th,
 	& > thead > tr > td {
 	    border-bottom: none;
@@ -860,5 +852,23 @@ body {
 		text-align: center;
 	    }
 	}
+    }
+}
+
+
+.cus-input-item {
+    .input-tip {
+	background-color: #fff;
+	color: #ccc;
+	left: 22px;
+	top: 6px;
+	padding: 0 3px;
+	position: absolute;
+	transition: all linear .2s;
+    }
+
+    .input-tip-focus {
+	color: $color-purple;
+	top: -9px;
     }
 }

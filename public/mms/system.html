@@ -1,479 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
     <title>MMS</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap-->
+    <link href="css/normalize.css" rel="stylesheet">
     <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="http://vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
     <link href="css/rangeslider.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
     <div class="site">
-      <div class="header" id="header"></div>
-
-      <div class="content">
-	<div class="container">
-	  <nav class="navbar" id="navbar"></nav>
-
-	  <nav class="nav-tab">
-	    <ul class="nav-square clearfix">
-	      <li class="current">
-		<a href="#manage-user">
-		  <span class="square"></span>
-		  用户管理
-		</a>
-	      </li>
-	      <li>
-		<a href="#manage-permission">
-		  <span class="square"></span>
-		  权限管理
-		</a>
-	      </li>
-	      <li>
-		<a href="#manage-api">
-		  <span class="square"></span>
-		  API管理
-		</a>
-	      </li>
-	      <li>
-		<a href="#manage-log">
-		  <span class="square"></span>
-		  操作日志
-		</a>
-	      </li>
-	    </ul>
-	  </nav>
-
-	  <div class="tab-panel current" id="manage-user">
-      	    <div class="panel-header clearfix">
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="模版名称/用户名">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-	      </form>
-	      <button type="button" class="btn btn-green" id="btn-add-user">添加</button>
-	      <button type="button" class="btn btn-blue">编辑</button>
-	      <button type="button" class="btn btn-gray">删除</button>
-	    </div>
-            <table class="table table-hover">
-	      <thead>
-		<tr>
-		  <th></th>
-		  <th>编号</th>
-		  <th>用户名称</th>
-		  <th>登录IP</th>
-		  <th>最后登陆时间</th>
-		  <th>操作</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		<tr>
-		  <td>
-		    <input type="checkbox">
-		  </td>
-		  <td>1234566</td>
-		  <td>xiao2</td>
-		  <td>211.211.211.211</td>
-		  <td>2015/04/26 17:30</td>
-		  <td>
-		    <a href="#">修改</a>
-		    <a href="#">删除</a>
-		    <a href="#">冻结</a>
-		  </td>
-		</tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-		<ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-		</ul>
-	      </nav>
-	    </div>
-	  </div>
-	  
-	  <div class="tab-panel" id="add-user">
-	    <div class="panel-links"><a class="btn-return-link" href="#manage-user">&lt;&lt; 返回用户管理</a></div>
-	    <div class="panel-content">
-	      <div class="row">
-		<div class="col-md-10">
-		  <form class="form-horizontal">
-	            <div class="form-group">
-		      <label class="col-md-2 control-label">添加用户</label>
-		    </div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="user-name">用户名:</label>
-		  <div class="col-md-5">
-		    <input class="form-control" id="user-name" type="text" placeholder="用户名称">
-		  </div>
-		  <div class="col-md-5 input-horizontal-helper-text">（5-20个字符，包括英文字母/数字/下划线）</div>
-		</div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="user-nickname">昵称:</label>
-		  <div class="col-md-5">
-		    <input class="form-control" id="user-nickname" type="text">
-		  </div>
-		  <div class="col-md-5 input-horizontal-helper-text">（16个字符）</div>
-		</div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="user-email">邮箱:</label>
-		  <div class="col-md-5">
-		    <input class="form-control" id="user-email" type="email">
-		  </div>
-		</div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="user-phone">联系电话:</label>
-		  <div class="col-md-5">
-		    <input class="form-control" id="user-phone" type="tel">
-		  </div>
-		</div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="user-password">密码:</label>
-		  <div class="col-md-5">
-		    <input class="form-control" id="user-password" type="password">
-		  </div>
-		  <div class="col-md-5 input-horizontal-helper-text">（6-20个字符）</div>
-		</div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label" for="user-password-confirm">确认密码:</label>
-		  <div class="col-md-5">
-		    <input class="form-control" id="user-password-confirm" type="password">
-		  </div>
-		  <div class="col-md-5 input-horizontal-helper-text">（6-20个字符）</div>
-		</div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label">分配角色:</label>
-		  <div class="col-md-5">
-                    <label class="radio-inline">
-                      <input id="role-assignment-radio-1" type="radio" name="role-assignment" value="option1">角色
-                    </label>
-                    <label class="radio-inline">
-                      <input id="role-assignment-radio-2" type="radio" name="role-assignment" value="option2">角色
-                    </label>
-                    <label class="radio-inline">
-                      <input id="role-assignment-radio-3" type="radio" name="role-assignment" value="option3">角色
-                    </label>
-                    <label class="radio-inline">
-                      <input id="role-assignment-radio-4" type="radio" name="role-assignment" value="option4">角色
-                    </label>
-                    <label class="radio-inline">
-                      <input id="role-assignment-radio-5" type="radio" name="role-assignment" value="option5">角色
-                    </label>
-		  </div>
-		</div>
-		<div class="form-group">
-		  <label class="col-md-2 control-label">API权限:</label>
-		  <div class="col-md-5">
-                    <label class="radio-inline">
-                      <input id="api-permission-radio-1" type="radio" name="api-permission" value="option1">权限
-                    </label>
-                    <label class="radio-inline">
-                      <input id="api-permission-radio-2" type="radio" name="api-permission" value="option2">权限
-                    </label>
-                    <label class="radio-inline">
-                      <input id="api-permission-radio-3" type="radio" name="api-permission" value="option3">权限
-                    </label>
-		  </div>
-		</div>
-		<div class="form-group">
-		  <div class="col-md-offset-2 col-md-5">
-	            <button class="btn btn-green" type="button">保存</button>
-	            <button class="btn btn-gray" type="button">取消</button>
-		  </div>
-		</div>
-              </form>
-		</div>
-	      </div>
-		</div>
-	  </div>
-
-	  <div class="tab-panel" id="manage-permission">
-      	    <div class="panel-header clearfix">
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="模版名称/用户名">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-	      </form>
-	      <button type="button" class="btn btn-green" id="btn-add-permission-control">添加</button>
-	      <button type="button" class="btn btn-blue">编辑</button>
-	      <button type="button" class="btn btn-gray">删除</button>
-	    </div>
-            <table class="table table-hover panel-table">
-	      <thead>
-		<tr>
-		  <th></th>
-		  <th>编号</th>
-		  <th>角色名称</th>
-		  <th>描述</th>
-		  <th>创建时间</th>
-		  <th>操作</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		<tr>
-		  <td>
-		    <input type="checkbox">
-		  </td>
-		  <td>1234566</td>
-		  <td>xiao2</td>
-		  <td>系统管理 / 播放器管理</td>
-		  <td>2015/04/26 17:30</td>
-		  <td>
-		    <a href="#">修改</a>
-		    <a href="#">删除</a>
-		    <a href="#">冻结</a>
-		  </td>
-		</tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-		<ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-		</ul>
-	      </nav>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel" id="add-permission-control">
-	    <div class="panel-links"><a class="btn-return-link" href="#manage-permission">&lt;&lt; 返回权限管理</a></div>
-	    <div class="panel-content">
-	      <div class="row">
-		<div class="col-md-8">
-		  <form class="form-horizontal">
-	            <div class="form-group">
-		      <label class="col-md-3 control-label">添加角色</label>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="role-name">角色名称:</label>
-		      <div class="col-md-6">
-			<input class="form-control" id="role-name" type="text" placeholder="管理员">
-		      </div>
-		      <div class="col-md-3 input-horizontal-helper-text">（20字符）</div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label">系统管理:</label>
-		      <div class="col-md-6">
-			<label class="radio-inline">
-			  <input id="system-management-radio-1" type="radio" name="system-management" value="option1">权限
-			</label>
-			<label class="radio-inline">
-			  <input id="system-management-radio-2" type="radio" name="system-management" value="option2">权限
-			</label>
-			<label class="radio-inline">
-			  <input id="system-management-radio-3" type="radio" name="system-management" value="option3">权限
-			</label>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label">播放器管理:</label>
-		      <div class="col-md-6">
-			<label class="radio-inline">
-			  <input id="player-management-radio-1" type="radio" name="player-management" value="option1">权限
-			</label>
-			<label class="radio-inline">
-			  <input id="player-management-radio-2" type="radio" name="player-management" value="option2">权限
-			</label>
-			<label class="radio-inline">
-			  <input id="player-management-radio-3" type="radio" name="player-management" value="option3">权限
-			</label>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label">媒资管理:</label>
-		      <div class="col-md-6">
-			<label class="radio-inline">
-			  <input id="media-source-management-radio-1" type="radio" name="media-source-management" value="option1">权限
-			</label>
-			<label class="radio-inline">
-			  <input id="media-source-management-radio-2" type="radio" name="media-source-management" value="option2">权限
-			</label>
-			<label class="radio-inline">
-			  <input id="media-source-management-radio-3" type="radio" name="media-source-management" value="option3">权限
-			</label>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="add-permission-control-notice">说明:</label>
-		      <div class="col-md-6">
-			<textarea class="form-control" id="add-permission-control-notice" rows="5" placeholder="100个字符"></textarea>
-		      </div>
-		      <div class="col-md-3 input-horizontal-helper-text">（100个字符）</div>
-		    </div>
-		    <div class="form-group">
-		      <div class="col-md-offset-3 col-md-6">
-			<button class="btn btn-green" type="button">保存</button>
-			<button class="btn btn-gray" type="button">取消</button>
-		      </div>
-		    </div>
-		  </form>
-		</div>
-	      </div>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel" id="manage-api">
-      	    <div class="panel-header clearfix">
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="模版名称/用户名">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-	      </form>
-	    </div>
-            <table class="table table-hover panel-table">
-	      <thead>
-		<tr>
-		  <th>名称</th>
-		  <th>象征</th>
-		  <th>用户</th>
-		  <th>操作</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		<tr>
-		  <td>token</td>
-		  <td>xiao2系统管理 / 播放器管理 / 管理</td>
-		  <td>管理者</td>
-		  <td>
-		    <a href="#">启用</a>
-		    <a href="#">禁用</a>
-		  </td>
-		</tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-		<ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-		</ul>
-	      </nav>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel" id="manage-log">
-      	    <div class="panel-header clearfix">
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="用户名">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-		<input type="text" placeholder="2015/05/01">
-		至
-		<input type="text" placeholder="2015/05/01">
-	      </form>
-	    </div>
-            <table class="table table-hover panel-table">
-	      <thead>
-		<tr>
-		  <th style="width: 20%">登录时间</th>
-		  <th style="width: 10%">登录名</th>
-		  <th style="width: 20%">登录IP</th>
-		  <th style="width: 50%">详情</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		<tr>
-		  <td>2015/04/26 17:31</td>
-		  <td>管理者</td>
-		  <td>211.211.211.211</td>
-		  <td></td>
-		</tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-		<ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-		</ul>
-	      </nav>
-	    </div>
-	  </div>
-	</div>
+      <div class="header">
+        <div class="container clearfix">
+          <div class="brand"><a href="index.html">MMS</a><span>www.mz.com</span></div>
+          <div class="user-options">
+            <div class="user-name">
+              <div id="user-name"><i class="fa fa-user"></i>MMS</div>
+              <ul id="user-menu" tabindex="1" class="user-menu">
+                <li><a href="user-config.html"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-bell-o"></i>消息中心</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-power-off"></i>退出</a></li>
+              </ul>
+            </div><a href="#"><i class="fa fa-power-off"></i></a>
+          </div>
+        </div>
       </div>
-
-      <div class="footer" id="footer"></div>
+      <div class="content">
+        <div class="container">
+          <nav class="navbar clearfix">
+            <form>
+              <div class="right-inner-addon">
+                <input type="search" placeholder="视频搜索"/><i class="fa fa-search"></i>
+              </div>
+            </form>
+            <ul class="clearfix">
+              <li><a href="index.html"><i class="fa fa-home"></i>首页</a></li>
+              <li><a href="video.html"><i class="fa fa-video-camera"></i>视频管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="video.html?panel=video-upload"><i class="fa fa-fw fa-circle"></i>上传视频</a></li>
+                  <li><a href="video.html?panel=video-list"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
+                  <li><a href="video.html?panel=video-transcoding-template"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
+                  <li><a href="video.html?panel=video-transcoding-solution"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
+                </ul>
+              </li>
+              <li><a href="advertisement.html" role="tab"><i class="fa fa-cog"></i>广告管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="advertisement.html?panel=advertisement-solution"><i class="fa fa-fw fa-circle"></i>广告方案</a></li>
+                  <li><a href="advertisement.html?panel=advertisement-resource"><i class="fa fa-fw fa-circle"></i>广告资源</a></li>
+                </ul>
+              </li>
+              <li><a href="player.html" role="tab"><i class="fa fa-play-circle-o"></i>点播播放器</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="player.html?panel=add-player"><i class="fa fa-fw fa-circle"></i>新增播放器</a></li>
+                  <li><a href="player.html?panel=manage-player"><i class="fa fa-fw fa-circle"></i>播放器管理</a></li>
+                  <li><a href="player.html?panel=logo-list"><i class="fa fa-fw fa-circle"></i>LOGO</a></li>
+                  <li><a href="player.html?panel=upload-logo"><i class="fa fa-fw fa-circle"></i>上传LOGO</a></li>
+                </ul>
+              </li>
+              <li class="current"><a href="system.html" role="tab"><i class="fa fa-desktop"></i>系统管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="system.html?panel=manage-user"><i class="fa fa-fw fa-circle"></i>用户管理</a></li>
+                  <li><a href="system.html?panel=manage-permission"><i class="fa fa-fw fa-circle"></i>权限管理</a></li>
+                  <li><a href="system.html?panel=manage-api"><i class="fa fa-fw fa-circle"></i>API管理</a></li>
+                  <li><a href="system.html?panel=manage-log"><i class="fa fa-fw fa-circle"></i>操作日志</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <ul class="nav-panel clearfix">
+            <li class="current"><a href="?panel=manage-user"><i class="fa fa-fw fa-square"></i>用户管理</a></li>
+            <li><a href="?panel=manage-permission"><i class="fa fa-fw fa-square"></i>权限管理</a></li>
+            <li><a href="?panel=manage-api"><i class="fa fa-fw fa-square"></i>API管理</a></li>
+            <li><a href="?panel=manage-log"><i class="fa fa-fw fa-square"></i>操作日志</a></li>
+          </ul>
+          <div id="manage-user" class="tab-panel current">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+              </form>
+              <button class="btn-green">添加</button>
+              <button class="btn-blue">编辑</button>
+              <button class="btn-gray">删除</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>编号</th>
+                  <th>用户名称</th>
+                  <th>登录IP</th>
+                  <th>最后登录时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="checkbox">
+                  </td>
+                  <td>123456</td>
+                  <td>xiao2</td>
+                  <td>211.211.212.121</td>
+                  <td>2015/05/12 15:23</td>
+                  <td><a href="#">修改</a><a href="#">删除</a><a href="#">冻结</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="manage-permission" class="tab-panel">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+              </form>
+              <button class="btn-green">添加</button>
+              <button class="btn-blue">编辑</button>
+              <button class="btn-gray">删除</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>编号</th>
+                  <th>角色名称</th>
+                  <th>描述</th>
+                  <th>创建时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="checkbox">
+                  </td>
+                  <td>123456</td>
+                  <td>xiao2</td>
+                  <td>系统管理/播放器管理</td>
+                  <td>2015/05/12 15:23</td>
+                  <td><a href="#">修改</a><a href="#">删除</a><a href="#">冻结</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="manage-api" class="tab-panel">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+              </form>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>象征</th>
+                  <th>用户</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>token</td>
+                  <td>xiao2系统管理/播放器管理/管理</td>
+                  <td>管理者</td>
+                  <td><a href="#">启用</a><a href="#">禁用</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="manage-log" class="tab-panel">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="用户名"><i class="fa fa-search"></i>
+                </div>
+                <div>
+                  <input type="text" placeholder="2015/05/01">至
+                  <input type="text" placeholder="2015/05/01">
+                </div>
+              </form>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>登陆时间</th>
+                  <th>登录名</th>
+                  <th>登录IP</th>
+                  <th>详情</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2015/04/03 12:32</td>
+                  <td>管理者</td>
+                  <td>211.211.211.211</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="container clearfix">
+          <ul>
+            <li><a href="index.html">未谷技术</a></li>
+            <li><a href="video.html">视频管理</a></li>
+            <li><a href="player.html">点播播放器</a></li>
+            <li><a href="advertisement.html">广告管理</a></li>
+            <li><a href="system.html">系统管理</a></li>
+            <li><a href="#">用户协议</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">平台</a></li>
+          </ul>
+          <div class="company-info">
+            <div>
+              <div class="short-line"></div><a href="#">关于我们</a>
+            </div>
+            <div>
+              <div class="short-line"></div>copyright &copy; 2015上海未谷信息技术有限公司<br>
+              沪ICP 备案 xxxxxxx
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
     <script src="js/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/URI.js"></script>
     <script src="js/sly.min.js"></script>
     <script src="js/video.min.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/rangeslider.js"></script>
-    <script src="js/dev.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

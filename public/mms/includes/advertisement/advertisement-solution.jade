@@ -1,0 +1,37 @@
+.tab-panel.current#advertisement-solution
+  .panel-header.clearfix
+    form.clearfix
+      .right-inner-addon
+        input(type='search' placeholder='广告方案名称')
+        i.fa.fa-search
+    button.btn-green 添加广告方案
+  table
+    thead
+      tr
+        th 编号
+        th 广告资源
+        th 片头广告
+        th 片尾广告
+        th 暂停广告
+        th 悬浮广告
+        th 滚动字幕
+        th 操作
+    tbody
+      tr
+        td 
+          | 1234567
+        td
+          | 奥美国际广告方案
+        td
+          +select('广告资源')
+        td
+          +select('广告资源')
+        td
+          +select('广告资源')
+        td
+          +select('广告资源')
+        td
+          +select('广告资源')
+        td
+          a(href='#') 修改
+          a(href='#') 删除

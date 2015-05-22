@@ -1,0 +1,33 @@
+extends includes/master-page
+
+append content
+  +navbar(4)
+
+  +u-a-i-list([
+    {
+      current: 'current',
+      href: '?panel=manage-user',
+      icon: 'square',
+      text: '用户管理'
+    },
+    {
+      href: '?panel=manage-permission',
+      icon: 'square',
+      text: '权限管理'
+    },
+    {
+      href: '?panel=manage-api',
+      icon: 'square',
+      text: 'API管理'
+    },
+    {
+      href: '?panel=manage-log',
+      icon: 'square',
+      text: '操作日志'
+    }
+  ]).nav-panel.clearfix
+  
+  include includes/system/manage-user
+  include includes/system/manage-permission
+  include includes/system/manage-api
+  include includes/system/manage-log

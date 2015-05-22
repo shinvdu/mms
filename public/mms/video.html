@@ -1,597 +1,476 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
     <title>MMS</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap-->
+    <link href="css/normalize.css" rel="stylesheet">
     <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="http://vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
     <link href="css/rangeslider.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
     <div class="site">
-      <div class="header" id="header"></div>
-
+      <div class="header">
+        <div class="container clearfix">
+          <div class="brand"><a href="index.html">MMS</a><span>www.mz.com</span></div>
+          <div class="user-options">
+            <div class="user-name">
+              <div id="user-name"><i class="fa fa-user"></i>MMS</div>
+              <ul id="user-menu" tabindex="1" class="user-menu">
+                <li><a href="user-config.html"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-bell-o"></i>消息中心</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-power-off"></i>退出</a></li>
+              </ul>
+            </div><a href="#"><i class="fa fa-power-off"></i></a>
+          </div>
+        </div>
+      </div>
       <div class="content">
         <div class="container">
-	  <nav class="navbar" id="navbar"></nav>
-
-	  <nav class="nav-tab">
-	    <ul class="nav-square clearfix">
-	      <li class="current">
-	        <a href="#video-upload">
-		  <span class="square"></span>
-		  上传视频
-	        </a>
-	      </li>
-	      <li>
-	        <a href="#video-list">
-		  <span class="square"></span>
-		  视频列表
-	        </a>
-	      </li>
-	      <li>
-	        <a href="#video-transcoding-template">
-		  <span class="square"></span>
-		  转码模板
-	        </a>
-	      </li>
-	      <li>
-	        <a href="#video-transcoding-solution">
-		  <span class="square"></span>
-		  转码方案
-	        </a>
-	      </li>
-	    </ul>
-	  </nav>
-
-	  <div class="tab-panel " id="video-upload">
-	    <table class="table table-hover">
-	      <thead>
-	        <tr>
-		  <th>视频名称</th>
-		  <th>视频分类</th>
-		  <th>转码方案</th>
-		  <th>文件大小</th>
-		  <th>上传时间</th>
-		  <th>状态</th>
-		  <th>操作</th>
-	        </tr>
-	      </thead>
-	      <tbody>
-	        <tr>
-		  <td>sjdjjdcks.mov</td>
-		  <td>
-		    <select class="form-control">
-		      <option>分类1</option>
-		      <option>分类2</option>
-		      <option>分类3</option>
-		    </select>
-		  </td>
-		  <td>
-	      	    <select class="form-control">
-		      <option>方案1</option>
-		      <option>方案2</option>
-		      <option>方案3</option>
-		    </select>
-		  </td>
-		  <td>100MB</td>
-		  <td>2015/04/26 17:31</td>
-		  <td>等待上传</td>
-		  <td>
-		    <a href="#">上传</a>
-		  </td>
-	        </tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <button type="button" class="btn btn-purple">选择文件</button>
-	      <button type="button" class="btn btn-green">上传文件</button>
-	    </div>
-	  </div>
-	  
-	  <div class="tab-panel" id="video-transcoding-template">
-	    <div class="panel-header clearfix">
-	      <select class="pull-right btn-select btn-select-white">
-	        <option>转码模板</option>
-	        <option>转码模板</option>
-	        <option>转码模板</option>
-	      </select>
-	      <form class="pull-right" role="search">
-                <div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="模版名称/用户名">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          <nav class="navbar clearfix">
+            <form>
+              <div class="right-inner-addon">
+                <input type="search" placeholder="视频搜索"/><i class="fa fa-search"></i>
+              </div>
+            </form>
+            <ul class="clearfix">
+              <li><a href="index.html"><i class="fa fa-home"></i>首页</a></li>
+              <li class="current"><a href="video.html"><i class="fa fa-video-camera"></i>视频管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="video.html?panel=video-upload"><i class="fa fa-fw fa-circle"></i>上传视频</a></li>
+                  <li><a href="video.html?panel=video-list"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
+                  <li><a href="video.html?panel=video-transcoding-template"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
+                  <li><a href="video.html?panel=video-transcoding-solution"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
+                </ul>
+              </li>
+              <li><a href="advertisement.html" role="tab"><i class="fa fa-cog"></i>广告管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="advertisement.html?panel=advertisement-solution"><i class="fa fa-fw fa-circle"></i>广告方案</a></li>
+                  <li><a href="advertisement.html?panel=advertisement-resource"><i class="fa fa-fw fa-circle"></i>广告资源</a></li>
+                </ul>
+              </li>
+              <li><a href="player.html" role="tab"><i class="fa fa-play-circle-o"></i>点播播放器</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="player.html?panel=add-player"><i class="fa fa-fw fa-circle"></i>新增播放器</a></li>
+                  <li><a href="player.html?panel=manage-player"><i class="fa fa-fw fa-circle"></i>播放器管理</a></li>
+                  <li><a href="player.html?panel=logo-list"><i class="fa fa-fw fa-circle"></i>LOGO</a></li>
+                  <li><a href="player.html?panel=upload-logo"><i class="fa fa-fw fa-circle"></i>上传LOGO</a></li>
+                </ul>
+              </li>
+              <li><a href="system.html" role="tab"><i class="fa fa-desktop"></i>系统管理</a>
+                <div class="down-triangle"></div>
+                <ul>
+                  <li><a href="system.html?panel=manage-user"><i class="fa fa-fw fa-circle"></i>用户管理</a></li>
+                  <li><a href="system.html?panel=manage-permission"><i class="fa fa-fw fa-circle"></i>权限管理</a></li>
+                  <li><a href="system.html?panel=manage-api"><i class="fa fa-fw fa-circle"></i>API管理</a></li>
+                  <li><a href="system.html?panel=manage-log"><i class="fa fa-fw fa-circle"></i>操作日志</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <ul class="nav-panel clearfix">
+            <li class="current"><a href="?panel=video-upload"><i class="fa fa-fw fa-square"></i>上传视频</a></li>
+            <li><a href="?panel=video-list"><i class="fa fa-fw fa-square"></i>视频列表</a></li>
+            <li><a href="?panel=video-transcoding-template"><i class="fa fa-fw fa-square"></i>转码模版</a></li>
+            <li><a href="?panel=video-transcoding-solution"><i class="fa fa-fw fa-square"></i>转码方案</a></li>
+          </ul>
+          <div id="video-upload" class="tab-panel current">
+            <table>
+              <thead>
+                <tr>
+                  <th>视频名称</th>
+                  <th>视频分类</th>
+                  <th>转码方案</th>
+                  <th>文件大小</th>
+                  <th>上传时间</th>
+                  <th>状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                     
+                    sjdjjdcks.mov
+                  </td>
+                  <td>
+                    <select>
+                      <option>分类1
+                      </option>
+                      <option>分类2
+                      </option>
+                      <option>分类3
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <select>
+                      <option>方案1
+                      </option>
+                      <option>方案2
+                      </option>
+                      <option>方案3
+                      </option>
+                    </select>
+                  </td>
+                  <td>100MB</td>
+                  <td>2015/04/26 17:31</td>
+                  <td>等待上传</td>
+                  <td><a href="#">上传</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="panel-footer">
+              <button class="btn-purple">选择文件</button>
+              <button class="btn-green">上传文件</button>
+            </div>
+          </div>
+          <div id="video-list" class="tab-panel">
+            <div class="panel-header clearfix">
+              <form>
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="视频名称"><i class="fa fa-search"></i>
                 </div>
-	      </form>
-	      <button class="btn btn-green" id="btn-add-transcoding-template" type="button">添加转码模板</button>
-	    </div>
-            <table class="table table-hover panel-table">
-	      <thead>
-	        <tr>
-		  <th>ID</th>
-		  <th>模板名称</th>
-		  <th>模板类型</th>
-		  <th>创建用户</th>
-		  <th>创建时间</th>
-		  <th>最后修改时间</th>
-		  <th>操作</th>
-		  <th>备注</th>
-	        </tr>
-	      </thead>
-	      <tbody>
-	        <tr>
-		  <td>1234567</td>
-		  <td>高清_1080P_5M</td>
-		  <td>
-		    <select class="form-control">
-		      <option>转码模板</option>
-		      <option>转码模板</option>
-		      <option>转码模板</option>
-		    </select>
-		  </td>
-		  <td>xiao2</td>
-		  <td>2015/04/26 17:30</td>
-		  <td>2015/04/26 17:31</td>
-		  <td>
-		    <a href="#">修改</a>
-		    <a href="#">删除</a>
-		  </td>
-		  <td>1 231456</td>
-	        </tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-	        <ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-	        </ul>
-	      </nav>
-	    </div>
-	  </div>
-	  
-	  <div class="tab-panel" id="video-list">
-	    <div class="panel-header clearfix">
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="视频名称">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-		<input type="text" placeholder="2015/05/01">
-		至
-		<input type="text" placeholder="2015/05/01">
-		<select class="form-control">
-		  <option>全部状态</option>
-		  <option>全部状态</option>
-		  <option>全部状态</option>
-		</select>
-	      </form>
-	      <button class="btn btn-green">上传文件</button>
-	    </div>
-	    <div class="panel-content-display">
-	      <div class="row">
-		<div class="row">
-		  <div class="col-md-12">
-		    <input type="checkbox">
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-md-3">
-		    <img class="img-rounded" src="./images/header-bg.jpg" alt="video-preview">
-		    <select class="form-control">
-		      <option>方案1</option>
-		      <option>方案2</option>
-		      <option>方案3</option>
-		    </select>
-		    状态: 完成
-		  </div>
-		  <div class="col-md-9">
-		    <div class="row">
-		      <div class="col-md-12">
-			名称: sjasdjsjasjdja
-		      </div>
-		    </div>
-		    <div class="row">
-		      <div class="col-md-3">
-			视频大小: 100M
-		      </div>
-		      <div class="col-md-9">
-			创建时间: 2015/04/22 10:31
-		      </div>
-		    </div>
-		    <div class="row">
-		      <div class="col-md-3">
-			时长: 12:12:12
-		      </div>
-		      <div class="col-md-9">
-			播放次数: 1234次
-		      </div>
-		    </div>
-		    <div class="row">
-		      <div class="col-md-3">
-			拥有者: 小小小
-		      </div>
-		      <div class="col-md-9">
-			ID: IJDOQWJ3123143413IDSADO
-		      </div>
-		    </div>
-		    <div class="row">
-		      <div class="col-md-12">
-			TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
-		      </div>
-		    </div>
-		    <div class="row">
-		      <div class="col-md-12">
-			<button class="btn btn-blue">编辑</button>
-			<button class="btn btn-blue">代码</button>
-			<button class="btn btn-blue" id="btn-video-clip">剪辑</button>
-			<button class="btn btn-gray">删除</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	      </div>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel current" id="video-clip">
-	    <div class="panel-links"><a class="btn-return-link" href="#video-list">&lt;&lt; 返回视频列表</a></div>
-	    <div class="panel-content-display">
-	      <div class="row">
-		<div class="col-md-12">
-		  剪辑视频文件：［视频文件的名称］
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第一步：分割视频
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <video id="video-display" class="video-js vjs-default-skin" data-setup="{}" controls preload="metadata" width="853" height="480">
-		    <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
-		    <p class="vjs-no-js">
-		      To view this video please enable JavaScript, and consider upgrading to a web browser
-		      that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-		    </p>
-		  </video>
-		</div>
-		<div class="col-md-12">
-		  <div class="video-clip-list-container clearfix">
-		    <button class="clip-prev">
-		      <i class="fa fa-angle-left"></i>
-		    </button>
-		    <div class="frame" id="clip-frame">
-		      <ul class="slidee"></ul>
-		    </div>
-		    <button class="video-clip-add" id="btn-add-clip">
-		      <i class="fa fa-plus"></i>
-		    </button>
-		    <button class="clip-next">
-		      <i class="fa fa-angle-right"></i>
-		    </button>
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第二步：选择需要合并的视频
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12 video-clip-merge-container">
-		  <div class="video-clip-merge clearfix" id="video-clip-merge">
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第三步：选择播放器/广告方案
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-offset-2 col-md-8">
-		  <div class="row">
-		    <div class="col-md-6">
-		      <select class="form-control">
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-		      </select>
-		    </div>
-		    <div class="col-md-6">
-		      <select class="form-control">
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-			<option>下拉默认</option>
-		      </select>
-		    </div>
-		  </div>
-		</div>
-	      </div>
-	      <div class="row">
-		<div class="col-md-12">
-		  <span class="glyphicon glyphicon-film" aria-hidden="true"></span>
-		  第四步：保存/提交
-		</div>
-	      </div>
-	      <div class="text-center">
-		<button class="btn btn-green">保存</button>
-		<button class="btn btn-blue">提交</button>
-	      </div>
-	    </div>
-	  </div>
-	  
-	  <div class="tab-panel" id="add-transcoding-template">
-	    <div class="panel-links"><a class="btn-return-link" href="#video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
-	    <div class="panel-content">
-	      <div class="row">
-		<div class="col-md-9">
-		  <form class="form-horizontal">
-		    <div class="form-group">
-		      <label class="col-md-3 control-label">添加转码模板</label>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="template-name">模板名称:</label>
-		      <div class="col-md-6">
-			<input class="form-control" id="template-name" type="text">
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label">输出格式:</label>
-		      <div class="col-md-6">
-			<p class="form-control-static">mp4</p>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="transcoding-level">编码级别:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="transcoding-level">
-			  <option>high</option>
-			  <option>high</option>
-			  <option>high</option>
-			</select>
-		      </div>
-		      <div class="col-md-3 input-horizontal-helper-text">备注: 推荐使用 high</div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="compress-parameter">视频压缩参数:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="compress-parameter">
-			  <option>slow</option>
-			  <option>slow</option>
-			  <option>slow</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="audio-coding">音频编码:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="audio-coding">
-			  <option>AAC</option>
-			  <option>AAC</option>
-			  <option>AAC</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="audio-sample-rate">音频采样率:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="audio-sample-rate">
-			  <option>采样率</option>
-			  <option>采样率</option>
-			  <option>采样率</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="audio-code-rate">音频码率:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="audio-code-rate">
-			  <option>码率</option>
-			  <option>码率</option>
-			  <option>码率</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label">视频隔行扫描:</label>
-		      <div class="col-md-6">
-			<div class="checkbox">
-			  <label>
-			    <input type="checkbox" value="yes">
-			    是
-			  </label>
-			</div>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="video-aspect-ratio">视频长宽比:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="video-aspect-ratio">
-			  <option>固定长宽高，画面拉伸</option>
-			  <option>固定长宽高，画面拉伸</option>
-			  <option>固定长宽高，画面拉伸</option>
-			</select>
-		      </div>
-		      <div class="col-md-3">
-			<div class="form-inline">
-			  <label>说明:&nbsp;</label>
-			  <div class="form-group">
-			    <input type="text" class="form-control" id="video-length" placeholder="长/px">
-			  </div>
-			  <div class="form-group">
-			    <input type="text" class="form-control" id="video-width" placeholder="宽/px">
-			  </div>
-			</div>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <div class="col-md-offset-3 col-md-6">
-			<button class="btn btn-green" type="button">保存</button>
-			<button class="btn btn-gray" type="button">取消</button>
-		      </div>
-		    </div>
-		  </form>
-		</div>
-	      </div>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel" id="video-transcoding-solution">
-      	    <div class="panel-header clearfix">
-	      <select class="pull-right btn-select btn-select-white">
-		<option>转码模板</option>
-		<option>转码模板</option>
-		<option>转码模板</option>
-	      </select>
-	      <form class="pull-right" role="search">
-		<div class="form-group right-inner-addon">
-		  <input type="search" class="form-control" placeholder="模版名称/用户名">
-		  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-		</div>
-	      </form>
-	      <button class="btn btn-green" id="btn-add-transcoding-solution" type="button">添加转码方案</button>
-	    </div>
-	    <table class="table table-hover panel-table">
-	      <thead>
-		<tr>
-		  <th>ID</th>
-		  <th>模板方案</th>
-		  <th>转码模板</th>
-		  <th>创建用户</th>
-		  <th>创建时间</th>
-		  <th>最后修改时间</th>
-		  <th>操作</th>
-		  <th>备注</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		<tr>
-		  <td>1234567</td>
-		  <td>平行教室转码方案</td>
-		  <td>转码模板1，转码模板2</td>
-		  <td>xiao2</td>
-		  <td>2015/04/26 17:30</td>
-		  <td>2015/04/26 17:31</td>
-		  <td>
-		    <a href="#">修改</a>
-		    <a href="#">删除</a>
-		  </td>
-		  <td>1 231456</td>
-		</tr>
-	      </tbody>
-	    </table>
-	    <div class="panel-footer">
-	      <nav class="panel-table-pagination">
-		<ul class="pagination">
-		  <li>
-		    <a href="#" aria-label="Previous">
-		      <span aria-hidden="true">&laquo;</span>
-		    </a>
-		  </li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li>
-		    <a href="#" aria-label="Next">
-		      <span aria-hidden="true">&raquo;</span>
-		    </a>
-		  </li>
-		</ul>
-	      </nav>
-	    </div>
-	  </div>
-
-	  <div class="tab-panel" id="add-transcoding-solution">
-	    <div class="panel-links"><a class="btn-return-link" href="#video-transcoding-solution">&lt;&lt; 返回方案列表</a></div>
-	    <div class="panel-content">
-	      <div class="row">
-		<div class="col-md-8">
-		  <form class="form-horizontal">
-		    <div class="form-group">
-		      <label class="col-md-3 control-label">添加转码方案</label>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="solution-name">方案名称:</label>
-		      <div class="col-md-6">
-			<input class="form-control" id="solution-name" type="text">
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <label class="col-md-3 control-label" for="template-select">模板选择:</label>
-		      <div class="col-md-6">
-			<select class="form-control" id="template-select">
-			  <option>高清转码模板</option>
-			  <option>720P电影</option>
-			  <option>480P电影</option>
-			  <option>直接封装</option>
-			  <option>直接封装</option>
-			</select>
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <div class="col-md-offset-3 col-md-6">
-			说明:<br>
-			qwertyuiopasdfghjklzxcvbnm
-		      </div>
-		    </div>
-		    <div class="form-group">
-		      <div class="col-md-offset-3 col-md-6">
-			<button class="btn btn-green" type="button">保存</button>
-			<button class="btn btn-gray" type="button">取消</button>
-		      </div>
-		    </div>
-		  </form>
-		</div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+                <div>
+                  <input type="text" placeholder="2015/05/01">
+                </div>至
+                <div>
+                  <input type="text" placeholder="2015/05/01">
+                </div>
+                <div>
+                  <select>
+                    <option>全部状态1
+                    </option>
+                    <option>全部状态2
+                    </option>
+                    <option>全部状态3
+                    </option>
+                  </select>
+                </div>
+              </form>
+              <button class="btn-green">上传文件</button>
+            </div>
+          </div>
+          <div id="video-transcoding-template" class="tab-panel">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+                <div>
+                  <select>
+                    <option>转码模版1
+                    </option>
+                    <option>转码模版2
+                    </option>
+                    <option>转码模版3
+                    </option>
+                  </select>
+                </div>
+              </form>
+              <button class="btn-green">添加转码模版</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>模版名称</th>
+                  <th>模版类型</th>
+                  <th>创建用户</th>
+                  <th>创建时间</th>
+                  <th>最后修改时间</th>
+                  <th>操作</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                     
+                    1234567
+                  </td>
+                  <td>高清_1080P_5M</td>
+                  <td>
+                    <select>
+                      <option>转码模版1
+                      </option>
+                      <option>转码模版2
+                      </option>
+                      <option>转码模版3
+                      </option>
+                    </select>
+                  </td>
+                  <td>xiao2</td>
+                  <td>2015/04/26 17:31</td>
+                  <td>2015/04/26 17:31</td>
+                  <td><a href="#">修改</a><a href="#">删除</a></td>
+                  <td>1 231456</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="add-transcoding-template" class="tab-panel">
+            <div class="panel-header"><a href="?panel=video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="form-title">添加转码模板</label>
+              </div>
+              <div class="form-group">
+                <label for="template-name">模版名称:</label>
+                <div>
+                  <input id="template-name" type="text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>输出格式:</label>
+                <div>
+                  <p>mp4</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="transcoding-level">编码级别:</label>
+                <div>
+                  <select id="transcoding-level">
+                    <option>high1
+                    </option>
+                    <option>high2
+                    </option>
+                    <option>high3
+                    </option>
+                  </select>
+                  <div>备注: 推荐使用 high</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="compress-parameter">视频压缩参数:</label>
+                <div>
+                  <select id="compress-parameter">
+                    <option>slow1
+                    </option>
+                    <option>slow2
+                    </option>
+                    <option>slow3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="audio-coding">音频编码:</label>
+                <div>
+                  <select id="audio-coding">
+                    <option>AAC1
+                    </option>
+                    <option>AAC2
+                    </option>
+                    <option>AAC3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="audio-sample-rate">音频采样率:</label>
+                <div>
+                  <select id="audio-sample-rate">
+                    <option>采样率1
+                    </option>
+                    <option>采样率2
+                    </option>
+                    <option>采样率3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="audio-code-rate">音频码率:</label>
+                <div>
+                  <select id="audio-code-rate">
+                    <option>码率1
+                    </option>
+                    <option>码率2
+                    </option>
+                    <option>码率3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>视频隔行扫描:</label>
+                <div>
+                  <label>
+                    <input type="checkbox" value="yes">是
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="video-aspect-ratio">视频长宽比:</label>
+                <div>
+                  <select id="video-aspect-ratio">
+                    <option>固定长宽高，画面拉伸1
+                    </option>
+                    <option>固定长宽高，画面拉伸2
+                    </option>
+                    <option>固定长宽高，画面拉伸3
+                    </option>
+                  </select>
+                  <div class="form-inline">
+                    <label>说明:</label>
+                    <div>
+                      <input type="text" placeholder="长/px">
+                    </div>
+                    <div>
+                      <input type="text" placeholder="宽/px">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="button-list">
+                  <button type="submit" class="btn-green">保存</button>
+                  <button class="btn-gray">取消</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div id="video-transcoding-solution" class="tab-panel">
+            <div class="panel-header clearfix">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+                <div>
+                  <select>
+                    <option>转码模版1
+                    </option>
+                    <option>转码模版2
+                    </option>
+                    <option>转码模版3
+                    </option>
+                  </select>
+                </div>
+              </form>
+              <button class="btn-green">添加转码方案</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>模版方案</th>
+                  <th>转码模版</th>
+                  <th>创建用户</th>
+                  <th>创建时间</th>
+                  <th>最后修改时间</th>
+                  <th>操作</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                     
+                    1234567
+                  </td>
+                  <td>平行教室转码方案</td>
+                  <td>转码模版1，转码模版2</td>
+                  <td>xiao2</td>
+                  <td>2015/04/26 17:31</td>
+                  <td>2015/04/26 17:31</td>
+                  <td><a href="#">修改</a><a href="#">删除</a></td>
+                  <td>1 231456</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="add-transcoding-solution" class="tab-panel">
+            <div class="panel-header"><a href="?panel=video-transcoding-solution">&lt;&lt; 返回方案列表</a></div>
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="form-title">添加转码方案</label>
+              </div>
+              <div class="form-group">
+                <label for="solution-name">方案名称:</label>
+                <div>
+                  <input id="solution-name" type="text">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="template-select">模版选择:</label>
+                <div>
+                  <select id="template-select">
+                    <option>high1
+                    </option>
+                    <option>high2
+                    </option>
+                    <option>high3
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label></label>
+                <div>
+                  <p>
+                     
+                    说明:<br>
+                    qwerqweqweqweqweqeqweqeqweq
+                  </p>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="button-list">
+                  <button type="submit" class="btn-green">保存</button>
+                  <button class="btn-gray">取消</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-
-      <div class="footer" id="footer"></div>
+      <div class="footer">
+        <div class="container clearfix">
+          <ul>
+            <li><a href="index.html">未谷技术</a></li>
+            <li><a href="video.html">视频管理</a></li>
+            <li><a href="player.html">点播播放器</a></li>
+            <li><a href="advertisement.html">广告管理</a></li>
+            <li><a href="system.html">系统管理</a></li>
+            <li><a href="#">用户协议</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">帮助中心</a></li>
+            <li><a href="#">平台</a></li>
+          </ul>
+          <div class="company-info">
+            <div>
+              <div class="short-line"></div><a href="#">关于我们</a>
+            </div>
+            <div>
+              <div class="short-line"></div>copyright &copy; 2015上海未谷信息技术有限公司<br>
+              沪ICP 备案 xxxxxxx
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
     <script src="js/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/URI.js"></script>
     <script src="js/sly.min.js"></script>
     <script src="js/video.min.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/rangeslider.js"></script>
-    <script src="js/dev.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

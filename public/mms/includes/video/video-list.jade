@@ -1,0 +1,14 @@
+.tab-panel#video-list
+  .panel-header.clearfix
+    form
+      .right-inner-addon
+        input(type='search' placeholder='视频名称')
+        i.fa.fa-search
+      div
+        input(type='text' placeholder='2015/05/01')
+      | 至
+      div
+        input(type='text' placeholder='2015/05/01')
+      div
+        +select('全部状态')
+    button.btn-green 上传文件

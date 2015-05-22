@@ -1,0 +1,39 @@
+.tab-panel#video-transcoding-template
+  .panel-header.clearfix
+    form.clearfix
+      .right-inner-addon
+        input(type='search' placeholder='模版名称/用户名')
+        i.fa.fa-search
+      div
+        +select('转码模版')
+    button.btn-green 添加转码模版
+  table
+    thead
+      tr
+        th ID
+        th 模版名称
+        th 模版类型
+        th 创建用户
+        th 创建时间
+        th 最后修改时间
+        th 操作
+        th 备注
+    tbody
+      tr
+        td 
+          | 1234567
+        td
+          | 高清_1080P_5M
+        td
+          +select('转码模版')
+        td
+          | xiao2
+        td
+          | 2015/04/26 17:31
+        td
+          | 2015/04/26 17:31
+        td
+          a(href='#') 修改
+          a(href='#') 删除
+        td
+          | 1 231456

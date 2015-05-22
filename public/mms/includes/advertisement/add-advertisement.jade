@@ -1,0 +1,35 @@
+.tab-panel#add-advertisement
+  .panel-header
+    a(href='?panel=advertisement-solution') &lt;&lt; 返回广告方案列表
+  form.form-horizontal
+    .form-group
+      label.form-title 添加广告方案
+    .form-group
+      label(for='ad-solution-name') 广告方案名称:
+      div
+        input#ad-solution-name(type='text')
+        div (5-20字符)
+    .form-group
+      label(for='ad-op-select') 片头广告选择:
+      div
+        +select('片头广告选择')#ad-op-select
+    .form-group
+      label(for='ad-ed-select') 片尾广告选择:
+      div
+        +select('片尾广告选择')#ad-ed-select
+    .form-group
+      label(for='ad-pause-select') 暂停广告选择:
+      div
+        +select('暂停广告选择')#ad-pause-select
+    .form-group
+      label(for='ad-suspension-select') 悬浮广告选择:
+      div
+        +select('悬浮广告选择')#ad-suspension-select
+    .form-group
+      label(for='ad-scroll-select') 滚动广告选择:
+      div
+        +select('滚动广告选择')#ad-scroll-select
+    .form-group
+      div.button-list
+        button.btn-green(type='submit') 保存
+        button.btn-gray 取消

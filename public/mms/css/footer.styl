@@ -1,0 +1,45 @@
+.footer
+  height 225px
+  padding-top 40px
+  padding-bottom 15px
+  margin-bottom -225px
+  background: url('../images/footer-bg.jpg') no-repeat
+  background-size: cover
+
+  a
+    &:link,
+    &:visited
+      color font-color-2
+
+    &:hover,
+    &:active
+      color #fff
+  
+  ul
+    float left
+    margin-left 20px
+
+    &+ul
+      margin-left 50px
+    
+    li:first-child
+      margin-bottom 25px
+
+  .company-info
+    position absolute
+    right 30px
+    bottom 0
+    color font-color-2
+
+    >div
+      text-align right
+
+      &+div
+        margin-top 25px
+      
+    .short-line
+      width 20px
+      height 2px
+      margin-bottom 5px
+      margin-left auto
+      background-color success-color

@@ -1,0 +1,34 @@
+.tab-panel#manage-permission
+  .panel-header.clearfix
+    form.clearfix
+      .right-inner-addon
+        input(type='search' placeholder='模版名称/用户名')
+        i.fa.fa-search
+    button.btn-green 添加
+    button.btn-blue 编辑
+    button.btn-gray 删除
+  table
+    thead
+      tr
+        th
+        th 编号
+        th 角色名称
+        th 描述
+        th 创建时间
+        th 操作
+    tbody
+      tr
+        td
+          input(type='checkbox')
+        td
+          | 123456
+        td
+          | xiao2
+        td
+          | 系统管理/播放器管理
+        td
+          | 2015/05/12 15:23
+        td
+          a(href='#') 修改
+          a(href='#') 删除
+          a(href='#') 冻结

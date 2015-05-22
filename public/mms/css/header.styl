@@ -1,0 +1,93 @@
+.header
+  height 75px
+  padding 20px 0
+  margin-top -75px
+
+  background url('../images/header-bg.jpg') no-repeat
+  background-size cover
+
+  .brand
+    float left
+    >a
+      margin-right 10px
+      font-size 24px
+      color #fff
+
+      &:hover,
+      &:active
+        color primary-color
+
+    >span
+      color primary-color
+
+  .user-options
+    float right
+    height 30px
+    line-height 30px
+    color font-color-2
+
+    >a
+      &:link,
+      &:visited
+        color font-color-2
+
+      &:hover,
+      &:active
+        color #fff
+
+    .user-name
+      position relative
+      display inline-block
+      margin-right 15px
+      cursor pointer
+
+      &:hover,
+      &:active
+        color #fff
+
+      .user-menu
+        position absolute
+        z-index 1000
+        top 100%
+        right 0
+        display none
+        width 170px
+        padding-top 13px
+        padding-bottom 30px
+        
+        color font-color-1
+        background-color #fff
+        border-radius 4px
+        box-shadow 0 0 9px rgba(0, 0, 0, 0.15)
+
+        i
+          color primary-color
+        
+        li
+          padding 0
+          margin 0
+          
+          a
+            display block
+            padding-right 60px
+            padding-left 20px
+            height 30px
+            white-space nowrap
+
+            i
+              margin-right 10px
+
+            &:link,
+            &:visited
+              color font-color-2
+
+            &:hover
+              background-color font-color-3
+              color font-color-2
+
+            &:active
+              background-color primary-color
+              color #fff
+
+              i
+                color #fff

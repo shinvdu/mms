@@ -1,0 +1,126 @@
+.navbar
+  background-color #fff
+  border-radius 4px
+  box-shadow 0 0 9px rgba(0, 0, 0, 0.15)
+
+  >form
+    float right
+    width 130px
+    height 50px
+    margin-right 15px
+
+    >.right-inner-addon
+      margin-top 10px
+
+  >ul
+    >li
+      position relative
+      float left
+
+      >a
+        display block
+        padding-right 20px
+        padding-left 20px
+        height 50px
+        line-height 50px
+        color font-color-1
+        white-space nowrap
+
+        i
+          color primary-color
+
+      >.down-triangle
+        position absolute
+        top 100%
+        left 50%
+        display none
+        margin-left -5px
+        border-top 5px solid primary-color
+        border-left 5px solid transparent
+        border-right 5px solid transparent
+  
+      &.current
+        >a
+          color #fff
+          background-color primary-color
+          border-radius 0 0 4px 4px
+
+          i
+            color #fff
+
+        >.down-triangle
+          display block
+
+        &:hover
+          >a
+            color #fff
+
+      &:hover
+        >a
+          color primary-color
+
+        >ul
+          display block
+          
+
+    ul
+      position absolute
+      top 40px
+      z-index 1000
+      display none
+      padding-top 20px
+      padding-bottom 25px
+      background-color #fff
+      border-radius 4px
+      box-shadow 0 0 9px rgba(0, 0, 0, 0.15)
+
+      li
+        float none
+        
+        a
+          display block
+          padding-right 70px
+          padding-left 20px
+          height 30px
+          line-height 30px
+          color font-color-1
+          white-space nowrap
+
+          i
+            position relative
+            bottom 3px
+            font-size 5px
+  
+          &:hover
+            background-color font-color-3
+  
+          &:active
+            color #fff
+            background-color primary-color
+
+.nav-panel
+  margin-top 20px
+  margin-left 20px
+  
+  li
+    float left
+
+    a
+      color font-color-2
+
+      i
+        position relative
+        bottom 3px
+        font-size 10px
+
+      &:hover,
+      &:active
+        color font-color-1
+        text-decoration underline
+
+    &+li
+      margin-left 10px
+
+    &.current
+      a
+        color primary-color

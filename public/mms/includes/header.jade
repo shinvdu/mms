@@ -1,0 +1,34 @@
+.header
+  .container.clearfix
+    .brand
+      a(href='index.html') MMS
+      span www.mz.com
+    .user-options
+      .user-name
+        div#user-name
+          i.fa.fa-user
+          | MMS
+        +u-a-i-list([
+          {
+            href: 'user-config.html',
+            icon: 'pencil',
+            text: '用户设置'
+          },
+          {
+            href: '#',
+            icon: 'exclamation-circle',
+            text: '账单信息'
+          },
+          {
+            href: '#',
+            icon: 'bell-o',
+            text: '消息中心'
+          },
+          {
+            href: '#',
+            icon: 'power-off',
+            text: '退出'
+          }
+        ]).user-menu#user-menu(tabindex='1')
+      a(href='#')
+        i.fa.fa-power-off

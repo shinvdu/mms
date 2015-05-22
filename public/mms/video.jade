@@ -1,0 +1,35 @@
+extends includes/master-page
+
+append content
+  +navbar(1)
+  
+  +u-a-i-list([
+    {
+      current: 'current',
+      href: '?panel=video-upload',
+      icon: 'square',
+      text: '上传视频'
+    },
+    {
+      href: '?panel=video-list',
+      icon: 'square',
+      text: '视频列表'
+    },
+    {
+      href: '?panel=video-transcoding-template',
+      icon: 'square',
+      text: '转码模版'
+    },
+    {
+      href: '?panel=video-transcoding-solution',
+      icon: 'square',
+      text: '转码方案'
+    }
+  ]).nav-panel.clearfix
+  
+  include includes/video/video-upload
+  include includes/video/video-list
+  include includes/video/video-transcoding-template
+  include includes/video/add-transcoding-template
+  include includes/video/video-transcoding-solution
+  include includes/video/add-transcoding-solution

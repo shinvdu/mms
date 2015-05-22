@@ -1,0 +1,22 @@
+extends includes/master-page
+
+append content
+  +navbar(2)
+
+  +u-a-i-list([
+    {
+      current: 'current',
+      href: '?panel=advertisement-solution',
+      icon: 'square',
+      text: '广告方案'
+    },
+    {
+      href: '?panel=advertisement-resource',
+      icon: 'square',
+      text: '广告资源'
+    }
+  ]).nav-panel.clearfix
+  
+  include includes/advertisement/advertisement-solution
+  include includes/advertisement/advertisement-resource
+  include includes/advertisement/add-advertisement

@@ -1,0 +1,131 @@
+mixin u-a-i-list(items)
+  ul&attributes(attributes)
+    each item in items
+      li(class=item.current)
+        a(href=item.href)
+          i(class='fa fa-fw fa-' + item.icon)
+          = item.text
+          
+mixin u-a-list(items)
+  ul&attributes(attributes)
+    each item in items
+      li
+        a(href=item.href)
+          = item.text
+          
+mixin select(item)
+  - var count = 1
+  select&attributes(attributes)
+    while count < 4
+      option
+        = item + (count++)
+        
+mixin navbar(index)
+  nav.navbar.clearfix
+    form
+      .right-inner-addon
+        input(type='search' placeholder='视频搜索')
+        i.fa.fa-search
+    ul.clearfix
+      li(class= index === 0 ? 'current' : undefined)
+        a(href='index.html')
+          i.fa.fa-home
+          | 首页
+      li(class= index === 1 ? 'current' : undefined)
+        a(href='video.html')
+          i.fa.fa-video-camera
+          | 视频管理
+        .down-triangle
+        +u-a-i-list([
+          {
+            href: 'video.html?panel=video-upload',
+            icon: 'circle',
+            text: '上传视频'
+          },
+          {
+            href: 'video.html?panel=video-list',
+            icon: 'circle',
+            text: '视频列表'
+          },
+          {
+            href: 'video.html?panel=video-transcoding-template',
+            icon: 'circle',
+            text: '转码模版'
+          },
+          {
+            href: 'video.html?panel=video-transcoding-solution',
+            icon: 'circle',
+            text: '转码方案'
+          }
+        ])
+      li(class= index === 2 ? 'current' : undefined)
+        a(href='advertisement.html' role='tab')
+          i.fa.fa-cog
+          | 广告管理
+        .down-triangle
+        +u-a-i-list([
+          {
+            href: 'advertisement.html?panel=advertisement-solution',
+            icon: 'circle',
+            text: '广告方案'
+          },
+          {
+            href: 'advertisement.html?panel=advertisement-resource',
+            icon: 'circle',
+            text: '广告资源'
+          }
+        ])
+      li(class= index === 3 ? 'current' : undefined)
+        a(href='player.html' role='tab')
+          i.fa.fa-play-circle-o
+          | 点播播放器
+        .down-triangle
+        +u-a-i-list([
+          {
+            href: 'player.html?panel=add-player',
+            icon: 'circle',
+            text: '新增播放器'
+          },
+          {
+            href: 'player.html?panel=manage-player',
+            icon: 'circle',
+            text: '播放器管理'
+          },
+          {
+            href: 'player.html?panel=logo-list',
+            icon: 'circle',
+            text: 'LOGO'
+          },
+          {
+            href: 'player.html?panel=upload-logo',
+            icon: 'circle',
+            text: '上传LOGO'
+          }
+        ])
+      li(class= index === 4 ? 'current' : undefined)
+        a(href='system.html' role='tab')
+          i.fa.fa-desktop
+          | 系统管理
+        .down-triangle
+        +u-a-i-list([
+          {
+            href: 'system.html?panel=manage-user',
+            icon: 'circle',
+            text: '用户管理'
+          },
+          {
+            href: 'system.html?panel=manage-permission',
+            icon: 'circle',
+            text: '权限管理'
+          },
+          {
+            href: 'system.html?panel=manage-api',
+            icon: 'circle',
+            text: 'API管理'
+          },
+          {
+            href: 'system.html?panel=manage-log',
+            icon: 'circle',
+            text: '操作日志'
+          }
+        ])
