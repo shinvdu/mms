@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :company do
+  get 'owners/index'
+  end
+
   get 'video_lists/index'
 
   get 'user_videos/edit'
@@ -7,6 +11,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'admin#index'
     resources :users, :only => :index
+  end
+  namespace :company do
+    resources :owners
   end
   resources :transcoding_strategy_relationships
   resources :tags_relationships
@@ -29,9 +36,6 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get 'messages'
-    end
-    collection do
-      get 'company'
     end
   end
 

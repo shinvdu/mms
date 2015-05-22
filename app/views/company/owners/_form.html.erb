@@ -1,0 +1,46 @@
+<%= form_for :company_owner, :url => company_owners_path do |f| %>
+    <% if @company_owner.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@company_owner.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+            <% @company_owner.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :nickname %><br>
+      <%= f.text_field :nickname %>
+    </div>
+
+    <%= f.fields_for :company, @company_owner.company do |ff| %>
+        <div class="field">
+          <%= ff.label :name %><br>
+          <%= ff.text_field :name %>
+        </div>
+    <% end %>
+
+    <%= f.fields_for :account, @company_owner.account do |ff| %>
+        <div class="field">
+          <%= ff.label :email %><br/>
+          <%= ff.email_field :email, autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= ff.label :password %>
+          <%= ff.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <div class="field">
+          <%= ff.label :password_confirmation %><br/>
+          <%= ff.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

@@ -37,7 +37,7 @@ end
 # ----------- -------------------- ------- ------- -------
 # id          int(11)              false           true   
 # user_id     int(11)              true            false  
-# is_read     tinyint(1)           true            false  
+# is_read     tinyint(1)           true    0       false  
 # title       varchar(255)         true            false  
 # target_id   int(11)              true            false  
 # target_type varchar(255)         true            false  
