@@ -23,13 +23,13 @@ Rails.application.routes.draw do
   resources :logos
 
   get 'home/index'
-  devise_for :accounts, controllers: { registrations: "user/registrations", sessions: 'user/sessions' }
+  devise_for :accounts, controllers: { registrations: "user/registrations", sessions: 'user/sessions' , password: 'user/passwords'}
   root 'home#index'
   # match ':controller/:action', :via => :all
   resources :users do
-    collection do
-      get 'messages'
-    end
+    # collection do
+    #   get 'messages'
+    # end
     collection do
       get 'company'
     end
