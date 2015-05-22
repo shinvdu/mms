@@ -27,9 +27,6 @@ Rails.application.routes.draw do
   root 'home#index'
   # match ':controller/:action', :via => :all
   resources :users do
-    # collection do
-    #   get 'messages'
-    # end
     collection do
       get 'company'
     end
