@@ -16,7 +16,7 @@ class User::PasswordsController < Devise::PasswordsController
     user = Account.where(reset_password_token: reset_password_token).first
     # debugger
     if user.nil? || !(user.reset_password_sent_at)
-      notice_error '您己经使用过这个链接，你再次请求。'
+      notice_error '您己经使用过这个链接，如果您需要修改密码，请再次请求。'
       redirect_to new_password_path(resource_name)
       return
     end
