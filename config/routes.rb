@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   namespace :company do
+  get 'members/new'
+  end
+
+  namespace :company do
+  get 'companies/show'
+  end
+
+  namespace :company do
   get 'companies/show'
   end
 
@@ -27,7 +35,11 @@ Rails.application.routes.draw do
   root 'home#index'
   # match ':controller/:action', :via => :all
   resources :users
-  resources :companies, :controller => 'company/companies'
+  resources :companies, :controller => 'company/companies' do
+    member do
+      resources :members, :controller => 'company/members', :as => 'company_members'
+    end
+  end
 
   resources :video_products do
     member do

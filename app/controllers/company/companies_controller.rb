@@ -1,9 +1,12 @@
 class Company::CompaniesController < ApplicationController
+  before_action :set_company, :only => [:show]
   def index
     @company_owners = User.company_owners.page(params[:page])
   end
 
   def show
+    @company_admins = User.company_admins.where(:company => @company).page(params[:admin_page])
+    @company_members = User.company_members.where(:company => @company).page(params[:member_page])
   end
 
   def new
@@ -35,6 +38,10 @@ class Company::CompaniesController < ApplicationController
   end
 
   private
+
+  def set_company
+    @company = Company.find(params[:id])
+  end
 
   def company_account_params
     params.require(:company_account).permit(:email, :password, :password_confirmation, :user => [:nickname, :company => :name])
