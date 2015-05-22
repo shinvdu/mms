@@ -32,5 +32,13 @@
           </a>
         </li>
     <% end %>
+    <% if can? :access, :CompanyAccount %>
+        <li class="">
+          <a href="<%= company_owners_path %>">
+            <span class="square"></span>
+            企业账户
+          </a>
+        </li>
+    <% end %>
   </ul>
 </nav>

@@ -34,7 +34,7 @@ defaults: &defaults
     system_admin: system_admin
     helper: helper
     user: user
-    company: company
+    company_owner: company_owner
     company_admin: company_admin
     company_user: company_user
   role_name:

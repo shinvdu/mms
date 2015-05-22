@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  scope :company_owners, -> {where(:role => Settings.role.company_owner)}
   self.primary_key = "uid"
   has_one :account
   has_many :notifications
@@ -7,17 +8,11 @@ class User < ActiveRecord::Base
   has_many :advertise_resources, :class_name => 'Advertise::Resource'
   has_many :advertise_strategies, :class_name => 'Advertise::Strategy'
   has_many :transcoding_strategies
-  # has_one :logo
-  # has_many :player
-  # has_many :resource
-  # has_many :strategy
-  # has_many :transcoding
-  # has_many :transcoding_strategy
-  # has_many :transcoding_strategy_relationship
-  # has_many :tag
-  # has_many :tags_relationship
   has_many :notification
   has_many :user_videos, :foreign_key => :owner_id
+  belongs_to :company
+  accepts_nested_attributes_for :company
+  accepts_nested_attributes_for :account
   # mount_uploader :avar, AvatarUploader
   # 短信验证
   has_sms_verification
@@ -29,7 +24,6 @@ class User < ActiveRecord::Base
 
 
   def admin?
-    # TODO 第一个用户为超级用户
     self.role == Settings.role.root
   end
 
@@ -75,5 +69,6 @@ end
 # note              varchar(255)         true            false  
 # created_at        datetime             false           false  
 # updated_at        datetime             false           false  
+# company_id        int(11)              true            false  
 #
 #------------------------------------------------------------------------------

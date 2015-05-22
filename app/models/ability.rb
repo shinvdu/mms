@@ -3,10 +3,11 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    return can :manage, :all if user.admin?
+    return can :manage, :all if user.root?
 
     # TODO add ability control
-    can :check, VideoProductGroup if user.admin? || user.system_admin? || user.helper?
+    can :check, VideoProductGroup if user.root? || user.system_admin? || user.helper?
+    can :access, :CompanyAccount if user.root? || user.system_admin?
     can :manage, :all
 
     # The first argument to `can` is the action you are giving the user
