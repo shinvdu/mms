@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   # match ':controller/:action', :via => :all
   resources :users 
 
-
   resources :video_products do
     member do
       get 'download'
