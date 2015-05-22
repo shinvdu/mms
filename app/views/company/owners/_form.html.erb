@@ -1,44 +1,44 @@
-<%= form_for :company_owner, :url => company_owners_path do |f| %>
-    <% if @company_owner.errors.any? %>
+<%= form_for :company_account, :url => company_owners_path do |f| %>
+    <% if @company_account.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@company_owner.errors.count, "error") %> prohibited this user from being saved:</h2>
+          <h2><%= pluralize(@company_account.errors.count, "error") %> prohibited this user from being saved:</h2>
 
           <ul>
-            <% @company_owner.errors.full_messages.each do |message| %>
+            <% @company_account.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
             <% end %>
           </ul>
         </div>
     <% end %>
 
+    <%= f.fields_for :user, @company_account.user do |ff| %>
+        <div class="field">
+          <%= ff.label :nickname %><br>
+          <%= ff.text_field :nickname %>
+        </div>
+        <%= ff.fields_for :company, @company_account.user.company do |fff| %>
+            <div class="field">
+              <%= fff.label :name %><br>
+              <%= fff.text_field :name %>
+            </div>
+        <% end %>
+    <% end %>
+
+
     <div class="field">
-      <%= f.label :nickname %><br>
-      <%= f.text_field :nickname %>
+      <%= f.label :email %><br/>
+      <%= f.email_field :email, autofocus: true %>
     </div>
 
-    <%= f.fields_for :company, @company_owner.company do |ff| %>
-        <div class="field">
-          <%= ff.label :name %><br>
-          <%= ff.text_field :name %>
-        </div>
-    <% end %>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
 
-    <%= f.fields_for :account, @company_owner.account do |ff| %>
-        <div class="field">
-          <%= ff.label :email %><br/>
-          <%= ff.email_field :email, autofocus: true %>
-        </div>
-
-        <div class="field">
-          <%= ff.label :password %>
-          <%= ff.password_field :password, autocomplete: "off" %>
-        </div>
-
-        <div class="field">
-          <%= ff.label :password_confirmation %><br/>
-          <%= ff.password_field :password_confirmation, autocomplete: "off" %>
-        </div>
-    <% end %>
+    <div class="field">
+      <%= f.label :password_confirmation %><br/>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
 
     <div class="actions">
       <%= f.submit %>
