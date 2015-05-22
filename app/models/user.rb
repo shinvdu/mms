@@ -11,8 +11,7 @@ class User < ActiveRecord::Base
   has_many :notification
   has_many :user_videos, :foreign_key => :owner_id
   belongs_to :company
-  accepts_nested_attributes_for :company
-  accepts_nested_attributes_for :account
+  accepts_nested_attributes_for :company, :account
   # mount_uploader :avar, AvatarUploader
   # 短信验证
   has_sms_verification

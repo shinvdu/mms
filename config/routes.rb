@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'video_lists/index'
-
-  get 'user_videos/edit'
-
   resources :notifications
   namespace :admin do
     get '/' => 'admin#index'

@@ -10,12 +10,14 @@ class Company::OwnersController < ApplicationController
   end
 
   def create
-    @company_owner = User.new(company_owner_params)
-    @company_owner.company = Company.new(company_params)
-    @company_owner.account = Account.new(account_params)
+    @company_owner = User.new(company_owner_params.except(:company, :account))
+    @company_owner.role = Settings.role.company_owner
+    @company_owner.company = Company.new(company_owner_params[:company])
+    @company_owner.account = Account.new(company_owner_params[:account])
+    @company_owner.account.username = @company_owner.nickname
     respond_to do |format|
       if @company_owner.save
-        format.html { redirect_to :index, notice: 'Company owner was successfully created.' }
+        format.html { redirect_to company_owners_path, notice: 'Company owner was successfully created.' }
         format.json { render :show, status: :created, location: @company_owner }
       else
         format.html { render :new }
@@ -26,5 +28,8 @@ class Company::OwnersController < ApplicationController
 
   private
 
+  def company_owner_params
+    params.require(:company_owner).permit(:nickname, company: [:name], :account => [:email, :password, :password_confirmation])
+  end
 
 end
