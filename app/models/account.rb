@@ -1,22 +1,23 @@
 class Account < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :authentication_keys => [:login]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable 
+  # devise :authentication_keys => [:login]
   devise :confirmable if Rails.env == 'production'
-  attr_accessor :login
+  # attr_accessor :login
   belongs_to :user, foreign_key: :user_id
-  validates_uniqueness_of :username
+  # validates_uniqueness_of :username
   validates :username, presence: true
   accepts_nested_attributes_for :user
 
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value", {:value => login.downcase}]).first
-    else
-      where(conditions.to_h).first
-    end
-  end
+  # def self.find_for_database_authentication(warden_conditions)
+  #   conditions = warden_conditions.dup
+  #   if login = conditions.delete(:login)
+  #     where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value", {:value => login.downcase}]).first
+  #   else
+  #     where(conditions.to_h).first
+  #   end
+  # end
 
   def active_for_authentication?
     #remember to call the super
