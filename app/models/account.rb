@@ -7,6 +7,7 @@ class Account < ActiveRecord::Base
   belongs_to :user, foreign_key: :user_id
   validates_uniqueness_of :username
   validates :username, presence: true
+  accepts_nested_attributes_for :user
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup

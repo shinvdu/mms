@@ -4,32 +4,32 @@ class Company::OwnersController < ApplicationController
   end
 
   def new
-    @company_owner = User.new(:role => Settings.role.company_owner)
-    @company_owner.company = Company.new
-    @company_owner.account = Account.new
+    @company_account = Account.new
+    @company_account.user = User.new(:role => Settings.role.company_owner)
+    @company_account.user.company = Company.new
   end
 
   def create
-    @company_owner = User.new(company_owner_params.except(:company, :account))
-    @company_owner.role = Settings.role.company_owner
-    @company_owner.company = Company.new(company_owner_params[:company])
-    @company_owner.account = Account.new(company_owner_params[:account])
-    @company_owner.account.username = @company_owner.nickname
+    @company_account = Account.new(company_account_params.except(:user))
+    @company_account.user = User.new(company_account_params[:user].except(:company))
+    @company_account.user.role = Settings.role.company_owner
+    @company_account.user.company = Company.new(company_account_params[:user][:company])
+    @company_account.username = @company_account.user.nickname
     respond_to do |format|
-      if @company_owner.save
+      if @company_account.save
         format.html { redirect_to company_owners_path, notice: 'Company owner was successfully created.' }
-        format.json { render :show, status: :created, location: @company_owner }
+        format.json { render :show, status: :created, location: @company_account }
       else
         format.html { render :new }
-        format.json { render json: @company_owner.errors, status: :unprocessable_entity }
+        format.json { render json: @company_account.errors, status: :unprocessable_entity }
       end
     end
   end
 
   private
 
-  def company_owner_params
-    params.require(:company_owner).permit(:nickname, company: [:name], :account => [:email, :password, :password_confirmation])
+  def company_account_params
+    params.require(:company_account).permit(:email, :password, :password_confirmation, :user => [:nickname, :company => :name])
   end
 
 end
