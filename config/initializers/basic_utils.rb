@@ -11,3 +11,4 @@ end
 class Fixnum
   include NumberUtils
 end
+

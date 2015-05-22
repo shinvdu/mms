@@ -1,12 +1,14 @@
 class VideoProductGroup < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
   belongs_to :user_video
-  belongs_to :mkv_video, :class_name => 'VideoDetail'
+  belongs_to :temp_video, :class_name => 'VideoDetail'
   belongs_to :player
   has_many :video_products
   has_many :video_fragments, -> { order('video_fragments.order') }
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
   has_many :snapshots
+  has_one :video_product_group_list_link
+  has_one :video_list, :through => :video_product_group_list_link
   belongs_to :transcoding_strategy
   belongs_to :checker, :class_name => 'User'
   scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
@@ -30,7 +32,7 @@ class VideoProductGroup < ActiveRecord::Base
   end
 
   def create_fragments(cut_points)
-    cut_points.each do |cp, idx|
+    cut_points.each_with_index do |cp, idx|
       VideoFragment.create(:video_product_group => self,
                            :video_cut_point => cp,
                            :order => idx)
@@ -91,7 +93,7 @@ class VideoProductGroup < ActiveRecord::Base
 
   def duration_str
     return '未知' unless self.FINISHED?
-    return self.mkv_video.duration.to_time if self.mkv_video && self.mkv_video.duration
+    return self.temp_video.duration.to_time if self.temp_video && self.temp_video.duration
     return self.user_video.original_video.duration.to_time if self.user_video
   end
 
@@ -106,6 +108,17 @@ class VideoProductGroup < ActiveRecord::Base
   end
 
   #####################################################
+  # video list
+  #####################################################
+
+  def set_video_list_by_user_video(user_video)
+    if user_video.present?
+      video_list = user_video.video_list
+      self.create_video_product_group_list_link(:video_list => video_list) if video_list.present?
+    end
+  end
+
+  #####################################################
   # asynchronous method
   #####################################################
 
@@ -113,48 +126,50 @@ class VideoProductGroup < ActiveRecord::Base
     Delayed::Worker.logger
   end
 
-  def check_dependent(user_video)
-    dependent_video = user_video.mkv_video
-
-    if dependent_video.nil? || dependent_video.NONE?
-      user_video.delay.create_mkv
-      logger.warn "Cannot find mkv video for user video. id: #{user_video.id}"
-      logger.warn 'Create mkv video from user video.'
-      self.status = STATUS::WAIT_FOR_DEPENDENCY
-      self.save!
-      self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
-      return false
+  def check_dependent
+    self.video_cut_points.each do |cp|
+      dependent_video = cp.user_video.mkv_video
+      if dependent_video.nil? || dependent_video.NONE?
+        # user_video.delay.create_mkv
+        logger.warn "Cannot find mkv video for user video. [id: #{cp.user_video.id}]"
+        # logger.warn 'Create mkv video from user video.'
+        self.status = STATUS::WAIT_FOR_DEPENDENCY
+        self.save!
+        self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
+        return false
+      end
+      logger.debug "[dependent video id: #{dependent_video.id}]"
+      if dependent_video.PROCESSING?
+        logger.info 'Wait for next loop because dependent video is in processing'
+        self.status = STATUS::WAIT_FOR_DEPENDENCY
+        self.save!
+        self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
+        return false
+      end
     end
-
-    logger.debug "[dependent video id: #{dependent_video.id}]"
-    if dependent_video.PROCESSING?
-      logger.info 'Wait for next loop because dependent video is in processing'
-      self.status = STATUS::WAIT_FOR_DEPENDENCY
-      self.save!
-      self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
-      return false
-    end
-
-    unless dependent_video.LOCAL?
-      logger.info 'Dependent video is only in remote server(OSS), download before cut'
-      self.status = STATUS::DOWNLOADING
-      self.save!
-      dependent_video.download!
+    self.video_cut_points.each do |cp|
+      dependent_video = cp.user_video.mkv_video
+      unless dependent_video.LOCAL?
+        logger.info 'Dependent video is only in remote server(OSS), download before cut'
+        self.status = STATUS::DOWNLOADING
+        self.save!
+        dependent_video.download!
+      end
+      dependent_video.load_local_file_if_necessary!
     end
     true
   end
 
   def create_products_from_mkv
     logger.info 'Start process video product group'
-    return unless check_dependent(self.user_video)
+    return unless check_dependent
 
-    dependent_video = self.user_video.mkv_video
+    create_products_by_transcoding_strategy
+  end
 
-    if self.transcoding_strategy.present?
-      create_products_by_transcoding_strategy(dependent_video)
-    else
-      create_products_for_directly_publish(dependent_video)
-    end
+  def create_package_product
+    logger.info 'Start process video product group'
+    create_products_for_directly_publish(self.user_video.original_video)
   end
 
   def create_products_from_origin
@@ -167,19 +182,19 @@ class VideoProductGroup < ActiveRecord::Base
     self.user_video.original_video.create_snapshot(self)
   end
 
-  def create_products_by_transcoding_strategy(dependent_video)
+  def create_products_by_transcoding_strategy
     logger.info 'Start to make video product fragment'
     self.status = STATUS::PROCESSING
     self.save!
-    self.mkv_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
-    self.mkv_video.fetch_video_info
-    self.mkv_video.load_local_file! unless self.mkv_video.REMOTE?
-    self.mkv_video.create_snapshot(self)
-    self.mkv_video.remove_local_file!
+    # self.temp_video = dependent_video.create_mkv_video_by_fragments(self.video_fragments)
+    self.temp_video = VideoDetail.create_mkv_video_by_fragments(self.video_fragments)
+    self.temp_video.load_local_file! unless self.temp_video.REMOTE?
+    self.temp_video.create_snapshot(self)
+    self.temp_video.remove_local_file!
 
     self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
-      product.transcode_video(self.mkv_video, transcoding)
+      product.transcode_video(self.temp_video, transcoding)
     end
     self.save!
   end
@@ -188,9 +203,9 @@ class VideoProductGroup < ActiveRecord::Base
     logger.info 'Start to make packaged video product'
     self.status = STATUS::PROCESSING
     self.save!
-    self.mkv_video = VideoDetail.create.copy_video_info_from! dependent_video
+    self.temp_video = VideoDetail.create.copy_video_info_from! dependent_video
     product = VideoProduct.create(:video_product_group => self)
-    product.copy_package_mkv!(self.user_video.mkv_video)
+    product.publish_mp4!(dependent_video)
     user_video.original_video.create_snapshot(self)
     self.status = STATUS::FINISHED
     self.save!
@@ -200,7 +215,7 @@ class VideoProductGroup < ActiveRecord::Base
     not_all_finished = self.video_products.any? { |products| !products.FINISHED? }
     unless not_all_finished
       self.status = VideoProductGroup::STATUS::FINISHED
-      self.mkv_video.remove_local_file!
+      self.temp_video.remove_local_file!
       self.save!
     end
   end
@@ -240,8 +255,10 @@ end
 # updated_at              datetime             false           false  
 # transcoding_strategy_id int(11)              true            false  
 # name                    varchar(255)         true            false  
-# mkv_video_id            int(11)              true            false  
+# temp_video_id           int(11)              true            false  
 # check_status            int(11)              true    10      false  
 # checker_id              int(11)              true            false  
+# uuid                    varchar(255)         true            false  
+# player_id               int(11)              true            false  
 #
 #------------------------------------------------------------------------------

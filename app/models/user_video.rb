@@ -3,6 +3,8 @@ class UserVideo < ActiveRecord::Base
   has_many :video_product_groups
   has_many :video_cut_points
   has_many :tags_relationship
+  has_one :video_list_link
+  has_one :video_list, :through => :video_list_link
   belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
@@ -73,6 +75,30 @@ class UserVideo < ActiveRecord::Base
   end
 
   ######################################################
+  # video list
+  ######################################################
+
+  def update_video_list!(video_list_id)
+    if video_list_id.blank?
+      self.video_list_link.delete if self.video_list_link.present?
+      self.video_list_link = nil
+    else
+      if self.video_list_link.present?
+        self.video_list_link.update_attribute(:video_list, VideoList.find(video_list_id))
+      else
+        self.create_video_list_link(:video_list => VideoList.find(video_list_id))
+      end
+    end
+    self.save! if self.changed?
+  end
+
+  def remove_video_list!
+    self.video_list_link.delete if self.video_list_link.present?
+    self.video_list_link = nil
+    self.save! if self.changed?
+  end
+
+  ######################################################
   # asynchronous method
   ######################################################
 
@@ -94,6 +120,7 @@ class UserVideo < ActiveRecord::Base
     if video_detail.video_codec.downcase.index('h264') && video_detail.audio_codec.downcase.index('aac')
       logger.debug 'original video is h264/acc, package it locally'
       self.mkv_video = self.original_video.create_mkv_video
+      upload_and_remove_local_mkv
     else
       logger.debug 'original video is not h264/acc, call mts to transcode'
       transcode_job = create_transcoding_video_job(Transcoding.find_pre_middle_template)
@@ -108,20 +135,17 @@ class UserVideo < ActiveRecord::Base
     case publish_strategy
       when PUBLISH_STRATEGY::PACKAGE
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
-        if self.mkv_video.nil? || !self.mkv_video.LOCAL?
-          logger.info "mkv video not created, wait for next loop. id: #{self.id}"
-          self.delay(run_at: 1.seconds.from_now).publish_by_strategy(publish_strategy, transcoding_strategy)
-          return
-        end
         self.transaction do
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
-          video_product_group.create_products_from_mkv
+          video_product_group.create_package_product
+          video_product_group.set_video_list_by_user_video(self)
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
         self.transaction do
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :transcoding_strategy => transcoding_strategy)
           video_product_group.create_products_from_origin
+          video_product_group.set_video_list_by_user_video(self)
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
         # nothing to do now
@@ -133,9 +157,17 @@ class UserVideo < ActiveRecord::Base
     self.mkv_video.fetch_video_info
     self.mkv_video.save!
     self.pre_mkv_video.remove_local_file
-    self.pre_mkv_video.destroy
-    self.pre_mkv_video = nil
+    self.pre_mkv_video.status = VideoDetail::STATUS::NONE
+    self.pre_mkv_video.save!
     self.save!
+    upload_and_remove_local_mkv
+  end
+
+  def upload_and_remove_local_mkv
+    transaction do
+      self.mkv_video.load_local_file!
+      self.mkv_video.remove_local_file!
+    end
   end
 
 end
@@ -165,5 +197,6 @@ end
 # mkv_video_id                    int(11)              true            false  
 # format_status                   int(11)              true    0       false  
 # pre_mkv_video_id                int(11)              true            false  
+# description                     text                 true            false  
 #
 #------------------------------------------------------------------------------

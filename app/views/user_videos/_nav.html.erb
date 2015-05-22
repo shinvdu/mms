@@ -1,7 +1,7 @@
 <nav class="nav">
   <ul class="nav-square clearfix">
     <li class="current" style="display:none">
-      <a href="<%= new_user_video_path %>"  data-no-turbolink='true' >
+      <a href="<%= new_user_video_path %>" data-no-turbolink='true'>
         <span class="square"></span>
         上传视频
       </a>
@@ -30,5 +30,13 @@
         原片管理
       </a>
     </li>
+    <% if can? :manage, VideoList %>
+        <li class="">
+          <a href="<%= video_lists_path %>">
+            <span class="square"></span>
+            分类管理
+          </a>
+        </li>
+    <% end %>
   </ul>
 </nav>

@@ -6,42 +6,273 @@ zh-CN:
 
   # Default error messages
   errors:
+    # The default format to use in full error messages.
+    format: "%{attribute} %{message}"
+    template:
+      header:
+        one: "有 1 个错误发生导致「%{model}」无法被保存。"
+        other: "有 %{count} 个错误发生导致「%{model}」无法被保存。"
+      body: "如下字段出现错误："
+
+    # The values :model, :attribute and :value are always available for interpolation
+    # The value :count is available when applicable. Can be used for pluralization.
     messages:
-      taken: "has already been taken"
+      inclusion: "不包含于列表中"
+      exclusion: "是保留关键字"
+      invalid: "是无效的"
+      confirmation: "与确认值%{attribute}不匹配"
+      accepted: "必须是可被接受的"
+      empty: "不能留空"
+      blank: "不能为空"
+      present: "must be blank"
+      too_long:
+        one: "过长（最长为 1个字符）"
+        other: "过长（最长为 %{count} 个字符）"
+      too_short:
+        one: "过短（最短为 1个字符）"
+        other: "过短（最短为 %{count} 个字符）"
+      wrong_length:
+        one: "长度非法（必须为 1个字符）"
+        other: "长度非法（必须为 %{count} 个字符）"
+      not_a_number: "不是数字"
+      not_an_integer: "必须是整数"
+      greater_than: "必须大于 %{count}"
+      greater_than_or_equal_to: "必须大于或等于 %{count}"
+      equal_to: "必须等于 %{count}"
+      less_than: "必须小于 %{count}"
+      less_than_or_equal_to: "必须小于或等于 %{count}"
+      other_than: "must be other than %{count}"
+      odd: "必须为单数"
+      even: "必须为双数"
+      taken: "已经被使用"
+      record_invalid: "校验失败: %{errors}"
+      after: "必须在%{restriction}之后"
+      position: '位置'
 
   # Active Record models configuration
   activerecord:
     errors:
+    models:
+      account: "帐户"
+      advertise_resource: "广告资源"
+      advertise_strategy: "广告方案"
+      logo: "LOGO"
+      notification: "消息"
+      player: "播放器"
+      tag: "视频标签"
+      transcoding_strategy: "转码策略"
+      transcoding: "转码方案"
+      user_video: "视频原片"
+      user: "用户"
+      video_detail: "视频"
+      video_product_group: "视频组"
+      video_product: "视频成片"
+    attributes:
+      account:
+        email: "登录邮箱"
+        username: "用户名"
+        password: "密码"
+        current_password: '当前密码'
+        password_confirmation: "确认密码"
+        reset_password_sent_at: "重置密码发送时间"
+        reset_password_token: "重置密码标记"
+        remember_created_at: "记住我设置时间"
+        sign_in_count: "登录次数"
+        current_sign_in_at: "本次登录时间"
+        last_sign_in_at: "上次登录时间"
+        current_sign_in_ip: "本次登录IP地址"
+        last_sign_in_ip: "上次登录IP地址"
+        created_at: "创建时间"
+        updated_at: "更新时间"
+      company:
+        name: 单位名称
+      user:
+        nickname: "用户名"
+        role: "角色"
+        sex: "姓别"
+        really_name: "真实姓名"
+        birthday: "生日"
+        signature: "签名"
+        avar: "头像"
+        location: "地址"
+        self_introduction: "自我介绍"
+        mobile: "手机"
+        wechat: "微信号"
+        qq: "QQ"
+        weibo: "微博"
+        twitter_id: "推特"
+        facebook: "脸盆网"
+        website: "个人网站"
+        note: "标注"
+      advertise_resource:
+        name: "资源名称"
+        file_type: "资源类型"
+        ad_type: "广告类型"
+        uri: "广告资源"
+        ad_word: "广告词"
+        filesize: "资源大小"
+        video_detail_id: "视频"
+        status: "状态"
+        format_status: "格式状态"
+        transcoded_video_id: "转码后的视频"
+      advertise_strategy:
+        name: "广告名称"
+        front_ad: "片头广告"
+        end_ad: "片尾广告"
+        pause_ad: "暂停广告"
+        float_ad: "悬浮广告"
+        scroll_ad: "滚动字幕"
+      logo:
+        name: "LOGO名称"
+        uri: "图像"
+        width: "长"
+        height: "宽"
+        filemime: "图像格式"
+        origname: "原始名字"
+      notification:
+        is_read: "己读"
+        title: "标题"
+        target_id: "目标id"
+        target_type: "目标类型"
+      player:
+        name: "播放器名称"
+        color: "顔色"
+        logo_id: "LOGO"
+        logo_position: "LOGO位置"
+        autoplay: "自动播放"
+        share: "分享"
+        width: "宽度"
+        height: "高度"
+      tag:
+        name: "名称"
+        desc: "描述"
+        note: "备注"
+        user_id: "创建用户"
+      tags_relationship:
+        tag_id: "分类ID"
+        user_video_id: "视频ID"
+        user_id: "用户"
+      transcoding_strategy:
+        name: "策略名称"
+        note: "备注"
+        share: "分享"
+      transcoding_strategy_relationship:
+        transcoding_id: "转码方案ID"
+        transcoding_strategy_id: "转码策略ID"
+        user_id: "用户"
+      transcoding:
+        name: "方案名称"
+        user_id: "用户"
+        container: "输出格式"
+        video_preset: "转码速度"
+        video_codec: "视频编码"
+        audio_codec: "音频编码"
+        video_bitrate: "视频码流"
+        audio_bitrate: "音频码流"
+        video_fps: "视频帧率"
+        video_gop: "关键帧间隔"
+        video_scanmode: "视频隔行扫描"
+        video_bufsize: "视频缓冲"
+        width: "宽度"
+        height: "高度"
+        audio_samplerate: "采样率"
+        audio_channels: "声道数"
+        video_profile: "编码级别"
+        aliyun_template_id: "阿里云模板ID"
+        disabled: "禁用"
+        disable_time: "禁用时间"
+        share: "共享"
+        special_template: "特殊的模板"
+      user_video:
+        owner_id: "用户"
+        original_video_id: "原片视频"
+        mini_video_id: "最低码率视频"
+        logo_id: "LOGO"
+        video_name: "视频名字"
+        file_name: "文件名称"
+        ext_name: "后缀"
+        duration: "时长"
+        status: "状态"
+        width: "宽度"
+        height: "高度"
+        transcoding_strategy_id: "转码策略"
+        default_transcoding_strategy_id: "默认的转码策略"
+        mkv_video_id: "MKV视频"
+        format_status: "格式状态"
+        pre_mkv_video_id: "pre_mkv视频"
+      video_detail:
+        uri: "视频地址"
+        format: "视频格式"
+        md5: "MD5哈希值"
+        rate: "视频码率"
+        size: "视频大小"
+        duration: "视频时长"
+        status: "状态"
+        user_video_id: "视频原片"
+        width: "宽度"
+        height: "高度"
+        fps: "视频帧率"
+        transcoding_id: "转码方案"
+        fragment: "fragment"
+        video_codec: "视频编码"
+        audio_codec: "音频编码"
+        resolution: "resolution"
+        public: "公有存储"
+        public_video: "公有存储地址"
+        private_video: "私有存储地址"
+      video_product_group:
+        owner_id: "用户"
+        user_video_id: "原片视频"
+        published: "己发布"
+        publish_start: "发布开始时间"
+        publish_stop: "发布结束时间 "
+        status: "状态 "
+        transcoding_strategy_id: "转码策略"
+        name: "名字"
+        check_status: "检查状态"
+        uuid: "视频原片ID"
+        player_id: "播放器ID"
+      video_products:
+        video_product_group_id: "视频组"
+        video_detail_id: "视频地址"
+        transcoding_id: "转码方案"
+        progress: "进度"
+        status: "状态"
+    errors:
+      template: # ~ 2.3.5 backward compatible
+        header:
+          one: "有 1 个错误需要修正。"
+          other: "有 %{count} 个错误需要修正。"
+        body: "如下字段出现错误："
+      full_messages:
+        format: "%{attribute} %{message}"
+      models:
+        topic:
+          attributes:
+            node_id:
+              blank: "请选择正确节点"
       messages:
-        record_invalid: "Validation failed: %{errors}"
-        restrict_dependent_destroy:
-          one: "Cannot delete record because a dependent %{record} exists"
-          many: "Cannot delete record because dependent %{record} exist"
-        # Append your own errors here or at the model/attributes scope.
+        inclusion: "不包含于列表中"
+        exclusion: "是保留关键字"
+        invalid: "是无效的"
+        confirmation: "与确认值不匹配"
+        accepted: "必须是可被接受的"
+        empty: "不能留空"
+        blank: "不能为空字符"
+        too_long: "过长（最长为 %{count} 个字符）"
+        too_short: "过短（最短为 %{count} 个字符）"
+        wrong_length: "长度非法（必须为 %{count} 个字符）"
+        not_a_number: "不是数字"
+        not_an_integer: "必须是整数"
+        greater_than: "必须大于 %{count}"
+        greater_than_or_equal_to: "必须大于或等于 %{count}"
+        equal_to: "必须等于 %{count}"
+        less_than: "必须小于 %{count}"
+        less_than_or_equal_to: "必须小于或等于 %{count}"
+        odd: "必须为单数"
+        even: "必须为双数"
+        taken: "已经被使用"
+        record_invalid: "校验失败: %{errors}"
 
-      # You can define own errors for models or model attributes.
-      # The values :model, :attribute and :value are always available for interpolation.
-      #
-      # For example,
-      #   models:
-      #     user:
-      #       blank: "This is a custom blank message for %{model}: %{attribute}"
-      #       attributes:
-      #         login:
-      #           blank: "This is a custom blank message for User login"
-      # Will define custom blank validation message for User model and
-      # custom blank validation message for login attribute of User model.
-      #models:
 
-    # Translate model names. Used in Model.human_name().
-    #models:
-      # For example,
-      #   user: "Dude"
-      # will translate User model name to "Dude"
 
-    # Translate model attribute names. Used in Model.human_attribute_name(attribute).
-    #attributes:
-      # For example,
-      #   user:
-      #     login: "Handle"
-      # will translate User attribute "login" as "Handle"

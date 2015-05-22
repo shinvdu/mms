@@ -1,17 +1,42 @@
-<div class="header">
-    <div class="container" id="header"><div class="row">
+<div class="header" id="header">
+  <div class="container">
+    <div class="row">
       <div class="title col-md-8">
         <a class="header-brand" href="/"><%= Settings.title %></a>
         <span><%= Settings.mms.domain %></span>
       </div>
-
       <div class="user-options col-md-4">
-        <% if current_account %>
+        <% if current_user %>
         <div class="user-name">
-          <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-          <span><%=  @current_user && @current_user.nickname %></span>
+          <a id="user-name" href="javascript:void(0);">
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <%=  @current_user && @current_user.nickname %>
+          </a>
+          <ul class="user-menu" id="user-menu" tabindex="1">
+            <li>
+              <a href="<%= edit_user_path(current_user) %>">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                用户设置
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                账单信息
+              </a>
+            </li>
+            <li>
+              <a href="<%= notifications_path %>">
+                <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+                消息中心
+              </a>
+            </li>
+            <li>
+        <%= raw link_to('<span class="glyphicon glyphicon-off" aria-hidden="true">退出</span>'.html_safe, destroy_account_session_path, :method => :delete) %> 
+            </li>
+          </ul>
         </div>
-        <%= raw link_to('<span class="glyphicon glyphicon-off" aria-hidden="true"></span>'.html_safe, destroy_account_session_path, :method => :delete) %> 
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
         <% else %>
         <%= link_to('註冊', new_registration_path(:account)) %> 
         <%= link_to('登入', new_session_path(:account)) %>

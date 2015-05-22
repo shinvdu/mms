@@ -58,10 +58,17 @@ class VideoProduct < ActiveRecord::Base
     self.save!
   end
 
-  def copy_package_mkv!(mkv_video_detail)
-    self.video_detail = VideoDetail.create.copy_video_info_from! mkv_video_detail
-    self.video_detail.publish_video! mkv_video_detail.get_full_path
-    self.status = VideoProduct::STATUS::FINISHED
+  def publish_mp4!(video)
+    self.video_detail = video.create_mp4_video
+    if self.video_detail == video
+      self.video_detail = video.load_local_file_to_public!
+    else
+      self.video_detail.public = true
+      self.video_detail.load_local_file!
+      self.video_detail.fetch_video_info
+      self.video_detail.remove_local_file!
+    end
+    self.status = STATUS::FINISHED
     self.save!
   end
 

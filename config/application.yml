@@ -29,7 +29,22 @@ defaults: &defaults
     small:  
       width:  50
       height:  50
-  m3u8_dir: public/m3u8
+  role:
+    root: root
+    system_admin: system_admin
+    helper: helper
+    user: user
+    company_owner: company_owner
+    company_admin: company_admin
+    company_user: company_user
+  role_name:
+    root: 超级管理员
+    system_admin: 系统管理员
+    helper: 客服
+    user: 普通用户
+    company: 企业用户
+    company_admin: 企业管理员
+    company_user: 企业成员
   default_per_page: 15
   aliyun_input_format:
     container:  3gp avi flv mp4 m3u8 mpg asf wmv mkv mov ts webm
@@ -104,6 +119,7 @@ defaults: &defaults
       host: oss-cn-hangzhou.aliyuncs.com
       user_video_dir: video
       advertise_dir: advertise
+      video_product_dir: video_product
     mts: &defaults-aliyun-mts
       host: mts.aliyuncs.com
       scheduled_queue: mts_query_scheduled
@@ -160,6 +176,8 @@ development:
     host:  localhost
     port:  3000
   neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
@@ -186,6 +204,8 @@ test:
     host:  localhost
     port:  3000
   neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su

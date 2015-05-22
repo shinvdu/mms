@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  namespace :admin , :as => :admin do
-    get 'users' => 'user#users', :as => :users
-    get 'index' => 'user#users'
-    get '/' => 'user#users'
+  get 'video_lists/index'
+
+  get 'user_videos/edit'
+
+  resources :notifications
+  namespace :admin do
+    get '/' => 'admin#index'
+    resources :users, :only => :index
   end
   resources :transcoding_strategy_relationships
   resources :tags_relationships
@@ -19,15 +23,10 @@ Rails.application.routes.draw do
   resources :logos
 
   get 'home/index'
-  devise_for :accounts, controllers: { registrations: "user/registrations" }
+  devise_for :accounts, controllers: { registrations: "user/registrations", sessions: 'user/sessions' , passwords: 'user/passwords'}
   root 'home#index'
   # match ':controller/:action', :via => :all
-  resources :user,  :as => :users do
-    collection do
-        get 'short'
-        post 'toggle'
-    end
-  end
+  resources :users 
 
   resources :video_products do
     member do
@@ -37,13 +36,18 @@ Rails.application.routes.draw do
   resources :video_product_groups do
     member do
       get 'download'
-      patch 'check', :controller => 'video_product_group_check_status'
     end
   end
+  resources :video_product_group_check_statuses
   resources :user_videos do
     member do
       post 'republish'
+      get 'clip'
     end
+  end
+  resources :video_lists do
+    resources :user_videos, :only => [:update], :action => :update_video_list
+    resources :user_videos, :only => [:destroy], :action => :remove_video_list
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

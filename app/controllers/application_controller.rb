@@ -12,11 +12,23 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
   end
-  
+
   def set_user_id(model, user_id = 'user_id')
     params[model.to_sym][user_id.to_sym] = current_user.uid
   end
 
+  def permission_access(model)
+    current_model = instance_variable_get("@#{model.to_s}")
+    if @current_user.admin?
+      return
+    end
+    if @current_user.uid != current_model.user_id
+      redirect_to :root 
+      return
+    end
+  end
+  
+  
   # for seo
   def set_seo_meta(title = '', meta_keywords = '', meta_description = '')
     if title.length > 0
@@ -60,12 +72,12 @@ class ApplicationController < ActionController::Base
   end
 
   def only_admin
-      if @current_user.admin?
-        return
-      else
-        redirect_to :root 
-      end
+    if @current_user.admin?
+      return
+    else
+      redirect_to :root
     end
+  end
 
 
   protected
@@ -75,6 +87,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-     @current_user = current_account.user if current_account
+    @current_user = current_account.user if current_account
   end
 end

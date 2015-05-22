@@ -4,13 +4,15 @@ class LogosController < ApplicationController
     set_user_id('logo')
   end
   before_action :set_logo, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_logo, only: [:edit, :update,  :destroy]
+  before_action  only: [:edit, :update, :destroy] do 
+    permission_access(:logo)
+  end
 
   # GET /logos
   # GET /logos.json
   # listint own logos, opereate by owner or root
   def index
-    @logos = Logo.where(user_id: current_user.uid).page(params[:page]).order(created_at: :desc)
+    @logos = current_user.logos.page(params[:page]).order(created_at: :desc)
   end
 
   # GET /logos/1
@@ -71,17 +73,6 @@ class LogosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_logo
       @logo = Logo.find(params[:id])
-    end
-
-    def restrict_logo
-      if @current_user.admin?
-        return
-      end
-      # 只能操作自己的player
-      if @current_user.uid != @logo.user_id
-        redirect_to :root 
-        return
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
