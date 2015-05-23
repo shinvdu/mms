@@ -18,10 +18,8 @@ class Company::CompaniesController < ApplicationController
   def create
     begin
       ActiveRecord::Base.transaction do
-        @company_account = Account.new(company_account_params.except(:user))
-        @company_account.user = User.new(company_account_params[:user].except(:company))
+        @company_account = Account.new(company_account_params)
         @company_account.user.role = Settings.role.company_owner
-        @company_account.user.company = Company.new(company_account_params[:user][:company])
         @company_account.username = @company_account.user.nickname
         @company_account.save!
         respond_to do |format|
@@ -44,6 +42,6 @@ class Company::CompaniesController < ApplicationController
   end
 
   def company_account_params
-    params.require(:company_account).permit(:email, :password, :password_confirmation, :user => [:nickname, :company => :name])
+    params.require(:company_account).permit(:email, :password, :password_confirmation, :user_attributes => [:nickname, :company_attributes => :name])
   end
 end
