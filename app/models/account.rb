@@ -1,7 +1,7 @@
 class Account < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable 
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :encryptable
   # devise :authentication_keys => [:login]
   devise :confirmable if Rails.env == 'production'
   # attr_accessor :login

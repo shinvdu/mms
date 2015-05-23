@@ -139,6 +139,8 @@ production:
   default_url_options:
     host:  wgcloud.com
     port:  80
+  devise:
+    encryptor:  sha1
   email:
     address:  smtp.wgcloud.com
     port:  465
@@ -166,6 +168,8 @@ production:
 
 development:
   <<: *defaults
+  devise:
+    encryptor:  sha512
   email:
     address:  smtp.163.com
     port:  25
@@ -194,6 +198,8 @@ development:
 
 test:
   <<: *defaults
+  devise:
+    encryptor:  sha512
   email:
     address:  smtp.163.com
     port:  25
