@@ -24,7 +24,10 @@ Rails.application.routes.draw do
 
   resources :users
   resources :companies, :controller => 'company/companies' do
-    resources :members, :controller => 'company/members'
+    resources :members, :controller => 'company/members' do
+      patch 'upgrade'
+      patch 'downgrade'
+    end
   end
 
   resources :video_products do

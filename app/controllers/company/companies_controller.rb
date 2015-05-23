@@ -20,6 +20,7 @@ class Company::CompaniesController < ApplicationController
       ActiveRecord::Base.transaction do
         @company_account = Account.new(company_account_params)
         @company_account.user.role = Settings.role.company_owner
+        @company_account.user.company.owner = @company_account.user
         @company_account.username = @company_account.user.nickname
         @company_account.save!
         respond_to do |format|

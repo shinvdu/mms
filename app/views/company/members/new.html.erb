@@ -1,2 +1,9 @@
-<h1>Company::Members#new</h1>
-<p>Find me in app/views/company/members/new.html.erb</p>
+<%= render 'admin/nav'  %>
+<div class="tab-panel current" id="manage-user">
+  <h1>New company member</h1>
+
+  <%= render 'form' %>
+
+  <%= link_to 'Back', companies_path(@company) %>
+
+</div>
