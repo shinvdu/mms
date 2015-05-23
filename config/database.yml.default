@@ -11,10 +11,10 @@ default: &default
 
 development:
   <<: *default
-  database: mms
-  username: root
-  password: xxxxxx
-  host: localhost
+  database: <%= ENV['MMS_DB'] || 'mms' %>
+  username: <%= ENV['MMS_DB_USERNAME'] || 'root' %>
+  password: <%= ENV['MMS_DB_PASSWORD'] || '123456' %>
+  host: <%= ENV['MMS_DB_HOST'] || 'db' %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,7 +24,7 @@ test:
   database: mms
   username: root
   password: H0tmail!8
-  host: localhost 
+  host: localhost
 
 production:
   <<: *default
