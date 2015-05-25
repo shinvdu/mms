@@ -54,6 +54,7 @@ gem 'smart_sms' # 发送短信
 gem 'cancancan', '~> 1.10.1'
 
 gem 'unicorn'
+gem 'simple_form'
 
 
 group :development, :test do
