@@ -146,3 +146,79 @@
     padding-top 9px
     padding-left 20px
     border-top 1px solid cutting-line-color
+
+.video-list-item
+  @extend .clearfix
+  width 100%
+  padding 15px 10px 25px
+  border-bottom 1px solid cutting-line-color
+
+  &:hover
+    background-color content-bg-color
+
+  >input[type='checkbox']
+    display block
+    margin-bottom 10px
+
+  >.video-abstract
+    float left
+    width 200px
+    padding-right 15px
+    padding-left 30px
+
+    >img
+      width 100%
+      height 105px
+      border-radius 4px
+
+    >select
+      width 120px
+      margin-top 10px
+      margin-bottom 10px
+
+  >.video-details
+    float left
+    width 750px
+    padding-left 15px
+
+    >.dl-table-display
+      @extend .clearfix
+
+      >dl
+        float left
+
+        &:first-child
+          width 100%
+
+        &:nth-child(2n)
+          width 200px
+
+        &:nth-child(2n+3)
+          width 535px
+
+  dl
+    @extend .clearfix
+    margin 0
+
+    dt,
+    dd
+      float left
+      padding 5px
+      margin 0
+
+    &.dl-tag-display
+      width 100%
+      margin-top 10px
+      margin-bottom 20px
+      border-top 1px solid border-line-color
+      border-bottom 1px solid border-line-color
+
+      dt,
+      dd
+        padding 0 0 0 5px
+        height 40px
+        line-height 40px
+
+      span
+        padding-right 10px
+        padding-left 10px
