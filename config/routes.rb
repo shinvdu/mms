@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  namespace :company do
+  get 'members/new'
+  end
+
+  namespace :company do
+  get 'companies/show'
+  end
+
+  namespace :company do
+  get 'companies/show'
+  end
+
   resources :notifications
   namespace :admin do
     get '/' => 'admin#index'
@@ -19,10 +31,15 @@ Rails.application.routes.draw do
   resources :logos
 
   get 'home/index'
-  devise_for :accounts, controllers: { registrations: "user/registrations", sessions: 'user/sessions' , passwords: 'user/passwords'}
+  devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords'}
   root 'home#index'
   # match ':controller/:action', :via => :all
-  resources :users 
+  resources :users
+  resources :companies, :controller => 'company/companies' do
+    member do
+      resources :members, :controller => 'company/members', :as => 'company_members'
+    end
+  end
 
   resources :video_products do
     member do

@@ -36,7 +36,7 @@ defaults: &defaults
     user: user
     company_owner: company_owner
     company_admin: company_admin
-    company_user: company_user
+    company_member: company_member
   role_name:
     root: 超级管理员
     system_admin: 系统管理员
@@ -44,7 +44,7 @@ defaults: &defaults
     user: 普通用户
     company: 企业用户
     company_admin: 企业管理员
-    company_user: 企业成员
+    company_member: 企业成员
   default_per_page: 15
   aliyun_input_format:
     container:  3gp avi flv mp4 m3u8 mpg asf wmv mkv mov ts webm
@@ -139,6 +139,8 @@ production:
   default_url_options:
     host:  wgcloud.com
     port:  80
+  devise:
+    encryptor:  sha1
   email:
     address:  smtp.wgcloud.com
     port:  465
@@ -166,6 +168,8 @@ production:
 
 development:
   <<: *defaults
+  devise:
+    encryptor:  sha512
   email:
     address:  smtp.163.com
     port:  25
@@ -194,6 +198,8 @@ development:
 
 test:
   <<: *defaults
+  devise:
+    encryptor:  sha512
   email:
     address:  smtp.163.com
     port:  25

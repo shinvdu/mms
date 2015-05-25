@@ -1,4 +1,4 @@
-<%= form_for(@user) do |f| %>
+<%= simple_form_for(@user, wrapper: :horizontal_form) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -10,24 +10,22 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :nickname %><br>
-    <%= f.text_field :nickname %>
-  </div>
-  <div class="field">
-    <%= f.label :birthday %><br>
-    <%= f.datetime_select :birthday %>
-  </div>
-  <div class="field">
-    <%= f.label :role %><br>
-    <%= f.number_field :role %>
-  </div>
-  <div class="field">
-    <%= f.label :signature %><br>
-    <%= f.text_field :signature %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.input :nickname %>
+  <%= f.input :really_name, wrapper: :horizontal_file_input %>
+  <%= f.input :birthday, as: :date, start_year: Date.today.year - 30, end_year: Date.today.year - 12, discard_day: true, order: [:year, :month] %>
+  <%= f.input :sex, wrapper: :horizontal_file_input %>
+  <%= f.input :role, wrapper: :horizontal_file_input %>
+  <%= f.input :signature %>
+  <%= f.input :avar %>
+  <%= f.input :location %>
+  <%= f.input :self_introduction %>
+  <%= f.input :mobile %>
+  <%= f.input :wechat %>
+  <%= f.input :qq %>
+  <%= f.input :weibo %>
+  <%= f.input :twitter_id %>
+  <%= f.input :facebook %>
+  <%= f.input :website %>
+  <%= f.input :note %>
+  <%= f.button :submit %>
 <% end %>

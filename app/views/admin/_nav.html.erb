@@ -32,9 +32,17 @@
           </a>
         </li>
     <% end %>
-    <% if can? :access, :CompanyAccount %>
+    <% if can? :access, :company_account %>
         <li class="">
-          <a href="<%= company_owners_path %>">
+          <a href="<%= companies_path %>">
+            <span class="square"></span>
+            企业管理
+          </a>
+        </li>
+    <% end %>
+    <% if can? :access, :own_company %>
+        <li class="">
+          <a href="<%= company_path(current_user.company) %>">
             <span class="square"></span>
             企业账户
           </a>
