@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
   alias_attribute :verified_at, :mobile_verify_at
 
   module FROZEN_REASON
-    COMPANY_ADMIN = 'company admin[%s]'
+    COMPANY_ADMIN = 'company admin'
+    COMPANY_FROZEN = 'system admin froze company'
   end
 
 
@@ -46,9 +47,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def inactivate(reason)
+  def inactivate(reason, operator)
     transaction do
-      self.frozen_reasons = JSON.parse(self.frozen_reasons).append(reason).to_json
+      self.frozen_reasons = JSON.parse(self.frozen_reasons).append(make_reason(reason, operator)).to_json
       self.account.inactivate!
       self.save!
     end
@@ -64,6 +65,12 @@ class User < ActiveRecord::Base
 
   def frozen_reasons
     super || '[]'
+  end
+
+  private
+
+  def make_reason(reason, operator)
+    {:reason => reason, :operator_id => operator.id, :operator_name => operator.nickname}
   end
 end
 
