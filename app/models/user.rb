@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_one :account
   has_many :notifications
   has_many :logos
+  has_many :provider_auths
   has_many :players
   has_many :advertise_resources, :class_name => 'Advertise::Resource'
   has_many :advertise_strategies, :class_name => 'Advertise::Strategy'

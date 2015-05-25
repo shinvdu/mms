@@ -1,0 +1,10 @@
+p = ProviderAuth.new({provider: 'douban', provider_uid: 'baobao'})
+p.save
+u = User.new
+u.save
+p.user = u
+p.save
+a = Account.new
+a.user = u
+a.user.provider_auths.first
+a.save

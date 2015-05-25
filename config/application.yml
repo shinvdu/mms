@@ -147,6 +147,16 @@ production:
     port:  80
   devise:
     encryptor:  sha1
+  omniauth:
+    tqq:
+      key: 1111111111
+      secret: 111111111111111111
+    douban:
+      key: 1111111111
+      secret: 111111111111111111
+    weibo:
+      key: 1111111111
+      secret: 111111111111111111
   email:
     address:  smtp.wgcloud.com
     port:  465
@@ -176,6 +186,16 @@ development:
   <<: *defaults
   devise:
     encryptor:  sha512
+  omniauth:
+    tqq:
+      key: 1111111111
+      secret: 111111111111111111
+    douban:
+      key: 1111111111
+      secret: 111111111111111111
+    weibo:
+      key: 1111111111
+      secret: 111111111111111111
   email:
     address:  smtp.163.com
     port:  25
@@ -206,6 +226,16 @@ test:
   <<: *defaults
   devise:
     encryptor:  sha512
+  omniauth:
+    tqq:
+      key: 1111111111
+      secret: 111111111111111111
+    douban:
+      key: 1111111111
+      secret: 111111111111111111
+    weibo:
+      key: 1111111111
+      secret: 111111111111111111
   email:
     address:  smtp.163.com
     port:  25

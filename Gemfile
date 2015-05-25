@@ -1,7 +1,7 @@
 require 'rbconfig'
 HOST_OS = RbConfig::CONFIG['host_os']
 
-source 'https://ruby.taobao.org'
+source 'http://ruby.taobao.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -37,6 +37,10 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'devise'
 gem 'devise-encryptable'
+# 三方平台 OAuth 验证登陆
+gem 'omniauth'
+gem 'omniauth-oauth2'
+
 gem 'mysql2'
 # YAML配置信息
 gem 'settingslogic'

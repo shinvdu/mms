@@ -6,6 +6,23 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # def twitter
   # end
 
+   #skip CSRF on create.
+   skip_before_filter :verify_authenticity_token
+   
+   def all
+    account = Account.from_omniauth(request.env["omniauth.auth"])
+    if account.persisted?
+      sign_in_and_redirect account, notice: '登录成功'
+    else
+      session["devise.account_attributes"] = account.attributes
+      redirect_to new_account_registration_url
+    end
+  end
+  
+  alias_method :tqq, :all
+  alias_method :douban, :all
+  alias_method :weibo, :all
+
   # More info at:
   # https://github.com/plataformatec/devise#omniauth
 
