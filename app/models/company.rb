@@ -1,5 +1,6 @@
 class Company < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
+  has_many :members, :class_name => 'User'
 end
 
 #------------------------------------------------------------------------------

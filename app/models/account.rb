@@ -25,6 +25,16 @@ class Account < ActiveRecord::Base
     #our own "is_active" column
     super and self.is_active?
   end
+
+  def activate!
+    self.is_active = true
+    self.save!
+  end
+
+  def inactivate!
+    self.is_active = false
+    self.save!
+  end
 end
 
 #------------------------------------------------------------------------------

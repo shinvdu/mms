@@ -4,6 +4,7 @@
     <th></th>
     <th>编号</th>
     <th>用户名称</th>
+    <th>单位名称</th>
     <th>登录IP</th>
     <th>最后登陆时间</th>
     <th>操作</th>
@@ -17,6 +18,7 @@
         </td>
         <td><%= company_owner.id %></td>
         <td><%= company_owner.nickname %></td>
+        <td><%= link_to company_owner.company.name, company_path(company_owner.company) %></td>
         <td><%= company_owner.account.last_sign_in_ip %></td>
         <td><%= company_owner.account.last_sign_in_at %></td>
         <td>

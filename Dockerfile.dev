@@ -1,0 +1,16 @@
+FROM wzdxt/mms:env
+MAINTAINER wzdxt <wzdxt0624@gmail.com>
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY Gemfile /usr/src/app/
+
+ENV RAILS_ENV development
+RUN bundle install && \
+  printf '#!/bin/bash\nrails server -b 0.0.0.0' > /root/script.sh && \
+  chmod +x /root/script.sh
+VOLUME [/root/script.sh, /usr/src/app]
+
+CMD ["/root/script.sh"]
+
+

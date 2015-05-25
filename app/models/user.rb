@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   self.primary_key = "uid"
+  scope :inactive, -> {joins(:account).where(:accounts => {:is_active => false})}
+  scope :active, -> {joins(:account).where(:accounts => {:is_active => true})}
   has_one :account
   has_many :notifications
   has_many :logos
@@ -20,6 +22,10 @@ class User < ActiveRecord::Base
   alias_attribute :phone, :mobile
   alias_attribute :verified_at, :mobile_verify_at
 
+  module FROZEN_REASON
+    COMPANY_ADMIN = 'company admin[%s]'
+  end
+
 
   def admin?
     self.role == Settings.role.root
@@ -34,10 +40,31 @@ class User < ActiveRecord::Base
     METHOD
   end
 
+  def activate
+    transaction do
+      self.account.activate!
+    end
+  end
+
+  def inactivate(reason)
+    transaction do
+      self.frozen_reasons = JSON.parse(self.frozen_reasons).append(reason).to_json
+      self.account.inactivate!
+      self.save!
+    end
+  end
+
+  def frozen_reason
+    JSON.parse(self.frozen_reasons).last
+  end
+
   def unread_messages
     messages = Notification.where(user_id: self.uid).where(is_read: nil).order(created_at: :desc)
   end
 
+  def frozen_reasons
+    super || '[]'
+  end
 end
 
 #------------------------------------------------------------------------------
