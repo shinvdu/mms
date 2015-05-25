@@ -10,14 +10,16 @@ class Ability
     end
 
     # TODO add ability control
-    can :check, VideoProductGroup if user.root? || user.system_admin? || user.helper?
-    can :access, :company_account if user.root? || user.system_admin?
-    can :access, :own_company if user.company_owner?
+    can :access, :admin_page      if user.system_admin? || user.helper? ||  user.company_owner? || user.company_admin?
+    can :access, :user_account    if user.system_admin?
+    can :access, :company_account if user.system_admin?
+    can :access, :own_company     if                                        user.company_owner? || user.company_admin?
+    can :check, VideoProductGroup if user.system_admin? || user.helper?
+
     can :access, Company do |company|
-      return true if user.root?
       user.company_owner? && user.company == company
     end
-    can :manage, :all
+    # can :manage, :all
 
     # The first argument to `can` is the action you are giving the user
     # Define abilities for the passed in user here. For example:

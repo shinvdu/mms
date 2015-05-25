@@ -24,6 +24,10 @@ Rails.application.routes.draw do
 
   resources :users
   resources :companies, :controller => 'company/companies' do
+    member do
+      patch 'activate'
+      patch 'inactivate'
+    end
     resources :members, :controller => 'company/members' do
       member do
         patch 'upgrade'

@@ -47,7 +47,7 @@ class Company::MembersController < ApplicationController
   end
 
   def inactivate
-    @member.inactivate(User::FROZEN_REASON::COMPANY_ADMIN % current_user.nickname)
+    @member.inactivate(User::FROZEN_REASON::COMPANY_ADMIN, current_user)
     redirect_referrer_or_default
   end
 

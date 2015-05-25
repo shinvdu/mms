@@ -1,5 +1,5 @@
 class Company::CompaniesController < ApplicationController
-  before_action :set_company, :only => [:show]
+  before_action :set_company, :except => [:index, :new, :create]
   def index
     @company_owners = User.company_owners.page(params[:page])
   end
@@ -35,6 +35,16 @@ class Company::CompaniesController < ApplicationController
         format.json { render json: @company_account.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def inactivate
+    @company.inactivate(current_user)
+    redirect_referrer_or_default
+  end
+
+  def activate
+    @company.activate
+    redirect_referrer_or_default
   end
 
   private
