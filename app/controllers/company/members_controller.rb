@@ -32,20 +32,29 @@ class Company::MembersController < ApplicationController
   def upgrade
     @member.role = Settings.role.company_admin
     @member.save!
-    redirect_to company_path(@company)
+    redirect_referrer_or_default
   end
 
   def downgrade
     @member.role = Settings.role.company_member
     @member.save!
-    redirect_to company_path(@company)
+    redirect_referrer_or_default
+  end
+
+  def activate
+    @member.activate
+    redirect_referrer_or_default
+  end
+
+  def inactivate
+    @member.inactivate
+    redirect_referrer_or_default
   end
 
   private
 
   def set_company_member
-    id = params[:id] || params[:member_id]
-    @member = User.where(:company => @company).find(id)
+    @member = User.where(:company => @company).find(params[:id])
   end
 
   def set_company

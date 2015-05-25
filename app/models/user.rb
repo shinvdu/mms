@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   self.primary_key = "uid"
+  scope :inactive, -> {joins(:account).where(:accounts => {:is_active => false})}
+  scope :active, -> {joins(:account).where(:accounts => {:is_active => true})}
   has_one :account
   has_many :notifications
   has_many :logos
@@ -32,6 +34,18 @@ class User < ActiveRecord::Base
         end
         scope :#{role}s, -> {where(:role => Settings.role.#{role})}
     METHOD
+  end
+
+  def activate
+    transaction do
+      self.account.activate!
+    end
+  end
+
+  def inactivate
+    transaction do
+      self.account.inactivate!
+    end
   end
 
   def unread_messages

@@ -25,8 +25,12 @@ Rails.application.routes.draw do
   resources :users
   resources :companies, :controller => 'company/companies' do
     resources :members, :controller => 'company/members' do
-      patch 'upgrade'
-      patch 'downgrade'
+      member do
+        patch 'upgrade'
+        patch 'downgrade'
+        patch 'activate'
+        patch 'inactivate'
+      end
     end
   end
 

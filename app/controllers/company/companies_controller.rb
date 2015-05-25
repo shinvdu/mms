@@ -5,8 +5,9 @@ class Company::CompaniesController < ApplicationController
   end
 
   def show
-    @company_admins = User.company_admins.where(:company => @company).page(params[:admin_page])
-    @company_members = User.company_members.where(:company => @company).page(params[:member_page])
+    @company_admins = @company.members.company_admins.active.page(params[:frozen_page])
+    @company_members = @company.members.company_members.active.page(params[:frozen_page])
+    @company_frozen = @company.members.inactive.page(params[:frozen_page])
   end
 
   def new

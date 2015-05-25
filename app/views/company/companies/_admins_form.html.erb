@@ -20,8 +20,8 @@
         <td><%= admin.account.last_sign_in_ip %></td>
         <td><%= admin.account.last_sign_in_at %></td>
         <td>
-          <%= link_to '降为普通成员', company_member_downgrade_path(@company, admin), :method => :patch %>
-          <a href="#">冻结</a>
+          <%= link_to '降为普通成员', downgrade_company_member_path(@company, admin), :method => :patch %>
+          <%= link_to '冻结', inactivate_company_member_path(@company, admin), :method => :patch %>
         </td>
       </tr>
   <% end %>
