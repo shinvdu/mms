@@ -17,7 +17,7 @@ class VideoListsController < ApplicationController
     @video_list.transaction do
       @video_list.name = video_list_params[:name]
       @video_list.save!
-      privileges = video_list_params[:privilege]
+      privileges = video_list_params[:privilege] || {}
       privileges.each do |_, members|
         members.map! { |i| i.to_i }
       end
