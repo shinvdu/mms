@@ -8,25 +8,9 @@ class VideoList < ActiveRecord::Base
   has_many :privilege_members, :through => :video_list_privileges, :source => 'user'
   scope :get_by_user, -> (user) { where(:owner => user) }
 
-  def set_privilege_members(member_ids)
-    transaction do
-      exist_member_ids = []
-      self.video_list_privileges.each do |privilege|
-        if member_ids.exclude? privilege.user_id
-          privilege.destroy
-        else
-          exist_member_ids.append privilege.user_id
-        end
-      end
-      member_ids.each do |member_id|
-        VideoListPrivilege.create(:video_list => self, :user_id => member_id) if exist_member_ids.exclude? member_id
-      end
-    end
-  end
-
   def set_privileges(privileges)
     transaction do
-      member_ids = privileges.values.reduce { |s, ids| s | ids }
+      member_ids = privileges.values.reduce { |s, ids| s | ids } || []
       exist_member_ids = []
       self.video_list_privileges.each do |privilege|
         user_id = privilege.user_id
