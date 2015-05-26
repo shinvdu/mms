@@ -13,6 +13,13 @@ class User::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
+    if current_user.provider_auths && (provider = current_user.provider_auths.where(provider: 'weibo').first)
+      begin
+        open("https://api.weibo.com/oauth2/revokeoauth2?access_token=#{provider.access_token}").read
+      rescue SystemCallError  
+        logger.error "user: #{current_user.nickname} 不能清空access_token"
+      end
+    end
     super
   end
 

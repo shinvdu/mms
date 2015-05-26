@@ -10,6 +10,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
    skip_before_filter :verify_authenticity_token
    
    def all
+    # debugger
     account = Account.from_omniauth(request.env["omniauth.auth"])
     if account.persisted?
       sign_in_and_redirect account
