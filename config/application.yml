@@ -191,8 +191,8 @@ development:
       key: 1111111111
       secret: 111111111111111111
     douban:
-      key: 1111111111
-      secret: 111111111111111111
+      key: 00120441df105c3700360cc59d3114a5
+      secret: 19442bedf0c0b58d
     weibo:
       key: 1111111111
       secret: 111111111111111111
