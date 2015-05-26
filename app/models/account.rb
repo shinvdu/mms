@@ -1,28 +1,14 @@
-# module UsernameValidatable
-#   def username_required?
-#     true
-#   end
-#   def self.included(base)
-#     base.class_eval do
-#       validates_presence_of   :username, if: :username_required?
-#     end
-#   end
-# end
-
 class Account < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :encryptable, :omniauthable
   # devise :authentication_keys => [:login]
   devise :confirmable if Rails.env == 'production'
-  # attr_accessor :provider
   belongs_to :user, foreign_key: :user_id
   # validates_uniqueness_of :username
   # validates :username, presence: true
   accepts_nested_attributes_for :user
   
-  # include UsernameValidatable
-
   # def self.find_for_database_authentication(warden_conditions)
   #   conditions = warden_conditions.dup
   #   if login = conditions.delete(:login)
@@ -50,20 +36,19 @@ class Account < ActiveRecord::Base
   end
   
   def self.from_omniauth(auth)
-    conditions = {provider: auth[:provider], provider_uid: auth[:uid]}
-    p_auth = ProviderAuth.where(conditions).first
-    if not p_auth
-      p_auth = ProviderAuth.new(conditions)
-      p_auth.user  = User.new
-      p_auth.user.account = Account.new
+    p_auth = ProviderAuth.find_for_oauth(auth)
+    if not p_auth.user
+      u = User.new
+      u.nickname = auth.info.nickname
+      u.save
+      p_auth.user  = u
       p_auth.save
+      a = Account.new
+      a.username = auth.info.nickname
+      a.user = u
+      a.save
     else
-      p_auth
-    end
-    where(auth.slice(:provider, :uid)).first_or_create do |user|
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.name = auth.info.nickname
+      p_auth.user.account
     end
   end
 
@@ -100,7 +85,8 @@ class Account < ActiveRecord::Base
   end 
 
   def provider
-      self.user.provider_auths.first
+    provider = self.user.provider_auths.first
+    provider && provider.provider
   end
 
 end
@@ -117,9 +103,6 @@ module UsernameValidatable
 end
 
 Account.send(:include, UsernameValidatable)
-
-
-
 
 #------------------------------------------------------------------------------
 # Account
