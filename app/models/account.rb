@@ -43,10 +43,11 @@ class Account < ActiveRecord::Base
       u.save
       p_auth.user  = u
       p_auth.save
-      a = Account.new
-      a.username = auth.info.nickname
-      a.user = u
-      a.save
+      account = Account.new
+      account.username = auth.info.nickname
+      account.user = u
+      account.save
+      account
     else
       p_auth.user.account
     end
