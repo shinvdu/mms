@@ -232,12 +232,14 @@ zh-CN:
         check_status: "检查状态"
         uuid: "视频原片ID"
         player_id: "播放器ID"
-      video_products:
+      video_product:
         video_product_group_id: "视频组"
         video_detail_id: "视频地址"
         transcoding_id: "转码方案"
         progress: "进度"
         status: "状态"
+      video_list:
+        name: 列表名字
     errors:
       template: # ~ 2.3.5 backward compatible
         header:

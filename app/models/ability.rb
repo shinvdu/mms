@@ -15,6 +15,7 @@ class Ability
     can :access, :company_account if user.system_admin?
     can :access, :own_company     if                                        user.company_owner? || user.company_admin?
     can :check, VideoProductGroup if user.system_admin? || user.helper?
+    can :manage, VideoList        if                                        user.company_owner? || user.company_admin?
 
     can :access, Company do |company|
       user.company_owner? && user.company == company
