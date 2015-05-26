@@ -9,15 +9,19 @@ class VideoListsController < ApplicationController
   end
 
   def edit
-    @privilege_users = @video_list.privilege_members
+    @privilege_users = Hash[@video_list.video_list_privileges.map { |privilege| [privilege.user, privilege] }]
+    @privileges = Settings.video_privilege.keys
   end
 
   def update
     @video_list.transaction do
       @video_list.name = video_list_params[:name]
       @video_list.save!
-      member_ids = (video_list_params[:members] || []).map { |id| id.to_i }
-      @video_list.set_privilege_members(member_ids)
+      privileges = video_list_params[:privilege]
+      privileges.each do |_, members|
+        members.map! { |i| i.to_i }
+      end
+      @video_list.set_privileges(privileges)
       redirect_to @video_list
     end
   end
@@ -63,7 +67,7 @@ class VideoListsController < ApplicationController
   end
 
   def video_list_params
-    params.require(:video_list).permit(:name, :members => [])
+    params.require(:video_list).permit(:name, :privilege => [Hash[Settings.video_privilege.keys.map { |k| [k, []] }]])
   end
 
   def new_video_list_params

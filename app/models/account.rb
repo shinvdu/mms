@@ -47,6 +47,7 @@ end
 # email                  varchar(255)         false           false  
 # is_active              tinyint(1)           true    1       false  
 # encrypted_password     varchar(255)         false           false  
+# password_salt          varchar(255)         true            false  
 # reset_password_token   varchar(255)         true            false  
 # reset_password_sent_at datetime             true            false  
 # remember_created_at    datetime             true            false  
@@ -58,6 +59,7 @@ end
 # confirmation_token     varchar(255)         true            false  
 # confirmed_at           datetime             true            false  
 # confirmation_sent_at   datetime             true            false  
+# unconfirmed_email      varchar(255)         true            false  
 # failed_attempts        int(11)              false   0       false  
 # unlock_token           varchar(255)         true            false  
 # locked_at              datetime             true            false  

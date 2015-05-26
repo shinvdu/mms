@@ -85,7 +85,7 @@ end
 # nickname          varchar(255)         true            false  
 # role              varchar(255)         true            false  
 # sex               int(11)              true            false  
-# really_name       int(11)              true            false  
+# really_name       varchar(255)         true            false  
 # birthday          datetime             true            false  
 # signature         varchar(255)         true            false  
 # avar              varchar(255)         true            false  
@@ -105,5 +105,6 @@ end
 # created_at        datetime             false           false  
 # updated_at        datetime             false           false  
 # company_id        int(11)              true            false  
+# frozen_reasons    text                 true            false  
 #
 #------------------------------------------------------------------------------

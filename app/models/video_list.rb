@@ -23,6 +23,26 @@ class VideoList < ActiveRecord::Base
       end
     end
   end
+
+  def set_privileges(privileges)
+    transaction do
+      member_ids = privileges.values.reduce { |s, ids| s | ids }
+      exist_member_ids = []
+      self.video_list_privileges.each do |privilege|
+        user_id = privilege.user_id
+        if member_ids.exclude? user_id
+          privilege.destroy
+        else
+          exist_member_ids.append user_id
+          privilege.update_privileges!(privileges)
+        end
+      end
+      (member_ids - exist_member_ids).each do |member_id|
+        privilege = VideoListPrivilege.new(:video_list => self, :user_id => member_id)
+        privilege.update_privileges!(privileges)
+      end
+    end
+  end
 end
 
 #------------------------------------------------------------------------------
