@@ -53,6 +53,7 @@
                   <li><a href="video.html?panel=video-list"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
                   <li><a href="video.html?panel=video-transcoding-template"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
                   <li><a href="video.html?panel=video-transcoding-solution"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
+                  <li><a href="video.html?panel=clip-management"><i class="fa fa-fw fa-circle"></i>素材管理</a></li>
                 </ul>
               </li>
               <li><a href="advertisement.html" role="tab"><i class="fa fa-cog"></i>广告管理</a>
@@ -82,11 +83,12 @@
               </li>
             </ul>
           </nav>
-          <ul class="nav-panel clearfix">
+          <ul class="nav-panel">
             <li class="current"><a href="?panel=video-upload"><i class="fa fa-fw fa-square"></i>上传视频</a></li>
             <li><a href="?panel=video-list"><i class="fa fa-fw fa-square"></i>视频列表</a></li>
             <li><a href="?panel=video-transcoding-template"><i class="fa fa-fw fa-square"></i>转码模版</a></li>
             <li><a href="?panel=video-transcoding-solution"><i class="fa fa-fw fa-square"></i>转码方案</a></li>
+            <li><a href="?panel=clip-management"><i class="fa fa-fw fa-square"></i>素材管理</a></li>
           </ul>
           <div id="video-upload" class="tab-panel current">
             <table>
@@ -140,7 +142,7 @@
             </div>
           </div>
           <div id="video-list" class="tab-panel">
-            <div class="panel-header clearfix">
+            <div class="panel-header">
               <form>
                 <div class="right-inner-addon">
                   <input type="search" placeholder="视频名称"><i class="fa fa-search"></i>
@@ -167,20 +169,7 @@
             <div class="panel-content">
               <div class="video-list-item">
                 <input type="checkbox">
-                <div class="video-abstract"><img src="assets/img/header-bg.jpg">
-                  <select>
-                    <option>方案1
-                    </option>
-                    <option>方案2
-                    </option>
-                    <option>方案3
-                    </option>
-                  </select>
-                  <dl>
-                    <dt>状态:</dt>
-                    <dd>完成</dd>
-                  </dl>
-                </div>
+                <div class="video-abstract"><img src="assets/img/header-bg.jpg"></div>
                 <div class="video-details">
                   <div class="dl-table-display">
                     <dl>
@@ -188,16 +177,16 @@
                       <dd>sjasdsd.mov</dd>
                     </dl>
                     <dl>
+                      <dt>状态:</dt>
+                      <dd>完成</dd>
+                    </dl>
+                    <dl>
+                      <dt>TAG:</dt>
+                      <dd>TAG1</dd>
+                    </dl>
+                    <dl>
                       <dt>视频大小:</dt>
                       <dd>100M</dd>
-                    </dl>
-                    <dl>
-                      <dt>创建时间:</dt>
-                      <dd>2015/03/23 10:32</dd>
-                    </dl>
-                    <dl>
-                      <dt>时长:</dt>
-                      <dd>12:12:12</dd>
                     </dl>
                     <dl>
                       <dt>播放次数:</dt>
@@ -211,78 +200,30 @@
                       <dt>ID:</dt>
                       <dd>12341234QWER</dd>
                     </dl>
+                    <dl>
+                      <dt>播放器方案:</dt>
+                      <dd>12345</dd>
+                    </dl>
+                    <dl>
+                      <dt>广告方案:</dt>
+                      <dd>12345123</dd>
+                    </dl>
+                    <dl>
+                      <dt>视频文件:</dt>
+                      <dd>iroha</dd>
+                    </dl>
                   </div>
-                  <dl class="dl-tag-display">
-                    <dt>TAG:</dt>
-                    <dd><span>TAG1</span><span>TAG2</span><span>TAG3</span><span>TAG4</span><span>TAG5</span></dd>
-                  </dl>
                   <button class="btn-blue">编辑</button>
                   <button class="btn-blue">代码</button>
                   <button class="btn-blue">剪辑</button>
-                  <button class="btn-gray">删除</button>
-                </div>
-              </div>
-              <div class="video-list-item">
-                <input type="checkbox">
-                <div class="video-abstract"><img src="assets/img/header-bg.jpg">
-                  <select>
-                    <option>方案1
-                    </option>
-                    <option>方案2
-                    </option>
-                    <option>方案3
-                    </option>
-                  </select>
-                  <dl>
-                    <dt>状态:</dt>
-                    <dd>完成</dd>
-                  </dl>
-                </div>
-                <div class="video-details">
-                  <div class="dl-table-display">
-                    <dl>
-                      <dt>名称:</dt>
-                      <dd>sjasdsd.mov</dd>
-                    </dl>
-                    <dl>
-                      <dt>视频大小:</dt>
-                      <dd>100M</dd>
-                    </dl>
-                    <dl>
-                      <dt>创建时间:</dt>
-                      <dd>2015/03/23 10:32</dd>
-                    </dl>
-                    <dl>
-                      <dt>时长:</dt>
-                      <dd>12:12:12</dd>
-                    </dl>
-                    <dl>
-                      <dt>播放次数:</dt>
-                      <dd>123次</dd>
-                    </dl>
-                    <dl>
-                      <dt>拥有者:</dt>
-                      <dd>xiao2</dd>
-                    </dl>
-                    <dl>
-                      <dt>ID:</dt>
-                      <dd>12341234QWER</dd>
-                    </dl>
-                  </div>
-                  <dl class="dl-tag-display">
-                    <dt>TAG:</dt>
-                    <dd><span>TAG1</span><span>TAG2</span><span>TAG3</span><span>TAG4</span><span>TAG5</span></dd>
-                  </dl>
-                  <button class="btn-blue">编辑</button>
-                  <button class="btn-blue">代码</button>
-                  <button class="btn-blue">剪辑</button>
+                  <button class="btn-blue">原视频管理</button>
                   <button class="btn-gray">删除</button>
                 </div>
               </div>
             </div>
           </div>
           <div id="video-transcoding-template" class="tab-panel">
-            <div class="panel-header clearfix">
+            <div class="panel-header">
               <form class="clearfix">
                 <div class="right-inner-addon">
                   <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
@@ -552,6 +493,348 @@
                 </div>
               </div>
             </form>
+          </div>
+          <div id="clip-management" class="tab-panel">
+            <div class="panel-header">
+              <form class="clearfix">
+                <div class="right-inner-addon">
+                  <input type="search" placeholder="视频名称/标签"><i class="fa fa-search"></i>
+                </div>
+              </form>
+            </div>
+            <div class="panel-content">
+              <div class="clip-list">
+                <dl class="clip-list-header">
+                  <dt>视频名称:</dt>
+                  <dd>阿凡服装设计</dd>
+                </dl>
+                <div class="clip-list-content">
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                    <div class="clip-detail">
+                      <div>
+                        <div class="up-triangle"></div>
+                        <div class="clip-name"> 阿凡服装设计
+                        </div>
+                        <div class="clip-tags"><span> TAG1</span><span> TAG2</span><span> TAG3</span>
+                        </div>
+                        <dl class="clip-id">
+                          <dt>ID:</dt>
+                          <dd> 123456QWERTY
+                          </dd>
+                        </dl>
+                        <div class="clip-actions"><a href="#">编辑</a><a href="#">删除</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="clip-list">
+                <dl class="clip-list-header">
+                  <dt>视频名称:</dt>
+                  <dd>阿凡服装设计</dd>
+                </dl>
+                <div class="clip-list-content">
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                  <div class="clip-item">
+                    <div class="clip-duration">12:12:12</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -159,42 +159,43 @@
   >input[type='checkbox']
     display block
     margin-bottom 10px
+    margin-left auto
 
   >.video-abstract
     float left
-    width 200px
+    width 230px
     padding-right 15px
     padding-left 30px
 
     >img
       width 100%
-      height 105px
+      height 160px
       border-radius 4px
-
-    >select
-      width 120px
-      margin-top 10px
-      margin-bottom 10px
 
   >.video-details
     float left
-    width 750px
+    width 720px
     padding-left 15px
+    font-size 14px
+    color font-color-1
 
     >.dl-table-display
       @extend .clearfix
+      margin-bottom 20px
 
       >dl
         float left
 
         &:first-child
           width 100%
-
-        &:nth-child(2n)
-          width 200px
+          font-weight bold
 
         &:nth-child(2n+3)
-          width 535px
+          width 505px
+
+        &:nth-child(2n),
+        &:nth-child(9)
+          width 200px
 
   dl
     @extend .clearfix
@@ -203,22 +204,145 @@
     dt,
     dd
       float left
-      padding 5px
+      padding 2px
       margin 0
 
-    &.dl-tag-display
-      width 100%
-      margin-top 10px
-      margin-bottom 20px
-      border-top 1px solid border-line-color
-      border-bottom 1px solid border-line-color
+.clip-list
+  padding 0 15px 15px 25px
+  border-bottom 1px solid cutting-line-color
 
-      dt,
-      dd
-        padding 0 0 0 5px
-        height 40px
-        line-height 40px
+  &+.clip-list
+    margin-top 15px
 
-      span
-        padding-right 10px
-        padding-left 10px
+  .clip-list-header
+    @extend .clearfix
+    margin 0
+  
+    dt,
+    dd
+      float left
+      padding 2px
+      margin 0
+
+  .clip-list-content
+    @extend .clearfix
+    margin-left -15px
+  
+    .clip-item
+      position relative
+      float left
+      width 80px
+      height 70px
+      margin-top 15px
+      margin-left 15px
+      background-image url('../img/footer-bg.jpg')
+      background-size cover
+      background-postion center
+      border-radius 4px
+      cursor pointer
+
+      &:hover
+        .clip-detail
+          display block
+  
+      .clip-duration
+        position absolute
+        right 0
+        bottom 0
+        display inline-block
+        padding 3px
+        color #fff
+
+      .clip-detail
+        position absolute
+        top 100%
+        z-index 1000
+        display none
+        width 200px
+        margin-top 10px
+        margin-left -10px
+        background-color #fff
+        border 2px solid cutting-line-color
+        border-radius 4px
+        box-shadow 0 0 9px rgba(0, 0, 0, 0.15)
+        cursor auto
+
+        &:before
+          content ''
+          position absolute
+          background transparent
+          width 100%
+          height 12px
+          margin-top -12px
+
+        >div
+          position relative
+          padding-top 1px
+          padding-bottom 30px
+
+          &:before
+            content ''
+            position absolute
+            bottom 100%
+            margin-left 20px
+            border-right 12px solid transparent
+            border-bottom 12px solid cutting-line-color
+            border-left 12px solid transparent
+
+          .up-triangle
+            position absolute
+            bottom 100%
+            z-index 1000
+            margin-left 22px
+            border-right 10px solid transparent
+            border-bottom 10px solid #fff
+            border-left 10px solid transparent
+
+        .clip-name,
+        .clip-tags,
+        .clip-id
+          width 180px
+
+        .clip-name
+          padding-left 5px
+          margin 12px auto 0
+
+        .clip-tags
+          padding 5px
+          margin 10px auto 0
+          border-bottom 2px solid cutting-line-color
+
+          span+span
+            margin-left 3px
+
+        .clip-id
+          @extend .clearfix
+          margin 0 auto
+
+          dt,
+          dd
+            float left
+            padding 5px
+            margin 0
+
+        .clip-actions
+          position absolute
+          bottom 0
+          width 100%
+          height 30px
+          line-height 30px
+          background-color #f4f4f4
+          border-top 2px solid cutting-line-color
+          
+          a
+            display inline-block
+            margin-left 13px
+
+            &:link,
+            &:visited
+              color primary-color
+
+            &:hover,
+            &:active
+              color primary-color-hover
+              text-decoration underline

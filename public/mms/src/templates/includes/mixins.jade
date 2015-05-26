@@ -56,6 +56,11 @@ mixin navbar(index)
             href: 'video.html?panel=video-transcoding-solution',
             icon: 'circle',
             text: '转码方案'
+          },
+          {
+            href: 'video.html?panel=clip-management',
+            icon: 'circle',
+            text: '素材管理'
           }
         ])
       li(class= index === 2 ? 'current' : undefined)
@@ -129,3 +134,21 @@ mixin navbar(index)
             text: '操作日志'
           }
         ])
+        
+mixin clip-detail(name, tags, id)
+  .clip-detail
+    div
+      .up-triangle
+      .clip-name 
+        = name
+      .clip-tags
+        each tag in tags
+          span 
+            = tag
+      dl.clip-id
+        dt ID:
+        dd 
+          = id
+      .clip-actions
+        a(href='#') 编辑
+        a(href='#') 删除
