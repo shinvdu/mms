@@ -1,17 +1,17 @@
 <table>
   <thead>
   <tr>
-    <th>Name</th>
-    <th colspan="2"></th>
+    <th>列表</th>
+    <th colspan="2">操作</th>
   </tr>
   </thead>
 
   <tbody>
-  <% @video_lists.each do |tag| %>
+  <% @video_lists.each do |video_list| %>
       <tr>
-        <td><%= link_to tag.name, tag %></td>
-        <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
-        <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to video_list.name, video_list %></td>
+        <td><%= link_to 'Edit', edit_video_list_path(video_list) %></td>
+        <td><%= link_to 'Destroy', video_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
   <% end %>
   </tbody>

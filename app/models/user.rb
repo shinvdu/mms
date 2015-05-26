@@ -11,13 +11,15 @@ class User < ActiveRecord::Base
   has_many :transcoding_strategies
   has_many :notification
   has_many :user_videos, :foreign_key => :owner_id
+  has_many :video_list_privileges, :dependent => :delete_all
+  has_many :video_lists, :through => :video_list_privileges
   belongs_to :company
   accepts_nested_attributes_for :company, :account
   # mount_uploader :avar, AvatarUploader
   # 短信验证
   has_sms_verification
 
-  alias_attribute :id, :uid
+  alias_attribute :uid, :id
   alias_attribute :avatar, :avar
   alias_attribute :phone, :mobile
   alias_attribute :verified_at, :mobile_verify_at

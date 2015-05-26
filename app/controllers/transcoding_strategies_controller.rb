@@ -54,15 +54,9 @@ class TranscodingStrategiesController < ApplicationController
   # PATCH/PUT /transcoding_strategies/1
   # PATCH/PUT /transcoding_strategies/1.json
   def update
-    @transcoding_strategy.transcoding_strategy_relationships.each do |relation|
-      relation.destroy if transcoding_strategy_params[:transcodings].index(relation.transcoding_id).nil?
-    end
-    existed_transcoding_ids = @transcoding_strategy.transcodings.map { |t| t.id }
-    transcoding_strategy_params[:transcodings].each do |transcoding_id|
-      if existed_transcoding_ids.index(transcoding_id).nil?
-        TranscodingStrategyRelationship.create(:transcoding_strategy => @transcoding_strategy, :transcoding_id => transcoding_id, :user_id => current_user.uid)
-      end
-    end
+    transcoding_ids = (transcoding_strategy_params[:transcodings] || []).map{|id| id.to_i}
+    @transcoding_strategy.update_transcodings(transcoding_ids, current_user)
+
     respond_to do |format|
       params[:transcoding_strategy].delete :transcodings
       if @transcoding_strategy.update(transcoding_strategy_params)
