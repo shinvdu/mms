@@ -16,11 +16,24 @@
       <%= f.text_field :name %>
     </div>
 
-    <% current_user.company.members.company_members.active.each do |member| %>
-        <%= f.check_box :members, { :multiple => true, :checked => @privilege_users.index(member).present? }, member.id, nil %>
-        <%= label_tag "video_list[members][#{member.id}]", member.nickname  %>
-        <br>
-    <% end %>
+    <table>
+      <tr>
+        <th></th>
+        <% @privileges.each do |privilege| %>
+            <th><%= Settings.video_privilege[privilege] %></th>
+        <% end %>
+      </tr>
+      <% current_user.company.members.company_members.active.each do |member| %>
+          <tr>
+            <td><%= member.nickname %></td>
+            <% @privileges.each do |privilege| %>
+                <td>
+                <%= f.check_box "privilege[#{privilege}]", {:multiple => true, :checked => has_video_privilege(@privilege_users, member, privilege)}, member.id, nil %>
+                </td>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
 
     <div class="actions">
       <%= f.submit %>

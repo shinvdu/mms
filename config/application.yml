@@ -45,6 +45,12 @@ defaults: &defaults
     company: 企业用户
     company_admin: 企业管理员
     company_member: 企业成员
+  video_privilege:
+    edit: 编辑
+    clip: 剪辑
+    publish: 发布
+    upload: 上传
+    delete: 删除
   default_per_page: 15
   aliyun_input_format:
     container:  3gp avi flv mp4 m3u8 mpg asf wmv mkv mov ts webm
