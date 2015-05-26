@@ -12,7 +12,8 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
    def all
     account = Account.from_omniauth(request.env["omniauth.auth"])
     if account.persisted?
-      sign_in_and_redirect account, notice: '登录成功'
+      sign_in_and_redirect account
+      notice_success '登录成功'
     else
       session["devise.account_attributes"] = account.attributes
       redirect_to new_account_registration_url
