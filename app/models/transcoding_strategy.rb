@@ -1,8 +1,8 @@
 class TranscodingStrategy < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :owner, :class_name => 'User', :foreign_key => :user_id
   has_many :transcoding_strategy_relationships
   has_many :transcodings, :through => :transcoding_strategy_relationships, :source => :transcoding
-  scope :visiable, -> (user) { where(['user_id = ? or share', user.uid]) }
+  scope :visiable, -> (user) { where(['user_id = ? or share', user.owner.uid]) }
 
   def update_transcodings(transcoding_ids, operator)
     transaction do
@@ -15,6 +15,12 @@ class TranscodingStrategy < ActiveRecord::Base
           TranscodingStrategyRelationship.create(:transcoding_strategy => self, :transcoding_id => transcoding_id, :user_id => operator.id)
         end
       end
+    end
+  end
+
+  def add_transcodings(new_transcoding_ids)
+    new_transcoding_ids.each do |transcoding_id|
+      TranscodingStrategyRelationship.create(:transcoding_strategy => self, :transcoding_id => transcoding_id)
     end
   end
 end

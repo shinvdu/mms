@@ -6,6 +6,7 @@ class Ability
     if user.root?
       can :manage, :all
       cannot :access, :own_company
+      cannot :access, VideoList
       return
     end
 
@@ -16,6 +17,12 @@ class Ability
     can :access, :own_company     if                                        user.company_owner? || user.company_admin?
     can :check, VideoProductGroup if user.system_admin? || user.helper?
     can :manage, VideoList        if                                        user.company_owner? || user.company_admin?
+
+
+    can :manage, Transcoding         unless                                                                              user.company_member?
+    can :manage, TranscodingStrategy unless                                                                              user.company_member?
+    can :manage, Advertise           unless                                                                              user.company_member?
+    can :manage, Player              unless                                                                              user.company_member?
 
 
     Settings.video_privilege.keys.each do |pri|
