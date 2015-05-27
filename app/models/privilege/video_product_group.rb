@@ -1,5 +1,5 @@
 module Privilege
-  module UserVideoWithPrivilege
+  module VideoProductGroupWithPrivilege
     def self.included(base)
       base.class_eval do
         scope :visible, ->(user) do

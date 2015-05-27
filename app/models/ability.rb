@@ -19,7 +19,7 @@ class Ability
 
 
     Settings.video_privilege.keys.each do |pri|
-      class_eval <<-METHOD, __FILE__, __LINE__ + 1
+      instance_eval <<-METHOD, __FILE__, __LINE__ + 1
         can :#{pri}, UserVideo do |user_video|
           return true if user_video.creator == user || user_video.owner == user || user.company_admin?
           user_video.video_list && user_video.video_list.video_list_privileges.where(:user => user, :can_#{pri} => true).present?

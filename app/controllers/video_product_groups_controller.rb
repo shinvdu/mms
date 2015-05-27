@@ -2,7 +2,7 @@ class VideoProductGroupsController < ApplicationController
   before_action :authenticate_account!, :check_login
 
   def index
-    @video_product_groups = VideoProductGroup.where(:owner => current_user).order('id desc').page(params[:page])
+    @video_product_groups = VideoProductGroup.visible(current_user).order('id desc').page(params[:page])
   end
 
   def show

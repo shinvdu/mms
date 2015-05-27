@@ -6,7 +6,7 @@ class VideoList < ActiveRecord::Base
   has_many :video_product_groups, :through => :video_product_group_list_links
   has_many :video_list_privileges, :dependent => :delete_all
   has_many :privilege_members, :through => :video_list_privileges, :source => 'user'
-  scope :get_by_user, -> (user) { where(:owner => user) }
+  include Privilege
 
   def set_privileges(privileges)
     transaction do

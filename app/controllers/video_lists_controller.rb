@@ -48,7 +48,7 @@ class VideoListsController < ApplicationController
   private
 
   def set_video_lists
-    @video_lists = VideoList.where(:owner => current_user)
+    @video_lists = VideoList.where(:owner => current_user.owner)
   end
 
   def set_video_list
