@@ -5,13 +5,15 @@ class UserVideo < ActiveRecord::Base
   has_many :tags_relationship
   has_one :video_list_link
   has_one :video_list, :through => :video_list_link
-  belongs_to :owner, :class_name => 'User', :foreign_key => :owner_id
+  belongs_to :owner, :class_name => 'User'
+  belongs_to :creator, :class_name => 'User'
   belongs_to :original_video, :class_name => 'VideoDetail'
   belongs_to :mini_video, :class_name => 'VideoDetail'
   belongs_to :mkv_video, :class_name => 'VideoDetail'
   belongs_to :pre_mkv_video, :class_name => 'VideoDetail'
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
   validates :video_name, presence: true
+  include Privilege
 
   alias_attribute :publish_strategy, :strategy
   attr_accessor :compose_strategy, :players
@@ -79,7 +81,7 @@ class UserVideo < ActiveRecord::Base
   ######################################################
 
   def update_video_list!(video_list_id)
-    if video_list_id.blank?
+    if video_list_id.blank? || video_list_id.zero?
       self.video_list_link.delete if self.video_list_link.present?
       self.video_list_link = nil
     else
@@ -136,14 +138,14 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::PACKAGE
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
         self.transaction do
-          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner)
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner)
           video_product_group.create_package_product
           video_product_group.set_video_list_by_user_video(self)
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
         self.transaction do
-          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :transcoding_strategy => transcoding_strategy)
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner, :transcoding_strategy => transcoding_strategy)
           video_product_group.create_products_from_origin
           video_product_group.set_video_list_by_user_video(self)
         end
@@ -169,7 +171,6 @@ class UserVideo < ActiveRecord::Base
       self.mkv_video.remove_local_file!
     end
   end
-
 end
 
 #------------------------------------------------------------------------------
