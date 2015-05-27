@@ -1,7 +1,8 @@
 class Transcoding < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :owner, :class_name => 'User', :foreign_key => :user_id
+  belongs_to :creator, :class_name => 'User'
   has_many :transcoding_strategy_relationships
-  scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.uid]) }
+  scope :visiable, -> (user) { where(['(user_id = ? or share=true) and disabled=false', user.owner.uid]) }
   scope :find_mini_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::MINI_TEMPLATE) }
   scope :find_ad_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::AD_TEMPLATE) }
   scope :find_pre_middle_template, -> { order('id desc').find_by_special_template(SPECIAL_TEMPLATE::PRE_MIDDLE_TEMPLATE) }
