@@ -4,7 +4,7 @@ class UserVideosController < ApplicationController
   before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
 
   def index
-    @user_videos = UserVideo.where(owner_id: current_user.uid).order('id desc').page(params[:page])
+    @user_videos = UserVideo.visible(current_user).order('id desc').page(params[:page])
   end
 
   def new
@@ -36,7 +36,8 @@ class UserVideosController < ApplicationController
       return
     end
     ActiveRecord::Base.transaction do
-      @user_video = UserVideo.new(:owner => current_user,
+      @user_video = UserVideo.new(:owner => current_user.owner,
+                                  :creator => current_user,
                                   :video_name => video_name
       ).set_video(video)
       @user_video.update_video_list! video_list_id

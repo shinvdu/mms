@@ -52,7 +52,8 @@ class VideoProductGroupsController < ApplicationController
     end
     video_product_group = VideoProductGroup.create(:name => name,
                                                    :user_video => user_video,
-                                                   :owner => current_user,
+                                                   :owner => current_user.owner,
+                                                   :creator => current_user,
                                                    :player => player,
                                                    :transcoding_strategy => strategy)
     video_product_group.set_video_list_by_user_video(user_video) if user_video.present?

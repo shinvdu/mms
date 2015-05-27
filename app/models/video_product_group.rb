@@ -1,5 +1,6 @@
 class VideoProductGroup < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
+  belongs_to :creator, :class_name => 'User'
   belongs_to :user_video
   belongs_to :temp_video, :class_name => 'VideoDetail'
   belongs_to :player

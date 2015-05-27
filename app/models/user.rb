@@ -29,11 +29,6 @@ class User < ActiveRecord::Base
     COMPANY_FROZEN = 'system admin froze company'
   end
 
-
-  def admin?
-    self.role == Settings.role.root
-  end
-
   Settings.role.values.each do |role|
     class_eval <<-METHOD, __FILE__, __LINE__ + 1
         def #{role}?
@@ -41,6 +36,11 @@ class User < ActiveRecord::Base
         end
         scope :#{role}s, -> {where(:role => Settings.role.#{role})}
     METHOD
+  end
+  alias_method :admin?, :root? # must be after definition
+
+  def owner
+    self.company.present? ? self.company.owner : self
   end
 
   def activate

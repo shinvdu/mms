@@ -17,6 +17,20 @@ class Ability
     can :check, VideoProductGroup if user.system_admin? || user.helper?
     can :manage, VideoList        if                                        user.company_owner? || user.company_admin?
 
+
+    Settings.video_privilege.keys.each do |pri|
+      class_eval <<-METHOD, __FILE__, __LINE__ + 1
+        can :#{pri}, UserVideo do |user_video|
+          return true if user_video.creator == user || user_video.owner == user || user.company_admin?
+          user_video.video_list && user_video.video_list.video_list_privileges.where(:user => user, :can_#{pri} => true).present?
+        end
+        can :#{pri}, VideoProductGroup do |group|
+          return true if group.creator == user || group.owner == user || user.company_admin?
+          group.video_list && group.video_list.video_list_privileges.where(:user => user, :can_#{pri} => true).present?
+        end
+      METHOD
+    end
+
     can :access, Company do |company|
       user.company_owner? && user.company == company
     end
