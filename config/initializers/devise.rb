@@ -234,7 +234,14 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
+  require 'omniauth/strategies/tqq'
+  require 'omniauth/strategies/douban'
+  require 'omniauth/strategies/weibo'
+
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :tqq, Settings.omniauth.tqq.key, Settings.omniauth.tqq.secret if Settings.omniauth.include?('tqq')
+  config.omniauth :douban, Settings.omniauth.douban.key, Settings.omniauth.douban.secret if Settings.omniauth.include?('douban')
+  config.omniauth :weibo, Settings.omniauth.weibo.key, Settings.omniauth.weibo.secret if Settings.omniauth.include?('weibo')
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

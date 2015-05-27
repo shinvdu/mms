@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
-  devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords'}
+  devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords', omniauth_callbacks: "user/omniauth_callbacks"}
 
   resources :notifications
   namespace :admin do
