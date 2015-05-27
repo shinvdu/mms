@@ -203,6 +203,12 @@ var main = function() {
 	getNewClip.call(this);
     });
 
+    $('.btn-show-panel').on('click', function() {
+	var targetPanel = $(event.target).attr('data-panel');
+	$('.tab-panel').hide();
+	$('#' + targetPanel).show();
+    });
+
     $('.cus-input-item .form-control').on('focus', function() {
 	$(this).prev().addClass('input-tip-focus');
     });

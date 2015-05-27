@@ -156,46 +156,47 @@
   &:hover
     background-color content-bg-color
 
-  >input[type='checkbox']
-    display block
-    margin-bottom 10px
-    margin-left auto
+  >label
+    >input[type='checkbox']
+      display block
+      margin-bottom 10px
+      margin-left auto
+  
+    >.video-abstract
+      float left
+      width 230px
+      padding-right 15px
+      padding-left 30px
+  
+      >img
+        width 100%
+        height 160px
+        border-radius 4px
+  
+    >.video-details
+      float left
+      width 720px
+      padding-left 15px
+      font-size 14px
+      color font-color-1
+  
+      >.dl-table-display
+        @extend .clearfix
+        margin-bottom 20px
+  
+        >dl
+          float left
+  
+          &:first-child
+            width 100%
+            font-weight bold
 
-  >.video-abstract
-    float left
-    width 230px
-    padding-right 15px
-    padding-left 30px
-
-    >img
-      width 100%
-      height 160px
-      border-radius 4px
-
-  >.video-details
-    float left
-    width 720px
-    padding-left 15px
-    font-size 14px
-    color font-color-1
-
-    >.dl-table-display
-      @extend .clearfix
-      margin-bottom 20px
-
-      >dl
-        float left
-
-        &:first-child
-          width 100%
-          font-weight bold
-
-        &:nth-child(2n+3)
-          width 505px
-
-        &:nth-child(2n),
-        &:nth-child(9)
-          width 200px
+          &:nth-child(2n+3)
+            width 505px
+  
+          &:nth-child(2n),
+          &:nth-child(9)
+            width 200px
 
   dl
     @extend .clearfix
@@ -346,3 +347,82 @@
             &:active
               color primary-color-hover
               text-decoration underline
+
+.panel-form
+  position relative
+  margin-left 30px
+
+  >.preview-image
+    position absolute
+    right 220px
+    top 120px
+    width 280px
+    height 170px
+    border-radius 4px
+
+  >.form-group
+    @extend .clearfix
+    width 520px
+
+    &+.form-group
+      margin-top 12px
+
+    >.form-label
+      float left
+      width 150px
+      height 32px
+      line-height 32px
+      text-align right
+
+      &.form-title
+        color font-color-3
+
+    >.form-field
+      @extend .clearfix
+      float left
+      width 370px
+      padding-left 15px
+
+      &.form-submit
+        padding-top 20px
+        margin-left 145px
+
+      &.form-offset
+        margin-left 150px
+
+        >button:first-child
+          margin-left 0
+
+        dl
+          padding 0
+          margin 0
+
+        dt,
+        dd
+          margin 0
+
+      >div
+        float left
+        width 50%
+        height 32px
+        line-height 32px
+
+        &.form-description
+          padding-left 15px
+          color font-color-3
+
+        &.form-inline
+          @extend .clearfix
+          padding-left 15px
+
+          >*
+            float left
+
+            &+*
+              margin-left 5px
+
+          >div
+            width 55px
+
+            >input
+              padding-left 8px

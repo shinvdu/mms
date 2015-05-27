@@ -168,57 +168,59 @@
             </div>
             <div class="panel-content">
               <div class="video-list-item">
-                <input type="checkbox">
-                <div class="video-abstract"><img src="assets/img/header-bg.jpg"></div>
-                <div class="video-details">
-                  <div class="dl-table-display">
-                    <dl>
-                      <dt>名称:</dt>
-                      <dd>sjasdsd.mov</dd>
-                    </dl>
-                    <dl>
-                      <dt>状态:</dt>
-                      <dd>完成</dd>
-                    </dl>
-                    <dl>
-                      <dt>TAG:</dt>
-                      <dd>TAG1</dd>
-                    </dl>
-                    <dl>
-                      <dt>视频大小:</dt>
-                      <dd>100M</dd>
-                    </dl>
-                    <dl>
-                      <dt>播放次数:</dt>
-                      <dd>123次</dd>
-                    </dl>
-                    <dl>
-                      <dt>拥有者:</dt>
-                      <dd>xiao2</dd>
-                    </dl>
-                    <dl>
-                      <dt>ID:</dt>
-                      <dd>12341234QWER</dd>
-                    </dl>
-                    <dl>
-                      <dt>播放器方案:</dt>
-                      <dd>12345</dd>
-                    </dl>
-                    <dl>
-                      <dt>广告方案:</dt>
-                      <dd>12345123</dd>
-                    </dl>
-                    <dl>
-                      <dt>视频文件:</dt>
-                      <dd>iroha</dd>
-                    </dl>
+                <label>
+                  <input type="checkbox">
+                  <div class="video-abstract"><img src="assets/img/header-bg.jpg"></div>
+                  <div class="video-details">
+                    <div class="dl-table-display">
+                      <dl>
+                        <dt>名称:</dt>
+                        <dd>sjasdsd.mov</dd>
+                      </dl>
+                      <dl>
+                        <dt>状态:</dt>
+                        <dd>完成</dd>
+                      </dl>
+                      <dl>
+                        <dt>TAG:</dt>
+                        <dd>TAG1</dd>
+                      </dl>
+                      <dl>
+                        <dt>视频大小:</dt>
+                        <dd>100M</dd>
+                      </dl>
+                      <dl>
+                        <dt>播放次数:</dt>
+                        <dd>123次</dd>
+                      </dl>
+                      <dl>
+                        <dt>拥有者:</dt>
+                        <dd>xiao2</dd>
+                      </dl>
+                      <dl>
+                        <dt>ID:</dt>
+                        <dd>12341234QWER</dd>
+                      </dl>
+                      <dl>
+                        <dt>播放器方案:</dt>
+                        <dd>12345</dd>
+                      </dl>
+                      <dl>
+                        <dt>广告方案:</dt>
+                        <dd>12345123</dd>
+                      </dl>
+                      <dl>
+                        <dt>视频文件:</dt>
+                        <dd>iroha</dd>
+                      </dl>
+                    </div>
+                    <button class="btn-blue">编辑</button>
+                    <button class="btn-blue">代码</button>
+                    <button class="btn-blue">剪辑</button>
+                    <button class="btn-blue">原视频管理</button>
+                    <button class="btn-gray">删除</button>
                   </div>
-                  <button class="btn-blue">编辑</button>
-                  <button class="btn-blue">代码</button>
-                  <button class="btn-blue">剪辑</button>
-                  <button class="btn-blue">原视频管理</button>
-                  <button class="btn-gray">删除</button>
-                </div>
+                </label>
               </div>
             </div>
           </div>
@@ -239,7 +241,7 @@
                   </select>
                 </div>
               </form>
-              <button class="btn-green">添加转码模版</button>
+              <button data-panel="add-transcoding-template" class="btn-green btn-show-panel">添加转码模版</button>
             </div>
             <table>
               <thead>
@@ -282,125 +284,160 @@
           </div>
           <div id="add-transcoding-template" class="tab-panel">
             <div class="panel-header"><a href="?panel=video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label class="form-title">添加转码模板</label>
-              </div>
-              <div class="form-group">
-                <label for="template-name">模版名称:</label>
-                <div>
-                  <input id="template-name" type="text">
+            <div class="panel-content">
+              <div class="panel-form">
+                <div class="form-group">
+                  <div class="form-label form-title">
+                    <label>添加转码模板</label>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label>输出格式:</label>
-                <div>
-                  <p>mp4</p>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="template-name">模版名称:</label>
+                  </div>
+                  <div class="form-field">       
+                    <input id="template-name" type="text">
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="transcoding-level">编码级别:</label>
-                <div>
-                  <select id="transcoding-level">
-                    <option>high1
-                    </option>
-                    <option>high2
-                    </option>
-                    <option>high3
-                    </option>
-                  </select>
-                  <div>备注: 推荐使用 high</div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label>输出格式:</label>
+                  </div>
+                  <div class="form-field">
+                           
+                    mp4
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="compress-parameter">视频压缩参数:</label>
-                <div>
-                  <select id="compress-parameter">
-                    <option>slow1
-                    </option>
-                    <option>slow2
-                    </option>
-                    <option>slow3
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="audio-coding">音频编码:</label>
-                <div>
-                  <select id="audio-coding">
-                    <option>AAC1
-                    </option>
-                    <option>AAC2
-                    </option>
-                    <option>AAC3
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="audio-sample-rate">音频采样率:</label>
-                <div>
-                  <select id="audio-sample-rate">
-                    <option>采样率1
-                    </option>
-                    <option>采样率2
-                    </option>
-                    <option>采样率3
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="audio-code-rate">音频码率:</label>
-                <div>
-                  <select id="audio-code-rate">
-                    <option>码率1
-                    </option>
-                    <option>码率2
-                    </option>
-                    <option>码率3
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label>视频隔行扫描:</label>
-                <div>
-                  <label>
-                    <input type="checkbox" value="yes">是
-                  </label>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="video-aspect-ratio">视频长宽比:</label>
-                <div>
-                  <select id="video-aspect-ratio">
-                    <option>固定长宽高，画面拉伸1
-                    </option>
-                    <option>固定长宽高，画面拉伸2
-                    </option>
-                    <option>固定长宽高，画面拉伸3
-                    </option>
-                  </select>
-                  <div class="form-inline">
-                    <label>说明:</label>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="transcoding-level">编码级别:</label>
+                  </div>
+                  <div class="form-field">
                     <div>
-                      <input type="text" placeholder="长/px">
+                      <select id="transcoding-level">
+                        <option>high1
+                        </option>
+                        <option>high2
+                        </option>
+                        <option>high3
+                        </option>
+                      </select>
                     </div>
+                    <div class="form-description">备注: 推荐使用 high</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="compress-parameter">视频压缩参数:</label>
+                  </div>
+                  <div class="form-field">
                     <div>
-                      <input type="text" placeholder="宽/px">
+                      <select id="compress-parameter">
+                        <option>slow1
+                        </option>
+                        <option>slow2
+                        </option>
+                        <option>slow3
+                        </option>
+                      </select>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <div class="button-list">
-                  <button type="submit" class="btn-green">保存</button>
-                  <button class="btn-gray">取消</button>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="audio-coding">音频编码:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="audio-coding">
+                        <option>AAC1
+                        </option>
+                        <option>AAC2
+                        </option>
+                        <option>AAC3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="audio-sample-rate">音频采样率:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="audio-sample-rate">
+                        <option>采样率1
+                        </option>
+                        <option>采样率2
+                        </option>
+                        <option>采样率3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="audio-code-rate">音频码率:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="audio-code-rate">
+                        <option>码率1
+                        </option>
+                        <option>码率2
+                        </option>
+                        <option>码率3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label>视频隔行扫描:</label>
+                  </div>
+                  <div class="form-field">
+                    <label>
+                      <input type="checkbox" value="yes">是
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="video-aspect-ratio">视频长宽比:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="video-aspect-ratio">
+                        <option>固定长宽高，画面拉伸1
+                        </option>
+                        <option>固定长宽高，画面拉伸2
+                        </option>
+                        <option>固定长宽高，画面拉伸3
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-inline">
+                      <label>说明:</label>
+                      <div>
+                        <input type="text" placeholder="长/px">
+                      </div>
+                      <div>
+                        <input type="text" placeholder="宽/px">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-field form-submit">
+                    <button type="submit" class="btn-green">保存</button>
+                    <button data-panel="video-transcoding-template" class="btn-gray btn-show-panel">取消</button>
+                  </div>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
           <div id="video-transcoding-solution" class="tab-panel">
             <div class="panel-header clearfix">
@@ -419,7 +456,7 @@
                   </select>
                 </div>
               </form>
-              <button class="btn-green">添加转码方案</button>
+              <button data-panel="add-transcoding-solution" class="btn-green btn-show-panel">添加转码方案</button>
             </div>
             <table>
               <thead>
@@ -453,46 +490,52 @@
           </div>
           <div id="add-transcoding-solution" class="tab-panel">
             <div class="panel-header"><a href="?panel=video-transcoding-solution">&lt;&lt; 返回方案列表</a></div>
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label class="form-title">添加转码方案</label>
-              </div>
-              <div class="form-group">
-                <label for="solution-name">方案名称:</label>
-                <div>
-                  <input id="solution-name" type="text">
+            <div class="panel-content">
+              <div class="panel-form">
+                <div class="form-group">
+                  <div class="form-label form-title">
+                    <label>添加转码方案</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="solution-name">方案名称:</label>
+                  </div>
+                  <div class="form-field">
+                    <input id="solution-name" type="text">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="template-select">模版选择:</label>
+                  </div>
+                  <div class="form-field">
+                    <select id="template-select">
+                      <option>high1
+                      </option>
+                      <option>high2
+                      </option>
+                      <option>high3
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-field form-offset">
+                    <dl>
+                      <dt>说明:</dt>
+                      <dd>qweqweqweqweqweqweqweqweqwe</dd>
+                    </dl>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-field form-submit">
+                    <button type="submit" class="btn-green">保存</button>
+                    <button data-panel="video-transcoding-solution" class="btn-gray btn-show-panel">取消</button>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="template-select">模版选择:</label>
-                <div>
-                  <select id="template-select">
-                    <option>high1
-                    </option>
-                    <option>high2
-                    </option>
-                    <option>high3
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label></label>
-                <div>
-                  <p>
-                     
-                    说明:<br>
-                    qwerqweqweqweqweqeqweqeqweq
-                  </p>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="button-list">
-                  <button type="submit" class="btn-green">保存</button>
-                  <button class="btn-gray">取消</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
           <div id="clip-management" class="tab-panel">
             <div class="panel-header">
@@ -864,12 +907,12 @@
         </div>
       </div>
     </div>
-    <script src="assets/js/lib/jquery/1.11.2/jquery.min.js"></script>
-    <script src="assets/js/lib/URI.js"></script>
-    <script src="assets/js/lib/sly.min.js"></script>
-    <script src="assets/js/lib/video.min.js"></script>
-    <script src="assets/js/lib/jquery-ui.js"></script>
-    <script src="assets/js/lib/rangeslider.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery-ui.min.js"></script>
+    <script src="assets/js/URI.min.js"></script>
+    <script src="assets/js/sly.min.js"></script>
+    <script src="assets/js/video.min.js"></script>
+    <script src="assets/js/rangeslider.min.js"></script>
     <script src="assets/js/app.min.js"></script>
   </body>
 </html>

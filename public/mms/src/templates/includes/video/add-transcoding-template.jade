@@ -1,55 +1,73 @@
 .tab-panel#add-transcoding-template
   .panel-header
     a(href='?panel=video-transcoding-template') &lt;&lt; 返回模板列表
-  form.form-horizontal
-    .form-group
-      label.form-title 添加转码模板
-    .form-group
-      label(for='template-name') 模版名称:
-      div
-        input#template-name(type='text')
-    .form-group
-      label 输出格式:
-      div
-        p mp4
-    .form-group
-      label(for='transcoding-level') 编码级别:
-      div
-        +select('high')#transcoding-level
-        div 备注: 推荐使用 high
-    .form-group
-      label(for='compress-parameter') 视频压缩参数:
-      div
-        +select('slow')#compress-parameter
-    .form-group
-      label(for='audio-coding') 音频编码:
-      div
-        +select('AAC')#audio-coding
-    .form-group
-      label(for='audio-sample-rate') 音频采样率:
-      div
-        +select('采样率')#audio-sample-rate
-    .form-group
-      label(for='audio-code-rate') 音频码率:
-      div
-        +select('码率')#audio-code-rate
-    .form-group
-      label 视频隔行扫描:
-      div
-        label
-          input(type='checkbox' value='yes')
-          | 是
-    .form-group
-      label(for='video-aspect-ratio') 视频长宽比:
-      div
-        +select('固定长宽高，画面拉伸')#video-aspect-ratio
-        div.form-inline
-          label 说明:
+  .panel-content
+    .panel-form
+      .form-group
+        .form-label.form-title
+          label 添加转码模板
+      .form-group
+        .form-label
+          label(for='template-name') 模版名称:
+        .form-field        
+          input#template-name(type='text')
+      .form-group
+        .form-label
+          label 输出格式:
+        .form-field        
+          | mp4
+      .form-group
+        .form-label
+          label(for='transcoding-level') 编码级别:
+        .form-field
           div
-            input(type='text' placeholder='长/px')
+            +select('high')#transcoding-level
+          div.form-description
+            | 备注: 推荐使用 high
+      .form-group
+        .form-label
+          label(for='compress-parameter') 视频压缩参数:
+        .form-field
           div
-            input(type='text' placeholder='宽/px')
-    .form-group
-      div.button-list
-        button.btn-green(type='submit') 保存
-        button.btn-gray 取消
+            +select('slow')#compress-parameter
+      .form-group
+        .form-label
+          label(for='audio-coding') 音频编码:
+        .form-field
+          div
+            +select('AAC')#audio-coding
+      .form-group
+        .form-label
+          label(for='audio-sample-rate') 音频采样率:
+        .form-field
+          div
+            +select('采样率')#audio-sample-rate
+      .form-group
+        .form-label
+          label(for='audio-code-rate') 音频码率:
+        .form-field
+          div
+            +select('码率')#audio-code-rate
+      .form-group
+        .form-label
+          label 视频隔行扫描:
+        .form-field
+          label
+            input(type='checkbox' value='yes')
+            | 是
+      .form-group
+        .form-label
+          label(for='video-aspect-ratio') 视频长宽比:
+        .form-field
+          div
+            +select('固定长宽高，画面拉伸')#video-aspect-ratio
+          div.form-inline
+            label 说明:
+            div
+              input(type='text' placeholder='长/px')
+            div
+              input(type='text' placeholder='宽/px')
+      .form-group
+        .form-field.form-submit
+          button.btn-green(type='submit') 保存
+          button.btn-gray.btn-show-panel(data-panel='video-transcoding-template') 取消
