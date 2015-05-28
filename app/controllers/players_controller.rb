@@ -44,6 +44,7 @@ class PlayersController < ApplicationController
 
   def create
     @player = Player.new(player_params)
+    @player.creator = current_user
 
     respond_to do |format|
       if @player.save

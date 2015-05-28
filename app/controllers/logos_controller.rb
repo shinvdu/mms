@@ -19,6 +19,7 @@ class LogosController < ApplicationController
 
   def create
     @logo = Logo.new(logo_params)
+    @logo.creator = current_user
 
     respond_to do |format|
       if @logo.save
