@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords', omniauth_callbacks: "user/omniauth_callbacks"}
 
   resources :notifications
+  resources :avatars, only: [:create, :new]
   namespace :admin do
     get '/' => 'admin#index'
     resources :users, :only => :index

@@ -1,0 +1,5 @@
+<%= simple_form_for(@avatar, url: avatars_path, method: :post ) do |f| %>
+<%= image_tag(@avatar.image_url) if @avatar.image %>
+<%= f.input :image %>
+<%= f.submit  %>
+<% end %>

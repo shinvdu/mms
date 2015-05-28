@@ -13,10 +13,12 @@
   <%= f.input :nickname %>
   <%= f.input :really_name, wrapper: :horizontal_file_input %>
   <%= f.input :birthday, as: :date, start_year: Date.today.year - 30, end_year: Date.today.year - 12, discard_day: true, order: [:year, :month] %>
-  <%= f.input :sex, wrapper: :horizontal_file_input %>
-  <%= f.input :role, wrapper: :horizontal_file_input %>
+  <%= f.input :sex %>
+  <%= f.input :role %>
   <%= f.input :signature %>
-  <%= f.input :avar %>
+  <p><img src="<%= @user.avatar && (@user.avatar.image_url) %>"></p>
+  <p><a href="<%= new_avatar_path %>">更新头像 </a></p>
+  <%= f.label  :更新头像 %>
   <%= f.input :location %>
   <%= f.input :self_introduction %>
   <%= f.input :mobile %>
@@ -29,3 +31,4 @@
   <%= f.input :note %>
   <%= f.button :submit, class: 'btn btn-default btn-primary' %>
 <% end %>
+

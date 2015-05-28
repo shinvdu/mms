@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   scope :inactive, -> {joins(:account).where(:accounts => {:is_active => false})}
   scope :active, -> {joins(:account).where(:accounts => {:is_active => true})}
   has_one :account
+  has_one :avatar
   has_many :notifications
   has_many :logos
   has_many :provider_auths
@@ -21,7 +22,7 @@ class User < ActiveRecord::Base
   has_sms_verification
 
   alias_attribute :uid, :id
-  alias_attribute :avatar, :avar
+  # alias_attribute :avatar, :avar
   alias_attribute :phone, :mobile
   alias_attribute :verified_at, :mobile_verify_at
 
