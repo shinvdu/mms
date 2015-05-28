@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  self.primary_key = "uid"
   scope :inactive, -> {joins(:account).where(:accounts => {:is_active => false})}
   scope :active, -> {joins(:account).where(:accounts => {:is_active => true})}
   has_one :account
