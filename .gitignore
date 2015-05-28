@@ -38,6 +38,9 @@ public/m3u8/
 # OSX gitignore
 .DS_Store
 
-# SASS gitignore
-.sass-cache
-*.css.map
+# Gulp gitignore
+public/mms/gulpfile.js
+
+# Node gitignore
+public/mms/node_modules/
+public/mms/package.json
