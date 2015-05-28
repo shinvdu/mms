@@ -93,6 +93,18 @@ select {
   line-height: 32px;
   color: #a7b3c4;
 }
+textarea {
+  display: block;
+  width: 100%;
+  padding-right: 12px;
+  padding-left: 12px;
+  background-color: #fff;
+  border: 1px solid #a7b3c4;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 32px;
+  color: #a7b3c4;
+}
 input[type='checkbox'] {
   margin-right: 5px;
 }
@@ -709,6 +721,9 @@ input[type='checkbox'] {
   border-top: none;
   border-bottom: 1px solid #e7e7e8;
 }
+.panel-form >.checkbox-group+.form-group {
+  margin-top: 12px;
+}
 .panel-form >.checkbox-group >.form-label {
   float: left;
   width: 150px;
@@ -774,6 +789,10 @@ input[type='checkbox'] {
   width: 50%;
   height: 32px;
   line-height: 32px;
+}
+.panel-form >.form-group >.form-field >div.form-textarea {
+  height: auto;
+  line-height: auto;
 }
 .panel-form >.form-group >.form-field >div.form-description {
   padding-left: 15px;

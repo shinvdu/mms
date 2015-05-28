@@ -1,0 +1,65 @@
+.tab-panel#add-permission-management
+  .panel-header
+    a(href='?panel=manage-permission') &lt;&lt; 返回权限管理
+  .panel-content
+    .panel-form
+      .form-group
+        .form-label.form-title
+          label 添加角色
+      .form-group
+        .form-label
+          label(for='role-name') 角色名称:
+        .form-field
+          div
+            input#role-name(type='text' placeholder='管理员')
+          div.form-description
+            | (20个字符)
+      .checkbox-group
+        .form-label
+          label 系统管理:
+        .form-field
+          label
+            input(type='checkbox')
+            | 权限
+          label
+            input(type='checkbox')
+            | 权限
+          label
+            input(type='checkbox')
+            | 权限
+      .checkbox-group
+        .form-label
+          label 播放器管理:
+        .form-field
+          label
+            input(type='checkbox')
+            | 权限
+          label
+            input(type='checkbox')
+            | 权限
+          label
+            input(type='checkbox')
+            | 权限
+      .checkbox-group
+        .form-label
+          label 播放器管理:
+        .form-field
+          label
+            input(type='checkbox')
+            | 权限
+          label
+            input(type='checkbox')
+            | 权限
+          label
+            input(type='checkbox')
+            | 权限
+      .form-group
+        .form-label
+          label(for='permission-description') 说明:
+        .form-field
+          div.form-textarea
+            textarea(rows='5' placeholder='100个字符')              
+      .form-group
+        .form-field.form-submit
+          button.btn-green(type='submit') 保存
+          button.btn-gray.btn-show-panel(data-panel='manage-permission') 取消
