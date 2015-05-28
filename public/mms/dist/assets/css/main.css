@@ -135,7 +135,31 @@ input[type='checkbox'] {
   border: none;
   border-radius: 4px;
 }
+.btn-link,
+.btn-purple-link,
+.btn-green-link,
+.btn-blue-link,
+.btn-gray-link {
+  padding: 0;
+  margin-right: 5px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 4px;
+}
+.btn-link a,
+.btn-purple-link a,
+.btn-green-link a,
+.btn-blue-link a,
+.btn-gray-link a {
+  display: block;
+  padding: 4px 20px;
+  color: inherit;
+}
 .btn-purple {
+  background-color: #8c9ddd;
+  color: #fff;
+}
+.btn-purple-link {
   background-color: #8c9ddd;
   color: #fff;
 }
@@ -143,11 +167,23 @@ input[type='checkbox'] {
   background-color: #4fbf91;
   color: #fff;
 }
+.btn-green-link {
+  background-color: #4fbf91;
+  color: #fff;
+}
 .btn-blue {
   background-color: #34495f;
   color: #fff;
 }
+.btn-blue-link {
+  background-color: #34495f;
+  color: #fff;
+}
 .btn-gray {
+  background-color: #d1d5d8;
+  color: #fff;
+}
+.btn-gray-link {
   background-color: #d1d5d8;
   color: #fff;
 }
