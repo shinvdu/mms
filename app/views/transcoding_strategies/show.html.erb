@@ -18,7 +18,7 @@
           <th scope="row">转码模板</th>
           <td>
             <ul>
-              <% Transcoding.visiable(current_user).each do |transcoding| %>
+              <% Transcoding.visible(current_user).each do |transcoding| %>
                   <li><a href="<%= transcoding_path(transcoding) %>"><%= transcoding.name %></a></li>
               <% end %>
             </ul>

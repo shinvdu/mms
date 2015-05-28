@@ -21,6 +21,13 @@ class UserVideosController < ApplicationController
   def clip
   end
 
+  def clip_existed
+    @video_product_group = VideoProductGroup.visible(current_user).find(params[:video_product_group_id])
+    raise unless @video_product_group.CREATED?
+    @user_video = @video_product_group.user_video
+    render :clip
+  end
+
   def create
     video = user_video_params[:video]
     video_name = user_video_params[:video_name].strip
@@ -53,6 +60,9 @@ class UserVideosController < ApplicationController
                                               TranscodingStrategy.find(default_transcoding_strategy))
       when UserVideo::PUBLISH_STRATEGY::PACKAGE
         @user_video.delay.publish_by_strategy(publish_strategy, nil)
+      when UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
+        # build empty product group
+        @user_video.publish_by_strategy(publish_strategy, nil)
     end
 
     respond_to do |format|
@@ -114,7 +124,7 @@ class UserVideosController < ApplicationController
   private
 
   def set_user_video
-    @user_video = UserVideo.find(params[:id])
+    @user_video = UserVideo.visible(current_user).find(params[:id])
   end
 
   def generate_publish_strategy

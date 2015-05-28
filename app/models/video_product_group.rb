@@ -17,6 +17,7 @@ class VideoProductGroup < ActiveRecord::Base
   include Privilege
 
   module STATUS
+    CREATED = 5
     SUBMITTED = 10
     WAIT_FOR_DEPENDENCY = 20
     DOWNLOADING = 30
@@ -82,6 +83,12 @@ class VideoProductGroup < ActiveRecord::Base
 
   def status_str
     case self.get_status
+      when STATUS::CREATED
+        if self.user_video.GOT_LOW_RATE?
+          '等待剪辑'
+        else
+          '预处理中'
+        end
       when (STATUS::SUBMITTED..STATUS::UPLOADING)
         '处理中'
       when STATUS::FINISHED
@@ -101,6 +108,10 @@ class VideoProductGroup < ActiveRecord::Base
 
   def FINISHED?
     self.get_status == STATUS::FINISHED
+  end
+
+  def CREATED?
+    self.get_status == STATUS::CREATED
   end
 
   require 'uuidtools'
@@ -132,9 +143,7 @@ class VideoProductGroup < ActiveRecord::Base
     self.video_cut_points.each do |cp|
       dependent_video = cp.user_video.mkv_video
       if dependent_video.nil? || dependent_video.NONE?
-        # user_video.delay.create_mkv
         logger.warn "Cannot find mkv video for user video. [id: #{cp.user_video.id}]"
-        # logger.warn 'Create mkv video from user video.'
         self.status = STATUS::WAIT_FOR_DEPENDENCY
         self.save!
         self.delay(run_at: 1.seconds.from_now).create_products_from_mkv
