@@ -85,29 +85,23 @@
         })
       })
       </script>
-      <%= form_for :product_data, :url => video_product_groups_path(format: :html), :class => 'form-horizontal' do |f| %>
+      <%= form_for :product_data,
+                   :url => @video_product_group ? clip_video_product_group_path(@video_product_group) : video_product_groups_path(format: :html),
+                   :method => @video_product_group ? 'patch' : 'post',
+                   :class => 'form-horizontal' do |f| %>
+      <% if @video_product_group %>
+          <%= hidden_field :video_product_group, :id %>
+      <% end %>
       <div class="row">
         <div class="col-md-offset-2 col-md-8">
           <div class="row">
               <div class="col-md-6">
-                <%
-                   players = {}
-                   players_db = Player.where(user_id: @current_user.id);
-                   players_db.each do |p|
-                     players[p.name] = p.id
-                   end
-                %>
-                <%= f.select :player_id, players, {}, :class => 'form-control' %>
+                <span>播放器:</span>
+                <%= f.collection_select :player_id, Player.visible(current_user), :id, :name, {:include_blank => '--未设置--'}, :class => 'form-control' %>
               </div>
               <div class="col-md-6">
-                <%
-                   strategies = {}
-                   default_transcoding_strategies = TranscodingStrategy.where(user_id: @current_user.id);
-                   default_transcoding_strategies.each do |s|
-                     strategies[s.name] = s.id
-                   end
-                %>
-                <%= f.select :transcoding_strategy_id, strategies, {}, :class => 'form-control' %>
+                <span>转码方案:</span>
+                <%= f.collection_select :transcoding_strategy_id, TranscodingStrategy.visible(current_user), :id, :name, {:include_blank => '--未设置--'}, :class => 'form-control' %>
               </div>
           </div>
         </div>

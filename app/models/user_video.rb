@@ -150,7 +150,14 @@ class UserVideo < ActiveRecord::Base
           video_product_group.set_video_list_by_user_video(self)
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
-        # nothing to do now
+        self.transaction do
+          video_product_group = VideoProductGroup.create(:name => '未命名',
+                                   :user_video => self,
+                                   :owner => self.owner,
+                                   :creator => self.creator,
+                                   :status => VideoProductGroup::STATUS::CREATED)
+          video_product_group.set_video_list_by_user_video(self)
+        end
     end
   end
 

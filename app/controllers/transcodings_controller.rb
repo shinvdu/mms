@@ -7,7 +7,7 @@ class TranscodingsController < ApplicationController
 
   def index
     authorize! :access, Transcoding
-    @transcodings = Transcoding.visiable(current_user).page(params[:page])
+    @transcodings = Transcoding.visible(current_user).page(params[:page])
   end
 
   def show
