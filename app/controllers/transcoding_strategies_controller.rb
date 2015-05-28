@@ -7,7 +7,7 @@ class TranscodingStrategiesController < ApplicationController
 
   def index
     authorize! :access, TranscodingStrategy
-    @transcoding_strategies = TranscodingStrategy.visiable(current_user).page(params[:page])
+    @transcoding_strategies = TranscodingStrategy.visible(current_user).page(params[:page])
   end
 
   def show
@@ -28,7 +28,8 @@ class TranscodingStrategiesController < ApplicationController
     params[:transcoding_strategy].delete :transcodings
 
     ActiveRecord::Base.transaction do
-      @transcoding_strategy = TranscodingStrategy.new(transcoding_strategy_params).add_transcodings(new_transcoding_ids)
+      @transcoding_strategy = TranscodingStrategy.new(transcoding_strategy_params)
+      @transcoding_strategy.add_transcodings(new_transcoding_ids)
 
       respond_to do |format|
         if @transcoding_strategy.save

@@ -31,7 +31,9 @@
           <div class="row">
             <div class="col-md-3">
               <a href="<%= video_product_group_path(g) %>">
-                <% if g.snapshots.present? %>
+                <% if g.CREATED? %>
+                    <%= image_tag '', :class => 'img-rounded', :alt => '等待剪辑' %>
+                <% elsif g.snapshots.present? %>
                     <%= image_tag g.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
                 <% else %>
                     <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
@@ -78,9 +80,14 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <button class="btn btn-blue">编辑</button>
-                  <button class="btn btn-blue">代码</button>
-                  <button class="btn btn-blue" id="btn-video-clip" style="display:none">剪辑</button>
+                  <% if g.CREATED? %>
+                      <% if g.user_video.GOT_LOW_RATE? %>
+                          <%= link_to '剪辑', clip_existed_video_product_group_user_video_path(g), :class => 'btn btn-blue' %>
+                      <% end %>
+                  <% else %>
+                      <button class="btn btn-blue">编辑</button>
+                      <button class="btn btn-blue">代码</button>
+                  <% end %>
                   <button class="btn btn-gray">删除</button>
                 </div>
               </div>

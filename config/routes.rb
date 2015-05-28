@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords', omniauth_callbacks: "user/omniauth_callbacks"}
 
   resources :notifications
+  resources :avatars, only: [:create, :new]
   namespace :admin do
     get '/' => 'admin#index'
     resources :users, :only => :index
@@ -46,6 +47,10 @@ Rails.application.routes.draw do
   resources :video_product_groups do
     member do
       get 'download'
+      patch 'clip'
+    end
+    resource :user_video, :only => [] do
+      get 'clip_existed'
     end
   end
   resources :video_product_group_check_statuses
@@ -55,10 +60,7 @@ Rails.application.routes.draw do
       get 'clip'
     end
   end
-  resources :video_lists do
-    resources :user_videos, :only => [:update], :action => :update_video_list
-    resources :user_videos, :only => [:destroy], :action => :remove_video_list
-  end
+  resources :video_lists
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

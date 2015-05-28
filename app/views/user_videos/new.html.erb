@@ -31,14 +31,14 @@
       <div class="form-group">
         <%= f.label :转码方案, :class => "col-sm-2 control-label" %>
         <div class="col-sm-6">
-          <%= f.collection_select :default_transcoding_strategy, TranscodingStrategy.visiable(current_user), :id, :name, {}, {:class => 'form-control'} %>
+          <%= f.collection_select :default_transcoding_strategy, TranscodingStrategy.visible(current_user), :id, :name, {}, {:class => 'form-control'} %>
         </div>
       </div>
 
       <div class="form-group">
         <%= f.label :视频分类, :class => "col-sm-2 control-label" %>
         <div class="col-sm-6">
-          <%= f.collection_select :video_list_id, VideoList.uploadable(current_user), :id, :name, {:include_blank => '--未分类--'}, :class => 'form-control' %>
+          <%= f.collection_select :video_list_id, VideoList.uploadable(current_user), :id, :name, current_user.company_member? ? {} : {:include_blank => '--未分类--'}, :class => 'form-control' %>
         </div>
       </div>
       <hr>

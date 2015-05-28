@@ -2,7 +2,7 @@ class TranscodingStrategy < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User', :foreign_key => :user_id
   has_many :transcoding_strategy_relationships
   has_many :transcodings, :through => :transcoding_strategy_relationships, :source => :transcoding
-  scope :visiable, -> (user) { where(['user_id = ? or share', user.owner.uid]) }
+  scope :visible, -> (user) { where(['user_id = ? or share', user.owner.uid]) }
 
   def update_transcodings(transcoding_ids, operator)
     transaction do
