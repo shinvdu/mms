@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
   end
 
-  def set_user_id(model, user_id = 'user_id')
-    params[model.to_sym][user_id.to_sym] = current_user.uid
+  def set_user_id(model = nil, user_id = 'user_id')
+    model ||= self.class.name.underscore.split('_')[0..-2].join('_').singularize
+    params[model.to_sym][user_id.to_sym] = current_user.owner.uid
   end
 
   def permission_access(model)
