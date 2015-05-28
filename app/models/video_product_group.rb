@@ -1,5 +1,6 @@
 class VideoProductGroup < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
+  belongs_to :creator, :class_name => 'User'
   belongs_to :user_video
   belongs_to :temp_video, :class_name => 'VideoDetail'
   belongs_to :player
@@ -13,6 +14,7 @@ class VideoProductGroup < ActiveRecord::Base
   belongs_to :checker, :class_name => 'User'
   scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
   before_save :set_uuid
+  include Privilege
 
   module STATUS
     SUBMITTED = 10

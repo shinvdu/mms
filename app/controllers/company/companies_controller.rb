@@ -1,12 +1,13 @@
 class Company::CompaniesController < ApplicationController
-  before_action :set_company, :only => [:show]
+  before_action :set_company, :except => [:index, :new, :create]
   def index
     @company_owners = User.company_owners.page(params[:page])
   end
 
   def show
-    @company_admins = User.company_admins.where(:company => @company).page(params[:admin_page])
-    @company_members = User.company_members.where(:company => @company).page(params[:member_page])
+    @company_admins = @company.members.company_admins.active.page(params[:frozen_page])
+    @company_members = @company.members.company_members.active.page(params[:frozen_page])
+    @company_frozen = @company.members.inactive.page(params[:frozen_page])
   end
 
   def new
@@ -18,10 +19,9 @@ class Company::CompaniesController < ApplicationController
   def create
     begin
       ActiveRecord::Base.transaction do
-        @company_account = Account.new(company_account_params.except(:user))
-        @company_account.user = User.new(company_account_params[:user].except(:company))
+        @company_account = Account.new(company_account_params)
         @company_account.user.role = Settings.role.company_owner
-        @company_account.user.company = Company.new(company_account_params[:user][:company])
+        @company_account.user.company.owner = @company_account.user
         @company_account.username = @company_account.user.nickname
         @company_account.save!
         respond_to do |format|
@@ -37,6 +37,16 @@ class Company::CompaniesController < ApplicationController
     end
   end
 
+  def inactivate
+    @company.inactivate(current_user)
+    redirect_referrer_or_default
+  end
+
+  def activate
+    @company.activate
+    redirect_referrer_or_default
+  end
+
   private
 
   def set_company
@@ -44,6 +54,6 @@ class Company::CompaniesController < ApplicationController
   end
 
   def company_account_params
-    params.require(:company_account).permit(:email, :password, :password_confirmation, :user => [:nickname, :company => :name])
+    params.require(:company_account).permit(:email, :password, :password_confirmation, :user_attributes => [:nickname, :company_attributes => :name])
   end
 end

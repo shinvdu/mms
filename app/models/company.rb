@@ -1,5 +1,26 @@
 class Company < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User'
+  has_many :members, :class_name => 'User'
+
+  def inactivate(operator)
+    transaction do
+      self.members.active.each do |user|
+        user.inactivate(User::FROZEN_REASON::COMPANY_FROZEN, operator)
+        user.save!
+      end
+    end
+  end
+
+  def activate
+    transaction do
+      self.members.each do |user|
+        if user.frozeon_reason[:reason] == User::FROZEN_REASON::COMPANY_FROZEN
+          user.activate
+          user.save!
+        end
+      end
+    end
+  end
 end
 
 #------------------------------------------------------------------------------

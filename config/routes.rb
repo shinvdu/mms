@@ -1,15 +1,7 @@
 Rails.application.routes.draw do
-  namespace :company do
-  get 'members/new'
-  end
-
-  namespace :company do
-  get 'companies/show'
-  end
-
-  namespace :company do
-  get 'companies/show'
-  end
+  get 'home/index'
+  root 'home#index'
+  devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords', omniauth_callbacks: "user/omniauth_callbacks"}
 
   resources :notifications
   namespace :admin do
@@ -30,14 +22,19 @@ Rails.application.routes.draw do
   resources :players
   resources :logos
 
-  get 'home/index'
-  devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords'}
-  root 'home#index'
-  # match ':controller/:action', :via => :all
   resources :users
   resources :companies, :controller => 'company/companies' do
     member do
-      resources :members, :controller => 'company/members', :as => 'company_members'
+      patch 'activate'
+      patch 'inactivate'
+    end
+    resources :members, :controller => 'company/members' do
+      member do
+        patch 'upgrade'
+        patch 'downgrade'
+        patch 'activate'
+        patch 'inactivate'
+      end
     end
   end
 

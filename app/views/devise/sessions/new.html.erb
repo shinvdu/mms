@@ -21,5 +21,10 @@
     <%= f.submit "Log in" %>
   </div>
 <% end %>
+  <div>
+    <%= link_to "QQ账号登录",  account_omniauth_authorize_path(:tqq) %>  |
+    <%= link_to "豆瓣账号登录",  account_omniauth_authorize_path(:douban) %> |
+    <%= link_to "微博账号登录",  account_omniauth_authorize_path(:weibo) %>
+  </div>
 
 <%= render "devise/shared/links" %>

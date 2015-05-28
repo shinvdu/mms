@@ -1,16 +1,16 @@
-<%= form_for :company_account, :url => companies_path do |f| %>
-    <% if @company_account.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@company_account.errors.count, "error") %> prohibited this user from being saved:</h2>
+<% if @company_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@company_account.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-          <ul>
-            <% @company_account.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
+      <ul>
+        <% @company_account.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
 
+<%= form_for @company_account, :as => :company_account, :url => companies_path do |f| %>
     <%= f.fields_for :user, @company_account.user do |ff| %>
         <div class="field">
           <%= ff.label :nickname %><br>

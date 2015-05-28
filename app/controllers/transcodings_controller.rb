@@ -4,20 +4,15 @@ class TranscodingsController < ApplicationController
     set_user_id('transcoding')
   end
   before_action :set_transcoding, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_transcoding, only: [:show, :edit, :update, :destroy]
 
-  # GET /transcodings
-  # GET /transcodings.json
   def index
+    authorize! :access, Transcoding
     @transcodings = Transcoding.visiable(current_user).page(params[:page])
   end
 
-  # GET /transcodings/1
-  # GET /transcodings/1.json
   def show
   end
 
-  # GET /transcodings/new
   def new
     @transcoding = Transcoding.new(:container => 'mp4',
                                    :video_codec => 'H.264',
@@ -39,14 +34,13 @@ class TranscodingsController < ApplicationController
     )
   end
 
-  # GET /transcodings/1/edit
   def edit
   end
 
-  # POST /transcodings
-  # POST /transcodings.json
   def create
+    authorize! :create, Transcoding
     @transcoding = Transcoding.new(transcoding_params)
+    @transcoding.creator = current_user
 
     respond_to do |format|
       if @transcoding.do_save
@@ -60,9 +54,8 @@ class TranscodingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /transcodings/1
-  # PATCH/PUT /transcodings/1.json
   def update
+    authorize! :update, Transcoding
     belong_video = VideoDetail.where(:transcoding => @transcoding).present?
     if belong_video
       new_transcoding = @transcoding.update_by_create!(transcoding_params)
@@ -80,10 +73,9 @@ class TranscodingsController < ApplicationController
     end
   end
 
-  # DELETE /transcodings/1
-  # DELETE /transcodings/1.json
   def destroy
-    belong_strategy = current_user.transcoding_strategies.joins(:transcoding_strategy_relationships)
+    authorize! :destroy, Transcoding
+    belong_strategy = current_user.owner.transcoding_strategies.joins(:transcoding_strategy_relationships)
                           .where(:transcoding_strategy_relationships => {:transcoding_id => @transcoding}).present?
     belong_video = VideoDetail.where(:transcoding => @transcoding).present?
     if !belong_strategy
@@ -105,25 +97,13 @@ class TranscodingsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+
   def set_transcoding
     @transcoding = Transcoding.find(params[:id])
   end
 
-  def restrict_transcoding
-    if @current_user.admin?
-      return
-    end
-    # 只能操作自己的player
-    if @current_user.uid != @transcoding.user_id
-      redirect_to :root
-      return
-    end
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
   def transcoding_params
-    params[:transcoding][:user_id] = current_user.uid
+    params[:transcoding][:user_id] = current_user.owner.uid
     params.require(:transcoding).permit(:name, :user_id, :container, :video_profile, :video_preset, :audio_codec, :audio_samplerate, :audio_bitrate, :width, :height, :video_codec, :video_bitrate, :video_crf, :video_fps, :video_gop, :video_scanmode, :video_bufsize, :video_bitratebnd, :audio_channels, :state, :aliyun_template_id, :created_at, :updated_at, :video_maxrate, :video_bitrate_bnd_max, :video_bitrate_bnd_min)
   end
 

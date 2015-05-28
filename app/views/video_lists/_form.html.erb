@@ -1,0 +1,41 @@
+<%= form_for(@video_list) do |f| %>
+    <% if @video_list.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@video_list.errors.count, "error") %> prohibited this video_list from being saved:</h2>
+
+          <ul>
+            <% @video_list.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+
+    <table>
+      <tr>
+        <th></th>
+        <% @privileges.each do |privilege| %>
+            <th><%= Settings.video_privilege[privilege] %></th>
+        <% end %>
+      </tr>
+      <% current_user.company.members.company_members.active.each do |member| %>
+          <tr>
+            <td><%= member.nickname %></td>
+            <% @privileges.each do |privilege| %>
+                <td>
+                <%= f.check_box "privilege[#{privilege}]", {:multiple => true, :checked => has_video_privilege(@privilege_users, member, privilege)}, member.id, nil %>
+                </td>
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

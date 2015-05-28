@@ -6,18 +6,42 @@ class Ability
     if user.root?
       can :manage, :all
       cannot :access, :own_company
+      cannot :access, VideoList
       return
     end
 
     # TODO add ability control
-    can :check, VideoProductGroup if user.root? || user.system_admin? || user.helper?
-    can :access, :company_account if user.root? || user.system_admin?
-    can :access, :own_company if user.company_owner?
+    can :access, :admin_page      if user.system_admin? || user.helper? ||  user.company_owner? || user.company_admin?
+    can :access, :user_account    if user.system_admin?
+    can :access, :company_account if user.system_admin?
+    can :access, :own_company     if                                        user.company_owner? || user.company_admin?
+    can :check, VideoProductGroup if user.system_admin? || user.helper?
+    can :manage, VideoList        if                                        user.company_owner? || user.company_admin?
+
+
+    can :manage, Transcoding         unless                                                                              user.company_member?
+    can :manage, TranscodingStrategy unless                                                                              user.company_member?
+    can :manage, Advertise           unless                                                                              user.company_member?
+    can :manage, Player              unless                                                                              user.company_member?
+
+
+    Settings.video_privilege.keys.each do |pri|
+      instance_eval <<-METHOD, __FILE__, __LINE__ + 1
+        can :#{pri}, UserVideo do |user_video|
+          return true if user_video.creator == user || user_video.owner == user || user.company_admin?
+          user_video.video_list && user_video.video_list.video_list_privileges.where(:user => user, :can_#{pri} => true).present?
+        end
+        can :#{pri}, VideoProductGroup do |group|
+          return true if group.creator == user || group.owner == user || user.company_admin?
+          group.video_list && group.video_list.video_list_privileges.where(:user => user, :can_#{pri} => true).present?
+        end
+      METHOD
+    end
+
     can :access, Company do |company|
-      return true if user.root?
       user.company_owner? && user.company == company
     end
-    can :manage, :all
+    # can :manage, :all
 
     # The first argument to `can` is the action you are giving the user
     # Define abilities for the passed in user here. For example:
