@@ -20,9 +20,6 @@ body {
 .clearfix:before,
 .nav-panel:before,
 .tab-panel .panel-header:before,
-.tab-panel >form.form-horizontal >.form-group:before,
-.tab-panel >form.form-horizontal >.form-group >div:before,
-.tab-panel >form.form-horizontal >.form-group >div >div.form-inline:before,
 .video-list-item:before,
 .video-list-item >label >.video-details >.dl-table-display:before,
 .video-list-item dl:before,
@@ -35,9 +32,6 @@ body {
 .clearfix:after,
 .nav-panel:after,
 .tab-panel .panel-header:after,
-.tab-panel >form.form-horizontal >.form-group:after,
-.tab-panel >form.form-horizontal >.form-group >div:after,
-.tab-panel >form.form-horizontal >.form-group >div >div.form-inline:after,
 .video-list-item:after,
 .video-list-item >label >.video-details >.dl-table-display:after,
 .video-list-item dl:after,
@@ -53,9 +47,6 @@ body {
 .clearfix:after,
 .nav-panel:after,
 .tab-panel .panel-header:after,
-.tab-panel >form.form-horizontal >.form-group:after,
-.tab-panel >form.form-horizontal >.form-group >div:after,
-.tab-panel >form.form-horizontal >.form-group >div >div.form-inline:after,
 .video-list-item:after,
 .video-list-item >label >.video-details >.dl-table-display:after,
 .video-list-item dl:after,
@@ -450,61 +441,6 @@ input[type='checkbox'] {
 .tab-panel >table tbody tr td a:active {
   text-decoration: underline;
 }
-.tab-panel >form {
-  margin-left: 30px;
-}
-.tab-panel >form.form-horizontal >.form-group {
-  width: 520px;
-}
-.tab-panel >form.form-horizontal >.form-group+.form-group {
-  margin-top: 12px;
-}
-.tab-panel >form.form-horizontal >.form-group >label {
-  float: left;
-  display: block;
-  width: 150px;
-  height: 32px;
-  line-height: 32px;
-  text-align: right;
-}
-.tab-panel >form.form-horizontal >.form-group >label.form-title {
-  color: #a7b3c4;
-}
-.tab-panel >form.form-horizontal >.form-group >div {
-  float: left;
-  width: 370px;
-  padding-left: 15px;
-}
-.tab-panel >form.form-horizontal >.form-group >div.button-list {
-  padding-top: 20px;
-  margin-left: 145px;
-}
-.tab-panel >form.form-horizontal >.form-group >div >select,
-.tab-panel >form.form-horizontal >.form-group >div >div {
-  float: left;
-  width: 50%;
-}
-.tab-panel >form.form-horizontal >.form-group >div >div {
-  height: 32px;
-  line-height: 32px;
-  padding-left: 15px;
-}
-.tab-panel >form.form-horizontal >.form-group >div >div.form-inline >* {
-  float: left;
-}
-.tab-panel >form.form-horizontal >.form-group >div >div.form-inline >*+* {
-  margin-left: 5px;
-}
-.tab-panel >form.form-horizontal >.form-group >div >div.form-inline >div {
-  width: 55px;
-}
-.tab-panel >form.form-horizontal >.form-group >div >div.form-inline >div >input {
-  padding-left: 8px;
-}
-.tab-panel >form.form-horizontal >.form-group >div >p {
-  margin: 0;
-  padding: 0;
-}
 .tab-panel .panel-footer {
   position: absolute;
   bottom: 0;
@@ -720,7 +656,7 @@ input[type='checkbox'] {
   border-radius: 4px;
 }
 .panel-form >.form-group {
-  width: 520px;
+  width: 560px;
 }
 .panel-form >.form-group+.form-group {
   margin-top: 12px;
@@ -737,7 +673,7 @@ input[type='checkbox'] {
 }
 .panel-form >.form-group >.form-field {
   float: left;
-  width: 370px;
+  width: 410px;
   padding-left: 15px;
 }
 .panel-form >.form-group >.form-field.form-submit {
@@ -778,10 +714,7 @@ input[type='checkbox'] {
   margin-left: 5px;
 }
 .panel-form >.form-group >.form-field >div.form-inline >div {
-  width: 55px;
-}
-.panel-form >.form-group >.form-field >div.form-inline >div >input {
-  padding-left: 8px;
+  width: 65px;
 }
 .footer {
   height: 225px;

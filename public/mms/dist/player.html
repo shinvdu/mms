@@ -89,9 +89,157 @@
             <li><a href="?panel=logo-list"><i class="fa fa-fw fa-square"></i>LOGO</a></li>
             <li><a href="?panel=upload-logo"><i class="fa fa-fw fa-square"></i>上传LOGO</a></li>
           </ul>
+          <div id="add-player" class="tab-panel current">
+            <div class="panel-header"><a href="?panel=manage-player">&lt;&lt; 返回播放器管理</a></div>
+            <div class="panel-content">
+              <div class="panel-form">
+                <div class="form-group">
+                  <div class="form-label form-title">
+                    <label>添加播放器</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="player-name">播放器名称:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <input id="player-name" type="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label>播放器颜色:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <label>
+                        <input type="checkbox" name="player-color">黑色
+                      </label>
+                      <label>
+                        <input type="checkbox" name="player-color">经典
+                      </label>
+                      <label>
+                        <input type="checkbox" name="player-color">其他颜色
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="player-auto-play">自动播放:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="player-auto-play">
+                        <option>否1
+                        </option>
+                        <option>否2
+                        </option>
+                        <option>否3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="player-logo">LOGO:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="player-logo">
+                        <option>logo1
+                        </option>
+                        <option>logo2
+                        </option>
+                        <option>logo3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="player-logo-position">LOGO的位置:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="player-logo-position">
+                        <option>右上角1
+                        </option>
+                        <option>右上角2
+                        </option>
+                        <option>右上角3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="player-share">分享功能:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="player-share">
+                        <option>打开1
+                        </option>
+                        <option>打开2
+                        </option>
+                        <option>打开3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="player-full-screen">全屏功能:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="player-full-screen">
+                        <option>是1
+                        </option>
+                        <option>是2
+                        </option>
+                        <option>是3
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="player-aspect">长宽:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <select id="player-aspect">
+                        <option>1080X7201
+                        </option>
+                        <option>1080X7202
+                        </option>
+                        <option>1080X7203
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-field form-submit">
+                    <button type="submit" class="btn-green">保存</button>
+                    <button data-panel="manage-player" class="btn-gray btn-show-panel">取消</button>
+                  </div>
+                </div><img src="../assets/img/footer-bg.jpg" class="preview-image">
+              </div>
+            </div>
+          </div>
           <div id="manage-player" class="tab-panel">
             <div class="panel-header clearfix">
-              <button class="btn-green">添加播放器</button>
+              <button data-panel="add-player" class="btn-green btn-show-panel">添加播放器</button>
             </div>
             <table>
               <thead>
