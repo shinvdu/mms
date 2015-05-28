@@ -300,6 +300,35 @@
     height 170px
     border-radius 4px
 
+  >.checkbox-group
+    @extend .clearfix
+    width 800px
+    margin-top 12px
+
+    &+.checkbox-group
+      margin-top 0
+      
+    >.form-label
+      float left
+      width 150px
+      height 38px
+      line-height 38px
+      text-align right
+
+    >.form-field
+      float left
+      width 635px
+      margin-left 15px
+      border-top 1px solid cutting-line-color
+      border-bottom 1px solid cutting-line-color
+
+      >label
+        height 38px
+        line-height 38px
+
+        &+label
+          margin-left 10px
+      
   >.form-group
     @extend .clearfix
     width 560px

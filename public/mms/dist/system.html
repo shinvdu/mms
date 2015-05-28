@@ -96,7 +96,7 @@
                   <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
                 </div>
               </form>
-              <button class="btn-green">添加</button>
+              <button data-panel="add-user" class="btn-green btn-show-panel">添加</button>
               <button class="btn-blue">编辑</button>
               <button class="btn-gray">删除</button>
             </div>
@@ -124,6 +124,129 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div id="add-user" class="tab-panel">
+            <div class="panel-header"><a href="?panel=manage-user">&lt;&lt; 返回用户管理</a></div>
+            <div class="panel-content">
+              <div class="panel-form">
+                <div class="form-group">
+                  <div class="form-label form-title">
+                    <label>添加用户</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="user-name">用户名:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <input id="user-name" type="text" placeholder="英文字母/数字/下划线">
+                    </div>
+                    <div class="form-description">(5-20个字符)</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="user-nickname">昵称:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <input id="user-nickname" type="text">
+                    </div>
+                    <div class="form-description">(16个字符)</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="user-email">邮箱:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <input id="user-email" type="email">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="user-tel">联系电话:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <input id="user-tel" type="tel">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="user-password">密码:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <input id="user-password" type="password">
+                    </div>
+                    <div class="form-description">(6-20个字符)</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-label">
+                    <label for="user-password-confirm">确认密码:</label>
+                  </div>
+                  <div class="form-field">
+                    <div>
+                      <input id="user-password-confirm" type="password">
+                    </div>
+                    <div class="form-description">(6-20个字符)</div>
+                  </div>
+                </div>
+                <div class="checkbox-group">
+                  <div class="form-label">
+                    <label>分配角色:</label>
+                  </div>
+                  <div class="form-field">
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                  </div>
+                </div>
+                <div class="checkbox-group">
+                  <div class="form-label">
+                    <label>API权限:</label>
+                  </div>
+                  <div class="form-field">
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                    <label>
+                      <input type="checkbox">角色
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-field form-submit">
+                    <button type="submit" class="btn-green">保存</button>
+                    <button data-panel="manage-user" class="btn-gray btn-show-panel">取消</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div id="manage-permission" class="tab-panel">
             <div class="panel-header clearfix">

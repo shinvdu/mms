@@ -26,6 +26,7 @@ body {
 .clip-list .clip-list-header:before,
 .clip-list .clip-list-content:before,
 .clip-list .clip-list-content .clip-item .clip-detail .clip-id:before,
+.panel-form >.checkbox-group:before,
 .panel-form >.form-group:before,
 .panel-form >.form-group >.form-field:before,
 .panel-form >.form-group >.form-field >div.form-inline:before,
@@ -38,6 +39,7 @@ body {
 .clip-list .clip-list-header:after,
 .clip-list .clip-list-content:after,
 .clip-list .clip-list-content .clip-item .clip-detail .clip-id:after,
+.panel-form >.checkbox-group:after,
 .panel-form >.form-group:after,
 .panel-form >.form-group >.form-field:after,
 .panel-form >.form-group >.form-field >div.form-inline:after {
@@ -53,6 +55,7 @@ body {
 .clip-list .clip-list-header:after,
 .clip-list .clip-list-content:after,
 .clip-list .clip-list-content .clip-item .clip-detail .clip-id:after,
+.panel-form >.checkbox-group:after,
 .panel-form >.form-group:after,
 .panel-form >.form-group >.form-field:after,
 .panel-form >.form-group >.form-field >div.form-inline:after {
@@ -73,6 +76,10 @@ i {
   margin-right: 5px;
 }
 input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='tel'],
+input[type='date'],
 input[type='search'],
 select {
   display: block;
@@ -690,6 +697,38 @@ input[type='checkbox'] {
   width: 280px;
   height: 170px;
   border-radius: 4px;
+}
+.panel-form >.checkbox-group {
+  width: 800px;
+  margin-top: 12px;
+}
+.panel-form >.checkbox-group+.checkbox-group {
+  margin-top: 0;
+}
+.panel-form >.checkbox-group+.checkbox-group >.form-field {
+  border-top: none;
+  border-bottom: 1px solid #e7e7e8;
+}
+.panel-form >.checkbox-group >.form-label {
+  float: left;
+  width: 150px;
+  height: 38px;
+  line-height: 38px;
+  text-align: right;
+}
+.panel-form >.checkbox-group >.form-field {
+  float: left;
+  width: 635px;
+  margin-left: 15px;
+  border-top: 1px solid #e7e7e8;
+  border-bottom: 1px solid #e7e7e8;
+}
+.panel-form >.checkbox-group >.form-field >label {
+  height: 38px;
+  line-height: 38px;
+}
+.panel-form >.checkbox-group >.form-field >label+label {
+  margin-left: 10px;
 }
 .panel-form >.form-group {
   width: 560px;
