@@ -18,6 +18,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   include MTSWorker::VideoDetailWorker
+  include OSS
 
   def video
     self.public ? self.public_video : self.private_video

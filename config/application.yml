@@ -126,6 +126,7 @@ defaults: &defaults
       user_video_dir: video
       advertise_dir: advertise
       video_product_dir: video_product
+      private_video_signed_duration: 6
     mts: &defaults-aliyun-mts
       host: mts.aliyuncs.com
       scheduled_queue: mts_query_scheduled
