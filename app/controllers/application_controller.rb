@@ -3,9 +3,14 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :current_user
+  before_action :current_user, :explode_session_id
 
   protected
+
+  def explode_session_id
+    cookies[:session_id] = session[:session_id]
+    cookies[:video_salt] = Settings.video_salt
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me) }
