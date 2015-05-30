@@ -86,7 +86,7 @@ class Account < ActiveRecord::Base
   end 
 
   def provider
-    provider = self.user.provider_auths.first
+    self.user && self.user.provider_auths && (provider = self.user.provider_auths.first)
     provider && provider.provider
   end
 
