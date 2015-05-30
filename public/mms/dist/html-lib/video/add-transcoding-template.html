@@ -1,0 +1,158 @@
+
+<div id="add-transcoding-template" class="tab-panel">
+  <div class="panel-header"><a href="?panel=video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
+  <div class="panel-content">
+    <div class="panel-form">
+      <div class="form-group">
+        <div class="form-label form-title">
+          <label>添加转码模板</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="template-name">模版名称:</label>
+        </div>
+        <div class="form-field">       
+          <input id="template-name" type="text"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label>输出格式:</label>
+        </div>
+        <div class="form-field">
+                 
+          mp4
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="transcoding-level">编码级别:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="transcoding-level">
+              <option>high1
+              </option>
+              <option>high2
+              </option>
+              <option>high3
+              </option>
+            </select>
+          </div>
+          <div class="form-description">备注: 推荐使用 high</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="compress-parameter">视频压缩参数:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="compress-parameter">
+              <option>slow1
+              </option>
+              <option>slow2
+              </option>
+              <option>slow3
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-coding">音频编码:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="audio-coding">
+              <option>AAC1
+              </option>
+              <option>AAC2
+              </option>
+              <option>AAC3
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-sample-rate">音频采样率:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="audio-sample-rate">
+              <option>采样率1
+              </option>
+              <option>采样率2
+              </option>
+              <option>采样率3
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-code-rate">音频码率:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="audio-code-rate">
+              <option>码率1
+              </option>
+              <option>码率2
+              </option>
+              <option>码率3
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label>视频隔行扫描:</label>
+        </div>
+        <div class="form-field">
+          <label>
+            <input type="checkbox" value="yes"/>是
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="video-aspect-ratio">视频长宽比:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="video-aspect-ratio">
+              <option>固定长宽高，画面拉伸1
+              </option>
+              <option>固定长宽高，画面拉伸2
+              </option>
+              <option>固定长宽高，画面拉伸3
+              </option>
+            </select>
+          </div>
+          <div class="form-inline">
+            <label>说明:</label>
+            <div>
+              <input type="text" placeholder="长/px"/>
+            </div>
+            <div>
+              <input type="text" placeholder="宽/px"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-field form-submit">
+          <button type="submit" class="btn-green">保存</button>
+          <button data-panel="video-transcoding-template" class="btn-gray btn-show-panel">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
