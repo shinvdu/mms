@@ -182,7 +182,8 @@ class VideoDetail < ActiveRecord::Base
 
   def remove_local_file
     FileUtils.rm self.get_full_path if File.exist? self.get_full_path
-    FileUtils.rmtree File.dirname(self.get_full_path) if (Dir.entries(File.dirname(self.get_full_path)) - %w{ . .. }).empty?
+    dir = File.dirname(self.get_full_path)
+    FileUtils.rmtree dir if File.exist?(dir) && (Dir.entries(dir) - %w{ . .. }).empty?
     if self.REMOTE?
       self.status = STATUS::ONLY_REMOTE
     else

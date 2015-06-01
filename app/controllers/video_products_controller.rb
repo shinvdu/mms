@@ -6,7 +6,7 @@ class VideoProductsController < ApplicationController
 
   def show
     @video_product = VideoProduct.find(params[:id])
-    @video_type = File.extname(@video_product.video_detail.uri)[1..-1]
+    @video_type = 'video/' << File.extname(@video_product.video_detail.uri)[1..-1]
   end
 end
 

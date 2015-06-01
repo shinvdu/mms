@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :transcoding_strategies
   has_many :notification
   has_many :user_videos, :foreign_key => :owner_id
+  has_many :video_product_groups, :foreign_key => :owner_id
   has_many :video_list_privileges, :dependent => :delete_all
   has_many :video_lists, :through => :video_list_privileges
   belongs_to :company
@@ -82,7 +83,7 @@ end
 #
 # Name              SQL Type             Null    Default Primary
 # ----------------- -------------------- ------- ------- -------
-# uid               int(11)              false           true   
+# id                int(11)              false           true   
 # nickname          varchar(255)         true            false  
 # role              varchar(255)         true            false  
 # sex               int(11)              true            false  

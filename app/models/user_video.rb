@@ -176,6 +176,7 @@ class UserVideo < ActiveRecord::Base
     transaction do
       self.mkv_video.load_local_file!
       self.mkv_video.remove_local_file!
+      self.original_video.remove_local_file!
     end
   end
 end
@@ -206,5 +207,6 @@ end
 # format_status                   int(11)              true    0       false  
 # pre_mkv_video_id                int(11)              true            false  
 # description                     text                 true            false  
+# creator_id                      int(11)              false           false  
 #
 #------------------------------------------------------------------------------

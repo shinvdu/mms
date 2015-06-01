@@ -143,5 +143,6 @@ end
 # disable_time          datetime             true            false  
 # share                 tinyint(1)           true    0       false  
 # special_template      int(11)              true    0       false  
+# creator_id            int(11)              false           false  
 #
 #------------------------------------------------------------------------------

@@ -26,5 +26,6 @@ end
 # origname   varchar(255)         true            false  
 # created_at datetime             false           false  
 # updated_at datetime             false           false  
+# creator_id int(11)              true            false  
 #
 #------------------------------------------------------------------------------
