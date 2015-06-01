@@ -22,4 +22,3 @@ module Privilege
     end
   end
 end
-

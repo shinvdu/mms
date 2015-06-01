@@ -40,7 +40,7 @@
               <% end %>
 
           </td>
-          <td><%=  transcoding_strategy.user &&  transcoding_strategy.user.nickname %></td>
+          <td><%=  transcoding_strategy.owner &&  transcoding_strategy.owner.nickname %></td>
         <td><%=  transcoding_strategy.created_at && transcoding_strategy.created_at.strftime("%Y-%m-%d %H:%M:%S")   %></td>
         <td><%=  transcoding_strategy.updated_at && transcoding_strategy.updated_at.strftime("%Y-%m-%d %H:%M:%S")   %></td>
           <td>

@@ -271,5 +271,6 @@ end
 # checker_id              int(11)              true            false  
 # uuid                    varchar(255)         true            false  
 # player_id               int(11)              true            false  
+# creator_id              int(11)              false           false  
 #
 #------------------------------------------------------------------------------

@@ -184,6 +184,8 @@ production:
 
 development:
   <<: *defaults
+  to_str:
+  to_ary:
   devise:
     encryptor:  sha512
   omniauth:
