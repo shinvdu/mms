@@ -29,7 +29,7 @@ module Statistics::Calculate
     VideoLoadingAction.where(:user => user, :created_at => beginning..endding).each do |video_loading_action|
       amount += video_loading_action.video_detail.size
     end
-    DailyLoadingStat.create(:user => user, :date => beginning.to_date, :amount => amount)
+    DailyFlowStat.create(:user => user, :date => beginning.to_date, :amount => amount)
   end
 
   def calc_daily_space(date = nil)
