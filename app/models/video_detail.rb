@@ -2,8 +2,8 @@ class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
   has_many :snapshots
-  mount_uploader :public_video, PublicVideoUploader
-  mount_uploader :private_video, PrivateVideoUploader
+  mount_uploader :public_video, PublicVideoUploader if not Rails.env.test? 
+  mount_uploader :private_video, PrivateVideoUploader  if not Rails.env.test? 
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
 
   require 'fileutils'
@@ -348,29 +348,28 @@ end
 # VideoDetail
 #
 # Name           SQL Type             Null    Default Primary
-# -------------- -------------------- ------- ------- -------
-# id             int(11)              false           true   
-# uuid           varchar(255)         true            false  
-# uri            varchar(255)         true            false  
-# format         varchar(255)         true            false  
-# md5            varchar(255)         true            false  
-# rate           varchar(255)         true            false  
-# size           int(11)              true            false  
-# duration       float                true            false  
-# status         int(11)              true            false  
-# user_video_id  int(11)              true            false  
-# created_at     datetime             false           false  
-# updated_at     datetime             false           false  
-# width          int(11)              true            false  
-# height         int(11)              true            false  
-# fps            int(11)              true            false  
-# transcoding_id int(11)              true            false  
-# fragment       tinyint(1)           true    0       false  
-# video_codec    varchar(255)         true            false  
-# audio_codec    varchar(255)         true            false  
-# resolution     varchar(255)         true            false  
-# public         tinyint(1)           true    0       false  
-# public_video   varchar(255)         true            false  
-# private_video  varchar(255)         true            false  
-#
-#------------------------------------------------------------------------------
+# +----------------+--------------+------+-----+---------+----------------+
+# | id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+# | uuid           | varchar(255) | YES  |     | NULL    |                |
+# | uri            | varchar(255) | YES  |     | NULL    |                |
+# | format         | varchar(255) | YES  |     | NULL    |                |
+# | md5            | varchar(255) | YES  |     | NULL    |                |
+# | rate           | varchar(255) | YES  |     | NULL    |                |
+# | size           | int(11)      | YES  |     | NULL    |                |
+# | duration       | float        | YES  |     | NULL    |                |
+# | status         | int(11)      | YES  |     | NULL    |                |
+# | user_video_id  | int(11)      | YES  |     | NULL    |                |
+# | created_at     | datetime     | NO   |     | NULL    |                |
+# | updated_at     | datetime     | NO   |     | NULL    |                |
+# | width          | int(11)      | YES  |     | NULL    |                |
+# | height         | int(11)      | YES  |     | NULL    |                |
+# | fps            | int(11)      | YES  |     | NULL    |                |
+# | transcoding_id | int(11)      | YES  |     | NULL    |                |
+# | fragment       | tinyint(1)   | YES  |     | 0       |                |
+# | video_codec    | varchar(255) | YES  |     | NULL    |                |
+# | audio_codec    | varchar(255) | YES  |     | NULL    |                |
+# | resolution     | varchar(255) | YES  |     | NULL    |                |
+# | public         | tinyint(1)   | YES  |     | 0       |                |
+# | public_video   | varchar(255) | YES  |     | NULL    |                |
+# | private_video  | varchar(255) | YES  |     | NULL    |                |
+# +----------------+--------------+------+-----+---------+----------------+

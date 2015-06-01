@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'video/:id', to: 'video#show'
+  get 'video/iframe/:id', to: 'video#iframe'
+
   get 'home/index'
   root 'home#index'
   devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords', omniauth_callbacks: "user/omniauth_callbacks"}

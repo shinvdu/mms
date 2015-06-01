@@ -1,0 +1,38 @@
+        <% javascript '/mms/dist/assets/js/video.min.js' %>
+        <% javascript '/player1/videojs.watermark.js' %>
+        <% javascript '/player1/plugins/video-js-resolutions/video-js-resolutions.js' %>
+        <% javascript '/player1/plugins/js-base64/base64.min.js' %>
+        <% style '/player1/video-js.css' %>
+        <% style '/player1/videojs.watermark.css' %>
+        <% style '/player1/plugins/video-js-resolutions/video-js-resolutions.css' %>
+        <script type="text/javascript">
+        jQuery(document).ready(function($) {
+        	function player_id(){
+        		return $("#wgcloud_video_1").attr('player')
+        	}
+        	var xie;
+        	function player_init (json) {
+        		var data_setup = json.init
+        		var logo = json.logo
+        		video = videojs("wgcloud_video_1", data_setup);
+        		video.watermark(logo);
+        	}
+        	function load_video(video){
+        		var source = Base64.decode($("#wgcloud_video_1").attr('player-src'))
+
+        	}
+
+        	$.ajax( {
+        		dataType: 'json',
+        		url: '/players/'+ player_id() + '.json',
+        		success: function ( json ) {
+        			player_init(json)
+        		},
+        	} );
+        	// console.log(xie)
+        })
+        </script>
+        <video id="wgcloud_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled"  player="<%= @video_group.player_id %>" player-src="<%= Base64.encode64(ActiveSupport::JSON.encode(@src)) %>">
+        	<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+        <div class="vjs-big-play-button" role="button" aria-live="polite" tabindex="0" aria-label="play video"><span aria-hidden="true"></span></div>

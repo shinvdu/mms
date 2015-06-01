@@ -110,6 +110,10 @@ class VideoProductGroup < ActiveRecord::Base
     self.get_status == STATUS::FINISHED
   end
 
+  def ACCEPTED?
+    self.check_status == CHECK_STATUS::ACCEPTED
+  end
+
   def CREATED?
     self.get_status == STATUS::CREATED
   end
@@ -271,6 +275,6 @@ end
 # checker_id              int(11)              true            false  
 # uuid                    varchar(255)         true            false  
 # player_id               int(11)              true            false  
-# creator_id              int(11)              false           false  
+# creator_id               int(11)              true            false  
 #
 #------------------------------------------------------------------------------
