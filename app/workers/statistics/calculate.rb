@@ -1,4 +1,6 @@
 module Statistics::Calculate
+  include Statistics
+
   def calc_daily_loading(beginning = nil, endding = nil)
     beginning ||= Time.now.yesterday.beginning_of_day
     endding ||= Time.now.yesterday.end_of_day
@@ -48,20 +50,32 @@ module Statistics::Calculate
       stat.mkv_video_amount += user_video.mkv_video.size
     end
     VideoProductGroup.where(:creator => user).where(['created_at <= ?', date + 1]).each do |group|
-      stat.product_amount += group.video_products.video_detail.size
+      stat.product_amount += group.video_products
+                                 .map { |product| (product.video_detail && product.video_detail.size) || 0 }
+                                 .reduce { |s, size| s + size } || 0
     end
     stat.save!
   end
 
-  def logger
-    Log4r::Logger['statistics']
+  ############################################################################
+  ## rollback
+  ############################################################################
+
+  def rollback_loading(days = nil)
+    days ||= 1
+    date = (Time.now.to_date - days).to_date
+    DailyLoadingStat.where(['date >= ?', date]).delete_all
   end
 
-  def safe_exception
-    begin
-      yield
-    rescue Exception => e
-      logger.error e
-    end
+  def rollback_flow(days = nil)
+    days ||= 1
+    date = (Time.now.to_date - days).to_date
+    DailyFlowStat.where(['date >= ?', date]).delete_all
+  end
+
+  def rollback_space(days = nil)
+    days ||= 1
+    date = (Time.now.to_date - days).to_date
+    DailySpaceStat.where(['date >= ?', date]).delete_all
   end
 end
