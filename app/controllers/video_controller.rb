@@ -1,7 +1,7 @@
 class VideoController < ApplicationController
   def show
-      @video_group = VideoProductGroup.find params[:id]
-      if @video_group.FINISHED? && @video_group.ACCEPTED?
+    @video_group = VideoProductGroup.find params[:id]
+    if @video_group.FINISHED? && @video_group.ACCEPTED?
   	# @id = params[:id]
   	@video_products = @video_group.video_products
   	@videos = []
@@ -16,11 +16,11 @@ class VideoController < ApplicationController
   			'data-res' => 'HD'
   		}
   	end
-       end
   end
+end
 
-  def iframe
+def iframe
 
-  end
+end
 
 end
