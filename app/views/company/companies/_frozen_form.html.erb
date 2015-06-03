@@ -16,7 +16,7 @@
           <input type="checkbox">
         </td>
         <td><%= frozen_member.id %></td>
-        <td><%= frozen_member.nickname %></td>
+        <td><%= link_to frozen_member.nickname, frozen_member %></td>
         <td><%= frozen_member.account.last_sign_in_ip %></td>
         <td><%= frozen_member.account.last_sign_in_at %></td>
         <td>

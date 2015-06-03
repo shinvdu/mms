@@ -11,5 +11,6 @@
 #
 
 class Statistics::DailyLoadingStat < ActiveRecord::Base
+  default_scope { order('date DESC, created_at DESC') }
   belongs_to :user
 end

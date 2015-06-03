@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   resources :players
   resources :logos
 
-  resources :users
+  resources :users do
+    resource :space_stat, :only => [:show], :controller => 'statistics/space_stat'
+  end
   resources :companies, :controller => 'company/companies' do
     member do
       patch 'activate'
