@@ -144,6 +144,7 @@ defaults: &defaults
 
 production:
   <<: *defaults
+  host_url: http://www.wgcloud.com
   default_url_options:
     host:  wgcloud.com
     port:  80
@@ -188,6 +189,7 @@ development:
   <<: *defaults
   to_str:
   to_ary:
+  host_url: http://localhost:3000
   devise:
     encryptor:  sha512
   omniauth:
@@ -228,6 +230,7 @@ development:
 
 test:
   <<: *defaults
+  host_url: http://localhost:3000
   devise:
     encryptor:  sha512
   omniauth:
