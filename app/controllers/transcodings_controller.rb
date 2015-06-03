@@ -82,7 +82,7 @@ class TranscodingsController < ApplicationController
       if belong_video || belong_video
         @transcoding.disable!
       else
-        @transcoding.destroy!
+        @transcoding.disable_and_destroy!
       end
       respond_to do |format|
         format.html { redirect_to transcodings_url, notice: 'Transcoding was successfully destroyed.' }

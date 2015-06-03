@@ -51,9 +51,15 @@ class Transcoding < ActiveRecord::Base
     end
   end
 
-  def destroy!
-    self.delay.delete_template(self) if self.aliyun_template_id.present?
-    super
+  def disable_and_destroy!
+    self.disabled = true
+    self.delay.delete_self_and_template if self.aliyun_template_id.present?
+    self.save!
+  end
+
+  def delete_self_and_template
+    self.delete_template(self)
+    self.destroy!
   end
 
   def disable!
