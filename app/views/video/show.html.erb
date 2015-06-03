@@ -10,7 +10,6 @@
         	function player_id(){
         		return $("#player_id").attr('player')
         	}
-        	var xie;
         	function player_init (json) {
         		var data_setup = json.init
         		var logo = json.logo
@@ -19,24 +18,20 @@
                         load_video(video)
         	}
         	function load_video(video){
-                var base_string = $("#source").attr('source')
-                // console.log(base_string)
-        		var sources = JSON.parse(Base64.decode(base_string))
-                // $("#wgcloud_video_1").attr('player-src')
-                                // )
+                        var base_string = $("#source").attr('source')
+                        var sources = JSON.parse(Base64.decode(base_string))
                         video.src(sources)
-                        console.log(sources)
+                        // console.log(sources)
 
-        	}
+                }
 
         	$.ajax( {
         		dataType: 'json',
         		url: '/players/'+ player_id() + '.json',
-        		success: function ( json ) {
+        		success: function (json) {
         			player_init(json)
         		},
         	} );
-        	// console.log(xie)
         })
         </script>
         <div id="video_params" class="hidden">
