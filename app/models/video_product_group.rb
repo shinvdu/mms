@@ -251,6 +251,13 @@ class VideoProductGroup < ActiveRecord::Base
     [CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING].include? self.check_status
   end
 
+  def self.generate_id
+    t = DateTime
+    id = t.now.strftime("%Y%m%d%H%M%S%L") 
+  # Get current date to the milliseconds
+    id = [id, rand(10000000)].join('')
+    id = id.to_i.to_s(36)
+  end
 end
 
 #------------------------------------------------------------------------------
