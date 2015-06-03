@@ -4,8 +4,9 @@ namespace :statistics do
   desc 'Statistics for daily loading'
   task :loading => :environment do
     include Statistics::Calculate
+    dates = (1..(ENV['days'] || 1).to_i).to_a.reverse.map { |d| d.days.ago.to_date }
     safe_exception do
-      calc_daily_loading
+      dates.each { |date| calc_daily_loading(date) }
       logger.info 'calculate daily loading finished'
     end
   end
@@ -13,17 +14,19 @@ namespace :statistics do
   desc 'Statistics for daily flow'
   task :flow => :environment do
     include Statistics::Calculate
+    dates = (1..(ENV['days'] || 1).to_i).to_a.reverse.map { |d| d.days.ago.to_date }
     safe_exception do
-      calc_daily_flow
+      dates.each { |date| calc_daily_flow(date) }
       logger.info 'calculate daily flow finished'
     end
   end
 
   desc 'Statistics for daily space usage'
-  task :space => :environment do
+  task :space => 'rollback:space' do
     include Statistics::Calculate
+    dates = (1..(ENV['days'] || 1).to_i).to_a.reverse.map { |d| d.days.ago.to_date }
     safe_exception do
-      calc_daily_space
+      dates.each { |date| calc_daily_space(date) }
       logger.info 'calculate daily space usage finished'
     end
   end
@@ -35,8 +38,9 @@ namespace :statistics do
     desc 'Rollback loading statistics'
     task :loading => :environment do
       include Statistics::Calculate
+      date = (ENV['days'] || 1).to_i.days.ago.to_date
       safe_exception do
-        rollback_loading
+        rollback_loading(date)
         logger.info 'rollback loading finished'
       end
     end
@@ -44,8 +48,9 @@ namespace :statistics do
     desc 'Rollback flow statistics'
     task :flow => :environment do
       include Statistics::Calculate
+      date = (ENV['days'] || 1).to_i.days.ago.to_date
       safe_exception do
-        rollback_flow
+        rollback_flow(date)
         logger.info 'rollback flow finished'
       end
     end
@@ -53,8 +58,9 @@ namespace :statistics do
     desc 'Rollback space usage statistics'
     task :space => :environment do
       include Statistics::Calculate
+      date = (ENV['days'] || 1).to_i.days.ago.to_date
       safe_exception do
-        rollback_space
+        rollback_space(date)
         logger.info 'rollback space usage finished'
       end
     end
