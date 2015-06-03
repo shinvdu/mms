@@ -2,7 +2,7 @@ class VideoController < ApplicationController
   before_action :explode_session_id
 
   def show
-    @video_group = VideoProductGroup.find params[:id]
+    @video_group = VideoProductGroup.where(show_id: params[:id]).first
     if @video_group.FINISHED? && @video_group.ACCEPTED?
   	@video_products = @video_group.video_products
       host_url = Settings.host_url
@@ -10,10 +10,14 @@ class VideoController < ApplicationController
   	@video_products.each do |product|
   		@src << {
   			:type => "video/#{product.transcoding.container}",
-  			:src  =>  [host_url, '/video_path?', "video_id=#{@video_group.id}", "&video_product_id=#{product.id}"].join(''),
+  			:src  =>  [host_url, '/video_path?', "video_id=#{@video_group.show_id}", "&video_product_id=#{product.id}"].join(''),
   			'data-res' => "#{product.check_quanity}",
   		}
   	end
+  else
+    notice_error '没有这个视频'
+    redirect_to :root
+    return
   end
 end
 
@@ -34,7 +38,7 @@ def video_path
     server_signature = Digest::SHA1.hexdigest(string_to_sign)
     # logger.info(server_signature)
     if signature == server_signature
-      video_product = VideoProduct.where(id: video_product_id).first
+      video_product = VideoProductGroup.where(show_id: video_group_id).first.video_products.find(id: video_product_id).first
       video_detail = video_product.video_detail
       redirect_to video_detail.get_full_url 
       return
