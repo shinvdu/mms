@@ -77,6 +77,26 @@ class VideoProduct < ActiveRecord::Base
     self.video_product_group.check_all_finished
     self.save!
   end
+
+  def check_quanity()
+    transcoding = self.transcoding 
+    if transcoding.height
+      quanity_desc = [transcoding.height, 'P'].join('')
+    elsif transcoding.height.nil?
+      video_detail = self.video_detail
+      quanity_desc = [video_detail.height, 'P'].join('')
+    end
+    # if transcoding.width.nil? && transcoding.height.nil?
+    #   video_detail = self.video_detail
+    #   quanity_desc = [video_detail.height, 'P'].join('')
+    # elsif transcoding.width && transcoding.height.nil?
+    #   quanity_desc = ['H' , transcoding.width].join('')
+    # elsif transcoding.width.nil? && transcoding.height
+    #   quanity_desc = [transcoding.height, 'P'].join('')
+    # end
+    return quanity_desc
+  end
+
 end
 
 #------------------------------------------------------------------------------

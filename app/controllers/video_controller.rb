@@ -16,7 +16,7 @@ class VideoController < ApplicationController
   		@src << {
   			:type => "video/#{product.transcoding.container}",
   			:src  =>  [host_url, '/video_path?', "video_id=#{@video_group.id}", "&video_product_id=#{product.id}"].join(''),
-  			'data-res' => "#{check_quanity(product)}",
+  			'data-res' => "#{product.check_quanity}",
   		}
   	end
   end
@@ -46,7 +46,7 @@ def video_path
       redirect_to video_detail.get_full_url 
       return
     else
-      notice_error 'failed'
+      notice_error '解析视频地址失败'
     end
 
 end
@@ -54,28 +54,8 @@ end
 protected
 
 def explode_session_id
-  # cookies.delete :wgcloud_id
-   session_id  =  session[:session_id]
-  # logger.info('---------------------------------------------')
-  # debugger
-  # logger.info(session_id)
-  # logger.info('---------------------------------------------')
-  cookies[:wgcloud_id] = session_id 
-  # cookies[:session_id] = session[:session_id]
+  cookies[:wgcloud_id] = session[:session_id]
   cookies[:video_salt] = Settings.video_salt
 end
 
-def check_quanity(video_product)
-    transcoding = video_product.transcoding 
-    case transcoding
-    when transcoding.width.nil? && transcoding.height.nil?
-        video_detail = video_product.video_detail
-        quanity_desc = [video_detail.height, 'P'].join('')
-    when transcoding.width && transcoding.height.nil?
-      quanity_desc = ['H' , transcoding.width].join('')
-    when transcoding.width.nil? && transcoding.height
-      quanity_desc = [transcoding.height, 'P'].join('')
-    end
-    return quanity_desc
-end
 end

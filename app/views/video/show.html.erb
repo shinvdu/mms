@@ -13,7 +13,7 @@
                 var session_id = $.cookie('wgcloud_id')
                 var video_salt = $.cookie('video_salt')
                 var cal_string = session_id + '#' + video_id + '#' + video_salt
-                console.log(cal_string)
+                // console.log(cal_string)
                 return hex_sha1(cal_string)
         }
 
