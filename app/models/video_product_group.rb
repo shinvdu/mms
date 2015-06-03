@@ -14,6 +14,9 @@ class VideoProductGroup < ActiveRecord::Base
   belongs_to :checker, :class_name => 'User'
   scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
   before_save :set_uuid
+  before_save do
+    self.show_id = VideoProductGroup.generate_id if show_id.nil?
+  end
   include Privilege
 
   module STATUS
