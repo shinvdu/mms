@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :video_product_groups, :foreign_key => :owner_id
   has_many :video_list_privileges, :dependent => :delete_all
   has_many :video_lists, :through => :video_list_privileges
+  has_many :daily_flow_stats, :class_name => 'Statistics::DailyFlowStat'
+  has_many :daily_loading_stats, :class_name => 'Statistics::DailyLoadingStat'
+  has_many :daily_space_stats, :class_name => 'Statistics::DailySpaceStat'
   belongs_to :company
   accepts_nested_attributes_for :company, :account
   # mount_uploader :avar, AvatarUploader
