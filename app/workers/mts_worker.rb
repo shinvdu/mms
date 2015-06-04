@@ -59,10 +59,61 @@ module MTSWorker
     include MTSUtils::All
 
     def upload_and_save!
-      request_id, res_template = add_template(self)
+      request_id, res_template = add_aliyun_template(self)
       self.aliyun_template_id = res_template.id
       self.save!
       self
+    end
+
+    def add_aliyun_template(transcoding)
+      add_template(transcoding.name,
+                   transcoding.container,
+                   transcoding.audio_codec,
+                   transcoding.audio_samplerate,
+                   transcoding.audio_bitrate,
+                   transcoding.audio_channels,
+                   transcoding.video_codec,
+                   transcoding.video_profile,
+                   transcoding.video_bitrate,
+                   transcoding.video_crf,
+                   transcoding.width,
+                   transcoding.height,
+                   transcoding.video_fps,
+                   transcoding.video_gop,
+                   transcoding.video_preset,
+                   transcoding.video_scanmode,
+                   transcoding.video_bufsize,
+                   transcoding.video_maxrate,
+                   transcoding.video_bitrate_bnd_max,
+                   transcoding.video_bitrate_bnd_min)
+    end
+
+    def delete_aliyun_template(transcoding)
+      delete_template(transcoding.aliyun_template_id)
+    end
+
+    def update_aliyun_template(transcoding)
+      update_template(transcoding.aliyun_template_id,
+                      transcoding.name,
+                      transcoding.container,
+                      transcoding.audio_codec,
+                      transcoding.audio_samplerate,
+                      transcoding.audio_bitrate,
+                      transcoding.audio_channels,
+                      transcoding.video_codec,
+                      transcoding.video_profile,
+                      transcoding.video_bitrate,
+                      transcoding.video_crf,
+                      transcoding.width,
+                      transcoding.height,
+                      transcoding.video_fps,
+                      transcoding.video_gop,
+                      transcoding.video_preset,
+                      transcoding.video_scanmode,
+                      transcoding.video_bufsize,
+                      transcoding.video_maxrate,
+                      transcoding.video_bitrate_bnd_max,
+                      transcoding.video_bitrate_bnd_min)
     end
   end
 

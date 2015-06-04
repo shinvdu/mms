@@ -243,33 +243,53 @@ module MTSUtils
   end
 
   module Template
-    def add_template(transcoding)
+    def add_template(name,
+                     container,
+                     audio_codec,
+                     audio_samplerate,
+                     audio_bitrate,
+                     audio_channels,
+                     video_codec,
+                     video_profile,
+                     video_bitrate,
+                     video_crf,
+                     width,
+                     height,
+                     video_fps,
+                     video_gop,
+                     video_preset,
+                     video_scanmode,
+                     video_bufsize,
+                     video_maxrate,
+                     video_bitrate_bnd_max,
+                     video_bitrate_bnd_min,
+                     state)
       params = {
           'Action' => 'AddTemplate',
-          'Name' => transcoding.name,
-          'Container' => {'Format' => transcoding.container}.to_json,
+          'Name' => name,
+          'Container' => {'Format' => container}.to_json,
           'Audio' => {
-              'Codec' => transcoding.audio_codec,
-              'Samplerate' => transcoding.audio_samplerate,
-              'Bitrate' => transcoding.audio_bitrate,
-              'Channels' => transcoding.audio_channels
+              'Codec' => audio_codec,
+              'Samplerate' => audio_samplerate,
+              'Bitrate' => audio_bitrate,
+              'Channels' => audio_channels
           }.to_json,
           'Video' => {
-              'Codec' => transcoding.video_codec,
-              'Profile' => transcoding.video_profile,
-              'Bitrate' => transcoding.video_bitrate,
-              'Crf' => transcoding.video_crf,
-              'Width' => transcoding.width,
-              'Height' => transcoding.height,
-              'Fps' => transcoding.video_fps,
-              'Gop' => transcoding.video_gop,
-              'Preset' => transcoding.video_preset,
-              'ScanMode' => transcoding.video_scanmode,
-              'Bufsize' => transcoding.video_bufsize,
-              'Maxrate' => transcoding.video_maxrate,
-              'BitrateBnd' => {'Max' => transcoding.video_bitrate_bnd_max, 'Min' => transcoding.video_bitrate_bnd_min}
+              'Codec' => video_codec,
+              'Profile' => video_profile,
+              'Bitrate' => video_bitrate,
+              'Crf' => video_crf,
+              'Width' => width,
+              'Height' => height,
+              'Fps' => video_fps,
+              'Gop' => video_gop,
+              'Preset' => video_preset,
+              'ScanMode' => video_scanmode,
+              'Bufsize' => video_bufsize,
+              'Maxrate' => video_maxrate,
+              'BitrateBnd' => {'Max' => video_bitrate_bnd_max, 'Min' => video_bitrate_bnd_min}
           }.to_json,
-          'state' => transcoding.state
+          'state' => state
       }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
@@ -284,44 +304,65 @@ module MTSUtils
 
     end
 
-    def delete_template(transcoding)
+    def delete_template(template_id)
       params = {
           'Action' => 'DeleteTemplate',
-          'TemplateId' => transcoding.aliyun_template_id,
+          'TemplateId' => template_id,
       }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
       return res['RequestId'], res['TemplateId']
     end
 
-    def update_template(transcoding)
+    def update_template(template_id,
+                        name,
+                        container,
+                        audio_codec,
+                        audio_samplerate,
+                        audio_bitrate,
+                        audio_channels,
+                        video_codec,
+                        video_profile,
+                        video_bitrate,
+                        video_crf,
+                        width,
+                        height,
+                        video_fps,
+                        video_gop,
+                        video_preset,
+                        video_scanmode,
+                        video_bufsize,
+                        video_maxrate,
+                        video_bitrate_bnd_max,
+                        video_bitrate_bnd_min,
+                        state = 'Normal')
       params = {
           'Action' => 'UpdateTemplate',
-          'TemplateId' => transcoding.aliyun_template_id,
-          'Name' => transcoding.name,
-          'Container' => {'Format' => transcoding.container}.to_json,
+          'TemplateId' => template_id,
+          'Name' => name,
+          'Container' => {'Format' => container}.to_json,
           'Audio' => {
-              'Codec' => transcoding.audio_codec,
-              'Samplerate' => transcoding.audio_samplerate,
-              'Bitrate' => transcoding.audio_bitrate,
-              'Channels' => transcoding.audio_channels
+              'Codec' => audio_codec,
+              'Samplerate' => audio_samplerate,
+              'Bitrate' => audio_bitrate,
+              'Channels' => audio_channels
           }.to_json,
           'Video' => {
-              'Codec' => transcoding.video_codec,
-              'Profile' => transcoding.video_profile,
-              'Bitrate' => transcoding.video_bitrate,
-              'Crf' => transcoding.video_crf,
-              'Width' => transcoding.width,
-              'Height' => transcoding.height,
-              'Fps' => transcoding.video_fps,
-              'Gop' => transcoding.video_gop,
-              'Preset' => transcoding.video_preset,
-              'ScanMode' => transcoding.video_scanmode,
-              'Bufsize' => transcoding.video_bufsize,
-              'Maxrate' => transcoding.video_maxrate,
-              'BitrateBnd' => {'Max' => transcoding.video_bitrate_bnd_max, 'Min' => transcoding.video_bitrate_bnd_min}
+              'Codec' => video_codec,
+              'Profile' => video_profile,
+              'Bitrate' => video_bitrate,
+              'Crf' => video_crf,
+              'Width' => width,
+              'Height' => height,
+              'Fps' => video_fps,
+              'Gop' => video_gop,
+              'Preset' => video_preset,
+              'ScanMode' => video_scanmode,
+              'Bufsize' => video_bufsize,
+              'Maxrate' => video_maxrate,
+              'BitrateBnd' => {'Max' => video_bitrate_bnd_max, 'Min' => video_bitrate_bnd_min}
           }.to_json,
-          'state' => transcoding.state
+          'state' => state
       }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
@@ -330,8 +371,22 @@ module MTSUtils
   end
 
   module WaterMark
-    def add_water_mark_template
-
+    def add_water_mark_template(name, width, height, dx, dy, refer_pos, type = 'Image')
+      params = {'Action' => 'AddWaterMarkTemplate',
+                'Name' => name,
+                'Config' => {
+                    'Name' => name,
+                    'Width' => width,
+                    'Height' => height,
+                    'Dx' => dx,
+                    'Dy' => dy,
+                    'ReferPos' => refer_pos,
+                    'Type' => type
+                }.to_json
+      }.select { |k, v| v.present? }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      return res['RequestId'], AliyunWaterMarkTemplate.new(res['WaterMarkTemplate'])
     end
 
     def search_water_mark_template
@@ -342,12 +397,33 @@ module MTSUtils
 
     end
 
-    def delete_water_mark_template
-
+    def delete_water_mark_template(water_mark_template_id)
+      params = {
+          'Action' => 'DeleteWaterMarkTemplate',
+          'TemplateId' => water_mark_template_id,
+      }.select { |k, v| v.present? }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      return res['RequestId'], res['WaterMarkTemplateId']
     end
 
-    def update_water_mark_template
-
+    def update_water_mark_template(water_mark_template_id, name, width, height, dx, dy, refer_pos, type = 'Image')
+      params = {'Action' => 'UpdateWaterMarkTemplate',
+                'WaterMarkTemplateId' => water_mark_template_id,
+                'Name' => name,
+                'Config' => {
+                    'Name' => name,
+                    'Width' => width,
+                    'Height' => height,
+                    'Dx' => dx,
+                    'Dy' => dy,
+                    'ReferPos' => refer_pos,
+                    'Type' => type
+                }.to_json
+      }.select { |k, v| v.present? }
+      url = generate_url(params)
+      res = JSON.parse execute(url)
+      return res['RequestId'], AliyunWaterMarkTemplate.new(res['WaterMarkTemplate'])
     end
   end
 
@@ -443,6 +519,23 @@ module MTSUtils
       if var.is_a? Hash
         @input_file = AliyunOSSFile.new var['InputFile']
         @water_mark_template_id = var['WaterMarkTemplateId']
+      end
+    end
+  end
+  class AliyunWaterMarkTemplate
+    attr_accessor :input_file, :water_mark_template_id
+
+    def initialize(var)
+      if var.is_a? Hash
+        @id = var['Id']
+        @name = var['Name']
+        @width = var['Width']
+        @height = var['Height']
+        @dx = var['Dx']
+        @dy = var['Dy']
+        @refer_pos = var['ReferPos']
+        @type = var['Type']
+        @state = var['State']
       end
     end
   end
