@@ -1,0 +1,24 @@
+defaults: &defaults
+  mms:
+    name:  未谷云视频
+    domain:  www.weiguyun.com
+  title: 未谷云视频
+  default_player:
+    id:  0
+    autoplay:  false
+    width:  852
+    height:  480
+
+
+production:
+  <<: *defaults
+  host_url: http://www.wgcloud.com
+
+
+development:
+  <<: *defaults
+  host_url: http://localhost:3000
+
+test:
+  <<: *defaults
+  host_url: http://localhost:3000

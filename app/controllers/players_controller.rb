@@ -45,7 +45,7 @@ class PlayersController < ApplicationController
             width: @player.width ? @player.width : 852,
             height: @player.height ? @player.height : 480,
             },
-            logo: hash_water
+            # logo: hash_water
         }
         json_data[:logo] = hash_water if @player.logo
         render json: json_data
@@ -109,7 +109,11 @@ class PlayersController < ApplicationController
   private
 
   def set_player
-    @player = Player.visible(current_user).find(params[:id])
+    if params[:id] == '0'
+      @player = Player.new(Wgconfigs.default_player.to_h)
+    else
+      @player = Player.visible(current_user).find(params[:id])
+    end
   end
 
   def player_params
