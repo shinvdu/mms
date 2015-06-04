@@ -11,7 +11,7 @@ RSpec.describe VideoController, type: :controller do
       video_detail_2 = FactoryGirl.create(:video_detail)
       transcoding_2 = FactoryGirl.create(:transcoding)
       video_product_2 = FactoryGirl.create(:video_product, video_detail: video_detail_2, video_product_group: video_group, transcoding: transcoding_2)
-      get :show, :id =>  video_group.id
+      get :show, :id =>  video_group.show_id
       expect(response).to have_http_status(:success)
     end
   end
