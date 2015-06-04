@@ -1,7 +1,6 @@
 class Logo < ActiveRecord::Base
   belongs_to :owner, :class_name => 'User', :foreign_key => 'user_id'
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
-  has_many :player
   validates :name, presence: true
   validates :uri,  presence: { message: I18n.t('model.logo.logo_require') }
   include Privilege

@@ -117,6 +117,14 @@ module MTSWorker
     end
   end
 
+  module WaterMarkTemplateWorker
+    include MTSUtils::All
+
+    def add_aliyun_water_mark_template
+      add_water_mark_template(self.name, self.width, self.height, 0, 0, self.refer_pos)
+    end
+  end
+
   module SnapshotWorker
     include MTSUtils::All
 

@@ -1,0 +1,36 @@
+<%= form_for @water_mark_template do |f| %>
+    <div class="form-inputs">
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %><br>
+      </div>
+      <div>
+        <%= f.label :refer_pos %>
+        <%= f.select :refer_pos, @refer_poses, {}, :class => 'form-control' %>
+      </div>
+      <div>
+        <%= f.label :text %>
+        <%= f.text_field :text %>
+      </div>
+      <div>
+        <%= f.label :font_size %>
+        <%= f.text_field :font_size %>
+      </div>
+      <div>
+        <%= f.label :transparency %>
+        <%= f.text_field :transparency %>
+      </div>
+      <div>
+        <%= f.label :transparency %>
+        <%= f.text_field :transparency %>
+      </div>
+      <div>
+        <%= f.label :in_use %>
+        <%= f.check_box :in_use %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>

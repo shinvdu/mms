@@ -28,6 +28,14 @@
           </a>
         </li>
     <% end %>
+    <% if can? :manage, WaterMarkTemplate %>
+        <li class="">
+          <a href="<%= water_mark_templates_path %>">
+            <span class="square"></span>
+            水印管理
+          </a>
+        </li>
+    <% end %>
     <li class="">
       <a href="<%= user_videos_path %>">
         <span class="square"></span>
