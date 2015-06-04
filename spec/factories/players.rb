@@ -10,7 +10,7 @@ FactoryGirl.define do
 		full_screen true
 		width 853
 		height 480
-		# data "MyString"
+		data "www.weiguyun.com"
 		# creator_id 0
 	end
 

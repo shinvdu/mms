@@ -116,6 +116,6 @@ class PlayersController < ApplicationController
   end
 
   def player_params
-    params.require(:player).permit(:name, :user_id, :color, :logo_id, :logo_position, :autoplay, :share, :full_screen, :width, :height, :data)
+    params.require(:player).permit(:name, :user_id, :color, :logo_id, :logo_position, :autoplay, :share, :full_screen, :width, :height, :whitelist)
   end
 end
