@@ -1,9 +1,10 @@
 class WaterMarkTemplatesController < ApplicationController
-  before_action :set_water_mark_template, only: [:show, :update, :destroy]
+  before_action :set_water_mark_template, only: [:show, :enable, :stop, :destroy]
   before_action :set_refer_poses, only: [:index, :new, :create, :show]
 
   def index
     @water_mark_templates = WaterMarkTemplate.visible(current_user).all
+    @enabled_water_mark_template = current_user.enabled_water_mark.water_mark_template
   end
 
   def show
@@ -19,7 +20,6 @@ class WaterMarkTemplatesController < ApplicationController
 
   def create
     @water_mark_template = WaterMarkTemplate.new(water_mark_template_params)
-
     respond_to do |format|
       if @water_mark_template.do_save
         format.html { redirect_to water_mark_templates_path, notice: 'Water mark template was successfully created.' }
@@ -29,6 +29,16 @@ class WaterMarkTemplatesController < ApplicationController
         format.json { render json: @water_mark_template.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def enable
+    @water_mark_template.enable
+    redirect_to water_mark_templates_path
+  end
+
+  def stop
+    @water_mark_template.stop
+    redirect_to water_mark_templates_path
   end
 
   def destroy

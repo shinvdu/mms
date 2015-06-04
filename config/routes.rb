@@ -17,7 +17,12 @@ Rails.application.routes.draw do
   resources :tags
   resources :transcoding_strategies
   resources :transcodings
-  resources :water_mark_templates
+  resources :water_mark_templates do
+    member do
+      patch :enable
+      patch :stop
+    end
+  end
   namespace :advertise do
     resources :strategies
   end

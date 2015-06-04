@@ -20,7 +20,7 @@
 #
 
 class WaterMarkTemplate < ActiveRecord::Base
-  scope :visible, -> (user){ where(:owner => user.owner, :disabled => false)}
+  scope :visible, -> (user) { where(:owner => user.owner, :disabled => false) }
   belongs_to :owner, :class_name => 'User'
   belongs_to :creator, :class_name => 'User'
   has_many :enabled_water_marks
@@ -46,16 +46,25 @@ class WaterMarkTemplate < ActiveRecord::Base
   end
 
   def do_save
-    if self.save
-      self.delay.create_img_and_upload
-      if self.enabled
-        self.creator.enabled_water_mark.water_mark_template = self
-        self.creator.enabled_water_mark.save!
+    transaction do
+      if self.save
+        self.delay.create_img_and_upload
+        self.enable if self.enabled
+        true
+      else
+        false
       end
-      true
-    else
-      false
     end
+  end
+
+  def enable
+    self.creator.enabled_water_mark.water_mark_template = self
+    self.creator.enabled_water_mark.save!
+  end
+
+  def stop
+    self.creator.enabled_water_mark.water_mark_template = nil
+    self.creator.enabled_water_mark.save!
   end
 
   def do_destroy
