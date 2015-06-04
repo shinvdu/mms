@@ -20,16 +20,19 @@
 #
 
 class WaterMarkTemplate < ActiveRecord::Base
+  scope :visible, -> (user){ where(:owner => user.owner, :disabled => false)}
   belongs_to :owner, :class_name => 'User'
   belongs_to :creator, :class_name => 'User'
+  has_many :enabled_water_marks
   validates :name, presence: true
   validates :text, presence: true
   validates :refer_pos, :inclusion => {:in => %w(TopRight TopLeft BottomRight BottomLeft), :message => "%{value} is not a valid position"}
   validates :font_size, :numericality => {:only_integer => true, :greater_than_or_equal_to => 3, :less_than_or_equal_to => 20}
   validates :transparency, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100}
   mount_uploader :img, WaterMarkUploader
-  include Privilege
   include MTSWorker::WaterMarkTemplateWorker
+
+  attr_accessor :enabled
 
   module STATUS
     CREATED = 10
@@ -45,28 +48,53 @@ class WaterMarkTemplate < ActiveRecord::Base
   def do_save
     if self.save
       self.delay.create_img_and_upload
+      if self.enabled
+        self.creator.enabled_water_mark.water_mark_template = self
+        self.creator.enabled_water_mark.save!
+      end
+      true
     else
       false
     end
   end
 
+  def do_destroy
+    transaction do
+      self.enabled_water_marks.each do |enabled_water_mark|
+        enabled_water_mark.water_mark_template = nil
+        enabled_water_mark.save!
+      end
+      self.disabled = true
+      self.delay.remove_from_aliyun_and_self
+      self.save!
+    end
+  end
+
+  def remove_from_aliyun_and_self
+    self.img.remove!
+    self.delete_aliyun_water_mark_template if self.aliyun_water_mark_template_id.present?
+    self.destroy!
+  end
+
   def create_img_and_upload
     font_size = self.font_size
-    image = Magick::Image.read('caption:%s' % self.text) do
+    images = Magick::Image.read('caption:%s' % self.text) do
       self.size = '2000x'
       self.pointsize = font_size
       self.font = 'Arial'
       self.background_color = 'Transparent'
     end
+    image = images[0]
     tmp_file_path = Rails.root.join('tmp', UUIDTools::UUID.random_create.to_s << '.png').to_s
-    image[0].trim!
-    image[0].write tmp_file_path
-    self.width = images[0].columns
-    self.height = images[0].rows
+    image.trim!
+    image.write tmp_file_path
+    self.width = image.columns
+    self.height = image.rows
     `convert #{tmp_file_path} -channel A -fx "A*#{(100.0 - self.transparency) / 100}" #{tmp_file_path}`
     File.open(tmp_file_path) { |f| self.img = f }
-    self.save!
     add_aliyun_water_mark_template
+    self.status = STATUS::READY
+    self.save!
     FileUtils.rm tmp_file_path
     # tmp_file_path
   end

@@ -14,19 +14,15 @@
       </div>
       <div>
         <%= f.label :font_size %>
-        <%= f.text_field :font_size %>
+        <%= f.number_field :font_size %>
       </div>
       <div>
         <%= f.label :transparency %>
-        <%= f.text_field :transparency %>
+        <%= f.number_field :transparency %>
       </div>
       <div>
-        <%= f.label :transparency %>
-        <%= f.text_field :transparency %>
-      </div>
-      <div>
-        <%= f.label :in_use %>
-        <%= f.check_box :in_use %>
+        <%= f.label '立即启用' %>
+        <%= f.check_box :enabled %>
       </div>
     </div>
 

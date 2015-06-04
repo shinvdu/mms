@@ -1,5 +1,6 @@
 class WaterMarkTemplatesController < ApplicationController
-  before_action :set_water_mark_template, only: [:show, :edit, :update, :destroy]
+  before_action :set_water_mark_template, only: [:show, :update, :destroy]
+  before_action :set_refer_poses, only: [:index, :new, :create, :show]
 
   def index
     @water_mark_templates = WaterMarkTemplate.visible(current_user).all
@@ -13,7 +14,7 @@ class WaterMarkTemplatesController < ApplicationController
                                                  :font_size => 20,
                                                  :transparency => 70,
                                                  :status => WaterMarkTemplate::STATUS::CREATED,
-                                                 :in_use => true)
+                                                 :enabled => true)
   end
 
   def create
@@ -21,7 +22,7 @@ class WaterMarkTemplatesController < ApplicationController
 
     respond_to do |format|
       if @water_mark_template.do_save
-        format.html { redirect_to @water_mark_template, notice: 'Water mark template was successfully created.' }
+        format.html { redirect_to water_mark_templates_path, notice: 'Water mark template was successfully created.' }
         format.json { render :show, status: :created, location: @water_mark_template }
       else
         format.html { render :new }
@@ -31,7 +32,7 @@ class WaterMarkTemplatesController < ApplicationController
   end
 
   def destroy
-    @water_mark_template.destroy
+    @water_mark_template.do_destroy
     respond_to do |format|
       format.html { redirect_to water_mark_templates_url, notice: 'Water mark template was successfully destroyed.' }
       format.json { head :no_content }
@@ -56,6 +57,6 @@ class WaterMarkTemplatesController < ApplicationController
   def water_mark_template_params
     params[:water_mark_template][:owner_id] = current_user.owner.id
     params[:water_mark_template][:creator_id] = current_user.id
-    params.require(:water_mark_template).permit(:owner_id, :creator_id, :name, :refer_pos, :text)
+    params.require(:water_mark_template).permit(:owner_id, :creator_id, :name, :refer_pos, :text, :font_size, :transparency, :enabled)
   end
 end

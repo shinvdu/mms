@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   scope :active, -> {joins(:account).where(:accounts => {:is_active => true})}
   has_one :account
   has_one :avatar
+  has_one :enabled_water_mark
   has_many :notifications
   has_many :logos
   has_many :provider_auths
@@ -72,6 +73,12 @@ class User < ActiveRecord::Base
 
   def frozen_reasons
     super || '[]'
+  end
+
+  def enabled_water_mark
+    ret = super
+    self.create_enabled_water_mark(:user => self) if ret.nil?
+    super
   end
 
   private

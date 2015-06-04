@@ -4,6 +4,5 @@ class AddColumnsToWaterMarkTemplates < ActiveRecord::Migration
     add_column :water_mark_templates, :status, :integer, :default => 10
     add_column :water_mark_templates, :font_size, :integer
     add_column :water_mark_templates, :transparency, :integer
-    add_column :water_mark_templates, :in_use, :boolean
   end
 end
