@@ -181,6 +181,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def remove_local_file
+    logger.info "remove local file[id: %s]: %s" % [self.id, self.get_full_path]
     FileUtils.rm self.get_full_path if File.exist? self.get_full_path
     dir = File.dirname(self.get_full_path)
     FileUtils.rmtree dir if File.exist?(dir) && (Dir.entries(dir) - %w{ . .. }).empty?
@@ -281,6 +282,7 @@ class VideoDetail < ActiveRecord::Base
       save! if changed?
       return
     end
+    logger.info "download file[id: %s]: %s" % [self.id, self.get_full_path]
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"
     FileUtils.cp cache_path, file_path

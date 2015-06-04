@@ -141,6 +141,7 @@ class UserVideo < ActiveRecord::Base
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner)
           video_product_group.create_package_product
           video_product_group.set_video_list_by_user_video(self)
+          self.original_video.remove_local_file!
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
@@ -148,6 +149,7 @@ class UserVideo < ActiveRecord::Base
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner, :transcoding_strategy => transcoding_strategy)
           video_product_group.create_products_from_origin
           video_product_group.set_video_list_by_user_video(self)
+          self.original_video.remove_local_file!
         end
       when PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
         self.transaction do
@@ -157,6 +159,7 @@ class UserVideo < ActiveRecord::Base
                                    :creator => self.creator,
                                    :status => VideoProductGroup::STATUS::CREATED)
           video_product_group.set_video_list_by_user_video(self)
+          self.original_video.remove_local_file!
         end
     end
   end
@@ -176,7 +179,6 @@ class UserVideo < ActiveRecord::Base
     transaction do
       self.mkv_video.load_local_file!
       self.mkv_video.remove_local_file!
-      self.original_video.remove_local_file!
     end
   end
 end
