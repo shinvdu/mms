@@ -14,6 +14,9 @@ class VideoProductGroup < ActiveRecord::Base
   belongs_to :checker, :class_name => 'User'
   scope :need_check, -> { where(['check_status in (?, ?)', CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING]) }
   before_save :set_uuid
+  before_save do
+    self.show_id = VideoProductGroup.generate_id if show_id.nil?
+  end
   include Privilege
 
   module STATUS
@@ -108,6 +111,10 @@ class VideoProductGroup < ActiveRecord::Base
 
   def FINISHED?
     self.get_status == STATUS::FINISHED
+  end
+
+  def ACCEPTED?
+    self.check_status == CHECK_STATUS::ACCEPTED
   end
 
   def CREATED?
@@ -247,6 +254,13 @@ class VideoProductGroup < ActiveRecord::Base
     [CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING].include? self.check_status
   end
 
+  def self.generate_id
+    t = DateTime
+    id = t.now.strftime("%Y%m%d%H%M%S%L") 
+  # Get current date to the milliseconds
+    id = [id, rand(10000000)].join('')
+    id = id.to_i.to_s(36)
+  end
 end
 
 #------------------------------------------------------------------------------
@@ -271,6 +285,6 @@ end
 # checker_id              int(11)              true            false  
 # uuid                    varchar(255)         true            false  
 # player_id               int(11)              true            false  
-# creator_id              int(11)              false           false  
+# creator_id               int(11)              true            false  
 #
 #------------------------------------------------------------------------------

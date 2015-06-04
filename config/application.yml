@@ -126,6 +126,7 @@ defaults: &defaults
       user_video_dir: video
       advertise_dir: advertise
       video_product_dir: video_product
+      private_video_signed_duration: 6
     mts: &defaults-aliyun-mts
       host: mts.aliyuncs.com
       scheduled_queue: mts_query_scheduled
@@ -139,9 +140,11 @@ defaults: &defaults
     fragment_dir: public/uploads/fragments
     mini_suffix: mini
     video_cut_scheduled_queue: fs_video_cut_scheduled
+  video_salt: 1a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
 
 production:
   <<: *defaults
+  host_url: http://www.wgcloud.com
   default_url_options:
     host:  wgcloud.com
     port:  80
@@ -186,6 +189,7 @@ development:
   <<: *defaults
   to_str:
   to_ary:
+  host_url: http://localhost:3000
   devise:
     encryptor:  sha512
   omniauth:
@@ -226,6 +230,7 @@ development:
 
 test:
   <<: *defaults
+  host_url: http://localhost:3000
   devise:
     encryptor:  sha512
   omniauth:
