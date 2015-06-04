@@ -263,7 +263,7 @@ module MTSUtils
                      video_maxrate,
                      video_bitrate_bnd_max,
                      video_bitrate_bnd_min,
-                     state)
+                     state = 'Normal')
       params = {
           'Action' => 'AddTemplate',
           'Name' => name,
