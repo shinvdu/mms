@@ -2,7 +2,6 @@ class PlayersController < ApplicationController
   before_action :authenticate_account!, except: [:show] # 匿名用户也可以加载播放器设置
   before_action :set_user_id, only: [:create, :update]
   before_action :set_player, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_player, only: [:edit, :update, :destroy]
 
   def index
     @players = Player.visible(current_user).page(params[:page])
