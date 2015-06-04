@@ -27,7 +27,7 @@ class WaterMarkTemplate < ActiveRecord::Base
   validates :name, presence: true
   validates :text, presence: true
   validates :refer_pos, :inclusion => {:in => %w(TopRight TopLeft BottomRight BottomLeft), :message => "%{value} is not a valid position"}
-  validates :font_size, :numericality => {:only_integer => true, :greater_than_or_equal_to => 3, :less_than_or_equal_to => 20}
+  validates :font_size, :numericality => {:only_integer => true, :greater_than_or_equal_to => 10, :less_than_or_equal_to => 30}
   validates :transparency, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100}
   mount_uploader :img, WaterMarkUploader
   include MTSWorker::WaterMarkTemplateWorker
