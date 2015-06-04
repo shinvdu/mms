@@ -38,7 +38,7 @@ def video_path
     server_signature = Digest::SHA1.hexdigest(string_to_sign)
     # logger.info(server_signature)
     if signature == server_signature
-      video_product = VideoProductGroup.where(show_id: video_group_id).first.video_products.find(id: video_product_id).first
+      video_product = VideoProductGroup.where(show_id: video_group_id).first.video_products.where(id: video_product_id).first
       video_detail = video_product.video_detail
       redirect_to video_detail.get_full_url 
       return

@@ -53,7 +53,7 @@
         </script>
         <div id="video_params" class="hidden">
                 <p id="player_id" player="<%= @video_group.player_id %>"></p>
-                <p id="video_id" videoid="<%= @video_group.id %>"></p>
+                <p id="video_id" videoid="<%= @video_group.show_id %>"></p>
                 <p id="source" source="<%= Base64.strict_encode64(ActiveSupport::JSON.encode(@src)) %>"></p>
         </div>
         <video id="wgcloud_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled">
