@@ -138,7 +138,7 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::PACKAGE
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
         self.transaction do
-          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner)
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :creator => self.creator)
           video_product_group.create_package_product
           video_product_group.set_video_list_by_user_video(self)
           self.original_video.remove_local_file!
@@ -146,7 +146,7 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
         self.transaction do
-          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner, :transcoding_strategy => transcoding_strategy)
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :creator => self.creator, :transcoding_strategy => transcoding_strategy)
           video_product_group.create_products_from_origin
           video_product_group.set_video_list_by_user_video(self)
           self.original_video.remove_local_file!

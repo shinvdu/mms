@@ -91,6 +91,7 @@ class WaterMarkTemplate < ActiveRecord::Base
       self.size = '2000x'
       self.pointsize = font_size
       self.font = 'Arial'
+      self.fill = '#bfbfbf'
       self.background_color = 'Transparent'
     end
     image = images[0]

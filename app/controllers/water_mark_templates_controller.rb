@@ -13,7 +13,7 @@ class WaterMarkTemplatesController < ApplicationController
   def new
     @water_mark_template = WaterMarkTemplate.new(:refer_pos => WaterMarkTemplate::REFER_POS::TR,
                                                  :font_size => 20,
-                                                 :transparency => 70,
+                                                 :transparency => 30,
                                                  :status => WaterMarkTemplate::STATUS::CREATED,
                                                  :enabled => true)
   end

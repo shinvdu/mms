@@ -195,7 +195,7 @@ class VideoProductGroup < ActiveRecord::Base
     self.save!
     self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
-      product.transcode_video(self.user_video.original_video, transcoding)
+      product.transcode_video(self.user_video.original_video, transcoding, self.creator.enabled_water_mark.water_mark_template)
     end
     self.user_video.original_video.create_snapshot(self)
   end
@@ -212,7 +212,7 @@ class VideoProductGroup < ActiveRecord::Base
 
     self.transcoding_strategy.transcodings.each do |transcoding|
       product = VideoProduct.create(:video_product_group => self, :transcoding => transcoding)
-      product.transcode_video(self.temp_video, transcoding)
+      product.transcode_video(self.temp_video, transcoding, self.creator.enabled_water_mark.water_mark_template)
     end
     self.save!
   end
