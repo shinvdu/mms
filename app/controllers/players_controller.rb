@@ -109,7 +109,7 @@ class PlayersController < ApplicationController
 
   def set_player
     if params[:id] == '0'
-      @player = Player.new(Wgconfigs.default_player.to_h)
+      @player = Player.new(Settings.default_player.to_h)
     else
       @player = Player.visible(current_user).find(params[:id])
     end

@@ -54,7 +54,7 @@
         })
         </script>
         <div id="video_params" class="hidden">
-                <p id="player_id" player="<%= @video_group.player_id ?  @video_group.player_id : Wgconfigs.default_player.id %>"></p>
+                <p id="player_id" player="<%= @video_group.player_id ?  @video_group.player_id : Settings.default_player.id %>"></p>
                 <p id="video_id" videoid="<%= @video_group.show_id %>"></p>
                 <p id="source" source="<%= Base64.strict_encode64(ActiveSupport::JSON.encode(@src)) %>"></p>
         </div>
