@@ -62,7 +62,7 @@ class UserVideosController < ApplicationController
         @user_video.delay.publish_by_strategy(publish_strategy, nil)
       when UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
         # build empty product group
-        @user_video.publish_by_strategy(publish_strategy, nil)
+        @user_video.delay.publish_by_strategy(publish_strategy, nil)
     end
 
     respond_to do |format|
