@@ -8,11 +8,11 @@ user "www-data", "www-data"
 # listen "/tmp/upload_unicorn_1.sock", :backlog => 64
 listen 4096 #, :tcp_nopush => false
 
-# Nuke workers after 360 seconds instead of 60 seconds (the default)
-timeout 360
+# Nuke workers after 30 seconds instead of 60 seconds (the default)
+timeout 30
 
 # App PID
-pid "#{app_root}/tmp/pids/upload_unicorn_1.pid"
+pid "#{app_root}/tmp/pids/player_unicorn_1.pid"
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, some applications/frameworks log to stderr or stdout,
@@ -26,7 +26,7 @@ preload_app true
 before_fork do |server, worker|
   # 参考 http://unicorn.bogomips.org/SIGNALS.html
   # 使用USR2信号，以及在进程完成后用QUIT信号来实现无缝重启
-  old_pid = app_root + '/tmp/pids/upload_unicorn_1.pid.oldbin'
+  old_pid = app_root + '/tmp/pids/player_unicorn_1.pid.oldbin'
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)

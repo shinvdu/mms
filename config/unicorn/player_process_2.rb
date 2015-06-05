@@ -5,20 +5,20 @@ working_directory app_root
 user "www-data", "www-data"
 
 # Listen on fs socket for better performance
-# listen "/tmp/upload_unicorn_1.sock", :backlog => 64
-listen 4096 #, :tcp_nopush => false
+# listen "/tmp/upload_unicorn_2.sock", :backlog => 64
+listen 4098 #, :tcp_nopush => false
 
-# Nuke workers after 360 seconds instead of 60 seconds (the default)
-timeout 360
+# Nuke workers after 30 seconds instead of 60 seconds (the default)
+timeout 30
 
 # App PID
-pid "#{app_root}/tmp/pids/upload_unicorn_1.pid"
+pid "#{app_root}/tmp/pids/player_unicorn_2.pid"
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, some applications/frameworks log to stderr or stdout,
 # so prevent them from going to /dev/null when daemonized here:
-stderr_path "#{app_root}/log/unicorn_1.stderr.log"
-stdout_path "#{app_root}/log/unicorn_1.stdout.log"
+stderr_path "#{app_root}/log/unicorn_2.stderr.log"
+stdout_path "#{app_root}/log/unicorn_2.stdout.log"
 
 # To save some memory and improve performance
 preload_app true
@@ -26,7 +26,7 @@ preload_app true
 before_fork do |server, worker|
   # 参考 http://unicorn.bogomips.org/SIGNALS.html
   # 使用USR2信号，以及在进程完成后用QUIT信号来实现无缝重启
-  old_pid = app_root + '/tmp/pids/upload_unicorn_1.pid.oldbin'
+  old_pid = app_root + '/tmp/pids/player_unicorn_2.pid.oldbin'
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
