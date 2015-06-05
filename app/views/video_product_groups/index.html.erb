@@ -1,23 +1,18 @@
 <%= render 'user_videos/nav' %>
 
-
-
 <div class="tab-panel current" id="video-list">
   <div class="panel-header clearfix">
-    <form class="pull-right" role="search">
-      <div class="form-group right-inner-addon">
-        <input type="search" class="form-control" placeholder="视频名称">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-      </div>
-      <input type="text" placeholder="2015/05/01">
-      至
-      <input type="text" placeholder="2015/05/01">
-      <select class="form-control">
-        <option>全部状态</option>
-        <option>全部状态</option>
-        <option>全部状态</option>
-      </select>
-    </form>
+    <%= form_for :search, :method => :get, :html => {:class => 'pull-right', :role => 'search'} do |f| %>
+        <div class="form-group right-inner-addon">
+          <%= f.text_field :name, :value => @name, :type=> 'search', :class=> 'form-control', :placeholder=> '视频名称' %>
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </div>
+        <%= f.text_field :from, :value => @from, :type=> 'text', :placeholder=> '2015-05-01' %>
+        至
+        <%= f.text_field :to, :value => @to, :type=> 'text', :placeholder=> '2016-05-01' %>
+        <%= f.collection_select :video_list_id, VideoList.visible(current_user), :id, :name, {:include_blank => '全部列表', :selected => @video_list_id}, :class => 'form-control' %>
+        <%= f.button '搜索', :class => 'btn btn-green' %>
+    <% end %>
     <%= link_to '上传文件', new_user_video_path, :class => 'btn btn-green' %>
   </div>
   <div class="panel-content-display">

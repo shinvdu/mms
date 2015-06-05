@@ -283,6 +283,7 @@ class VideoDetail < ActiveRecord::Base
       save! if changed?
       return
     end
+    FileUtils.mkdir_p File.dirname(file_path) unless File.exist? File.dirname(file_path)
     logger.info "download file[id: %s]: %s" % [self.id, self.get_full_path]
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"

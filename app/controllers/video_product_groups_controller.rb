@@ -3,7 +3,25 @@ class VideoProductGroupsController < ApplicationController
   before_action :set_video_product_group, only: [:clip_existed]
 
   def index
-    @video_product_groups = VideoProductGroup.visible(current_user).order('id desc').page(params[:page])
+    arel = VideoProductGroup.arel_table
+    @video_product_groups = VideoProductGroup.visible(current_user).order('id desc')
+    @name = search_params[:name]
+    begin
+      @from = Date.parse search_params[:from] if search_params[:from].present?
+    rescue
+      notice_error('输入时间不正确')
+    end
+    begin
+      @to = Date.parse search_params[:to] if search_params[:to].present?
+    rescue
+      notice_error('输入时间不正确')
+    end
+    @video_list_id = search_params[:video_list_id].to_i
+    @video_product_groups = @video_product_groups.where(arel[:name].matches("%#{@name}%")) if @name.present?
+    @video_product_groups = @video_product_groups.where(arel[:created_at].gteq(@from)) if @from.present?
+    @video_product_groups = @video_product_groups.where(arel[:created_at].lteq(@to.tomorrow)) if @to.present?
+    @video_product_groups = @video_product_groups.joins(:video_list).where(:video_lists => {:id => @video_list_id}) if @video_list_id > 0
+    @video_product_groups = @video_product_groups.page(params[:page])
   end
 
   def show
@@ -110,5 +128,9 @@ class VideoProductGroupsController < ApplicationController
 
   def product_data_params
     params.require(:product_data).permit(:user_video_id, :name, :compose_strategy, :transcoding_strategy_id, :player_id)
+  end
+
+  def search_params
+    params[:search].present? ? params.require(:search).permit(:name, :from, :to, :video_list_id) : {}
   end
 end
