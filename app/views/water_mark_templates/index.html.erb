@@ -5,8 +5,9 @@
   <tr>
     <th>水印名称</th>
     <th>位置</th>
-    <th>内容</th>
-    <th colspan="3"></th>
+    <th>预览</th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
 
@@ -15,8 +16,15 @@
       <tr>
         <td><%= water_mark_template.name %></td>
         <td><%= @refer_poses.invert[water_mark_template.refer_pos] %></td>
-        <td><%= water_mark_template.text %></td>
-        <td><%= link_to 'Destroy', water_mark_template, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <td><%= image_tag water_mark_template.img.to_s, :alt => '制作中' %></td>
+        <td><%= link_to '删除', water_mark_template, method: :delete, data: {confirm: '删除操作不能撤销，确定删除？'} %></td>
+        <td>
+          <% if water_mark_template == @enabled_water_mark_template %>
+              <%= link_to '停用', stop_water_mark_template_path(water_mark_template), :method => :patch %>
+          <% else %>
+              <%= link_to '启用', enable_water_mark_template_path(water_mark_template), :method => :patch %>
+          <% end %>
+        </td>
       </tr>
   <% end %>
   </tbody>

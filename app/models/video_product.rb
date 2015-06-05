@@ -50,8 +50,8 @@ class VideoProduct < ActiveRecord::Base
     self.save!
   end
 
-  def transcode_video(video_detail, transcoding)
-    transcode_job = video_detail.create_transcoding_video_job(transcoding, true)
+  def transcode_video(video_detail, transcoding, water_mark_template)
+    transcode_job = video_detail.create_transcoding_video_job(transcoding, true, water_mark_template)
     transcode_job.post_process_command = "VideoProduct.find(#{self.id}).video_transcode_finished"
     transcode_job.save!
     self.video_detail = transcode_job.target

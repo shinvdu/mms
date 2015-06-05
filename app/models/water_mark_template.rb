@@ -20,14 +20,14 @@
 #
 
 class WaterMarkTemplate < ActiveRecord::Base
-  scope :visible, -> (user){ where(:owner => user.owner, :disabled => false)}
+  scope :visible, -> (user) { where(:owner => user.owner, :disabled => false) }
   belongs_to :owner, :class_name => 'User'
   belongs_to :creator, :class_name => 'User'
   has_many :enabled_water_marks
   validates :name, presence: true
   validates :text, presence: true
   validates :refer_pos, :inclusion => {:in => %w(TopRight TopLeft BottomRight BottomLeft), :message => "%{value} is not a valid position"}
-  validates :font_size, :numericality => {:only_integer => true, :greater_than_or_equal_to => 3, :less_than_or_equal_to => 20}
+  validates :font_size, :numericality => {:only_integer => true, :greater_than_or_equal_to => 10, :less_than_or_equal_to => 30}
   validates :transparency, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100}
   mount_uploader :img, WaterMarkUploader
   include MTSWorker::WaterMarkTemplateWorker
@@ -46,16 +46,25 @@ class WaterMarkTemplate < ActiveRecord::Base
   end
 
   def do_save
-    if self.save
-      self.delay.create_img_and_upload
-      if self.enabled
-        self.creator.enabled_water_mark.water_mark_template = self
-        self.creator.enabled_water_mark.save!
+    transaction do
+      if self.save
+        self.delay.create_img_and_upload
+        self.enable if self.enabled
+        true
+      else
+        false
       end
-      true
-    else
-      false
     end
+  end
+
+  def enable
+    self.creator.enabled_water_mark.water_mark_template = self
+    self.creator.enabled_water_mark.save!
+  end
+
+  def stop
+    self.creator.enabled_water_mark.water_mark_template = nil
+    self.creator.enabled_water_mark.save!
   end
 
   def do_destroy
@@ -82,6 +91,7 @@ class WaterMarkTemplate < ActiveRecord::Base
       self.size = '2000x'
       self.pointsize = font_size
       self.font = 'Arial'
+      self.fill = '#bfbfbf'
       self.background_color = 'Transparent'
     end
     image = images[0]

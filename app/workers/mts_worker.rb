@@ -13,7 +13,7 @@ module MTSWorker
   module VideoDetailWorker
     include MTSUtils::All
 
-    def create_transcoding_video_job(transcoding = nil, public = false)
+    def create_transcoding_video_job(transcoding = nil, public = false, water_mark_template = nil)
       transcoding = Transcoding.find_mini_template if transcoding.nil?
       template_id = transcoding.aliyun_template_id
       suffix = transcoding.mini_transcoding? ? Settings.file_server.mini_suffix : transcoding.id.to_s
@@ -25,6 +25,11 @@ module MTSWorker
                                           output_object_uri,
                                           template_id,
                                           Settings.aliyun.mts.pipeline_id,
+                                          :water_mark => water_mark_template.blank? ? nil : {
+                                              :bucket => Settings.aliyun.oss.public_bucket,
+                                              :object => water_mark_template.img.current_path,
+                                              :water_mark_template_id => water_mark_template.aliyun_water_mark_template_id
+                                          },
                                           :output_bucket => output_bucket)
       if job_result.success
         transcoded_video_detail = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
@@ -121,7 +126,7 @@ module MTSWorker
     include MTSUtils::All
 
     def add_aliyun_water_mark_template
-      request_id, res = add_water_mark_template(self.name, self.width, self.height, 0, 0, self.refer_pos)
+      request_id, res = add_water_mark_template(self.name, self.width, self.height, 20, 20, self.refer_pos)
       self.aliyun_water_mark_template_id = res.id
     end
 
