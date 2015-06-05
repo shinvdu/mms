@@ -1,0 +1,56 @@
+defaults: &defaults
+  default_admin:
+    id: 1
+    username: xxx@weiguyun.com
+    email: xxxx@weiguyun.com
+    password: "xxxxxx"
+  mms:
+    name:  未谷云视频
+    domain:  www.weiguyun.com
+  title: 未谷云视频
+  video_salt: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+production:
+  <<: *defaults
+  host_url: http://www.weiguyun.com
+  default_url_options:
+    host:  www.weiguyun.com
+    port:  80
+  devise:
+    encryptor:  sha1
+  omniauth:
+    tqq:
+      key: 1111111111
+      secret: 111111111111111111
+    douban:
+      key: 1111111111
+      secret: 111111111111111111
+    weibo:
+      key: 1111111111
+      secret: 111111111111111111
+  email:
+    address:  smtp.xxx.com
+    port:  465
+    domain:  weiguyun.com
+    user:  info@weiguyun.com
+    password:  "xxxxxxx"
+  neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
+  aliyun:
+    access_id: xxxxxxxxxx
+    access_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    mts:
+      mini_template_id: a6df4df993d7c9189e80a960d1b5f3b
+      pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
+      pipeline_id: ff91fad66cff4bb894511d98575c2078
+
+
+development:
+  <<: *defaults
+  host_url: http://localhost:3000
+
+test:
+  <<: *defaults
+  host_url: http://localhost:300

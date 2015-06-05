@@ -141,6 +141,11 @@ defaults: &defaults
     mini_suffix: mini
     video_cut_scheduled_queue: fs_video_cut_scheduled
   video_salt: 1a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+  default_player:
+    id:  0
+    autoplay:  false
+    width:  852
+    height:  480
 
 production:
   <<: *defaults
@@ -170,6 +175,8 @@ production:
     host:  www.wgcloud.com
     port:  3000
   neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
