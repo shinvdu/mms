@@ -19,6 +19,7 @@ class Ability
     can :manage, VideoList        if                                        user.company_owner? || user.company_admin?
 
 
+    can :manage, WaterMarkTemplate   unless                                                                              user.company_member?
     can :manage, Transcoding         unless                                                                              user.company_member?
     can :manage, TranscodingStrategy unless                                                                              user.company_member?
     can :manage, Advertise           unless                                                                              user.company_member?

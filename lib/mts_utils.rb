@@ -263,7 +263,7 @@ module MTSUtils
                      video_maxrate,
                      video_bitrate_bnd_max,
                      video_bitrate_bnd_min,
-                     state)
+                     state = 'Normal')
       params = {
           'Action' => 'AddTemplate',
           'Name' => name,
@@ -400,7 +400,7 @@ module MTSUtils
     def delete_water_mark_template(water_mark_template_id)
       params = {
           'Action' => 'DeleteWaterMarkTemplate',
-          'TemplateId' => water_mark_template_id,
+          'WaterMarkTemplateId' => water_mark_template_id,
       }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
@@ -523,7 +523,7 @@ module MTSUtils
     end
   end
   class AliyunWaterMarkTemplate
-    attr_accessor :input_file, :water_mark_template_id
+    attr_accessor :id, :name, :width, :height, :dx, :dy, :refer_pos, :type, :state
 
     def initialize(var)
       if var.is_a? Hash
