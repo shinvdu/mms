@@ -1,19 +1,19 @@
 #!/bin/bash
 cd /mnt/app/wgcloud
 PATH=$PATH:/usr/local/ruby/bin
-NAME=wgcloud_1
+NAME=wgcloud
 DESC="Unicorn app for wgcloud"
 
 do_start(){
-	RAILS_ENV=production bundle exec unicorn_rails -c config/unicorn/upload_process_1.rb -D
+	RAILS_ENV=production bundle exec unicorn_rails -c config/unicorn/upload_process.rb -D
 }
 
 do_stop(){
-	kill -QUIT `cat tmp/pids/upload_unicorn_1.pid`
+	kill -QUIT `cat tmp/pids/upload_unicorn.pid`
 }
 
 do_reload(){
-	kill -HUP `cat tmp/pids/upload_unicorn_1.pid`
+	kill -HUP `cat tmp/pids/upload_unicorn.pid`
 }
 
 case "$1" in
