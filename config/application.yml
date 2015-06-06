@@ -91,6 +91,9 @@ defaults: &defaults
       暂停广告: ad_pause
       悬浮广告: ad_float
       滚动广告: ad_scroll
+  water_mark:
+    font: Arial
+    color: '#bfbfbf'
   aliyun:
     oss: &defaults-aliyun-oss
       download_proxy: http://

@@ -90,8 +90,8 @@ class WaterMarkTemplate < ActiveRecord::Base
     images = Magick::Image.read('caption:%s' % self.text) do
       self.size = '2000x'
       self.pointsize = font_size
-      self.font = 'Arial'
-      self.fill = '#bfbfbf'
+      self.font = Settings.water_mark.font
+      self.fill = Settings.water_mark.color
       self.background_color = 'Transparent'
     end
     image = images[0]
