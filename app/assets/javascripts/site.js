@@ -15,3 +15,4 @@
 //= require turbolinks
 //= require app.min
 //= require sly.min
+//= require URI.min
