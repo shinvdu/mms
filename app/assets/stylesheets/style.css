@@ -11,5 +11,6 @@
  * file per style scope.
  *
  *= require_self
- *= require main
+ *= require bootstrap.min
+ *= require main.min
  */
