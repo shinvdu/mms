@@ -1,95 +1,96 @@
 <%= render 'user_videos/nav' %>
 
-
-<div class="tab-panel current" id="video-list">
-  <div class="panel-header clearfix">
-    <form class="pull-right" role="search">
-      <div class="form-group right-inner-addon">
-        <input type="search" class="form-control" placeholder="视频名称">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-      </div>
-      <input type="text" placeholder="2015/05/01">
-      至
-      <input type="text" placeholder="2015/05/01">
-      <select class="form-control">
-        <option>全部状态</option>
-        <option>全部状态</option>
-        <option>全部状态</option>
-      </select>
-    </form>
+<!-- 
     <%= button_to '上传文件', new_user_video_path, :class => 'btn btn-green', :method => :get %>
-  </div>
-  <div class="panel-content-display">
-    <% @user_videos.each do |user_video| %>
-        <div class="row">
-          <div class="row">
-            <div class="col-md-12">
-              <input type="checkbox">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <a href="<%= user_video_path(user_video) %>" data-no-turbolink=true>
-                <% if user_video.original_video.snapshots.present? %>
-                    <%= image_tag user_video.original_video.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
-                <% else %>
-                    <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
-                <% end %>
-              </a>
-              状态: <%= user_video.status_str %>
-            </div>
-            <div class="col-md-9">
-              <div class="row">
-                <div class="col-md-12">
-                  名称: <%= user_video.video_name %>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  视频大小: <%= format_file_size(user_video.original_video.size) %>
-                </div>
-                <div class="col-md-9">
-                  创建时间: <%= user_video.created_at.strftime("%Y-%m-%d %H:%M") %>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  时长:
-                  <% if user_video.original_video && user_video.original_video.duration %>
-                      <%= user_video.original_video.duration.to_time %>
-                  <% else %>
-                      未知
-                  <% end %>
-                </div>
-                <div class="col-md-9">
-                  播放次数: 1234次
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  拥有者: <%= user_video.owner.nickname %>
-                </div>
-                <div class="col-md-9">
-                  ID: <%= user_video.original_video.uuid %>
-                </div>
-              </div>
-              <div class="row" style="display:none">
-                <div class="col-md-12">
-                  TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <%= link_to '编辑', edit_user_video_path(user_video), :class => 'btn btn-blue', 'data-no-turbolink' => 'true' %>
-                  <button class="btn btn-blue">发布</button>
-                  <%= link_to '剪辑', clip_user_video_path(user_video), :class => 'btn btn-blue btn-video-clip-action', 'data-no-turbolink' => 'true' %>
-                  <button class="btn btn-gray">删除</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    <% end %>
-  </div>
-</div>
+-->
 
+<div id="video-list" class="tab-panel current">
+  <div class="panel-header">
+    <form>
+      <div class="right-inner-addon">
+        <input type="search" placeholder="视频名称"><i class="fa fa-search"></i>
+      </div>
+      <div>
+        <input type="text" placeholder="2015/05/01">
+      </div>至
+      <div>
+        <input type="text" placeholder="2015/05/01">
+      </div>
+      <div>
+        <select>
+          <option>全部状态1
+          </option>
+          <option>全部状态2
+          </option>
+          <option>全部状态3
+          </option>
+        </select>
+      </div>
+    </form>
+    <button class="btn-green">上传文件</button>
+  </div>
+  <div class="panel-content">
+    <% @user_videos.each do |user_video| %>
+
+    <div class="video-list-item">
+      <label>
+        <input type="checkbox">
+        <div class="video-abstract">
+          <!-- <img src="assets/img/header-bg.jpg"> -->
+          <% if user_video.original_video.snapshots.present? %>
+          <%= image_tag user_video.original_video.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
+          <% else %>
+          <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
+          <% end %>
+        </div>
+        <div class="video-details">
+          <div class="dl-table-display">
+            <dl>
+              <dt>名称:</dt>
+              <dd><%= user_video.video_name %></dd>
+            </dl>
+            <dl>
+              <dt>状态:</dt>
+              <dd><%= user_video.status_str %></dd>
+            </dl>
+            <dl>
+              <dt>TAG:</dt>
+              <dd>TAG1</dd>
+            </dl>
+            <dl>
+              <dt>视频大小:</dt>
+              <dd><%= format_file_size(user_video.original_video.size) %></dd>
+            </dl>
+            <dl>
+              <dt>播放次数:</dt>
+              <dd>123次</dd>
+            </dl>
+            <dl>
+              <dt>拥有者:</dt>
+              <dd><%= user_video.owner.nickname %></dd>
+            </dl>
+            <dl>
+              <dt>ID:</dt>
+              <dd><%= user_video.original_video.uuid %></dd>
+            </dl>
+            <dl>
+              <dt>时长:</dt>
+              <dd>
+               <% if user_video.original_video && user_video.original_video.duration %>
+               <%= user_video.original_video.duration.to_time %>
+               <% else %>
+               未知
+               <% end %>
+             </dd>
+           </dl>
+         </div>
+         <%= link_to '编辑', edit_user_video_path(user_video), :class => 'btn btn-blue', 'data-no-turbolink' => 'true' %>
+         <button class="btn btn-blue">发布</button>
+         <%= link_to '剪辑', clip_user_video_path(user_video), :class => 'btn btn-blue btn-video-clip-action', 'data-no-turbolink' => 'true' %>
+         <button class="btn-gray">删除</button>
+       </div>
+     </label>
+   </div>
+   <% end %>
+ </div>
+</div>
