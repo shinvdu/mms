@@ -10,9 +10,14 @@
   <%= render_page_title %>
   <!-- video.js must be in the <head> for older IEs to work. -->
   <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
-  <%= stylesheet_link_tag    'style', params[:controller], media: 'all', 'data-turbolinks-track' => true %>
-   <%= javascript_include_tag 'site',  params[:controller], 'data-turbolinks-track' => true %>
-  <!-- page -->
+  <%= stylesheet_link_tag    'style', media: 'all', 'data-turbolinks-track' => true %>
+   <%= javascript_include_tag 'site', 'data-turbolinks-track' => true %>
+   <% filename = controller.controller_name %>
+   <% if File.exist?  Rails.root + "/public/stylesheets/" + filename %>
+   <%= stylesheet_link_tag "#{filename}" , media: 'all', 'data-turbolinks-track' => true %>
+   <%= javascript_include_tag "#{filename}" , media: 'all', 'data-turbolinks-track' => true  %>
+   <% end %>
+   <!-- page -->
   <%= yield(:head_js) %>
   <%= yield(:head_css) %>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
