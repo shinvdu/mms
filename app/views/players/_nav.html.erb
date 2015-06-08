@@ -1,28 +1,6 @@
-<nav class="nav-">
-  <ul class="nav-square clearfix">
-    <li class="current" style="display:none">
-      <a href="<%= new_player_path  %>"  data-no-turbolink='true' >
-        <span class="square"></span>
-        新增播放器
-      </a>
-    </li>
-    <li>
-      <a href="<%= players_path  %>">
-        <span class="square"></span>
-        播放器管理
-      </a>
-    </li>
-    <li>
-      <a href="<%= logos_path  %>">
-        <span class="square"></span>
-        LOGO
-      </a>
-    </li>
-    <li style="display:none">
-      <a href="<%= new_logo_path  %>"  data-no-turbolink='true' >
-        <span class="square"></span>
-        上传LOGO
-      </a>
-    </li>
-  </ul>
-      </nav>
+      <ul class="nav-panel clearfix">
+        <li class=""><a href="<%= new_player_path  %>"   data-no-turbolink='true' ><i class="fa fa-fw fa-square"></i>新增播放器</a></li>
+        <li><a href="<%= players_path  %>"><i class="fa fa-fw fa-square"></i>播放器管理</a></li>
+        <li class=""><a href="<%= logos_path  %>"><i class="fa fa-fw fa-square"></i>LOGO</a></li>
+        <li><a href="<%= new_logo_path  %>"   data-no-turbolink='true' ><i class="fa fa-fw fa-square"></i>上传LOGO</a></li>
+      </ul>

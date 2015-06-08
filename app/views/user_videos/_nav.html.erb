@@ -1,54 +1,17 @@
-<nav class="nav">
-  <ul class="nav-square clearfix">
-    <li class="current" style="display:none">
-      <a href="<%= new_user_video_path %>" data-no-turbolink='true'>
-        <span class="square"></span>
-        上传视频
-      </a>
-    </li>
-    <li class="">
-      <a href="<%= video_product_groups_path %>">
-        <span class="square"></span>
-        视频列表
-      </a>
-    </li>
-    <% if can? :manage, Transcoding %>
-        <li class="">
-          <a href="<%= transcodings_path %>">
-            <span class="square"></span>
-            转码模板
-          </a>
-        </li>
-    <% end %>
-    <% if can? :manage, TranscodingStrategy %>
-        <li class="">
-          <a href="<%= transcoding_strategies_path %>">
-            <span class="square"></span>
-            转码方案
-          </a>
-        </li>
-    <% end %>
-    <% if can? :manage, WaterMarkTemplate %>
-        <li class="">
-          <a href="<%= water_mark_templates_path %>">
-            <span class="square"></span>
-            水印管理
-          </a>
-        </li>
-    <% end %>
-    <li class="">
-      <a href="<%= user_videos_path %>">
-        <span class="square"></span>
-        原片管理
-      </a>
-    </li>
-    <% if can? :manage, VideoList %>
-        <li class="">
-          <a href="<%= video_lists_path %>">
-            <span class="square"></span>
-            分类管理
-          </a>
-        </li>
-    <% end %>
-  </ul>
-</nav>
+ <ul class="nav-panel">
+  <li class=""><a href="<%= new_user_video_path %>"  data-no-turbolink='true'><i class="fa fa-fw fa-square"></i>上传视频</a></li>
+  <li><a href="<%= video_product_groups_path %>"><i class="fa fa-fw fa-square"></i>视频列表</a></li>
+  <% if can? :manage, Transcoding %>
+  <li><a href="<%= transcodings_path %>"><i class="fa fa-fw fa-square"></i>转码模版</a></li>
+  <% end %>
+  <% if can? :manage, TranscodingStrategy %>
+  <li><a href="<%= transcoding_strategies_path %>"><i class="fa fa-fw fa-square"></i>转码方案</a></li>
+  <% end %>
+  <% if can? :manage, WaterMarkTemplate %>
+  <li><a href="<%= water_mark_templates_path %>"><i class="fa fa-fw fa-square"></i>水印管理</a></li>
+  <% end %>
+  <li><a href="<%= user_videos_path %>"><i class="fa fa-fw fa-square"></i>原片管理</a></li>
+  <% if can? :manage, VideoList %>
+  <li><a href="<%= video_lists_path %>"><i class="fa fa-fw fa-square"></i>分类管理</a></li>
+  <% end %>
+</ul>
