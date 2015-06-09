@@ -51,7 +51,6 @@ class VideoDetail < ActiveRecord::Base
     self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
     self.status = STATUS::ONLY_LOCAL
 
-    # TODO save file to file server
     temp_path = Rails.root.join(Settings.file_server.dir, self.uri)
     dir = File.dirname(temp_path)
     FileUtils.makedirs(dir) if !File.directory?(dir)

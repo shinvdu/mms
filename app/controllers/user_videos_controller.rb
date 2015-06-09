@@ -45,9 +45,9 @@ class UserVideosController < ApplicationController
     ActiveRecord::Base.transaction do
       @user_video = UserVideo.new(:owner => current_user.owner,
                                   :creator => current_user,
-                                  :video_name => video_name
-      ).set_video(video)
+                                  :video_name => video_name)
       @user_video.update_video_list! video_list_id
+      @user_video.set_video(video)
       unless @user_video.save
         notice_error '输入视频名称'
         redirect_to session.delete(:return_to)

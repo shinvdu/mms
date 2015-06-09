@@ -70,6 +70,10 @@ Rails.application.routes.draw do
       post 'republish'
       get 'clip'
     end
+    collection do
+      post :preupload, :controller => :uploader
+      post :upload, :controller => :uploader
+    end
   end
   resources :video_lists
 

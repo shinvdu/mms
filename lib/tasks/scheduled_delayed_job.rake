@@ -4,7 +4,6 @@ namespace :jobs do
   task :scheduled => :environment do
     worker = ScheduledWorker.new
     worker.mts_query_loop
-    worker.local_video_loop
     puts 'succeed'
   end
 
