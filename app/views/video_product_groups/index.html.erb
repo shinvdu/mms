@@ -1,27 +1,21 @@
 <%= render 'user_videos/nav' %>
 <div id="video-list" class="tab-panel current">
   <div class="panel-header">
-    <form>
+    <%= form_for :search, :method => :get, :html => {:class => 'pull-right', :role => 'search'} do |f| %>
       <div class="right-inner-addon">
-        <input type="search" placeholder="视频名称"><i class="fa fa-search"></i>
+          <%= f.text_field :name, :value => @name, :type=> 'search', :class=> 'form-control', :placeholder=> '视频名称' %>
       </div>
       <div>
-        <input type="text" placeholder="2015/05/01">
+        <%= f.text_field :from, :value => @from, :type=> 'text', :placeholder=> '2015-05-01' %>
       </div>至
       <div>
-        <input type="text" placeholder="2015/05/01">
+        <%= f.text_field :to, :value => @to, :type=> 'text', :placeholder=> '2016-05-01' %>
       </div>
       <div>
-        <select>
-          <option>全部状态1
-          </option>
-          <option>全部状态2
-          </option>
-          <option>全部状态3
-          </option>
-        </select>
+        <%= f.collection_select :video_list_id, VideoList.visible(current_user), :id, :name, {:include_blank => '全部列表', :selected => @video_list_id}, :class => 'form-control' %>
       </div>
-    </form>
+        <%= f.button '搜索', :class => 'btn btn-green' %>
+      <% end %>
     <button class="btn-green">上传文件</button>
   </div>
   <div class="panel-content">
@@ -42,7 +36,7 @@
           <div class="dl-table-display">
             <dl>
               <dt>名称:</dt>
-              <dd><%= g.name %></dd>
+              <dd><a href="<%= video_product_group_path(g) %>"><%= g.name %></a></dd>
             </dl>
             <dl>
               <dt>状态:</dt>
