@@ -3,6 +3,7 @@ class TranscodingStrategy < ActiveRecord::Base
   has_many :transcoding_strategy_relationships
   has_many :transcodings, :through => :transcoding_strategy_relationships, :source => :transcoding
   scope :visible, -> (user) { where(['user_id = ? or share', user.owner.uid]) }
+  validates :name, presence: true
 
   def update_transcodings(transcoding_ids, operator)
     transaction do

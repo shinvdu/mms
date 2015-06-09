@@ -1,27 +1,46 @@
 <%=  render 'advertise/nav' %>
-<div class="tab-panel current" id="add-player">
+
+<div id="advertisement-resource" class="tab-panel current">
   <div class="panel-header clearfix">
-    <%= link_to '添加广告资源', new_advertise_resource_path, class: 'btn btn-green', 'data-no-turbolink' => true %>
+    <form class="clearfix">
+      <div class="right-inner-addon">
+        <input type="search" placeholder="资源名称/创建人"><i class="fa fa-search"></i>
+      </div>
+      <div>
+        <select>
+          <option>全部类型1
+          </option>
+          <option>全部类型2
+          </option>
+          <option>全部类型3
+          </option>
+        </select>
+      </div>
+    </form>
+    <button  class="btn-green"><%= link_to '添加广告资源', new_advertise_resource_path, 'style' => 'color:white', 'data-no-turbolink' => true %>
   </div>
-  <table class="table table-hover panel-table">
+  <table>
     <thead>
       <tr>
-        <th>名称</th>
+        <th>编号</th>
+        <th>广告资源</th>
         <th>资源类型</th>
         <th>广告类型</th>
         <th>创建时间</th>
+        <th>创建人</th>
         <th>操作</th>
       </tr>
     </thead>
     <tbody>
       <% @advertise_resources.each do |advertise_resource|  %>
       <tr>
+        <td><%= advertise_resource.id && advertise_resource.id.to_s(36) %></td>
         <td><%= advertise_resource.name %></td>
         <td><%= Settings.advertise_resource.file_type.invert[advertise_resource.file_type] if advertise_resource.file_type %></td>
         <td><%= Settings.advertise_resource.ad_type.invert[advertise_resource.ad_type] if advertise_resource.ad_type %></td>
         <td><%=  advertise_resource.created_at.strftime("%Y-%m-%d") %></td>
+        <td><%=  advertise_resource.user &&  advertise_resource.user.nickname%></td>
         <td>
-          <%= link_to '查看', advertise_resource_path(advertise_resource) %>
           <%= link_to '修改', edit_advertise_resource_path(advertise_resource),  'data-no-turbolink' => true  %>
           <%= link_to '删除', advertise_resource, method: :delete, data: { confirm: '你确定要删除?' } %>
         </td>
@@ -29,8 +48,5 @@
       <% end %>
     </tbody>
   </table>
-  <div class="panel-footer">
-    <%=  paginate @advertise_resources %>
-  </div>
 </div>
 

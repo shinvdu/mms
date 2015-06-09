@@ -1,11 +1,8 @@
 <%=  render 'advertise/nav' %>
 
-<div class="tab-panel current" id="advertisement-solution">
-	<div class="panel-links">
-		<%= link_to '&lt;&lt; 返回广告方案列表'.html_safe, advertise_strategies_path, :class => 'btn-return-link' %> 
+<div id="add-advertisement-solution" class="tab-panel" style="display: block;">
+	<div class="panel-header">
+		<%= link_to '&lt;&lt; 返回广告方案列表'.html_safe, advertise_strategies_path %> 
 	</div>
-	<div class="clearfix">
-		<h4  class="col-sm-offset-1 col-sm-6">添加广告方案</h4>
-	</div>
-<%= render 'form' %>
+	<%= render 'form' %>
 </div>

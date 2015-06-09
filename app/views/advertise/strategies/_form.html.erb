@@ -1,92 +1,119 @@
-  <div class="row">
-<div class="col-md-8">
 <%= form_for(@advertise_strategy, html:{class: 'form-horizontal'}) do |f| %>
-  <% if @advertise_strategy.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@advertise_strategy.errors.count, "error") %> prohibited this advertise_strategy from being saved:</h2>
+  <div class="panel-content">
+    <div class="panel-form">
+      <div class="form-group">
+        <div class="form-label form-title">
+          <label><%= t controller.action_name %>广告方案</label>
+        </div>
+      </div>
+      <% if @advertise_strategy.errors.any? %>
+      <div id="error_explanation">
+        <h2>有 <%= @advertise_strategy.errors.count %> 个错误发生导致「广告方案」无法被保存</h2>
 
-      <ul>
-      <% @advertise_strategy.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <ul>
+          <% @advertise_strategy.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="form-group">
-    <%= f.label :名称,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-6">
-      <%= f.text_field :name ,  class: 'form-control' %>
-    </div>
-    <div class="col-md-3 input-horizontal-helper-text">（5-20字符）</div>
-  </div>
-  <div class="form-group">
-    <%= f.label :片头广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-6">
-      <% 
-      ad_front = {}
-      Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_front']).each do |ad |
-        ad_front[ad.name] = ad.id
-      end
-       %>
-      <%= f.select :front_ad, ad_front , {}, {:class => 'form-control'} %>
-    </div>
-  </div>
-  <div class="form-group">
-    <% 
-    ad_end = {}
-    Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_end']).each do |ad |
-      ad_end[ad.name] = ad.id
-    end
-    %>
-    <%= f.label :片尾广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-6">
-      <%= f.select :end_ad, ad_end , {}, {:class => 'form-control'} %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <% 
-    ad_pause = {}
-    Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_pause']).each do |ad |
-      ad_pause[ad.name] = ad.id
-    end
-    %>
-    <%= f.label :暂停广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-6">
-      <%= f.select :pause_ad, ad_pause , {}, {:class => 'form-control'} %>
-    </div>
-  </div>
-
-    <div class="form-group">
-      <% 
-      ad_float = {}
-      Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_float']).each do |ad |
-        ad_float[ad.name] = ad.id
-      end
-      %>
-    <%= f.label :悬浮广告,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-6">
-      <%= f.select :float_ad, ad_float , {}, {:class => 'form-control'} %>
-    </div>
-  </div>
-    <div class="form-group">
-       <% 
-      ad_scroll = {}
-      Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_scroll']).each do |ad |
-        ad_scroll[ad.name] = ad.id
-      end
-      %>     
-    <%= f.label :滚动字幕,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-6">
-      <%= f.select :scroll_ad, ad_scroll, {}, {:class => 'form-control'} %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-offset-3 col-md-6">
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-solution-name">广告方案名称:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <%= f.text_field :name  %>
+          </div>
+          <div class="form-description">(5-20字符)</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-op-select">片头广告选择:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <% 
+            ad_front = {}
+            Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_front']).each do |ad |
+              ad_front[ad.name] = ad.id
+            end
+            %>
+            <%= f.select :front_ad, ad_front , {}, {:class => 'form-control'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-ed-select">片尾广告选择:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <% 
+            ad_end = {}
+            Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_end']).each do |ad |
+              ad_end[ad.name] = ad.id
+            end
+            %>
+            <%= f.select :end_ad, ad_end , {}, {:class => 'form-control'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-pause-select">暂停广告选择:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <% 
+            ad_pause = {}
+            Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_pause']).each do |ad |
+              ad_pause[ad.name] = ad.id
+            end
+            %>
+            <%= f.select :pause_ad, ad_pause , {}, {:class => 'form-control'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-suspension-select">悬浮广告选择:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <% 
+            ad_float = {}
+            Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_float']).each do |ad |
+              ad_float[ad.name] = ad.id
+            end
+            %>
+            <%= f.select :float_ad, ad_float , {}, {:class => 'form-control'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-scroll-select">滚动广告选择:</label>
+        </div>
+        <div class="form-field">
+          <div>
+           <% 
+           ad_scroll = {}
+           Advertise::Resource.where(user_id: current_user.uid).where("ad_type in (?)", ['all', 'ad_scroll']).each do |ad |
+            ad_scroll[ad.name] = ad.id
+          end
+          %>     
+          <%= f.select :scroll_ad, ad_scroll, {}, {:class => 'form-control'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-field form-submit">
         <%= f.submit '保存', :class => 'btn btn-green ' %>
       <a class="btn btn-gray" href="<%= advertise_strategies_path %>">取消</a>
+        </div>
+      </div>
     </div>
   </div>
   <% end %>
-  </div>
-  </div>

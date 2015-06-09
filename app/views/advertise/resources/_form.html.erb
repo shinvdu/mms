@@ -1,3 +1,101 @@
+<%= form_for(@advertise_resource , html:{class: 'form-horizontal'}) do |f| %>
+<!--   <div class="panel-content">
+    <div class="panel-form">
+      <div class="form-group">
+        <div class="form-label form-title">
+          <label>添加广告资源</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-field form-offset">
+          <button class="btn-blue">上传文件</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-resource-name">广告资源名称:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <%= f.text_field :name %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-release-company">广告投放公司:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <input id="ad-release-company" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-link">广告链接:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <input id="ad-link" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-position">广告位置:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="ad-position">
+              <option>全部1
+              </option>
+              <option>全部2
+              </option>
+              <option>全部3
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-release-time">广告投放时间:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <select id="ad-release-time">
+              <option>时间1
+              </option>
+              <option>时间2
+              </option>
+              <option>时间3
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="ad-type">广告类型:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <%= f.select :ad_type, Settings.advertise_resource.ad_type , {}, {} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-field form-submit">
+          <button type="submit" class="btn-green">保存</button>
+          <button data-panel="advertisement-resource" class="btn-gray btn-show-panel">取消</button>
+        </div>
+      </div><img src="../assets/img/footer-bg.jpg" class="preview-image">
+    </div>
+  </div> -->
+
+<% end %>
+
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     $("#advertise_resource_resource").hide();
