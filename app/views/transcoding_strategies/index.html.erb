@@ -1,55 +1,57 @@
 <%= render 'user_videos/nav' %>
-<div class="tab-panel current" id="video-transcoding-solution">
+<div id="video-transcoding-solution" class="tab-panel current">
   <div class="panel-header clearfix">
-    <select class="pull-right btn-select btn-select-white">
-      <option>转码模板</option>
-      <option>转码模板</option>
-      <option>转码模板</option>
-    </select>
-
-    <form class="pull-right" role="search">
-      <div class="form-group right-inner-addon">
-        <input class="form-control" placeholder="模版名称/用户名" type="search">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    <form class="clearfix">
+      <div class="right-inner-addon">
+        <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+      </div>
+      <div>
+        <select>
+          <option>转码模版1
+          </option>
+          <option>转码模版2
+          </option>
+          <option>转码模版3
+          </option>
+        </select>
       </div>
     </form>
-    <a href="<%= new_transcoding_strategy_path %>" class="btn btn-select-green ">增加方案</a>
+    <button  class="btn-green"><%= link_to '添加转码方案', new_transcoding_strategy_path, 'style' => 'color:white', 'data-no-turbolink' => true %>
+</button>
   </div>
-  <table class="table table-hover panel-table">
+  <table>
     <thead>
-    <tr>
-      <th>模板方案</th>
-      <th>转码模板</th>
-      <th>创建用户</th>
-      <th>创建时间</th>
-      <th>最后修改时间</th>
-      <th>操作</th>
-      <th>备注</th>
-    </tr>
+      <tr>
+        <th>ID</th>
+        <th>模版方案</th>
+        <th>转码模版</th>
+        <th>创建用户</th>
+        <th>创建时间</th>
+        <th>最后修改时间</th>
+        <th>操作</th>
+      </tr>
     </thead>
     <tbody>
     <% @transcoding_strategies.each do |transcoding_strategy| %>
-        <tr>
-          <td><%= transcoding_strategy.name %></td>
-          <td>
-            <% transcoding_strategy.transcodings.each do |transcoding | %>
-            <a href="<%=  transcoding_path(transcoding) %>">
-              <%= transcoding && transcoding.name %> 
-            </a>
-            <%= ', ' if transcoding_strategy.transcodings.last.name != transcoding.name %>
-              <% end %>
-
-          </td>
+      <tr>
+        <td><%= transcoding_strategy.id  && transcoding_strategy.id.to_s(36) %></td>
+        <td><%= transcoding_strategy.name %></td>
+        <td>
+          <% transcoding_strategy.transcodings.each do |transcoding | %>
+          <a href="<%=  transcoding_path(transcoding) %>">
+            <%= transcoding && transcoding.name %> 
+          </a>
+          <%= ', ' if transcoding_strategy.transcodings.last.name != transcoding.name %>
+          <% end %>
+        </td>
           <td><%=  transcoding_strategy.owner &&  transcoding_strategy.owner.nickname %></td>
-        <td><%=  transcoding_strategy.created_at && transcoding_strategy.created_at.strftime("%Y-%m-%d %H:%M:%S")   %></td>
-        <td><%=  transcoding_strategy.updated_at && transcoding_strategy.updated_at.strftime("%Y-%m-%d %H:%M:%S")   %></td>
-          <td>
-            <a href="<%= transcoding_strategy_path(transcoding_strategy)  %>">查看</a>
+        <td><%=  transcoding_strategy.created_at && transcoding_strategy.created_at.strftime("%Y/%m/%d %H:%M")   %></td>
+        <td><%=  transcoding_strategy.updated_at && transcoding_strategy.updated_at.strftime("%Y/%m/%d %H:%M")   %></td>
+        <td>
             <a href="<%= edit_transcoding_strategy_path(transcoding_strategy)  %>">修改</a>
             <%= link_to '删除', transcoding_strategy, method: :delete, data: { confirm: '你确定要删除?' } %>
           </td>
-          <td><%= transcoding_strategy.note %></td>
-        </tr>
+      </tr>
     <% end %>
     </tbody>
   </table>
@@ -57,4 +59,3 @@
     <%  paginate @transcoding_strategies %>
   </div>
 </div>
-

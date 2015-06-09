@@ -1,49 +1,42 @@
-  <div class="row">
-<div class="col-md-8">
-
 <%= form_for(@transcoding_strategy, html:{class: 'form-horizontal'}) do |f| %>
-    <% if @transcoding_strategy.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@transcoding_strategy.errors.count, "error") %> prohibited this transcoding_strategy from
-            being saved:</h2>
+<div class="panel-content">
+  <div class="panel-form">
+    <div class="form-group">
+      <div class="form-label form-title">
+        <label><%= t controller.action_name %>转码方案</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">
+        <label for="solution-name">方案名称:</label>
+      </div>
+      <div class="form-field">
+        <%= f.text_field :name  %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label">
+        <label for="template-select">模版选择:</label>
+      </div>
+      <div class="form-field">
+     <%= f.select :transcodings,  options_for_select(Transcoding.visible(current_user).collect {|p| [ p.name, p.id ] }, @existing_transcodings.collect {|p| p.id  }), {prompt: "Select Permission Level"}, {:multiple => true,  style: 'min-height: 100px',  class: "input-lg"} %>
 
-          <ul>
-            <% @transcoding_strategy.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-  <div class="form-group">
-    <%= f.label :名称,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-8">
-      <%= f.text_field :name ,  class: 'form-control' %>
+      </div>
     </div>
-  </div>
     <div class="form-group">
-    <%= f.label :备注,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-8">
-      <%= f.text_area :note ,  class: 'form-control' %>
+      <div class="form-field form-offset">
+        <dl>
+          <dt>说明:</dt>
+          <dd>qweqweqweqweqweqweqweqweqwe</dd>
+        </dl>
+      </div>
     </div>
-  </div>
     <div class="form-group">
-    <%= f.label :转码模板,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-8">
-      <% Transcoding.visible(current_user).each do |transcoding| %>
-          <%= f.check_box :transcodings, { :multiple => true, :checked => @existing_transcodings.index(transcoding).present? }, transcoding.id, nil %>
-          <%= label_tag "transcoding_strategy[transcodings][#{transcoding.id}]", transcoding.name  %>
-          <br>
-      <% end %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-offset-3 col-md-6">
+      <div class="form-field form-submit">
         <%= f.submit '保存', :class => 'btn btn-green' %>
-      <a class="btn btn-gray" href="<%= transcoding_strategies_path %>">取消</a>
+        <a class="btn btn-gray" href="<%= transcoding_strategies_path %>">取消</a>
+      </div>
     </div>
   </div>
-
+</div>
 <% end %>
-
-</div>
-</div>

@@ -1,11 +1,8 @@
 <%= render 'user_videos/nav' %>
-<div class="tab-panel current" id="video-transcoding-solution">
-<div class="panel-links">
-	<%= link_to '&lt;&lt; 返回转码方案'.html_safe, transcoding_strategies_path, :class => 'btn-return-link' %>
-</div>
-<h4 class="col-sm-offset-2 col-sm-6">新增转码方案</h4>
-<hr>
-<%= render 'form' %>
 
-
+<div id="add-transcoding-solution" class="tab-panel" style="display: block;">
+	<div class="panel-header">
+		<%= link_to '&lt;&lt; 返回方案列表'.html_safe, transcoding_strategies_path  %>
+	</div>
+	<%= render 'form' %>
 </div>

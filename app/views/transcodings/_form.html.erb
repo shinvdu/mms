@@ -1,5 +1,12 @@
 <% javascript 'transcoding_edit' %>
       <%= form_for(@transcoding, html: {class: 'form-horizontal'}) do |f| %>
+  <div class="panel-content">
+    <div class="panel-form">
+      <div class="form-group">
+        <div class="form-label form-title">
+          <label><%= t controller.action_name %>转码模板</label>
+        </div>
+      </div>
       <% if @transcoding.errors.any? %>
       <div id="error_explanation">
         <h2> 发生了<%= pluralize(@transcoding.errors.count, "") %>个错误</h2>
@@ -11,13 +18,6 @@
         </ul>
       </div>
       <% end %>
-  <div class="panel-content">
-    <div class="panel-form">
-      <div class="form-group">
-        <div class="form-label form-title">
-          <label><%= t controller.action_name %>转码模板</label>
-        </div>
-      </div>
 
       <div class="form-group">
         <div class="form-label">
@@ -33,6 +33,7 @@
         </div>
         <div class="form-field">
           <%= @transcoding.container %>
+          <%= f.hidden_field :container %>
         </div>
       </div>
       <div class="form-group">
@@ -52,6 +53,7 @@
         </div>
         <div class="form-field">
           <%= @transcoding.video_codec %>
+          <%= f.hidden_field :video_codec, :value => Settings.transcoding.video_codec %>
         </div>
       </div>
       <div class="form-group">
