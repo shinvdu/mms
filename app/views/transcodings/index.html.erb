@@ -1,44 +1,61 @@
 <%= render 'user_videos/nav' %>
-<div class="tab-panel current" id="video-transcoding-template">
-  <div class="panel-header clearfix">
-    <select class="pull-right btn-select btn-select-white">
-      <option>转码模板</option>
-      <option>转码模板</option>
-      <option>转码模板</option>
-    </select>
-
-    <form class="pull-right" role="search">
-      <div class="form-group right-inner-addon">
-        <input class="form-control" placeholder="模版名称/用户名" type="search">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+<div id="video-transcoding-template" class="tab-panel current">
+  <div class="panel-header">
+    <form class="clearfix">
+      <div class="right-inner-addon">
+        <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+      </div>
+      <div>
+        <select>
+          <option>转码模版1
+          </option>
+          <option>转码模版2
+          </option>
+          <option>转码模版3
+          </option>
+        </select>
       </div>
     </form>
-    <%= link_to '增加模板', new_transcoding_path, :class => 'btn btn-select-green', 'data-no-turbolink' => true %>
-  </div>
-  <table class="table table-hover panel-table">
+    <button  class="btn-green"><%= link_to '添加转码模版', new_transcoding_path, 'style' => 'color:white', 'data-no-turbolink' => true %>
+</button>
+      </div>
+  <table>
     <thead>
-    <tr>
-      <th>模板名称</th>
-      <th>创建用户</th>
-      <th>创建时间</th>
-      <th>最后修改时间</th>
-      <th>操作</th>
-    </tr>
+      <tr>
+        <th>ID</th>
+        <th>模版名称</th>
+        <th>模版类型</th>
+        <th>创建用户</th>
+        <th>创建时间</th>
+        <th>最后修改时间</th>
+        <th>操作</th>
+      </tr>
     </thead>
     <tbody>
     <% @transcodings.each do |transcoding| %>
-        <tr>
-          <td><%= transcoding.name %></td>
-          <td><%= transcoding.owner && transcoding.owner.nickname %></td>
-          <td><%= transcoding.created_at && transcoding.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td><%= transcoding.updated_at && transcoding.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-          <td>
-            <%= link_to '查看', transcoding_path(transcoding) %>
-            <%= link_to '修改', edit_transcoding_path(transcoding), 'data-no-turbolink' => true %>
-            <%= link_to '删除', transcoding, method: :delete, data: {confirm: '你确定要删除?'} %>
-          </td>
-        </tr>
-    <% end %>
+      <tr>
+        <td><%= transcoding.id && transcoding.id.to_s(36) %></td>
+        <td><%= transcoding.name %></td>
+        <td>
+          <select>
+            <option>转码模版1
+            </option>
+            <option>转码模版2
+            </option>
+            <option>转码模版3
+            </option>
+          </select>
+        </td>
+        <td><%= transcoding.owner && transcoding.owner.nickname %></td>
+        <td><%= transcoding.created_at && transcoding.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td><%= transcoding.updated_at && transcoding.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <td>
+          <%= link_to '查看', transcoding_path(transcoding) %>
+          <%= link_to '修改', edit_transcoding_path(transcoding), 'data-no-turbolink' => true %>
+          <%= link_to '删除', transcoding, method: :delete, data: {confirm: '你确定要删除?'} %>
+        </td>
+      </tr>
+      <% end %>
     </tbody>
   </table>
   <div class="panel-footer">
