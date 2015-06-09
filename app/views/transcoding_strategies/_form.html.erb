@@ -19,7 +19,7 @@
         <label for="template-select">模版选择:</label>
       </div>
       <div class="form-field">
-     <%= f.select :transcodings,  options_for_select(Transcoding.visible(current_user).collect {|p| [ p.name, p.id ] }, @existing_transcodings.collect {|p| p.id  }), {prompt: "Select Permission Level"}, {:multiple => true,  style: 'min-height: 100px',  class: "input-lg"} %>
+     <%= f.select :transcodings,  options_for_select(Transcoding.visible(current_user).collect {|p| [ p.name, p.id ] }, @existing_transcodings.collect {|p| p.id  }), {}, {:multiple => true,  style: 'min-height: 100px',  class: "input-lg"} %>
 
       </div>
     </div>
