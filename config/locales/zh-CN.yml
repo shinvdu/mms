@@ -21,6 +21,10 @@
 
 zh-CN:
   hello: "Hello world"
+  new: "新增"
+  edit: "编辑"
+  create: "创建"
+  destroy: "删除"
   date:
     formats:
       default: "%Y-%m-%d"

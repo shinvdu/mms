@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require app.min
 //= require lib/sly.min
 //= require lib/URI.min
+//= require app.min
