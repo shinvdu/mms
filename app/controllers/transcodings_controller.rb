@@ -17,7 +17,7 @@ class TranscodingsController < ApplicationController
     @transcoding = Transcoding.new(:container => 'mp4',
                                    :video_codec => 'H.264',
                                    :video_profile => 'high',
-                                   :video_bitrate => 10000,
+                                   :video_bitrate => 500,
                                    :video_crf => 26,
                                    :video_fps => 25,
                                    :video_gop => 250,
