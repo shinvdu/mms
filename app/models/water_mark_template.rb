@@ -48,7 +48,7 @@ class WaterMarkTemplate < ActiveRecord::Base
   def do_save
     transaction do
       if self.save
-        self.delay.create_img_and_upload
+        self.delay(:queue => Settings.job_queue.slow).create_img_and_upload
         self.enable if self.enabled
         true
       else
@@ -74,7 +74,7 @@ class WaterMarkTemplate < ActiveRecord::Base
         enabled_water_mark.save!
       end
       self.disabled = true
-      self.delay.remove_from_aliyun_and_self
+      self.delay(:queue => Settings.job_queue.fast).remove_from_aliyun_and_self
       self.save!
     end
   end

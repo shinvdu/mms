@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     end
   end
   resources :video_product_group_check_statuses
-  resources :user_videos do
+  resources :user_videos, :except => [:create] do
     member do
       post 'republish'
       get 'clip'

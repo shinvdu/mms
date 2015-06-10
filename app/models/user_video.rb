@@ -42,7 +42,7 @@ class UserVideo < ActiveRecord::Base
 
   include MTSWorker::UserVideoWorker
 
-  def set_video(video)
+  def set_video_and_publish(video, publish_strategy, transcoding_strategy)
     self.file_name = video.original_filename
     self.ext_name = File.extname(self.file_name)
 
@@ -53,7 +53,7 @@ class UserVideo < ActiveRecord::Base
     unless self.save
       return self
     end
-    self.delay.fetch_video_info_and_upload
+    self.delay(:queue => 'local').fetch_info_and_upload_and_publish(publish_strategy, transcoding_strategy)
     self
   end
 
@@ -104,6 +104,11 @@ class UserVideo < ActiveRecord::Base
   # asynchronous method
   ######################################################
 
+  def fetch_info_and_upload_and_publish(publish_strategy, transcoding_strategy)
+    fetch_video_info_and_upload
+    publish_by_strategy(publish_strategy, transcoding_strategy)
+  end
+
   def fetch_video_info_and_upload
     video_detail = self.original_video
     video_detail.fetch_video_info
@@ -138,6 +143,7 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::PACKAGE
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
         self.transaction do
+          self.original_video.download!
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :creator => self.creator)
           video_product_group.create_package_product
           video_product_group.set_video_list_by_user_video(self)
@@ -146,6 +152,7 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
         self.transaction do
+          self.original_video.download!
           video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :creator => self.creator, :transcoding_strategy => transcoding_strategy)
           video_product_group.create_products_from_origin
           video_product_group.set_video_list_by_user_video(self)
@@ -174,6 +181,7 @@ class UserVideo < ActiveRecord::Base
     self.save!
     upload_and_remove_local_mkv
   end
+  handle_asynchronously :pre_middle_transcode_finished, :queue => Settings.job_queue.slow
 
   def upload_and_remove_local_mkv
     transaction do

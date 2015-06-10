@@ -223,8 +223,9 @@ class VideoProductGroup < ActiveRecord::Base
     self.save!
     self.temp_video = VideoDetail.create.copy_video_info_from! dependent_video
     product = VideoProduct.create(:video_product_group => self)
+    dependent_video.download!
     product.publish_mp4!(dependent_video)
-    user_video.original_video.create_snapshot(self)
+    dependent_video.create_snapshot(self)
     self.status = STATUS::FINISHED
     self.save!
   end

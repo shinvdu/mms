@@ -129,6 +129,9 @@ class VideoDetail < ActiveRecord::Base
     if self.user_video.ext_name == '.mkv' && input_path == output_path
       return self
     end
+    output_dir = File.dirname output_path
+    FileUtils.mkpath output_dir if !File.exist? output_dir
+    logger.info "ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}"
     `ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}`
     mkv_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     mkv_video.uri = self.uri.split('.')[0..-2].append('mkv').join('.')
@@ -279,7 +282,7 @@ class VideoDetail < ActiveRecord::Base
     file_path = self.get_full_path
     if File.exist? file_path
       self.status = self.REMOTE? ? STATUS::BOTH : STATUS::ONLY_LOCAL
-      save! if changed?
+      save!
       return
     end
     FileUtils.mkdir_p File.dirname(file_path) unless File.exist? File.dirname(file_path)

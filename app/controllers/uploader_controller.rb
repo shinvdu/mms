@@ -34,7 +34,9 @@ class UploaderController < ApplicationController
     publish_strategy = user_video_params[:publish_strategy].to_i
     video_list_id = user_video_params[:video_list_id].to_i
     default_transcoding_strategy = user_video_params[:default_transcoding_strategy]
-    default_transcoding_strategy = default_transcoding_strategy.to_i if default_transcoding_strategy
+    if publish_strategy == UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
+      transcoding_strategy = TranscodingStrategy.find(default_transcoding_strategy)
+    end
 
     if video.blank?
       render :status => 400, :json => {:message => '必须选择视频'}
@@ -45,24 +47,14 @@ class UploaderController < ApplicationController
                                   :creator => current_user,
                                   :video_name => video_name)
       @user_video.update_video_list! video_list_id
-      @user_video.set_video(video)
+      @user_video.set_video_and_publish(video, publish_strategy, transcoding_strategy)
       unless @user_video.save
         render :status => 400, :json => {:message => '输入视频名称'}
         return
       end
     end
-    case publish_strategy
-      when UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
-        @user_video.delay.publish_by_strategy(publish_strategy,
-                                              TranscodingStrategy.find(default_transcoding_strategy))
-      when UserVideo::PUBLISH_STRATEGY::PACKAGE
-        @user_video.delay.publish_by_strategy(publish_strategy, nil)
-      when UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
-        # build empty product group
-        @user_video.delay.publish_by_strategy(publish_strategy, nil)
-    end
 
-    render :json => 'succeed'
+    render :json => {:message => 'succeed'}
   end
 
   private

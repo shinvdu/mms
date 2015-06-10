@@ -95,9 +95,8 @@ defaults: &defaults
     font: Arial
     color: '#bfbfbf'
   job_queue:
-    fast_query: fast_query
-    mts: mts
-    oss: oss
+    fast: fast
+    slow: slow
   aliyun:
     oss: &defaults-aliyun-oss
       download_proxy: http://

@@ -2,7 +2,12 @@
 
 (function($) {
     'use strict';
-    $.fn.wg_upload = function() {
+    $.fn.wg_upload = function(args) {
+        var options = {
+            on_error: false,
+            on_success: false
+        };
+        $.extend(options, args);
         var $form = this;
         var preuploaded = false;
         var uploading = false;
@@ -40,7 +45,8 @@
                     preuploaded = false;
                     uploading = false;
                     console.log(textStatus);
-                    alert("请求时发生错误");
+                    if (options.on_error)
+                        options.on_error(XMLHttpRequest, textStatus, errorThrown);
                 }
             });
         });
@@ -52,15 +58,15 @@
                     data: {token: token},
                     success: function(data, statusText, xhr, $form) {
                         console.log(data);
+                        if (options.on_success)
+                            options.on_success(data, statusText, xhr, $form);
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         preuploaded = false;
                         uploading = false;
                         console.log(textStatus);
-                        if (XMLHttpRequest.status == 400) {
-                            alert (XMLHttpRequest.responseJSON.message)
-                        } else {
-                        alert("请求时发生错误");}
+                        if (options.on_error)
+                            options.on_error(XMLHttpRequest, textStatus, errorThrown);
                     }
                 }
             );
