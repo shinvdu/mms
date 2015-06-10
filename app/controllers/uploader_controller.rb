@@ -12,7 +12,7 @@ class UploaderController < ApplicationController
     default_transcoding_strategy = user_video_params[:default_transcoding_strategy]
     default_transcoding_strategy = default_transcoding_strategy.to_i if default_transcoding_strategy
 
-    cache_form = CacheForm.new(:user => current_user)
+    cache_form = CacheUserVideoForm.new(:user => current_user)
     cache_form.transaction do
       cache_form.params = {
           :video_name => video_name,
@@ -30,28 +30,12 @@ class UploaderController < ApplicationController
   # in upload server
   def upload
     video = user_video_params[:video]
-    video_name = user_video_params[:video_name].strip
-    publish_strategy = user_video_params[:publish_strategy].to_i
-    video_list_id = user_video_params[:video_list_id].to_i
-    default_transcoding_strategy = user_video_params[:default_transcoding_strategy]
-    if publish_strategy == UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
-      transcoding_strategy = TranscodingStrategy.find(default_transcoding_strategy)
-    end
 
-    if video.blank?
-      render :status => 400, :json => {:message => '必须选择视频'}
+    begin
+      @cache_form.process(:user => current_user, :video => video)
+    rescue Exception => e
+      render :status => 400, :json => {:message => e.message}
       return
-    end
-    ActiveRecord::Base.transaction do
-      @user_video = UserVideo.new(:owner => current_user.owner,
-                                  :creator => current_user,
-                                  :video_name => video_name)
-      @user_video.update_video_list! video_list_id
-      @user_video.set_video_and_publish(video, publish_strategy, transcoding_strategy)
-      unless @user_video.save
-        render :status => 400, :json => {:message => '输入视频名称'}
-        return
-      end
     end
 
     render :json => {:message => 'succeed'}
@@ -70,6 +54,7 @@ class UploaderController < ApplicationController
       raise 'Cannot verify token.'
     end
     @cache_form = OneTimeToken.find_by_token(params[:token]).cache_form
+    @cache_form.update_attribute(:status, CacheForm::STATUS::UPLOADED)
     @current_user = @cache_form.user
   end
 
