@@ -53,7 +53,7 @@ class Transcoding < ActiveRecord::Base
 
   def disable_and_destroy!
     self.disabled = true
-    self.delay.delete_self_and_template if self.aliyun_template_id.present?
+    self.delay(:queue => Settings.job_queue.fast).delete_self_and_template if self.aliyun_template_id.present?
     self.save!
   end
 
@@ -65,7 +65,7 @@ class Transcoding < ActiveRecord::Base
   def disable!
     self.disabled = true
     self.disable_time = Time.now
-    self.delay.delete_aliyun_template(self) if self.aliyun_template_id.present?
+    self.delay(:queue => Settings.job_queue.fast).delete_aliyun_template(self) if self.aliyun_template_id.present?
     self.save!
   end
 

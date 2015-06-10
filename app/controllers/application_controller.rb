@@ -115,6 +115,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user = current_account.user if current_account
+    @current_user ||= current_account.user if current_account
+    @current_user
   end
 end
