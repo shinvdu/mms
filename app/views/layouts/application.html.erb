@@ -11,9 +11,9 @@
   <!-- video.js must be in the <head> for older IEs to work. -->
   <%= stylesheet_link_tag    'style', media: 'all', 'data-turbolinks-track' => true %>
    <%= javascript_include_tag 'site', 'data-turbolinks-track' => true %>
-   <% filename = controller.controller_name %>
-   <%= stylesheet_link_tag "#{filename}" , media: 'all', 'data-turbolinks-track' => true %>
-   <%= javascript_include_tag "#{filename}" , media: 'all', 'data-turbolinks-track' => true  %>
+   <% filename = params[:controller] %>
+   <%= stylesheet_link_tag filename, media: 'all', 'data-turbolinks-track' => true %>
+   <%= javascript_include_tag filename, media: 'all', 'data-turbolinks-track' => true  %>
    <!-- page -->
   <%= yield(:head_js) %>
   <%= yield(:head_css) %>
