@@ -63,9 +63,9 @@
                 </tr>
               </table>
               <%= form_for g, :url => video_product_group_check_status_path(g) do |f| %>
-                  <%= f.button :通过, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::ACCEPTED %>
-                  <%= f.button :拒绝, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::REJECT %>
-                  <%= f.button :稍后处理, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::PENDING %>
+                  <%= f.button :通过, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::ACCEPTED, :class => 'btn btn-blue' %>
+                  <%= f.button :拒绝, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::REJECT, :class => 'btn btn-blue' %>
+                  <%= f.button :稍后处理, :name => :check_result, :value => VideoProductGroup::CHECK_STATUS::PENDING, :class => 'btn btn-blue' %>
               <% end %>
             </div>
           </div>
