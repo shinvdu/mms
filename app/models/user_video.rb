@@ -1,16 +1,17 @@
 class UserVideo < ActiveRecord::Base
+  scope :not_deleted, -> { where('status <> ?', STATUS::ORIGIN_DELETED) }
   has_many :videos, :class_name => 'VideoDetail'
   has_many :video_product_groups
-  has_many :video_cut_points
-  has_many :tags_relationship
-  has_one :video_list_link
+  has_many :video_cut_points, :dependent => :delete_all
+  has_many :tags_relationships, :dependent => :delete_all
+  has_one :video_list_link, :dependent => :delete
   has_one :video_list, :through => :video_list_link
   belongs_to :owner, :class_name => 'User'
   belongs_to :creator, :class_name => 'User'
-  belongs_to :original_video, :class_name => 'VideoDetail'
-  belongs_to :mini_video, :class_name => 'VideoDetail'
-  belongs_to :mkv_video, :class_name => 'VideoDetail'
-  belongs_to :pre_mkv_video, :class_name => 'VideoDetail'
+  belongs_to :original_video, :class_name => 'VideoDetail', :dependent => :destroy
+  belongs_to :mini_video, :class_name => 'VideoDetail', :dependent => :destroy
+  belongs_to :mkv_video, :class_name => 'VideoDetail', :dependent => :destroy
+  belongs_to :pre_mkv_video, :class_name => 'VideoDetail', :dependent => :destroy
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
   validates :video_name, presence: true
   include Privilege
@@ -59,6 +60,10 @@ class UserVideo < ActiveRecord::Base
 
   def GOT_LOW_RATE?
     self.status == STATUS::GOT_LOW_RATE
+  end
+
+  def ORIGIN_DELETED?
+    self.status == STATUS::ORIGIN_DELETED
   end
 
   def EDITABLE?
@@ -161,10 +166,10 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
         self.transaction do
           video_product_group = VideoProductGroup.create(:name => '未命名',
-                                   :user_video => self,
-                                   :owner => self.owner,
-                                   :creator => self.creator,
-                                   :status => VideoProductGroup::STATUS::CREATED)
+                                                         :user_video => self,
+                                                         :owner => self.owner,
+                                                         :creator => self.creator,
+                                                         :status => VideoProductGroup::STATUS::CREATED)
           video_product_group.set_video_list_by_user_video(self)
           self.original_video.remove_local_file!
         end
@@ -181,6 +186,7 @@ class UserVideo < ActiveRecord::Base
     self.save!
     upload_and_remove_local_mkv
   end
+
   handle_asynchronously :pre_middle_transcode_finished, :queue => Settings.job_queue.slow
 
   def upload_and_remove_local_mkv
@@ -188,6 +194,35 @@ class UserVideo < ActiveRecord::Base
       self.mkv_video.load_local_file!
       self.mkv_video.remove_local_file!
     end
+  end
+
+  ######################################################
+  # remove
+  ######################################################
+  include OSS
+
+  def try_destroy!
+    return if self.video_product_groups.present?
+    self.videos.destroy_all
+    self.destroy!
+  end
+
+  def destroy
+    return super if self.video_product_groups.blank?
+    if self.video_product_groups.one? && self.video_product_groups.first.status == VideoProductGroup::STATUS::CREATED
+      self.video_product_groups.first.destroy
+      return super
+    end
+    self.status = STATUS::ORIGIN_DELETED
+    self.save
+    self.video_cut_points.destroy_all
+    self.tags_relationships.delete_all
+    self.video_list_link.delete if self.video_list_link
+    self.original_video.destroy if self.original_video
+    self.mini_video.destroy if self.mini_video
+    self.mkv_video.destroy if self.mkv_video
+    self.pre_mkv_video.destroy if self.pre_mkv_video
+    true
   end
 end
 

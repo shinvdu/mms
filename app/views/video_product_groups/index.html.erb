@@ -2,91 +2,103 @@
 <div id="video-list" class="tab-panel current">
   <div class="panel-header">
     <%= form_for :search, :method => :get, :html => {:class => 'pull-right', :role => 'search'} do |f| %>
-      <div class="right-inner-addon">
-          <%= f.text_field :name, :value => @name, :type=> 'search', :class=> 'form-control', :placeholder=> '视频名称' %>
-      </div>
-      <div>
-        <%= f.text_field :from, :value => @from, :type=> 'text', :placeholder=> '2015-05-01' %>
-      </div>至
-      <div>
-        <%= f.text_field :to, :value => @to, :type=> 'text', :placeholder=> '2016-05-01' %>
-      </div>
-      <div>
-        <%= f.collection_select :video_list_id, VideoList.visible(current_user), :id, :name, {:include_blank => '全部列表', :selected => @video_list_id}, :class => 'form-control' %>
-      </div>
+        <div class="right-inner-addon">
+          <%= f.text_field :name, :value => @name, :type => 'search', :class => 'form-control', :placeholder => '视频名称' %>
+        </div>
+        <div>
+          <%= f.text_field :from, :value => @from, :type => 'text', :placeholder => '2015-05-01' %>
+        </div>
+        至
+        <div>
+          <%= f.text_field :to, :value => @to, :type => 'text', :placeholder => '2016-05-01' %>
+        </div>
+        <div>
+          <%= f.collection_select :video_list_id, VideoList.visible(current_user), :id, :name, {:include_blank => '全部列表', :selected => @video_list_id}, :class => 'form-control' %>
+        </div>
         <%= f.button '搜索', :class => 'btn btn-green' %>
-      <% end %>
+    <% end %>
     <button class="btn-green">上传文件</button>
   </div>
   <div class="panel-content">
-    <% @video_product_groups.each do |g| %>    
-    <div class="video-list-item">
-      <label>
-        <input type="checkbox">
-        <div class="video-abstract">
-          <% if g.CREATED? %>
-          <%= image_tag '', :class => 'img-rounded', :alt => '等待剪辑' %>
-          <% elsif g.snapshots.present? %>
-          <%= image_tag g.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
-          <% else %>
-          <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
-          <% end %>
+    <% @video_product_groups.each do |g| %>
+        <div class="video-list-item" data-id="<%= g.id %>">
+          <label>
+            <input type="checkbox">
+
+            <div class="video-abstract">
+              <% if g.CREATED? %>
+                  <%= image_tag '', :class => 'img-rounded', :alt => '等待剪辑' %>
+              <% elsif g.snapshots.present? %>
+                  <%= image_tag g.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
+              <% else %>
+                  <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
+              <% end %>
+            </div>
+            <div class="video-details">
+              <div class="dl-table-display">
+                <dl>
+                  <dt>名称:</dt>
+                  <dd><a href="<%= video_product_group_path(g) %>"><%= g.name %></a></dd>
+                </dl>
+                <dl>
+                  <dt>状态:</dt>
+                  <dd><%= g.status_str %></dd>
+                </dl>
+                <dl>
+                  <dt>TAG:</dt>
+                  <dd>TAG1</dd>
+                </dl>
+                <dl>
+                  <dt>播放次数:</dt>
+                  <dd>123次</dd>
+                </dl>
+                <dl>
+                  <dt>创建者:</dt>
+                  <dd><%= g.creator.nickname %></dd>
+                </dl>
+                <dl>
+                  <dt>ID:</dt>
+                  <dd><%= g.show_id %></dd>
+                </dl>
+                <dl>
+                  <dt>播放器方案:</dt>
+                  <dd><%= g.player ? g.player.name : '系统默认' %></dd>
+                </dl>
+                <dl>
+                  <dt>广告方案:</dt>
+                  <dd>12345123</dd>
+                </dl>
+                <dl>
+                  <dt>创建时间:</dt>
+                  <dd><%= g.created_at.strftime("%Y-%m-%d %H:%M") %></dd>
+                </dl>
+                <dl>
+                  <dt>时长:</dt>
+                  <dd><%= g.duration_str %></dd>
+                </dl>
+              </div>
+              <% if g.CREATED? %>
+                  <% if g.user_video.GOT_LOW_RATE? %>
+                      <%= link_to '剪辑', clip_existed_video_product_group_user_video_path(g), :class => 'btn btn-blue' %>
+                  <% end %>
+              <% else %>
+                  <button class="btn btn-blue">编辑</button>
+                  <button class="btn btn-blue">代码</button>
+              <% end %>
+              <button class="btn-gray btn-remove">删除</button>
+            </div>
+          </label>
         </div>
-        <div class="video-details">
-          <div class="dl-table-display">
-            <dl>
-              <dt>名称:</dt>
-              <dd><a href="<%= video_product_group_path(g) %>"><%= g.name %></a></dd>
-            </dl>
-            <dl>
-              <dt>状态:</dt>
-              <dd><%= g.status_str %></dd>
-            </dl>
-            <dl>
-              <dt>TAG:</dt>
-              <dd>TAG1</dd>
-            </dl>
-            <dl>
-              <dt>播放次数:</dt>
-              <dd>123次</dd>
-            </dl>
-            <dl>
-              <dt>拥有者:</dt>
-              <dd><%= g.owner.nickname %></dd>
-            </dl>
-            <dl>
-              <dt>ID:</dt>
-              <dd><%= g.show_id %></dd>
-            </dl>
-            <dl>
-              <dt>播放器方案:</dt>
-              <dd><%= g.player ? g.player.name :  '系统默认' %></dd>
-            </dl>
-            <dl>
-              <dt>广告方案:</dt>
-              <dd>12345123</dd>
-            </dl>
-            <dl>
-              <dt>创建时间:</dt>
-              <dd><%= g.created_at.strftime("%Y-%m-%d %H:%M") %></dd>
-            </dl>
-            <dl>
-              <dt>时长:</dt>
-              <dd><%= g.duration_str %></dd>
-            </dl>
-          </div>
-          <% if g.CREATED? %>
-          <% if g.user_video.GOT_LOW_RATE? %>
-          <%= link_to '剪辑', clip_existed_video_product_group_user_video_path(g), :class => 'btn btn-blue' %>
-          <% end %>
-          <% else %>
-          <button class="btn btn-blue">编辑</button>
-          <button class="btn btn-blue">代码</button>
-          <% end %>
-          <button class="btn-gray">删除</button>
-        </div>
-      </label>
-    </div>
     <% end %>
+  </div>
+  <%= paginate @video_product_groups %>
+  <div class="confirm-origin-dialog">
+    <p>这是原片转码出的仅有的视频，是否删除原片？</p>
+  </div>
+  <div class="confirm-product-dialog">
+    <p>删除操作无法撤销，确认删除？</p>
+  </div>
+  <div class="wait-remove-dialog">
+    <p>正在删除...</p>
   </div>
 </div>

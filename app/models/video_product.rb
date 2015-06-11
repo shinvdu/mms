@@ -79,7 +79,7 @@ class VideoProduct < ActiveRecord::Base
   end
 
   def check_quanity()
-    transcoding = self.transcoding 
+    transcoding = self.transcoding
     if transcoding.height
       quanity_desc = [transcoding.height, 'P'].join('')
     elsif transcoding.height.nil?
@@ -97,6 +97,16 @@ class VideoProduct < ActiveRecord::Base
     return quanity_desc
   end
 
+  ######################################################
+  # remove
+  ######################################################
+  include OSS
+
+  def destroy
+    video_detail.clear
+    video_detail.destroy
+    super
+  end
 end
 
 #------------------------------------------------------------------------------

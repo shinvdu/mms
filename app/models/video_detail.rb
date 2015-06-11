@@ -2,8 +2,8 @@ class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
   has_many :snapshots
-  mount_uploader :public_video, PublicVideoUploader if not Rails.env.test? 
-  mount_uploader :private_video, PrivateVideoUploader  if not Rails.env.test? 
+  mount_uploader :public_video, PublicVideoUploader if not Rails.env.test?
+  mount_uploader :private_video, PrivateVideoUploader if not Rails.env.test?
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
 
   require 'fileutils'
@@ -223,6 +223,7 @@ class VideoDetail < ActiveRecord::Base
         user_video.duration = self.duration
         user_video.width = self.width
         user_video.height = self.height
+        user_video.save!
       end
     end
   end
@@ -300,7 +301,7 @@ class VideoDetail < ActiveRecord::Base
     # create n snapshots from 10% to 90%
     iters = n > 0 ? (0..n).to_a.map { |i| self.duration*0.8/n*i+self.duration*0.1 } : [self.duration * 0.1]
     iters.each_with_index do |time, idx|
-      uri = File.join(File.dirname(self.uri), [self.id, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
+      uri = File.join(File.dirname(self.uri), [self.id, n, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
       snapshot = Snapshot.create(:time => time,
                                  :uri => uri,
                                  :video_detail => self,
@@ -344,6 +345,23 @@ class VideoDetail < ActiveRecord::Base
     self.status == STATUS::NONE
   end
 
+  ######################################################
+  # remove
+  ######################################################
+  include OSS
+
+  def clear
+    self.remove_public_video
+    self.remove_private_video
+    self.snapshots.each { |snapshot| snapshot.destroy if snapshot.video_product_group.nil? }
+    self.status = STATUS::NONE
+    self.save
+  end
+
+  def destroy
+    self.clear
+    super
+  end
 end
 
 #------------------------------------------------------------------------------

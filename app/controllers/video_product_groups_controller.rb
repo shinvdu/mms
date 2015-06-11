@@ -1,6 +1,6 @@
 class VideoProductGroupsController < ApplicationController
   before_action :authenticate_account!, :check_login
-  before_action :set_video_product_group, only: [:clip_existed]
+  before_action :set_video_product_group, only: [:clip_existed, :last, :destroy]
 
   def index
     arel = VideoProductGroup.arel_table
@@ -70,6 +70,20 @@ class VideoProductGroupsController < ApplicationController
     redirect_to video_product_groups_path
   end
 
+  def last
+    authorize! :delete, @video_product_group
+    render :json => {:last => @video_product_group.user_video.video_product_groups.size == 1 && !@video_product_group.user_video.ORIGIN_DELETED?}
+  end
+
+  def destroy
+    authorize! :delete, @video_product_group
+    @video_product_group.transaction do
+      @video_product_group.destroy!
+      @video_product_group.user_video.try_destroy! if params[:remove_origin] == 'true' || @video_product_group.user_video.ORIGIN_DELETED?
+      render :json => {:status => 'succeed'}
+    end
+  end
+
   def download
     send_file VideoProductGroup.find(params[:id]).get_m3u8_file_path
   end
@@ -114,7 +128,7 @@ class VideoProductGroupsController < ApplicationController
   end
 
   def set_video_product_group
-    @video_product_group = VideoProductGroup.visible(current_user).find(params[:video_product_group_id])
+    @video_product_group = VideoProductGroup.visible(current_user).find(params[:video_product_group_id] || params[:id])
   end
 
   def product_data_params

@@ -50,7 +50,7 @@ module Statistics::Calculate
                               :user_video_amount => 0,
                               :mkv_video_amount => 0,
                               :product_amount => 0)
-    UserVideo.where(:creator => user).where(['created_at <= ?', date + 1]).each do |user_video|
+    UserVideo.not_deleted.where(:creator => user).where(['created_at <= ?', date + 1]).each do |user_video|
       stat.user_video_amount += user_video.original_video.size if user_video.original_video && user_video.original_video.size
       stat.mkv_video_amount += user_video.mkv_video.size if user_video.mkv_video && user_video.mkv_video.size
     end

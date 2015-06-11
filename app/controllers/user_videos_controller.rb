@@ -4,7 +4,7 @@ class UserVideosController < ApplicationController
   before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
 
   def index
-    @user_videos = UserVideo.visible(current_user).order('id desc').page(params[:page])
+    @user_videos = UserVideo.visible(current_user).not_deleted.order('id desc').page(params[:page])
   end
 
   def new
@@ -71,8 +71,7 @@ class UserVideosController < ApplicationController
   end
 
   def destroy
-    # user_video = UserVideo.find(params[:id])
-    # user_video.destroy
+    @user_video.destroy!
     redirect_to user_videos_path
   end
 

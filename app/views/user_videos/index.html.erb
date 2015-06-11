@@ -1,7 +1,7 @@
 <%= render 'user_videos/nav' %>
 
-<!-- 
-    <%= button_to '上传文件', new_user_video_path, :class => 'btn btn-green', :method => :get %>
+<!--
+<%= button_to '上传文件', new_user_video_path, :class => 'btn btn-green', :method => :get %>
 -->
 
 <div id="video-list" class="tab-panel current">
@@ -12,7 +12,8 @@
       </div>
       <div>
         <input type="text" placeholder="2015/05/01">
-      </div>至
+      </div>
+      至
       <div>
         <input type="text" placeholder="2015/05/01">
       </div>
@@ -32,65 +33,67 @@
   <div class="panel-content">
     <% @user_videos.each do |user_video| %>
 
-    <div class="video-list-item">
-      <label>
-        <input type="checkbox">
-        <div class="video-abstract">
-          <!-- <img src="assets/img/header-bg.jpg"> -->
-          <% if user_video.original_video.snapshots.present? %>
-          <%= image_tag user_video.original_video.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
-          <% else %>
-          <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
-          <% end %>
+        <div class="video-list-item">
+          <label>
+            <input type="checkbox">
+
+            <div class="video-abstract">
+              <!-- <img src="assets/img/header-bg.jpg"> -->
+              <% if user_video.original_video.snapshots.present? %>
+                  <%= image_tag user_video.original_video.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
+              <% else %>
+                  <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
+              <% end %>
+            </div>
+            <div class="video-details">
+              <div class="dl-table-display">
+                <dl>
+                  <dt>名称:</dt>
+                  <dd><%= user_video.video_name %></dd>
+                </dl>
+                <dl>
+                  <dt>状态:</dt>
+                  <dd><%= user_video.status_str %></dd>
+                </dl>
+                <dl>
+                  <dt>TAG:</dt>
+                  <dd>TAG1</dd>
+                </dl>
+                <dl>
+                  <dt>视频大小:</dt>
+                  <dd><%= format_file_size(user_video.original_video.size) %></dd>
+                </dl>
+                <dl>
+                  <dt>播放次数:</dt>
+                  <dd>123次</dd>
+                </dl>
+                <dl>
+                  <dt>上传者:</dt>
+                  <dd><%= user_video.creator.nickname %></dd>
+                </dl>
+                <dl>
+                  <dt>ID:</dt>
+                  <dd><%= user_video.original_video.uuid %></dd>
+                </dl>
+                <dl>
+                  <dt>时长:</dt>
+                  <dd>
+                    <% if user_video.original_video && user_video.original_video.duration %>
+                        <%= user_video.original_video.duration.to_time %>
+                    <% else %>
+                        未知
+                    <% end %>
+                  </dd>
+                </dl>
+              </div>
+              <%= link_to '编辑', edit_user_video_path(user_video), :class => 'btn btn-blue', 'data-no-turbolink' => 'true' %>
+              <button class="btn btn-blue">发布</button>
+              <%= link_to '剪辑', clip_user_video_path(user_video), :class => 'btn btn-blue', 'data-no-turbolink' => 'true' %>
+              <%= link_to '删除', user_video_path(user_video), :method => :delete, :class => 'btn btn-gray', 'data-no-turbolink' => 'true' %>
+            </div>
+          </label>
         </div>
-        <div class="video-details">
-          <div class="dl-table-display">
-            <dl>
-              <dt>名称:</dt>
-              <dd><%= user_video.video_name %></dd>
-            </dl>
-            <dl>
-              <dt>状态:</dt>
-              <dd><%= user_video.status_str %></dd>
-            </dl>
-            <dl>
-              <dt>TAG:</dt>
-              <dd>TAG1</dd>
-            </dl>
-            <dl>
-              <dt>视频大小:</dt>
-              <dd><%= format_file_size(user_video.original_video.size) %></dd>
-            </dl>
-            <dl>
-              <dt>播放次数:</dt>
-              <dd>123次</dd>
-            </dl>
-            <dl>
-              <dt>拥有者:</dt>
-              <dd><%= user_video.owner.nickname %></dd>
-            </dl>
-            <dl>
-              <dt>ID:</dt>
-              <dd><%= user_video.original_video.uuid %></dd>
-            </dl>
-            <dl>
-              <dt>时长:</dt>
-              <dd>
-               <% if user_video.original_video && user_video.original_video.duration %>
-               <%= user_video.original_video.duration.to_time %>
-               <% else %>
-               未知
-               <% end %>
-             </dd>
-           </dl>
-         </div>
-         <%= link_to '编辑', edit_user_video_path(user_video), :class => 'btn btn-blue', 'data-no-turbolink' => 'true' %>
-         <button class="btn btn-blue">发布</button>
-         <%= link_to '剪辑', clip_user_video_path(user_video), :class => 'btn btn-blue btn-video-clip-action', 'data-no-turbolink' => 'true' %>
-         <button class="btn-gray">删除</button>
-       </div>
-     </label>
-   </div>
-   <% end %>
- </div>
+    <% end %>
+  </div>
+  <%= paginate @user_videos %>
 </div>

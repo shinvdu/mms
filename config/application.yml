@@ -97,7 +97,8 @@ defaults: &defaults
   job_queue:
     fast: fast
     slow: slow
-  aliyun:
+  aliyun: &defaults-aliyun
+    area: cn-hangzhou
     oss: &defaults-aliyun-oss
       download_proxy: http://
       proxy: http://
@@ -156,6 +157,7 @@ production:
   sms:
     apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
+    <<: *defaults-aliyun
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:
@@ -204,6 +206,7 @@ development:
   sms:
     apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
+    <<: *defaults-aliyun
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:
@@ -250,6 +253,7 @@ test:
   sms:
     apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
+    <<: *defaults-aliyun
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:

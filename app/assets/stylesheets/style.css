@@ -15,4 +15,5 @@
  *= require font-awesome.min
  *= require main.min
  *= require main.add-on
+ *= require lib/jquery-ui
  */

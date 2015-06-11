@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     member do
       get 'download'
       patch 'clip'
+      get 'last'
     end
     resource :user_video, :only => [] do
       get 'clip_existed'
