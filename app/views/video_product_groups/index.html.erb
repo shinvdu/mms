@@ -20,7 +20,7 @@
   </div>
   <div class="panel-content">
     <% @video_product_groups.each do |g| %>    
-    <div class="video-list-item">
+    <div class="video-list-item" data-id="<%= g.id %>">
       <label>
         <input type="checkbox">
         <div class="video-abstract">
@@ -83,10 +83,19 @@
           <button class="btn btn-blue">编辑</button>
           <button class="btn btn-blue">代码</button>
           <% end %>
-          <button class="btn-gray">删除</button>
+          <button class="btn-gray btn-remove">删除</button>
         </div>
       </label>
     </div>
     <% end %>
+  </div>
+  <div class="confirm-origin-dialog">
+    <p>这是原片转码出的仅有的视频，是否删除原片？</p>
+  </div>
+  <div class="confirm-product-dialog">
+    <p>删除操作无法撤销，确认删除？</p>
+  </div>
+  <div class="wait-remove-dialog">
+    <p>正在删除...</p>
   </div>
 </div>

@@ -2,8 +2,8 @@ class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
   has_many :snapshots
-  mount_uploader :public_video, PublicVideoUploader if not Rails.env.test? 
-  mount_uploader :private_video, PrivateVideoUploader  if not Rails.env.test? 
+  mount_uploader :public_video, PublicVideoUploader if not Rails.env.test?
+  mount_uploader :private_video, PrivateVideoUploader if not Rails.env.test?
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
 
   require 'fileutils'
@@ -344,6 +344,20 @@ class VideoDetail < ActiveRecord::Base
     self.status == STATUS::NONE
   end
 
+  ######################################################
+  # remove
+  ######################################################
+  include OSS
+
+  def clear
+    self.remove_public_video
+    self.remove_private_video
+  end
+
+  def destroy
+    self.clear
+    super
+  end
 end
 
 #------------------------------------------------------------------------------

@@ -17,6 +17,12 @@ class Snapshot < ActiveRecord::Base
   def FINISHED?
     self.status == STATUS::FINISHED
   end
+
+  include OSS
+  def clear
+    connection = build_oss_connection
+    connection.delete(self.uri)
+  end
 end
 
 #------------------------------------------------------------------------------
