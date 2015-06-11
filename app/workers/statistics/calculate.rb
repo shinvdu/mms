@@ -80,4 +80,12 @@ module Statistics::Calculate
     date ||= Time.now.yesterday.to_date
     DailySpaceStat.where(['date >= ?', date]).delete_all
   end
+
+  def safe_exception
+    begin
+      yield
+    rescue Exception => e
+      logger.error e
+    end
+  end
 end
