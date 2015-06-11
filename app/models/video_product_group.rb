@@ -7,7 +7,7 @@ class VideoProductGroup < ActiveRecord::Base
   has_many :video_products, :dependent => :delete_all
   has_many :video_fragments, -> { order('video_fragments.order') }, :dependent => :delete_all
   has_many :video_cut_points, -> { order 'video_fragments.order' }, :through => :video_fragments
-  has_many :snapshots, :dependent => :delete_all
+  has_many :snapshots
   has_one :video_product_group_list_link, :dependent => :delete
   has_one :video_list, :through => :video_product_group_list_link
   belongs_to :transcoding_strategy
@@ -106,7 +106,7 @@ class VideoProductGroup < ActiveRecord::Base
   def duration_str
     return '未知' unless self.FINISHED?
     return self.temp_video.duration.to_time if self.temp_video && self.temp_video.duration
-    return self.user_video.original_video.duration.to_time if self.user_video
+    return self.user_video.duration.to_time if self.user_video
   end
 
   def FINISHED?
@@ -279,13 +279,10 @@ class VideoProductGroup < ActiveRecord::Base
   ######################################################
   # remove
   ######################################################
-  include OSS
-
   def destroy
-    self.snapshots.each { |snapshot| snapshot.clear }
+    self.snapshots.each { |snapshot| snapshot.destroy if snapshot.video_detail.nil? }
     super
   end
-
 end
 
 #------------------------------------------------------------------------------

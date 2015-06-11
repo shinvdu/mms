@@ -23,6 +23,11 @@ class Snapshot < ActiveRecord::Base
     connection = build_oss_connection
     connection.delete(self.uri)
   end
+
+  def destroy
+    clear
+    super
+  end
 end
 
 #------------------------------------------------------------------------------

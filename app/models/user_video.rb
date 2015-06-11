@@ -1,4 +1,5 @@
 class UserVideo < ActiveRecord::Base
+  scope :not_deleted, -> { where('status <> ?', STATUS::ORIGIN_DELETED) }
   has_many :videos, :class_name => 'VideoDetail'
   has_many :video_product_groups
   has_many :video_cut_points, :dependent => :delete_all
@@ -59,6 +60,10 @@ class UserVideo < ActiveRecord::Base
 
   def GOT_LOW_RATE?
     self.status == STATUS::GOT_LOW_RATE
+  end
+
+  def ORIGIN_DELETED?
+    self.status == STATUS::ORIGIN_DELETED
   end
 
   def EDITABLE?
@@ -204,15 +209,20 @@ class UserVideo < ActiveRecord::Base
 
   def destroy
     return super if self.video_product_groups.blank?
+    if self.video_product_groups.one? && self.video_product_groups.first.status == VideoProductGroup::STATUS::CREATED
+      self.video_product_groups.first.destroy
+      return super
+    end
     self.status = STATUS::ORIGIN_DELETED
     self.save
     self.video_cut_points.destroy_all
     self.tags_relationships.delete_all
-    self.video_list_link.delete
+    self.video_list_link.delete if self.video_list_link
     self.original_video.destroy if self.original_video
     self.mini_video.destroy if self.mini_video
     self.mkv_video.destroy if self.mkv_video
     self.pre_mkv_video.destroy if self.pre_mkv_video
+    true
   end
 end
 

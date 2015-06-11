@@ -72,14 +72,14 @@ class VideoProductGroupsController < ApplicationController
 
   def last
     authorize! :delete, @video_product_group
-    render :json => {:last => @video_product_group.user_video.video_product_groups.size == 1}
+    render :json => {:last => @video_product_group.user_video.video_product_groups.size == 1 && !@video_product_group.user_video.ORIGIN_DELETED?}
   end
 
   def destroy
     authorize! :delete, @video_product_group
     @video_product_group.transaction do
       @video_product_group.destroy!
-      @video_product_group.user_video.try_destroy! if params[:remove_origin] == 'true'
+      @video_product_group.user_video.try_destroy! if params[:remove_origin] == 'true' || @video_product_group.user_video.ORIGIN_DELETED?
       render :json => {:status => 'succeed'}
     end
   end
