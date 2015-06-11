@@ -1,0 +1,65 @@
+.btn
+  padding 0.3em 1.5em
+  border none
+  border-radius 4px
+
+.btn-primary
+  @extend .btn
+  background-color color-primary
+  color #fff
+
+  &:hover
+    background-color color-primary-hover
+
+.btn-success
+  @extend .btn
+  background-color color-success
+  color #fff
+
+  &:hover
+    background-color color-success-hover
+
+.btn-cancle
+  @extend .btn
+  background-color color-cancel
+  color #fff
+
+  &:hover
+    background-color color-cancel-hover
+
+.btn-info
+  @extend .btn
+  background-color color-info
+  color #fff
+
+  &:hover
+    background-color color-info-hover
+
+.btn-delete
+  @extend .btn
+  background-color color-delete
+  color #fff
+
+  &:hover
+    background-color color-delete-hover
+    
+.btn-icon
+  padding 0 4px
+  background none
+  border none
+
+.btn-icon-text
+  @extend .btn-icon
+
+  > i,
+  > div > i
+    margin-right 3px
+
+.btn-link
+  display inline
+  padding 0
+  background none
+  border none
+
+.btn-group-inline
+  margin-top 1.2em

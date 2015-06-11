@@ -1,0 +1,37 @@
+include ../mixins
+
+.panel#manage-user-admin
+  .panel-header.clearfix
+    form.l-right
+      div
+        input(type='search' placeholder='模版名称/用户名')
+        i.fa.fa-search
+    button.btn-show-panel(data-panel='add-user-admin') 添加
+    button 编辑
+    button 删除
+  .panel-content
+    table
+      thead
+        tr
+          th
+          th 编号
+          th 用户名称
+          th 登录IP
+          th 最后登录时间
+          th 操作
+      tbody
+        tr
+          td
+            input(type='checkbox')
+          td
+            | 123456
+          td
+            | xiao2
+          td
+            | 211.211.212.121
+          td
+            | 2015/05/12 15:23
+          td
+            button 修改
+            button 删除
+            button 冻结

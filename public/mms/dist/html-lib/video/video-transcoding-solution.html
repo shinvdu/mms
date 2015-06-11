@@ -1,50 +1,49 @@
 
-<div id="video-transcoding-solution" class="tab-panel">
+<div id="video-transcoding-solution" class="panel">
   <div class="panel-header clearfix">
-    <form class="clearfix">
-      <div class="right-inner-addon">
+    <form class="l-right clearfix">
+      <div class="form-input-addon">
         <input type="search" placeholder="模版名称/用户名"/><i class="fa fa-search"></i>
       </div>
-      <div>
-        <select>
-          <option>转码模版1
-          </option>
-          <option>转码模版2
-          </option>
-          <option>转码模版3
-          </option>
-        </select>
-      </div>
-    </form>
-    <button data-panel="add-transcoding-solution" class="btn-green btn-show-panel">添加转码方案</button>
+      <select class="select2-single">
+        <option>选项1
+        </option>
+        <option>选项2
+        </option>
+        <option>选项3
+        </option>
+      </select>
+    </form><a data-panel="add-transcoding-solution" href="#" class="link-button-success btn-show-panel">添加转码方案</a>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>模版方案</th>
-        <th>转码模版</th>
-        <th>创建用户</th>
-        <th>创建时间</th>
-        <th>最后修改时间</th>
-        <th>操作</th>
-        <th>备注</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-           
-          1234567
-        </td>
-        <td>平行教室转码方案</td>
-        <td>转码模版1，转码模版2</td>
-        <td>xiao2</td>
-        <td>2015/04/26 17:31</td>
-        <td>2015/04/26 17:31</td>
-        <td><a href="#">修改</a><a href="#">删除</a></td>
-        <td>1 231456</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="panel-content">
+    <table summary="转码方案列表" class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>模版方案</th>
+          <th>转码模版</th>
+          <th>创建用户</th>
+          <th>创建时间</th>
+          <th>最后修改时间</th>
+          <th>操作</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1234567</td>
+          <td>平行教室转码方案</td>
+          <td>转码模版1，转码模版2</td>
+          <td>xiao2</td>
+          <td>2015/04/26 17:31</td>
+          <td>2015/04/26 17:31</td>
+          <td>
+            <button class="btn-link">修改</button>
+            <button class="btn-link">删除</button>
+          </td>
+          <td>1 231456</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

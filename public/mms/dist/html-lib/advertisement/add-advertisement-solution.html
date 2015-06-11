@@ -1,115 +1,104 @@
 
-<div id="add-advertisement-solution" class="tab-panel">
-  <div class="panel-header"><a href="?panel=advertisement-solution">&lt;&lt; 返回广告方案列表</a></div>
+<div id="add-advertisement-solution" class="panel">
+  <div class="panel-header clearfix"><a href="?panel=advertisement-solution" class="l-right">&lt;&lt; 返回广告方案列表</a></div>
   <div class="panel-content">
-    <div class="panel-form">
-      <div class="form-group">
-        <div class="form-label form-title">
-          <label>添加广告方案</label>
-        </div>
+    <form>
+      <div class="row form-title">
+        <div class="cols large-2 l-text-right">添加广告方案</div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="ad-solution-name">广告方案名称:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <input id="ad-solution-name" type="text"/>
+        <div class="cols large-6">
+          <div class="row">
+            <div class="cols large-6">
+              <input id="ad-solution-name" type="text"/>
+            </div>
+            <div class="cols large-6 form-description">(5-20字符)</div>
           </div>
-          <div class="form-description">(5-20字符)</div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="ad-op-select">片头广告选择:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="ad-op-select">
-              <option>片头广告选择1
-              </option>
-              <option>片头广告选择2
-              </option>
-              <option>片头广告选择3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="ad-op-select" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="ad-ed-select">片尾广告选择:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="ad-ed-select">
-              <option>片尾广告选择1
-              </option>
-              <option>片尾广告选择2
-              </option>
-              <option>片尾广告选择3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="ad-ed-select" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="ad-pause-select">暂停广告选择:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="ad-pause-select">
-              <option>暂停广告选择1
-              </option>
-              <option>暂停广告选择2
-              </option>
-              <option>暂停广告选择3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="ad-pause-select" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="ad-suspension-select">悬浮广告选择:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="ad-suspension-select">
-              <option>悬浮广告选择1
-              </option>
-              <option>悬浮广告选择2
-              </option>
-              <option>悬浮广告选择3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="ad-suspension-select" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="ad-scroll-select">滚动广告选择:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="ad-scroll-select">
-              <option>滚动广告选择1
-              </option>
-              <option>滚动广告选择2
-              </option>
-              <option>滚动广告选择3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="ad-scroll-select" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-field form-submit">
-          <button type="submit" class="btn-green">保存</button>
-          <button data-panel="advertisement-solution" class="btn-gray btn-show-panel">取消</button>
+      <div class="row form-submit">
+        <div class="cols large-6 offset-by-2">
+          <button type="submit" class="btn-success">保存</button><a data-panel="advertisement-solution" href="#" class="link-button-cancel btn-show-panel">取消</a>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

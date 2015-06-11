@@ -1,50 +1,47 @@
 
-<div id="add-transcoding-solution" class="tab-panel">
-  <div class="panel-header"><a href="?panel=video-transcoding-solution">&lt;&lt; 返回方案列表</a></div>
+<div id="add-transcoding-solution" class="panel">
+  <div class="panel-header clearfix"><a href="?panel=video-transcoding-solution" class="l-right">&lt;&lt; 返回方案列表</a></div>
   <div class="panel-content">
-    <div class="panel-form">
-      <div class="form-group">
-        <div class="form-label form-title">
-          <label>添加转码方案</label>
-        </div>
+    <form>
+      <div class="row form-title">
+        <div class="cols large-2 l-text-right">添加转码方案</div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="solution-name">方案名称:</label>
         </div>
-        <div class="form-field">
+        <div class="cols large-6">
           <input id="solution-name" type="text"/>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="template-select">模版选择:</label>
         </div>
-        <div class="form-field">
-          <select id="template-select">
-            <option>high1
+        <div class="cols large-6">
+          <select id="template-select" multiple="multiple" class="select2-multiple-fw">
+            <option>选项1
             </option>
-            <option>high2
+            <option>选项2
             </option>
-            <option>high3
+            <option>选项3
             </option>
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-field form-offset">
+      <div class="row">
+        <div class="cols large-6 offset-by-2">
           <dl>
             <dt>说明:</dt>
             <dd>qweqweqweqweqweqweqweqweqwe</dd>
           </dl>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-field form-submit">
-          <button type="submit" class="btn-green">保存</button>
-          <button data-panel="video-transcoding-solution" class="btn-gray btn-show-panel">取消</button>
+      <div class="row form-submit">
+        <div class="cols large-6 offset-by-2">
+          <button type="submit" class="btn-success">保存</button><a data-panel="video-transcoding-solution" href="#" class="link-button-cancel btn-show-panel">取消</a>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

@@ -1,37 +1,40 @@
 
-<div id="manage-user" class="tab-panel current">
-  <div class="panel-header clearfix">
-    <form class="clearfix">
-      <div class="right-inner-addon">
-        <input type="search" placeholder="模版名称/用户名"/><i class="fa fa-search"></i>
-      </div>
-    </form>
-    <button data-panel="add-user" class="btn-green btn-show-panel">添加</button>
-    <button class="btn-blue">编辑</button>
-    <button class="btn-gray">删除</button>
+<div id="manage-user" class="panel is-current">
+  <div class="panel-header"><a data-panel="add-user" href="#" class="link-button-success btn-show-panel">添加用户</a></div>
+  <div class="panel-content">
+    <table summary="用户列表" class="table">
+      <thead>
+        <tr>
+          <th>用户</th>
+          <th>名字</th>
+          <th>分类权限</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1234561234412</td>
+          <td>xiao2</td>
+          <td>
+            <ul>
+              <li>电影
+                <ul>
+                  <li>权限1</li>
+                  <li>权限2</li>
+                  <li>权限3</li>
+                </ul>
+              </li>
+              <li>动画</li>
+              <li>综艺</li>
+            </ul>
+          </td>
+          <td>
+            <button class="btn-link">预览</button>
+            <button class="btn-link">修改</button>
+            <button class="btn-link">删除</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>编号</th>
-        <th>用户名称</th>
-        <th>登录IP</th>
-        <th>最后登录时间</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <input type="checkbox"/>
-        </td>
-        <td>123456</td>
-        <td>xiao2</td>
-        <td>211.211.212.121</td>
-        <td>2015/05/12 15:23</td>
-        <td><a href="#">修改</a><a href="#">删除</a><a href="#">冻结</a></td>
-      </tr>
-    </tbody>
-  </table>
 </div>

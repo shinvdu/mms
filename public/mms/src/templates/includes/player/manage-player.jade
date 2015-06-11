@@ -1,28 +1,28 @@
 include ../mixins
 
-.tab-panel#manage-player
-  .panel-header.clearfix
-    button.btn-green-link
-      a(href='?panel=add-player') 添加播放器
-  table
-    thead
-      tr
-        th 播放器名称
-        th 播放器ID
-        th 创建人
-        th 创建时间
-        th 操作
-    tbody
-      tr
-        td 
-          | 播放器名称123
-        td
-          | 1234567890QWER
-        td
-          | xiao2
-        td
-          | 2015/05/12 15:23
-        td
-          a(href='#') 预览
-          a(href='#') 修改
-          a(href='#') 删除
+.panel#manage-player
+  .panel-header
+    a.link-button-success(href='?panel=add-player') 添加播放器
+  .panel-content
+    table.table(summary='播放器列表')
+      thead
+        tr
+          th 播放器名称
+          th 播放器ID
+          th 创建人
+          th 创建时间
+          th 操作
+      tbody
+        tr
+          td 
+            | 播放器名称123
+          td
+            | 1234567890QWER
+          td
+            | xiao2
+          td
+            | 2015/05/12 15:23
+          td
+            button.btn-link 预览
+            button.btn-link 修改
+            button.btn-link 删除

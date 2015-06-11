@@ -1,36 +1,37 @@
 include ../mixins
 
-.tab-panel#manage-permission
+.panel#manage-permission
   .panel-header.clearfix
-    form.clearfix
-      .right-inner-addon
+    form.l-right
+      .form-input-addon
         input(type='search' placeholder='模版名称/用户名')
         i.fa.fa-search
-    button.btn-green.btn-show-panel(data-panel='add-permission-management') 添加
-    button.btn-blue 编辑
-    button.btn-gray 删除
-  table
-    thead
-      tr
-        th
-        th 编号
-        th 角色名称
-        th 描述
-        th 创建时间
-        th 操作
-    tbody
-      tr
-        td
-          input(type='checkbox')
-        td
-          | 123456
-        td
-          | xiao2
-        td
-          | 系统管理/播放器管理
-        td
-          | 2015/05/12 15:23
-        td
-          a(href='#') 修改
-          a(href='#') 删除
-          a(href='#') 冻结
+    a.link-button-success.btn-show-panel(data-panel='add-permission-management' href='#') 添加
+    button.btn-info 编辑
+    button.btn-delete 删除
+  .panel-content
+    table.table(summary='权限列表')
+      thead
+        tr
+          th
+          th 编号
+          th 角色名称
+          th 描述
+          th 创建时间
+          th 操作
+      tbody
+        tr
+          td
+            input(type='checkbox')
+          td
+            | 123456
+          td
+            | xiao2
+          td
+            | 系统管理/播放器管理
+          td
+            | 2015/05/12 15:23
+          td
+            button.btn-link 修改
+            button.btn-link 删除
+            button.btn-link 冻结

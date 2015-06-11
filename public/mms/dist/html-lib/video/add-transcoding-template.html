@@ -1,158 +1,150 @@
 
-<div id="add-transcoding-template" class="tab-panel">
-  <div class="panel-header"><a href="?panel=video-transcoding-template">&lt;&lt; 返回模板列表</a></div>
+<div id="add-transcoding-template" class="panel">
+  <div class="panel-header clearfix"><a href="?panel=video-transcoding-template" class="l-right">&lt;&lt; 返回模板列表</a></div>
   <div class="panel-content">
-    <div class="panel-form">
-      <div class="form-group">
-        <div class="form-label form-title">
-          <label>添加转码模板</label>
-        </div>
+    <form>
+      <div class="row form-title">
+        <div class="cols large-2 l-text-right">添加转码模板</div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="template-name">模版名称:</label>
         </div>
-        <div class="form-field">       
+        <div class="cols large-6">
           <input id="template-name" type="text"/>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label>输出格式:</label>
         </div>
-        <div class="form-field">
-                 
-          mp4
-        </div>
+        <div class="cols large-6">mp4</div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="transcoding-level">编码级别:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="transcoding-level">
-              <option>high1
-              </option>
-              <option>high2
-              </option>
-              <option>high3
-              </option>
-            </select>
+        <div class="cols large-6">
+          <div class="row">
+            <div class="cols large-6">
+              <select id="transcoding-level" class="select2-single-fw">
+                <option>选项1
+                </option>
+                <option>选项2
+                </option>
+                <option>选项3
+                </option>
+              </select>
+            </div>
+            <div class="cols large-6 form-description">备注: 推荐使用 high</div>
           </div>
-          <div class="form-description">备注: 推荐使用 high</div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="compress-parameter">视频压缩参数:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="compress-parameter">
-              <option>slow1
-              </option>
-              <option>slow2
-              </option>
-              <option>slow3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="compress-parameter" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="audio-coding">音频编码:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="audio-coding">
-              <option>AAC1
-              </option>
-              <option>AAC2
-              </option>
-              <option>AAC3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="audio-coding" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="audio-sample-rate">音频采样率:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="audio-sample-rate">
-              <option>采样率1
-              </option>
-              <option>采样率2
-              </option>
-              <option>采样率3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="audio-sample-rate" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="audio-code-rate">音频码率:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="audio-code-rate">
-              <option>码率1
-              </option>
-              <option>码率2
-              </option>
-              <option>码率3
-              </option>
-            </select>
-          </div>
+        <div class="cols large-3">
+          <select id="audio-code-rate" class="select2-single-fw">
+            <option>选项1
+            </option>
+            <option>选项2
+            </option>
+            <option>选项3
+            </option>
+          </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label>视频隔行扫描:</label>
         </div>
-        <div class="form-field">
+        <div class="cols large-3">
           <label>
             <input type="checkbox" value="yes"/>是
           </label>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="video-aspect-ratio">视频长宽比:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <select id="video-aspect-ratio">
-              <option>固定长宽高，画面拉伸1
-              </option>
-              <option>固定长宽高，画面拉伸2
-              </option>
-              <option>固定长宽高，画面拉伸3
-              </option>
-            </select>
-          </div>
-          <div class="form-inline">
-            <label>说明:</label>
-            <div>
-              <input type="text" placeholder="长/px"/>
+        <div class="cols large-6">
+          <div class="row">
+            <div class="cols large-6">
+              <select id="video-aspect-ratio" class="select2-single-fw">
+                <option>选项1
+                </option>
+                <option>选项2
+                </option>
+                <option>选项3
+                </option>
+              </select>
             </div>
-            <div>
-              <input type="text" placeholder="宽/px"/>
+            <div class="cols large-5">
+              <div class="row">
+                <div class="cols large-3 l-text-center">说明:</div>
+                <div class="cols large-4">
+                  <input type="text" placeholder="长/px"/>
+                </div>
+                <div class="cols large-4 offset-by-1">
+                  <input type="text" placeholder="宽/px"/>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-field form-submit">
-          <button type="submit" class="btn-green">保存</button>
-          <button data-panel="video-transcoding-template" class="btn-gray btn-show-panel">取消</button>
+      <div class="row form-submit">
+        <div class="cols large-6 offset-by-2">
+          <button type="submit" class="btn-success">保存</button><a data-panel="video-transcoding-template" href="#" class="link-button-cancel btn-show-panel">取消</a>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

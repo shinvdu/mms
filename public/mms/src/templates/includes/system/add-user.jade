@@ -1,93 +1,73 @@
 include ../mixins
 
-.tab-panel#add-user
-  .panel-header
-    a(href='?panel=manage-user') &lt;&lt; 返回用户管理
+.panel#add-user
+  .panel-header.clearfix
+    a.l-right(href='?panel=manage-user') &lt;&lt; 返回
   .panel-content
-    .panel-form
-      .form-group
-        .form-label.form-title
-          label 添加用户
-      .form-group
-        .form-label
-          label(for='user-name') 用户名:
-        .form-field
-          div
-            input#user-name(type='text' placeholder='英文字母/数字/下划线')
-          div.form-description
-            | (5-20个字符)
-      .form-group
-        .form-label
-          label(for='user-nickname') 昵称:
-        .form-field
-          div
-            input#user-nickname(type='text')
-          div.form-description
-            | (16个字符)
-      .form-group
-        .form-label
-          label(for='user-email') 邮箱:
-        .form-field
-          div
-            input#user-email(type='email')
-      .form-group
-        .form-label
-          label(for='user-tel') 联系电话:
-        .form-field
-          div
-            input#user-tel(type='tel')
-      .form-group
-        .form-label
-          label(for='user-password') 密码:
-        .form-field
-          div
-            input#user-password(type='password')
-          div.form-description
-            | (6-20个字符)
-      .form-group
-        .form-label
-          label(for='user-password-confirm') 确认密码:
-        .form-field
-          div
-            input#user-password-confirm(type='password')
-          div.form-description
-            | (6-20个字符)
-      .checkbox-group
-        .form-label
-          label 分配角色:
-        .form-field
-          label
-            input(type='checkbox')
-            | 角色
-          label
-            input(type='checkbox')
-            | 角色
-          label
-            input(type='checkbox')
-            | 角色
-          label
-            input(type='checkbox')
-            | 角色
-          label
-            input(type='checkbox')
-            | 角色
-          label
-            input(type='checkbox')
-            | 角色
-      .checkbox-group
-        .form-label
-          label API权限:
-        .form-field
-          label
-            input(type='checkbox')
-            | 角色
-          label
-            input(type='checkbox')
-            | 角色
-          label
-            input(type='checkbox')
-            | 角色
-      .form-group
-        .form-field.form-submit
-          button.btn-green(type='submit') 保存
-          button.btn-gray.btn-show-panel(data-panel='manage-user') 取消
+    form
+      .row
+        .cols.large-10
+          .row
+            .cols.large-12
+              | 增加用户
+          .row
+            .cols.large-2
+              label(for='subuser-name') 名称:
+            .cols.large-6
+              input#subuser-name(type='text')
+          .row
+            .cols.large-2
+              label(for='subuser-email') 邮箱:
+            .cols.large-6
+              input#subuser-email(type='email')
+          .row
+            .cols.large-2
+              label(for='subuser-password') 密码:
+            .cols.large-6
+              input#subuser-password(type='password')
+          .row
+            .cols.large-10.offset-by-2
+              table
+                thead
+                  tr
+                    th 视频分类名称
+                    th 权限1
+                    th 权限2
+                    th 权限3
+                tbody
+                  tr
+                    td 电影
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                  tr
+                    td 动画
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                  tr
+                    td 综艺
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                  tr
+                    td 音乐
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+          .row
+            .cols.large-10.offset-by-2
+              button(type='submit') 保存
+              button.btn-show-panel(data-panel='manage-user') 取消

@@ -1,0 +1,173 @@
+.brand
+  width 150px
+
+  > img
+    margin-right 10px
+
+  > div
+    margin-top 4px
+    line-height 1
+
+.brand-link
+  &:link,
+  &:visited
+    color #fff
+
+  &:hover,
+  &:active
+    color color-primary
+
+  span:last-child
+    font-size 13px
+
+.admin-bar
+  margin-top 10px
+  font-size 15px
+  color color-text-intermediate
+
+  > button
+    margin-left 7px
+
+  > .btn-icon-text
+    position relative
+
+  .dropdown
+    position absolute
+    display none
+    z-index 1000
+    top 100%
+    right 0
+    margin-top 5px
+
+    a
+      &:link,
+      &:visited,
+      &:hover
+        color color-text-dark
+
+        > i
+          color color-primary
+      &:hover
+        background-color color-background
+
+      &:active
+        background-color color-primary
+        color #fff
+
+        > i
+          color #fff
+
+.footer-links
+  > .list-links
+    margin 0
+    font-size 14px
+
+    & + .list-links
+      margin-left 50px
+
+    > li:first-child
+      margin-bottom 25px
+      font-size 16px
+
+.footer-info
+  margin-top 58px
+
+.dropdown
+  padding-top 10px
+  padding-bottom 10px
+  background-color #fff
+  box-shadow 3px 3px 3px rgba(0, 0, 0, 0.21)
+  border 1px solid color-border
+  border-radius 4px
+  text-align left
+  list-style none
+  cursor initial
+
+  a
+    display block
+    height 30px
+    padding-right 50px
+    padding-left 15px
+    line-height 2
+    white-space nowrap
+
+    > i
+      margin-right 5px
+
+.list-links
+  list-style none
+
+  a
+    &:link,
+    &:visited
+      color color-text-intermediate
+
+    &:hover,
+    &:active
+      color #fff
+
+.info-bar
+  text-align right
+  font-size 15px
+  color color-text-intermediate
+
+  > a
+    &:link,
+    &:visited
+      color color-text-intermediate
+
+    &:hover,
+    &:active
+      color #fff
+
+  &:before
+    display block
+    content ''
+    width 20px
+    height 2px
+    margin-bottom 5px
+    margin-left auto
+    background-color color-success
+
+  & + .info-bar
+    margin-top 25px
+
+.datepicker-duration
+  > .datepicker-start,
+  > .datepicker-end
+    height 2em
+    padding-left 0.8em
+    background-color #fff
+    border 1px solid color-text-light
+    line-height 2em
+    color color-text-light
+
+  > .datepicker-start
+    margin-right 0.3em
+    border-radius 4px 0 0 4px
+
+  > .datepicker-end
+    margin-left 0.3em
+    border-radius 0 4px 4px 0
+
+.video-list-item
+  padding 1em 1.5em 1.8em
+  border-bottom 1px solid color-cutting-line
+
+  &:hover
+    background-color color-background
+
+  img
+    width 90%
+    height 12em
+    border-radius 4px
+
+  dl
+    @extend .clearfix
+
+    dt,
+    dd
+      float left
+
+    dd
+      padding-left 0.3em

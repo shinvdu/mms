@@ -1,39 +1,40 @@
 include ../mixins
 
-.tab-panel.current#advertisement-solution
+.panel.is-current#advertisement-solution
   .panel-header.clearfix
-    form.clearfix
-      .right-inner-addon
+    form.l-right
+      .form-input-addon
         input(type='search' placeholder='广告方案名称')
         i.fa.fa-search
-    button.btn-green.btn-show-panel(data-panel='add-advertisement-solution') 添加广告方案
-  table
-    thead
-      tr
-        th 编号
-        th 广告资源
-        th 片头广告
-        th 片尾广告
-        th 暂停广告
-        th 悬浮广告
-        th 滚动字幕
-        th 操作
-    tbody
-      tr
-        td 
-          | 1234567
-        td
-          | 奥美国际广告方案
-        td
-          +select('广告资源')
-        td
-          +select('广告资源')
-        td
-          +select('广告资源')
-        td
-          +select('广告资源')
-        td
-          +select('广告资源')
-        td
-          a(href='#') 修改
-          a(href='#') 删除
+    a.link-button-success.btn-show-panel(data-panel='add-advertisement-solution' href='#') 添加广告方案
+  .panel-content
+    table.table(summary='广告方案列表')
+      thead
+        tr
+          th 编号
+          th 广告资源
+          th 片头广告
+          th 片尾广告
+          th 暂停广告
+          th 悬浮广告
+          th 滚动字幕
+          th 操作
+      tbody
+        tr
+          td 
+            | 1234567
+          td
+            | 奥美国际广告方案
+          td
+            +select().select2-single
+          td
+            +select().select2-single
+          td
+            +select().select2-single
+          td
+            +select().select2-single
+          td
+            +select().select2-single
+          td
+            button.btn-link 修改
+            button.btn-link 删除

@@ -1,29 +1,29 @@
 
-<div id="add-permission-management" class="tab-panel">
-  <div class="panel-header"><a href="?panel=manage-permission">&lt;&lt; 返回权限管理</a></div>
+<div id="add-permission-management" class="panel">
+  <div class="panel-header clearfix"><a href="?panel=manage-permission" class="l-right">&lt;&lt; 返回权限管理</a></div>
   <div class="panel-content">
-    <div class="panel-form">
-      <div class="form-group">
-        <div class="form-label form-title">
-          <label>添加角色</label>
-        </div>
+    <form>
+      <div class="row form-title">
+        <div class="cols large-2 l-text-right">添加角色</div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="role-name">角色名称:</label>
         </div>
-        <div class="form-field">
-          <div>
-            <input id="role-name" type="text" placeholder="管理员"/>
+        <div class="cols large-6">
+          <div class="row">
+            <div class="cols large-6">
+              <input id="role-name" type="text" placeholder="管理员"/>
+            </div>
+            <div class="cols large-6 form-description">(20个字符)</div>
           </div>
-          <div class="form-description">(20个字符)</div>
         </div>
       </div>
-      <div class="checkbox-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label>系统管理:</label>
         </div>
-        <div class="form-field">
+        <div class="cols large-6">
           <label>
             <input type="checkbox"/>权限
           </label>
@@ -35,11 +35,11 @@
           </label>
         </div>
       </div>
-      <div class="checkbox-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label>播放器管理:</label>
         </div>
-        <div class="form-field">
+        <div class="cols large-6">
           <label>
             <input type="checkbox"/>权限
           </label>
@@ -51,11 +51,11 @@
           </label>
         </div>
       </div>
-      <div class="checkbox-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label>播放器管理:</label>
         </div>
-        <div class="form-field">
+        <div class="cols large-6">
           <label>
             <input type="checkbox"/>权限
           </label>
@@ -67,22 +67,19 @@
           </label>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-label">
+      <div class="row">
+        <div class="cols large-2 l-text-right">
           <label for="permission-description">说明:</label>
         </div>
-        <div class="form-field">
-          <div class="form-textarea">
-            <textarea rows="5" placeholder="100个字符">             </textarea>
-          </div>
+        <div class="cols large-6">
+          <textarea rows="5" placeholder="100个字符"></textarea>
         </div>
       </div>
-      <div class="form-group">
-        <div class="form-field form-submit">
-          <button type="submit" class="btn-green">保存</button>
-          <button data-panel="manage-permission" class="btn-gray btn-show-panel">取消</button>
+      <div class="row form-submit">
+        <div class="cols large-6 offset-by-2">
+          <button type="submit" class="btn-success">保存</button><a data-panel="manage-permission" href="#" class="link-button-cancel btn-show-panel">取消</a>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

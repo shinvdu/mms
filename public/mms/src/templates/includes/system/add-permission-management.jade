@@ -1,25 +1,26 @@
 include ../mixins
 
-.tab-panel#add-permission-management
-  .panel-header
-    a(href='?panel=manage-permission') &lt;&lt; 返回权限管理
+.panel#add-permission-management
+  .panel-header.clearfix
+    a.l-right(href='?panel=manage-permission') &lt;&lt; 返回权限管理
   .panel-content
-    .panel-form
-      .form-group
-        .form-label.form-title
-          label 添加角色
-      .form-group
-        .form-label
+    form
+      .row.form-title
+        .cols.large-2.l-text-right
+          | 添加角色
+      .row
+        .cols.large-2.l-text-right
           label(for='role-name') 角色名称:
-        .form-field
-          div
-            input#role-name(type='text' placeholder='管理员')
-          div.form-description
-            | (20个字符)
-      .checkbox-group
-        .form-label
+        .cols.large-6
+          .row
+            .cols.large-6
+              input#role-name(type='text' placeholder='管理员')
+            .cols.large-6.form-description
+              | (20个字符)
+      .row
+        .cols.large-2.l-text-right
           label 系统管理:
-        .form-field
+        .cols.large-6
           label
             input(type='checkbox')
             | 权限
@@ -29,10 +30,10 @@ include ../mixins
           label
             input(type='checkbox')
             | 权限
-      .checkbox-group
-        .form-label
+      .row
+        .cols.large-2.l-text-right
           label 播放器管理:
-        .form-field
+        .cols.large-6
           label
             input(type='checkbox')
             | 权限
@@ -42,10 +43,10 @@ include ../mixins
           label
             input(type='checkbox')
             | 权限
-      .checkbox-group
-        .form-label
+      .row
+        .cols.large-2.l-text-right
           label 播放器管理:
-        .form-field
+        .cols.large-6
           label
             input(type='checkbox')
             | 权限
@@ -55,13 +56,12 @@ include ../mixins
           label
             input(type='checkbox')
             | 权限
-      .form-group
-        .form-label
+      .row
+        .cols.large-2.l-text-right
           label(for='permission-description') 说明:
-        .form-field
-          div.form-textarea
-            textarea(rows='5' placeholder='100个字符')              
-      .form-group
-        .form-field.form-submit
-          button.btn-green(type='submit') 保存
-          button.btn-gray.btn-show-panel(data-panel='manage-permission') 取消
+        .cols.large-6
+          textarea(rows='5' placeholder='100个字符')
+      .row.form-submit
+        .cols.large-6.offset-by-2
+          button.btn-success(type='submit') 保存
+          a.link-button-cancel.btn-show-panel(data-panel='manage-permission' href='#') 取消

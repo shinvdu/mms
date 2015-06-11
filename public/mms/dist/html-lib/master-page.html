@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
     <title>MMS</title>
-    <!-- Bootstrap-->
-    <link href="assets/css/lib/normalize.css" rel="stylesheet">
     <link href="assets/css/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="http://vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
+    <!--link(href='http://vjs.zencdn.net/4.2/video-js.css' rel='stylesheet')-->
     <link href="assets/css/lib/rangeslider.css" rel="stylesheet">
     <link href="assets/css/main.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
@@ -20,58 +18,61 @@
   </head>
   <body>
     <div class="site">
-      <div class="header">
+      <header>
         <div class="container clearfix">
-          <div class="brand"><a href="index.html">MMS</a><span>www.mz.com</span></div>
-          <div class="user-options">
-            <div class="user-name">
+          <div class="brand l-left clearfix"><img src="assets/img/brand.png" alt="brand" class="l-left">
+            <div><a href="index.html" class="brand-link"><span>未谷云视频</span><br><span>WGcloud.com</span></a></div>
+          </div>
+          <div class="admin-bar l-right">
+            <button class="btn-icon"><i class="fa fa-bell-o"></i></button>
+            <button class="btn-icon-text">
               <div id="user-name"><i class="fa fa-user"></i>MMS</div>
-                    <ul id="user-menu" tabindex="1" class="user-menu">
-                      <li><a href="user-config.html"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
-                      <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
-                      <li><a href="#"><i class="fa fa-fw fa-bell-o"></i>消息中心</a></li>
-                      <li><a href="#"><i class="fa fa-fw fa-power-off"></i>退出</a></li>
-                    </ul>
-            </div><a href="#"><i class="fa fa-power-off"></i></a>
+              <ul id="user-dropdown" class="dropdown">
+                <li><a href="user-config.html"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
+              </ul>
+            </button>
+            <button class="btn-icon"><i class="fa fa-power-off"></i></button>
           </div>
         </div>
-      </div>
+      </header>
       <div class="content">
         <div class="container">
         </div>
       </div>
-      <div class="footer">
+      <footer>
         <div class="container clearfix">
-                <ul>
-                  <li><a href="index.html">未谷技术</a></li>
-                  <li><a href="video.html">视频管理</a></li>
-                  <li><a href="player.html">点播播放器</a></li>
-                  <li><a href="advertisement.html">广告管理</a></li>
-                  <li><a href="system.html">系统管理</a></li>
-                  <li><a href="#">用户协议</a></li>
-                </ul>
-                <ul>
-                  <li><a href="#">帮助中心</a></li>
-                  <li><a href="#">平台</a></li>
-                </ul>
-          <div class="company-info">
-            <div>
-              <div class="short-line"></div><a href="#">关于我们</a>
-            </div>
-            <div>
-              <div class="short-line"></div>copyright &copy; 2015上海未谷信息技术有限公司<br>
+          <div class="footer-links clearfix l-left">
+            <ul class="list-links l-left">
+              <li><a href="index.html">未谷技术</a></li>
+              <li><a href="video.html">视频管理</a></li>
+              <li><a href="player.html">点播播放器</a></li>
+              <li><a href="advertisement.html">广告管理</a></li>
+              <li><a href="system.html">系统管理</a></li>
+              <li><a href="#.html">用户协议</a></li>
+            </ul>
+            <ul class="list-links l-left">
+              <li><a href="#.html">帮助中心</a></li>
+              <li><a href="#.html">平台</a></li>
+            </ul>
+          </div>
+          <div class="footer-info l-right">
+            <div class="info-bar"><a href="#">关于我们</a></div>
+            <div class="info-bar">
+              copyright &copy; 2015上海未谷信息技术有限公司<br>
               沪ICP 备案 xxxxxxx
             </div>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery-ui.min.js"></script>
-    <script src="assets/js/URI.min.js"></script>
-    <script src="assets/js/sly.min.js"></script>
-    <script src="assets/js/video.min.js"></script>
-    <script src="assets/js/rangeslider.min.js"></script>
-    <script src="assets/js/app.min.js"></script>
   </body>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
+  <script src="assets/js/select2.min.js"></script>
+  <script src="assets/js/URI.min.js"></script>
+  <script src="assets/js/sly.min.js"></script>
+  <script src="assets/js/video.min.js"></script>
+  <script src="assets/js/rangeslider.min.js"></script>
+  <script src="assets/js/app.min.js"></script>
 </html>

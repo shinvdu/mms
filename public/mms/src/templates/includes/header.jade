@@ -1,36 +1,27 @@
-include mixins
-
-.header
+header
   .container.clearfix
-    .brand
-      a(href='index.html') MMS
-      span www.mz.com
-    .user-options
-      .user-name
-        div#user-name
+    .brand.l-left.clearfix
+      img.l-left(src='assets/img/brand.png' alt='brand')
+      div
+        a.brand-link(href='index.html')
+          span 未谷云视频
+          br
+          span WGcloud.com
+    .admin-bar.l-right
+      button.btn-icon
+        i.fa.fa-bell-o
+      button.btn-icon-text
+        #user-name
           i.fa.fa-user
           | MMS
-        +u-a-i-list([
-          {
-            href: 'user-config.html',
-            icon: 'pencil',
-            text: '用户设置'
-          },
-          {
-            href: '#',
-            icon: 'exclamation-circle',
-            text: '账单信息'
-          },
-          {
-            href: '#',
-            icon: 'bell-o',
-            text: '消息中心'
-          },
-          {
-            href: '#',
-            icon: 'power-off',
-            text: '退出'
-          }
-        ]).user-menu#user-menu(tabindex='1')
-      a(href='#')
+        ul.dropdown#user-dropdown
+          li
+            a(href='user-config.html')
+              i.fa.fa-fw.fa-pencil
+              | 用户设置
+          li
+            a(href='#')
+              i.fa.fa-fw.fa-exclamation-circle
+              | 账单信息
+      button.btn-icon
         i.fa.fa-power-off

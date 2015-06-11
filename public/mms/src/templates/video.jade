@@ -3,34 +3,28 @@ extends includes/master-page
 append content
   +navbar(1)
 
-  +u-a-i-list([
-    {
-      current: 'current',
-      href: '?panel=video-upload',
-      icon: 'square',
-      text: '上传视频'
-    },
-    {
-      href: '?panel=video-list',
-      icon: 'square',
-      text: '视频列表'
-    },
-    {
-      href: '?panel=video-transcoding-template',
-      icon: 'square',
-      text: '转码模版'
-    },
-    {
-      href: '?panel=video-transcoding-solution',
-      icon: 'square',
-      text: '转码方案'
-    },
-    {
-      href: '?panel=clip-management',
-      icon: 'square',
-      text: '素材管理'
-    }
-  ]).nav-panel
+  nav.nav-secondary
+    ul.clearfix
+      li.is-current
+        a(href='?panel=video-upload')
+          i.fa.fa-fw.fa-square
+          | 上传视频
+      li
+        a(href='?panel=video-list')
+          i.fa.fa-fw.fa-square
+          | 视频列表
+      li
+        a(href='?panel=video-transcoding-template')
+          i.fa.fa-fw.fa-square
+          | 转码模板
+      li
+        a(href='?panel=video-transcoding-solution')
+          i.fa.fa-fw.fa-square
+          | 转码方案
+      li
+        a(href='?panel=clip-management')
+          i.fa.fa-fw.fa-square
+          | 素材管理
 
   include includes/video/video-upload
   include includes/video/video-list
