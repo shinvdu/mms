@@ -29,8 +29,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def store_dir
-    return File.dirname(self.uri) if self.transcoding.nil? || self.fragment || self.transcoding.mini_transcoding? || self.user_video_id.present?
-    "product_#{self.id}"
+    return File.dirname(self.uri)
   end
 
   def public_remote_file_name

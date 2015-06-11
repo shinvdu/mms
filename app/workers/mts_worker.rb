@@ -16,7 +16,7 @@ module MTSWorker
     def create_transcoding_video_job(transcoding = nil, public = false, water_mark_template = nil)
       transcoding = Transcoding.find_mini_template if transcoding.nil?
       template_id = transcoding.aliyun_template_id
-      suffix = transcoding.mini_transcoding? ? Settings.file_server.mini_suffix : transcoding.id.to_s
+      suffix = transcoding.mini_transcoding? ? Settings.file_server.mini_suffix : 't' + transcoding.id.to_s
       output_object_uri = self.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
       logger.info "create transcoding job [video detail id: #{self.id}] [template id: #{template_id}]"
       output_bucket = public ? Settings.aliyun.oss.public_bucket : Settings.aliyun.oss.private_bucket
