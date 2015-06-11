@@ -2,7 +2,7 @@ class VideoProductGroupCheckStatusesController < ApplicationController
   before_action :authenticate_account!, :only_admin
 
   def index
-
+    @video_product_groups = VideoProductGroup.need_check.page(params[:page])
   end
 
   def update

@@ -251,6 +251,19 @@ class VideoProductGroup < ActiveRecord::Base
     end
   end
 
+  def check_status_str
+    case check_status
+      when CHECK_STATUS::UNCHECKED
+        '未审核'
+      when CHECK_STATUS::PENDING
+        '稍后审核'
+      when CHECK_STATUS::ACCEPTED
+        '审核通过'
+      when CHECK_STATUS::REJECT
+        '审核未通过'
+    end
+  end
+
   def NEED_CHECK?
     [CHECK_STATUS::UNCHECKED, CHECK_STATUS::PENDING].include? self.check_status
   end
