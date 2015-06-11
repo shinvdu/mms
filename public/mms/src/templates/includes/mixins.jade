@@ -115,7 +115,6 @@ mixin navbar(index)
 mixin clip-detail(name, tags, id)
   .clip-detail
     div
-      .up-triangle
       .clip-name
         = name
       .clip-tags
@@ -127,5 +126,5 @@ mixin clip-detail(name, tags, id)
         dd
           = id
       .clip-actions
-        a(href='#') 编辑
-        a(href='#') 删除
+        button.btn-link 编辑
+        button.btn-link 删除

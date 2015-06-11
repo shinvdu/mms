@@ -171,3 +171,135 @@
 
     dd
       padding-left 0.3em
+
+.clip-list
+  padding 0 1em 1em 1.7em
+  border-bottom 1px solid color-border
+
+  & + .clip-list
+    margin-top 1em
+
+.clip-list-header
+  @extend .clearfix
+
+  > dt,
+  > dd
+    float left
+
+  > dd
+    padding-left 0.3em
+
+.clip-list-content
+  @extend .clearfix
+  margin-left -1em
+
+.clip-item
+  position relative
+  float left
+  width 5.71em
+  height 5em
+  margin-top 1em
+  margin-left 1em
+  background-image url('../img/footer-bg.jpg')
+  background-size cover
+  background-postion center
+  border-radius 4px
+  cursor pointer
+
+  &:hover
+    > .clip-detail
+      display block
+
+.clip-duration
+  position absolute
+  right 0
+  bottom 0
+  display inline-block
+  padding 0.2em
+  color #fff
+
+.clip-detail
+  position absolute
+  top 100%
+  z-index 1000
+  display none
+  width 14.29em
+  margin-top 0.71em
+  margin-left -0.71em
+  background-color #fff
+  border 2px solid color-border
+  border-radius 4px
+  box-shadow 3px 3px 3px rgba(0, 0, 0, 0.21)
+  cursor auto
+
+  &:before
+    content ''
+    position absolute
+    background transparent
+    width 100%
+    height 0.86em
+    margin-top -0.86em
+
+  > div
+    position relative
+    padding-top 0.1em
+    padding-bottom 2em
+
+    &:before
+      content ''
+      position absolute
+      bottom 100%
+      margin-left 1.43em
+      border-right 0.86em solid transparent
+      border-bottom 0.86em solid color-border
+      border-left 0.86em solid transparent
+
+.clip-name
+  padding-left 0.36em
+  margin 0.86em auto 0
+
+  &:before
+    content ''
+    position absolute
+    bottom 100%
+    z-index 1000
+    margin-left 1.27em
+    border-right 0.71em solid transparent
+    border-bottom 0.71em solid #fff
+    border-left 0.71em solid transparent
+
+.clip-tags
+  padding 0.36em
+  margin 0.71em auto 0
+  border-bottom 2px solid color-border
+
+  > span + span
+    margin-left 0.21em
+
+.clip-id
+  @extend .clearfix
+  margin-right auto
+  margin-left auto
+
+  > dt,
+  > dd
+    float left
+    padding 0.36em
+
+.clip-actions
+  position absolute
+  bottom 0
+  width 100%
+  height 2.14em
+  line-height 2.14em
+  background-color #f4f4f4
+  border-top 2px solid color-border
+
+  > .btn-link
+    color color-primary
+
+    &:hover
+      color color-primary-hover
+
+    &:first-child
+      margin-left 0.36em
