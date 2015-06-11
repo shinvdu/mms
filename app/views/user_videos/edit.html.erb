@@ -9,18 +9,11 @@
   <div>
     <% if @user_video.GOT_LOW_RATE? %>
 
-        <% javascript '/mms/js/video.min.js' %>
+        <% javascript '/mms/dist/assets/js/video.min.js' %>
         <% style '/player1/video-js.css' %>
-        <% style '/mms/css/rangeslider.css' %>
-        <% javascript '/mms/js/jquery-ui.js' %>
-        <% javascript '/mms/js/rangeslider.js' %>
-
-        <!--
-        <% style '/player1/video-js.css' %>
-        <% style '/player1/videojs.watermark.css' %>
-        <% javascript '/player1/video.js' %>
-        <% javascript '/player1/videojs.watermark.js' %>
-        -->
+        <% style '/mms/dist/assets/css/lib/rangeslider.css' %>
+        <% javascript '/mms/dist/assets/js/jquery-ui.min.js' %>
+        <% javascript '/mms/dist/assets/js/rangeslider.min.js' %>
         <script>
             videojs.options.flash.swf = "/player1/video-js.swf";
         </script>

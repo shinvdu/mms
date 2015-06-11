@@ -2,23 +2,51 @@ class PlayersController < ApplicationController
   before_action :authenticate_account!, except: [:show] # 匿名用户也可以加载播放器设置
   before_action :set_user_id, only: [:create, :update]
   before_action :set_player, only: [:show, :edit, :update, :destroy]
-  before_action :restrict_player, only: [:edit, :update, :destroy]
 
   def index
     @players = Player.visible(current_user).page(params[:page])
   end
 
   def show
+    if @player.logo
+      case @player.logo_position
+      when 'left_top'
+        xpos = 0
+        ypos = 0
+      when 'bottom_right'
+        xpos = 100
+        ypos = 100
+      when 'bottom_left'
+        xpos =  0
+        ypos = 100
+      when 'top_right'
+       xpos = 100
+       ypos = 0
+     end
+     hash_water = {
+      # file: @player.logo.uri_url(:normal) ,
+      xpos: xpos,
+      ypos: ypos,
+      xrepeat: 0,
+      opacity: 0.5
+    }
+    hash_water[:file] = @player.logo.uri_url(:normal) if not Rails.env.test?
+  end
+
     respond_to do |format|
       format.html
       format.json {
         json_data = {
+          init: {
             controls: true,
             preload: 'meta',
             autoplay: @player.autoplay ? @player.autoplay : false,
             width: @player.width ? @player.width : 852,
             height: @player.height ? @player.height : 480,
+            },
+            # logo: hash_water
         }
+        json_data[:logo] = hash_water if @player.logo
         render json: json_data
       }
     end
@@ -80,10 +108,14 @@ class PlayersController < ApplicationController
   private
 
   def set_player
-    @player = Player.visible(current_user).find(params[:id])
+    if params[:id] == '0'
+      @player = Player.new(Settings.default_player.to_h)
+    else
+      @player = Player.visible(current_user).find(params[:id])
+    end
   end
 
   def player_params
-    params.require(:player).permit(:name, :user_id, :color, :logo_id, :logo_position, :autoplay, :share, :full_screen, :width, :height, :data)
+    params.require(:player).permit(:name, :user_id, :color, :logo_id, :logo_position, :autoplay, :share, :full_screen, :width, :height, :whitelist)
   end
 end

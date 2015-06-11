@@ -5,7 +5,8 @@
 </script>
 <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="852" height="480"
        data-setup="{}">
-  <source src="<%= @video_product.video_detail.get_full_url %>" type='video/<%= @video_type %>'/>
+  <!--<source src="<%= @video_product.video_detail.get_full_url %>" type='<%= @video_type %>'/>-->
+  <source src="http://wgc-public.oss-cn-hangzhou.aliyuncs.com/video/208bb4b1-dc4e-4ae6-95ed-0e737ee86d2b/208bb4b1-dc4e-4ae6-95ed-0e737ee86d2b.20.m3u8.m3u8" type='application/x-mpegURL'/>
   <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
     <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
 </video>

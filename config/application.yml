@@ -52,33 +52,6 @@ defaults: &defaults
     upload: 上传
     delete: 删除
   default_per_page: 15
-  aliyun_input_format:
-    container:  3gp avi flv mp4 m3u8 mpg asf wmv mkv mov ts webm
-    video_codec:
-      h.264/avc: h.264/avc
-      h.263: h.263
-      h.263+: h.263+
-      mpeg-1: "mpeg-1"
-      mpeg-2: "mpeg-2"
-      mpeg-4: "mpeg-4"
-      mjpeg: "mjpeg"
-      vp8: "vp8"
-      vp9: "vp9"
-      quicktime: "quicktime"
-      realvideo: "realvideo"
-      windows media video: "windows media video"
-    audio_codec:
-      aac: aac
-      ac-3: "ac-3"
-      adpcm: adpcm
-      amr: amr
-      dsd: dsd
-      mp1: mp1
-      mp2: mp2
-      mp3: mp3
-      pcm: pcm
-      realaudio: realaudio
-      windows media audio: windows media audio
   player:
     sizes:
       853|480: 853x480
@@ -140,14 +113,19 @@ defaults: &defaults
     fragment_dir: public/uploads/fragments
     mini_suffix: mini
     video_cut_scheduled_queue: fs_video_cut_scheduled
+  video_salt: 1a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+  default_player:
+    id:  0
+    autoplay:  false
+    width:  852
+    height:  480
 
 production:
   <<: *defaults
+  host_url: http://www.wgcloud.com
   default_url_options:
     host:  wgcloud.com
     port:  80
-  devise:
-    encryptor:  sha1
   omniauth:
     tqq:
       key: 1111111111
@@ -168,6 +146,8 @@ production:
     host:  www.wgcloud.com
     port:  3000
   neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
@@ -181,12 +161,19 @@ production:
       pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
       ad_template_id: b299bc2d3597879801e76ddcc7cca372
       pipeline_id: ff91fad66cff4bb894511d98575c2078
+  devise:
+    secret_key:  8ef300b541b0272c8a7f1746c738fb92c362dddbdc581a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+    pepper:  5baebdfs3bded1b2e84442d1605csdfsded592004b8c70ef670abb2c33465ea9a6e48066f75cf97bfc740eb6bdca02a805e10e4de7997b576f75ee6909f8db8e6
+    encryptor:  sha1
+  session:
+    secret_key_base:  0e9ad25a9b8e26c5292f1a333e860cf3d0b8502396a557693c714e63804f1eb340a792e48fe8985a05edafe5d11102d674fa001a545565f3c863420d59b71xied
 
 
 development:
   <<: *defaults
-  devise:
-    encryptor:  sha512
+  to_str:
+  to_ary:
+  host_url: http://localhost:3000
   omniauth:
     tqq:
       key: 101217165
@@ -222,11 +209,17 @@ development:
       pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
       ad_template_id: b299bc2d3597879801e76ddcc7cca372
       pipeline_id: ff91fad66cff4bb894511d98575c2078
+  devise:
+    encryptor:  sha512
+    secret_key:  8ef300b541b0272c8a7f1746c738fb92c362dddbdc581a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+    pepper:  5baebdfs3bded1b2e84442d1605csdfsded592004b8c70ef670abb2c33465ea9a6e48066f75cf97bfc740eb6bdca02a805e10e4de7997b576f75ee6909f8db8e6
+  session:
+    secret_key_base:  0e9ad25a9b8e26c5292f1a333e860cf3d0b8502396a557693c714e63804f1eb340a792e48fe8985a05edafe5d11102d674fa001a545565f3c863420d59b7171d
+
 
 test:
   <<: *defaults
-  devise:
-    encryptor:  sha512
+  host_url: http://localhost:3000
   omniauth:
     tqq:
       key: 1111111111
@@ -262,3 +255,10 @@ test:
       pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
       ad_template_id: b299bc2d3597879801e76ddcc7cca372
       pipeline_id: ff91fad66cff4bb894511d98575c2078
+  devise:
+    encryptor:  sha512
+    secret_key:  8ef300b541b0272c8a7f1746c738fb92c362dddbdc581a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+    pepper:  5baebdfs3bded1b2e84442d1605csdfsded592004b8c70ef670abb2c33465ea9a6e48066f75cf97bfc740eb6bdca02a805e10e4de7997b576f75ee6909f8db8e6
+  session:
+    secret_key_base:  0e9ad25a9b8e26c5292f1a333e860cf3d0b8502396a557693c714e63804f1eb340a792e48fe8985a05edafe5d11102d674fa001a545565f3c863420d59b7171d
+

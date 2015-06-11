@@ -6,7 +6,7 @@ class Logo < ActiveRecord::Base
   validates :uri,  presence: { message: I18n.t('model.logo.logo_require') }
   include Privilege
 
-  mount_uploader :uri, LogoUploader
+  mount_uploader :uri, LogoUploader  if not Rails.env.test?
 
 end
 
@@ -26,5 +26,6 @@ end
 # origname   varchar(255)         true            false  
 # created_at datetime             false           false  
 # updated_at datetime             false           false  
+# creator_id   int(11)              true            false  
 #
 #------------------------------------------------------------------------------

@@ -51,15 +51,21 @@ class Transcoding < ActiveRecord::Base
     end
   end
 
-  def destroy!
-    self.delay.delete_template(self) if self.aliyun_template_id.present?
-    super
+  def disable_and_destroy!
+    self.disabled = true
+    self.delay.delete_self_and_template if self.aliyun_template_id.present?
+    self.save!
+  end
+
+  def delete_self_and_template
+    self.delete_aliyun_template(self)
+    self.destroy!
   end
 
   def disable!
     self.disabled = true
     self.disable_time = Time.now
-    self.delay.delete_template(self) if self.aliyun_template_id.present?
+    self.delay.delete_aliyun_template(self) if self.aliyun_template_id.present?
     self.save!
   end
 
@@ -68,7 +74,7 @@ class Transcoding < ActiveRecord::Base
       transaction do
         new_transcoding = self.dup
         new_transcoding.update!(params)
-        if !update_template(new_transcoding)
+        if !update_aliyun_template(new_transcoding)
           rails 'updating mts transcoding failed.'
         end
         self.disabled = true
@@ -81,8 +87,8 @@ class Transcoding < ActiveRecord::Base
         new_transcoding
       end
     rescue Exception => e
-      logger e
-      logger "updating by create transcoding failed. id: #{self.id}"
+      logger.error e
+      logger.error "updating by create transcoding failed. id: #{self.id}"
       nil
     end
   end
@@ -91,7 +97,7 @@ class Transcoding < ActiveRecord::Base
     begin
       transaction do
         self.update!(params)
-        if !update_template(self)
+        if !update_aliyun_template(self)
           rails 'updating mts transcoding failed.'
         end
         self
@@ -143,5 +149,6 @@ end
 # disable_time          datetime             true            false  
 # share                 tinyint(1)           true    0       false  
 # special_template      int(11)              true    0       false  
+# creator_id      int(11)              true    0       false  
 #
 #------------------------------------------------------------------------------

@@ -1,0 +1,64 @@
+        <% javascript '/mms/dist/assets/js/video.min.js' %>
+        <% javascript '/player1/videojs.watermark.js' %>
+        <% javascript '/player1/plugins/video-js-resolutions/video-js-resolutions.js' %>
+        <% javascript '/player1/plugins/js-base64/base64.min.js' %>
+        <% javascript '/jquery/jquery.cookie.js' %>
+        <% javascript '/jquery/sha1.min.js' %>
+        <% style '/player1/video-js.css' %>
+        <% style '/player1/videojs.watermark.css' %>
+        <% style '/player1/plugins/video-js-resolutions/video-js-resolutions.css' %>
+        <script type="text/javascript">
+
+        function cal_signature(video_id){
+                var session_id = $.cookie('wgcloud_id')
+                var video_salt = $.cookie('video_salt')
+                var cal_string = session_id + '#' + video_id + '#' + video_salt
+                // console.log(cal_string)
+                return hex_sha1(cal_string)
+        }
+
+        jQuery(document).ready(function($) {
+	function player_id(){
+		return $("#player_id").attr('player')
+	}
+        	function player_init (json) {
+        		var data_setup = json.init
+        		var logo = json.logo
+        		video = videojs("wgcloud_video_1", data_setup);
+                            if(logo !== undefined){
+                                video.watermark(logo);
+                            }
+                        load_video(video);
+                }
+
+                function load_video(video){
+                        var base_string = $("#source").attr('source')
+                        var sources = JSON.parse(Base64.decode(base_string))
+                        var video_id = $("#video_id").attr('videoid')
+                        var signature = cal_signature(video_id)
+                        sources.map(function(n){
+                                n.src = n.src + '&signature='  + signature
+                        })
+                        // console.log(sources)
+                        video.src(sources)
+
+                }
+
+                $.ajax( {
+                      dataType: 'json',
+                      url: '/players/'+ player_id() + '.json',
+                      success: function (json) {
+                             player_init(json)
+                     },
+             } );
+        })
+        </script>
+        <div id="video_params" class="hidden">
+                <p id="player_id" player="<%= @video_group.player_id ?  @video_group.player_id : Settings.default_player.id %>"></p>
+                <p id="video_id" videoid="<%= @video_group.show_id %>"></p>
+                <p id="source" source="<%= Base64.strict_encode64(ActiveSupport::JSON.encode(@src)) %>"></p>
+        </div>
+        <video id="wgcloud_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled">
+        	<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+        <div class="vjs-big-play-button" role="button" aria-live="polite" tabindex="0" aria-label="play video"><span aria-hidden="true"></span></div>

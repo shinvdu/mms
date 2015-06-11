@@ -1,9 +1,5 @@
 class UsersController < ApplicationController
   before_action :authenticate_account!
-      # 只能操作自己的帐户, 第一个用户为超级用户,  例外
-  before_action :restrict_user, only: [:show, :edit, :update,  :destroy]
-    # 只有超级用户才有手动创建用户的权限 
-  before_action :only_admin, only: [:create, :index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /user

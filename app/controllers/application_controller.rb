@@ -5,7 +5,34 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :current_user
 
+  rescue_from ::ActiveRecord::RecordNotFound, with: :record_not_found if Rails.env.producion?
+  rescue_from ::NameError, with: :error_occurred  if Rails.env.producion?
+  rescue_from ::ActionController::RoutingError, with: :error_occurred  if Rails.env.producion?
+  rescue_from ::Exception, with: :error_occurred  if Rails.env.producion?
+
   protected
+
+  def record_not_found(exception)
+    respond_to do |type|
+      type.json { render json: {error: exception.message}.to_json, status: 404 }
+      type.html  { 
+        notice_error '错误信息: ' << exception.message
+        render :text => '无法完成该求', :status => 404, :layout => 'application' 
+      }
+    end
+    return
+  end
+
+  def error_occurred(exception)
+    respond_to do |type|
+      type.json { render json: {error: exception.message}.to_json, status: 404 }
+      type.html  { 
+        notice_error '错误信息: ' << exception.message
+        render :text => '无法完成该求', :status => 404, :layout => 'application' 
+      }
+    end
+    return
+  end  
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me) }

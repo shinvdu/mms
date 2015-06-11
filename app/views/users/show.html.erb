@@ -8,6 +8,10 @@
     <%= image_tag(@user.avar_url) if @user.avar? %>
 </p>
 
+<div>
+  <%= link_to 'space stat', user_space_stat_path(@user) %> |
 
-<%= link_to 'Edit', edit_user_path(@current_user) %> |
+</div>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

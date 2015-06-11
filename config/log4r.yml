@@ -1,5 +1,4 @@
 log4r_config:
-  # define all loggers ...
   loggers:
     - name      : production
       trace     : 'false'
@@ -23,13 +22,16 @@ log4r_config:
       trace     : 'true'
       outputters :
       - djquerylog
+    - name      : statistics
+      trace     : 'true'
+      outputters :
+      - statisticslog
 
-  # define all outputters (incl. formatters)
   outputters:
   - type: RollingFileOutputter
     name: rollingfile
     level: DEBUG
-    filename: "log/15class.log"
+    filename: "log/15class/15class.log"
     maxsize: 20,000,000
     formatter:
       type        : PatternFormatter
@@ -45,7 +47,7 @@ log4r_config:
   - type: RollingFileOutputter
     name: djlog
     level: DEBUG
-    filename: "log/dj.log"
+    filename: "log/dj/dj.log"
     maxsize: 20,000,000
     formatter:
       type        : PatternFormatter
@@ -54,7 +56,17 @@ log4r_config:
   - type: RollingFileOutputter
     name: djquerylog
     level: DEBUG
-    filename: "log/dj_query.log"
+    filename: "log/dj_query/dj_query.log"
+    maxsize: 20,000,000
+    formatter:
+      type        : PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: DateFileOutputter
+    name: statisticslog
+    level: DEBUG
+    dirname: "log/statistics"
+    filename: "statistics.log"
     maxsize: 20,000,000
     formatter:
       type        : PatternFormatter

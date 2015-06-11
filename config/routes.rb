@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'video/:id', to: 'video#show'
+  get 'video/iframe/:id', to: 'video#iframe'
+  get 'video_path', to: 'video#video_path'
+
   get 'home/index'
   root 'home#index'
   devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords', omniauth_callbacks: "user/omniauth_callbacks"}
@@ -23,7 +27,9 @@ Rails.application.routes.draw do
   resources :players
   resources :logos
 
-  resources :users
+  resources :users do
+    resource :space_stat, :only => [:show], :controller => 'statistics/space_stat'
+  end
   resources :companies, :controller => 'company/companies' do
     member do
       patch 'activate'

@@ -60,6 +60,7 @@ class Advertise::Resource < ActiveRecord::Base
 
   def video_transcode_finished
     self.status = STATUS::TRANSCODED
+    self.video_detail.remove_local_file!
     self.save!
   end
 end
