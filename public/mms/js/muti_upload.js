@@ -1,5 +1,8 @@
 $(function () {
-    formatFileSize = function (bytes) {
+ $("#up_btn").on('click', function (e) {
+   e.preventDefault();
+ });
+ formatFileSize = function (bytes) {
         if (typeof bytes !== 'number') {
             return '';
         }
