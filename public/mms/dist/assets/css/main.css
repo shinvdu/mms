@@ -1074,6 +1074,10 @@ body {
 .panel-content > form label + label {
   margin-left: 0.6em;
 }
+.panel-content .large-6 > .img-preview {
+  margin-top: 5em;
+  margin-left: 3em;
+}
 .panel-footer {
   position: absolute;
   bottom: 0;
@@ -1277,6 +1281,11 @@ body {
 }
 .form-description {
   color: #a7b2c4;
+}
+.img-preview {
+  width: 300px;
+  height: 200px;
+  border-radius: 4px;
 }
 .brand {
   width: 150px;
