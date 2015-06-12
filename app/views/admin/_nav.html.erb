@@ -1,52 +1,15 @@
-<nav class="nav-">
-  <ul class="nav-square clearfix">
-    <li class="current">
-      <a href="<%= admin_users_path %>">
-        <span class="square"></span>
-        用户管理
-      </a>
-    </li>
-    <li class="">
-      <a href="#manage-permission">
-        <span class="square"></span>
-        权限管理
-      </a>
-    </li>
-    <li class="">
-      <a href="#manage-api">
-        <span class="square"></span>
-        API管理
-      </a>
-    </li>
-    <li class="">
-      <a href="#manage-log">
-        <span class="square"></span>
-        操作日志
-      </a>
-    </li>
+<ul class="nav-panel clearfix">
+  <li class=""><a href="<%= admin_users_path %>"><i class="fa fa-fw fa-square"></i>用户管理</a></li>
+  <li><a href="javascript:void();"><i class="fa fa-fw fa-square"></i>权限管理</a></li>
+  <li><a href="javascript:void();"><i class="fa fa-fw fa-square"></i>API管理</a></li>
+  <li><a href="javascript:void();"><i class="fa fa-fw fa-square"></i>操作日志</a></li>
     <% if can? :check, VideoProductGroup %>
-        <li class="">
-          <a href="<%= video_product_group_check_statuses_path %>">
-            <span class="square"></span>
-            视频审核
-          </a>
-        </li>
+  <li><a href="<%= video_product_group_check_statuses_path %>"><i class="fa fa-fw fa-square"></i>视频审核</a></li>
     <% end %>
     <% if can? :access, :company_account %>
-        <li class="">
-          <a href="<%= companies_path %>">
-            <span class="square"></span>
-            企业管理
-          </a>
-        </li>
+  <li><a href="<%= companies_path %>"><i class="fa fa-fw fa-square"></i>企业管理</a></li>
     <% end %>
     <% if can? :access, :own_company %>
-        <li class="">
-          <a href="<%= company_path(current_user.company) %>">
-            <span class="square"></span>
-            企业账户
-          </a>
-        </li>
+  <li><a href="<%= company_path(current_user.company)  %>"><i class="fa fa-fw fa-square"></i>企业账户</a></li>
     <% end %>
-  </ul>
-</nav>
+</ul>

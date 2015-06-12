@@ -9,7 +9,9 @@
       <% @nolist_user_videos.each do |uv| %>
           <tr>
             <td><%= link_to uv.video_name, user_video_path(uv) %></td>
-            <td><%= link_to '添加', video_list_user_video_path(@video_list, uv), :method => :put %></td>
+            <td><% 
+            # link_to '添加', video_list_user_video_path(@video_list, uv), :method => :put 
+            %></td>
           </tr>
       <% end %>
     </table>

@@ -183,6 +183,12 @@ zh-CN:
         disable_time: "禁用时间"
         share: "共享"
         special_template: "特殊的模板"
+      water_mark_template:
+        name: 水印名称
+        refer_pos: 位置
+        text: 内容
+        font_size: 字号
+        transparency: 透明度
       user_video:
         owner_id: "用户"
         original_video_id: "原片视频"

@@ -13,10 +13,10 @@ module MTSWorker
   module VideoDetailWorker
     include MTSUtils::All
 
-    def create_transcoding_video_job(transcoding = nil, public = false)
+    def create_transcoding_video_job(transcoding = nil, public = false, water_mark_template = nil)
       transcoding = Transcoding.find_mini_template if transcoding.nil?
       template_id = transcoding.aliyun_template_id
-      suffix = transcoding.mini_transcoding? ? Settings.file_server.mini_suffix : transcoding.id.to_s
+      suffix = transcoding.mini_transcoding? ? Settings.file_server.mini_suffix : 't' + transcoding.id.to_s
       output_object_uri = self.uri.split('.')[0..-2].push(suffix, transcoding.container).join('.')
       logger.info "create transcoding job [video detail id: #{self.id}] [template id: #{template_id}]"
       output_bucket = public ? Settings.aliyun.oss.public_bucket : Settings.aliyun.oss.private_bucket
@@ -25,6 +25,11 @@ module MTSWorker
                                           output_object_uri,
                                           template_id,
                                           Settings.aliyun.mts.pipeline_id,
+                                          :water_mark => water_mark_template.blank? ? nil : {
+                                              :bucket => Settings.aliyun.oss.public_bucket,
+                                              :object => water_mark_template.img.current_path,
+                                              :water_mark_template_id => water_mark_template.aliyun_water_mark_template_id
+                                          },
                                           :output_bucket => output_bucket)
       if job_result.success
         transcoded_video_detail = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
@@ -114,6 +119,19 @@ module MTSWorker
                       transcoding.video_maxrate,
                       transcoding.video_bitrate_bnd_max,
                       transcoding.video_bitrate_bnd_min)
+    end
+  end
+
+  module WaterMarkTemplateWorker
+    include MTSUtils::All
+
+    def add_aliyun_water_mark_template
+      request_id, res = add_water_mark_template(self.name, self.width, self.height, 20, 20, self.refer_pos)
+      self.aliyun_water_mark_template_id = res.id
+    end
+
+    def delete_aliyun_water_mark_template
+      delete_water_mark_template(self.aliyun_water_mark_template_id)
     end
   end
 

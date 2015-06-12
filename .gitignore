@@ -19,6 +19,8 @@
 .idea
 class15.iml
 config/database.yml
+config/wgconfig.yml
+config/hosts.yml
 # config/application.yml
 Gemfile.lock
 vendor/bundle/ruby

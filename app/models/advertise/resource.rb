@@ -33,7 +33,7 @@ class Advertise::Resource < ActiveRecord::Base
     self.video_detail.save!
     self.status = STATUS::PREUPLOADED
     self.save!
-    self.delay.fetch_video_info_and_upload
+    self.delay(:queue_local).fetch_video_info_and_upload
     self
   end
 

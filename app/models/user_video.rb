@@ -1,16 +1,17 @@
 class UserVideo < ActiveRecord::Base
+  scope :not_deleted, -> { where('status <> ?', STATUS::ORIGIN_DELETED) }
   has_many :videos, :class_name => 'VideoDetail'
   has_many :video_product_groups
-  has_many :video_cut_points
-  has_many :tags_relationship
-  has_one :video_list_link
+  has_many :video_cut_points, :dependent => :delete_all
+  has_many :tags_relationships, :dependent => :delete_all
+  has_one :video_list_link, :dependent => :delete
   has_one :video_list, :through => :video_list_link
   belongs_to :owner, :class_name => 'User'
   belongs_to :creator, :class_name => 'User'
-  belongs_to :original_video, :class_name => 'VideoDetail'
-  belongs_to :mini_video, :class_name => 'VideoDetail'
-  belongs_to :mkv_video, :class_name => 'VideoDetail'
-  belongs_to :pre_mkv_video, :class_name => 'VideoDetail'
+  belongs_to :original_video, :class_name => 'VideoDetail', :dependent => :destroy
+  belongs_to :mini_video, :class_name => 'VideoDetail', :dependent => :destroy
+  belongs_to :mkv_video, :class_name => 'VideoDetail', :dependent => :destroy
+  belongs_to :pre_mkv_video, :class_name => 'VideoDetail', :dependent => :destroy
   belongs_to :default_transcoding_strategy, :class_name => 'TranscodingStrategy'
   validates :video_name, presence: true
   include Privilege
@@ -42,7 +43,7 @@ class UserVideo < ActiveRecord::Base
 
   include MTSWorker::UserVideoWorker
 
-  def set_video(video)
+  def set_video_and_publish(video, publish_strategy, transcoding_strategy)
     self.file_name = video.original_filename
     self.ext_name = File.extname(self.file_name)
 
@@ -53,12 +54,16 @@ class UserVideo < ActiveRecord::Base
     unless self.save
       return self
     end
-    self.delay.fetch_video_info_and_upload
+    self.delay(:queue => 'local').fetch_info_and_upload_and_publish(publish_strategy, transcoding_strategy)
     self
   end
 
   def GOT_LOW_RATE?
     self.status == STATUS::GOT_LOW_RATE
+  end
+
+  def ORIGIN_DELETED?
+    self.status == STATUS::ORIGIN_DELETED
   end
 
   def EDITABLE?
@@ -104,6 +109,11 @@ class UserVideo < ActiveRecord::Base
   # asynchronous method
   ######################################################
 
+  def fetch_info_and_upload_and_publish(publish_strategy, transcoding_strategy)
+    fetch_video_info_and_upload
+    publish_by_strategy(publish_strategy, transcoding_strategy)
+  end
+
   def fetch_video_info_and_upload
     video_detail = self.original_video
     video_detail.fetch_video_info
@@ -138,7 +148,8 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::PACKAGE
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_PACKAGE
         self.transaction do
-          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner)
+          self.original_video.download!
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :creator => self.creator)
           video_product_group.create_package_product
           video_product_group.set_video_list_by_user_video(self)
           self.original_video.remove_local_file!
@@ -146,7 +157,8 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
         return if self.format_status == FORMAT_STATUS::BAD_FORMAT_FOR_MTS
         self.transaction do
-          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner.owner, :creator => self.owner, :transcoding_strategy => transcoding_strategy)
+          self.original_video.download!
+          video_product_group = VideoProductGroup.create(:name => self.video_name, :user_video => self, :owner => self.owner, :creator => self.creator, :transcoding_strategy => transcoding_strategy)
           video_product_group.create_products_from_origin
           video_product_group.set_video_list_by_user_video(self)
           self.original_video.remove_local_file!
@@ -154,10 +166,10 @@ class UserVideo < ActiveRecord::Base
       when PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
         self.transaction do
           video_product_group = VideoProductGroup.create(:name => '未命名',
-                                   :user_video => self,
-                                   :owner => self.owner,
-                                   :creator => self.creator,
-                                   :status => VideoProductGroup::STATUS::CREATED)
+                                                         :user_video => self,
+                                                         :owner => self.owner,
+                                                         :creator => self.creator,
+                                                         :status => VideoProductGroup::STATUS::CREATED)
           video_product_group.set_video_list_by_user_video(self)
           self.original_video.remove_local_file!
         end
@@ -175,11 +187,42 @@ class UserVideo < ActiveRecord::Base
     upload_and_remove_local_mkv
   end
 
+  handle_asynchronously :pre_middle_transcode_finished, :queue => Settings.job_queue.slow
+
   def upload_and_remove_local_mkv
     transaction do
       self.mkv_video.load_local_file!
       self.mkv_video.remove_local_file!
     end
+  end
+
+  ######################################################
+  # remove
+  ######################################################
+  include OSS
+
+  def try_destroy!
+    return if self.video_product_groups.present?
+    self.videos.destroy_all
+    self.destroy!
+  end
+
+  def destroy
+    return super if self.video_product_groups.blank?
+    if self.video_product_groups.one? && self.video_product_groups.first.status == VideoProductGroup::STATUS::CREATED
+      self.video_product_groups.first.destroy
+      return super
+    end
+    self.status = STATUS::ORIGIN_DELETED
+    self.save
+    self.video_cut_points.destroy_all
+    self.tags_relationships.delete_all
+    self.video_list_link.delete if self.video_list_link
+    self.original_video.destroy if self.original_video
+    self.mini_video.destroy if self.mini_video
+    self.mkv_video.destroy if self.mkv_video
+    self.pre_mkv_video.destroy if self.pre_mkv_video
+    true
   end
 end
 

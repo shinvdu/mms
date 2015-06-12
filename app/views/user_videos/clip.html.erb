@@ -101,7 +101,7 @@
               </div>
               <div class="col-md-6">
                 <span>转码方案:</span>
-                <%= f.collection_select :transcoding_strategy_id, TranscodingStrategy.visible(current_user), :id, :name, {:include_blank => '--未设置--'}, :class => 'form-control' %>
+                <%= f.collection_select :transcoding_strategy_id, TranscodingStrategy.visible(current_user), :id, :name, {}, :class => 'form-control' %>
               </div>
           </div>
         </div>

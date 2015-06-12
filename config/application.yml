@@ -91,7 +91,14 @@ defaults: &defaults
       暂停广告: ad_pause
       悬浮广告: ad_float
       滚动广告: ad_scroll
-  aliyun:
+  water_mark:
+    font: Arial
+    color: '#bfbfbf'
+  job_queue:
+    fast: fast
+    slow: slow
+  aliyun: &defaults-aliyun
+    area: cn-hangzhou
     oss: &defaults-aliyun-oss
       download_proxy: http://
       proxy: http://
@@ -113,6 +120,7 @@ defaults: &defaults
     fragment_dir: public/uploads/fragments
     mini_suffix: mini
     video_cut_scheduled_queue: fs_video_cut_scheduled
+    token_expire_seconds: 60
   video_salt: 1a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
   default_player:
     id:  0
@@ -149,6 +157,7 @@ production:
   sms:
     apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
+    <<: *defaults-aliyun
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:
@@ -197,6 +206,7 @@ development:
   sms:
     apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
+    <<: *defaults-aliyun
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:
@@ -243,6 +253,7 @@ test:
   sms:
     apikey: 67b38689db4c81a0a95ac1763e244212
   aliyun:
+    <<: *defaults-aliyun
     access_id: 1cnDtYk8fMS0lyoM
     access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
     oss:

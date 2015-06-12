@@ -1,10 +1,36 @@
 class UserVideosController < ApplicationController
-  before_action :authenticate_account!, :check_login
+  # before_action :authenticate_account!, :check_login
   before_action :generate_publish_strategy, :only => [:index, :new, :show]
   before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
+  skip_before_filter :verify_authenticity_token, :only => [:uploads]
 
   def index
-    @user_videos = UserVideo.visible(current_user).order('id desc').page(params[:page])
+    @user_videos = UserVideo.visible(current_user).not_deleted.order('id desc').page(params[:page])
+  end
+
+  def uploads
+    first = params[:files].first if params[:files]
+    # debugger
+    # first.path  # save file
+    # first.original_filename # filename
+    # first.content_type
+    # first.size
+
+    json_data = { 
+      files:
+      [
+        {
+          name: first.original_filename,
+          url: "http://url.to/file/or/page",
+          thumbnail_url: "http://url.to/thumnail.jpg ",
+          type: first.content_type,
+          size: first.content_type,
+          delete_url: "http://url.to/delete /file/",
+          delete_type: "DELETE"
+        }
+      ]
+    }        
+    render json: json_data
   end
 
   def new
@@ -28,51 +54,6 @@ class UserVideosController < ApplicationController
     render :clip
   end
 
-  def create
-    video = user_video_params[:video]
-    video_name = user_video_params[:video_name].strip
-    publish_strategy = user_video_params[:publish_strategy].to_i
-    video_list_id = user_video_params[:video_list_id].to_i
-    default_transcoding_strategy = user_video_params[:default_transcoding_strategy]
-    default_transcoding_strategy = default_transcoding_strategy.to_i if default_transcoding_strategy
-
-    if video.blank?
-      session[:return_to] ||= request.referer
-      notice_error '必须选择视频'
-      redirect_to session.delete(:return_to)
-      return
-    end
-    ActiveRecord::Base.transaction do
-      @user_video = UserVideo.new(:owner => current_user.owner,
-                                  :creator => current_user,
-                                  :video_name => video_name
-      ).set_video(video)
-      @user_video.update_video_list! video_list_id
-      unless @user_video.save
-        notice_error '输入视频名称'
-        redirect_to session.delete(:return_to)
-        return
-      end
-    end
-    case publish_strategy
-      when UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH
-        @user_video.delay.publish_by_strategy(publish_strategy,
-                                              TranscodingStrategy.find(default_transcoding_strategy))
-      when UserVideo::PUBLISH_STRATEGY::PACKAGE
-        @user_video.delay.publish_by_strategy(publish_strategy, nil)
-      when UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT
-        # build empty product group
-        @user_video.publish_by_strategy(publish_strategy, nil)
-    end
-
-    respond_to do |format|
-      format.html do
-        redirect_to video_product_groups_path
-      end
-      format.json { render :json => 'succeed' }
-    end
-  end
-
   def update
     video_list_id = params[:user_video][:video_list_id].to_i if params[:user_video][:video_list_id].present?
     @user_video.update_video_list!(video_list_id)
@@ -91,7 +72,7 @@ class UserVideosController < ApplicationController
     @user_video = UserVideo.find(params[:id])
     if [UserVideo::PUBLISH_STRATEGY::PACKAGE, UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
         UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT].include? republish_params[:publish_strategy].to_i
-      @user_video.delay.publish_by_strategy(republish_params[:publish_strategy].to_i,
+      @user_video.delay(:queue => Settings.job_queue.slow).publish_by_strategy(republish_params[:publish_strategy].to_i,
                                             TranscodingStrategy.find(republish_params[:transcoding_strategy]))
     end
     redirect_to user_video_path
@@ -116,8 +97,7 @@ class UserVideosController < ApplicationController
   end
 
   def destroy
-    # user_video = UserVideo.find(params[:id])
-    # user_video.destroy
+    @user_video.destroy!
     redirect_to user_videos_path
   end
 
@@ -131,7 +111,7 @@ class UserVideosController < ApplicationController
     @publish_strategy = {
         '等待编辑' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_EDIT,
         '转码后发布' => UserVideo::PUBLISH_STRATEGY::TRANSCODING_AND_PUBLISH,
-        '封装为mp4直接发布' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
+        '封装为mp4直接发布（不使用水印）' => UserVideo::PUBLISH_STRATEGY::PACKAGE,
     }
   end
 

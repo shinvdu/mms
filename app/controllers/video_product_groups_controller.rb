@@ -1,9 +1,27 @@
 class VideoProductGroupsController < ApplicationController
   before_action :authenticate_account!, :check_login
-  before_action :set_video_product_group, only: [:clip_existed]
+  before_action :set_video_product_group, only: [:clip_existed, :last, :destroy]
 
   def index
-    @video_product_groups = VideoProductGroup.visible(current_user).order('id desc').page(params[:page])
+    arel = VideoProductGroup.arel_table
+    @video_product_groups = VideoProductGroup.visible(current_user).order('id desc')
+    @name = search_params[:name]
+    begin
+      @from = Date.parse search_params[:from] if search_params[:from].present?
+    rescue
+      notice_error('输入时间不正确')
+    end
+    begin
+      @to = Date.parse search_params[:to] if search_params[:to].present?
+    rescue
+      notice_error('输入时间不正确')
+    end
+    @video_list_id = search_params[:video_list_id].to_i
+    @video_product_groups = @video_product_groups.where(arel[:name].matches("%#{@name}%")) if @name.present?
+    @video_product_groups = @video_product_groups.where(arel[:created_at].gteq(@from)) if @from.present?
+    @video_product_groups = @video_product_groups.where(arel[:created_at].lteq(@to.tomorrow)) if @to.present?
+    @video_product_groups = @video_product_groups.joins(:video_list).where(:video_lists => {:id => @video_list_id}) if @video_list_id > 0
+    @video_product_groups = @video_product_groups.page(params[:page])
   end
 
   def show
@@ -12,7 +30,9 @@ class VideoProductGroupsController < ApplicationController
 
   def create
     begin
-      name, video_cut_points, user_video, player, strategy = get_clip_params
+      ActiveRecord::Base.transaction do
+        name, video_cut_points, user_video, player, strategy = get_clip_params
+      end
     rescue
       return
     end
@@ -25,7 +45,7 @@ class VideoProductGroupsController < ApplicationController
                                                      :transcoding_strategy => strategy)
       video_product_group.set_video_list_by_user_video(user_video) if user_video.present?
       video_product_group.create_fragments(video_cut_points)
-      video_product_group.delay.create_products_from_mkv
+      video_product_group.delay(:queue => Settings.job_queue.slow).create_products_from_mkv
     end
 
     respond_to do |format|
@@ -35,23 +55,33 @@ class VideoProductGroupsController < ApplicationController
   end
 
   def clip
-    begin
+    ActiveRecord::Base.transaction do
       name, video_cut_points, user_video, player, strategy = get_clip_params
-    rescue
-      return
-    end
-    video_product_group = VideoProductGroup.visible(current_user)
-                              .where(:status => VideoProductGroup::STATUS::CREATED).find(params[:video_product_group][:id])
-    video_product_group.transaction do
+      video_product_group = VideoProductGroup.visible(current_user)
+                                .where(:status => VideoProductGroup::STATUS::CREATED).find(params[:video_product_group][:id])
       video_product_group.name = name
       video_product_group.player = player
       video_product_group.transcoding_strategy = strategy
       video_product_group.status = VideoProductGroup::STATUS::SUBMITTED
       video_product_group.create_fragments(video_cut_points)
-      video_product_group.delay.create_products_from_mkv
+      video_product_group.delay(:queue => Settings.job_queue.slow).create_products_from_mkv
       video_product_group.save!
     end
     redirect_to video_product_groups_path
+  end
+
+  def last
+    authorize! :delete, @video_product_group
+    render :json => {:last => @video_product_group.user_video.video_product_groups.size == 1 && !@video_product_group.user_video.ORIGIN_DELETED?}
+  end
+
+  def destroy
+    authorize! :delete, @video_product_group
+    @video_product_group.transaction do
+      @video_product_group.destroy!
+      @video_product_group.user_video.try_destroy! if params[:remove_origin] == 'true' || @video_product_group.user_video.ORIGIN_DELETED?
+      render :json => {:status => 'succeed'}
+    end
   end
 
   def download
@@ -93,22 +123,19 @@ class VideoProductGroupsController < ApplicationController
     video_cut_points = VideoCutPoint.create_by_user(cut_points)
 
     strategy = TranscodingStrategy.visible(current_user).find(transcoding_strategy_id)
-    player = Player.visible(current_user).find(player_id)
-    if strategy.nil? || player.nil?
-      respond_to do |format|
-        format.html { redirect_to user_videos_path }
-        format.json { render :json => 'no transcoding strategy selected' }
-      end
-      raise
-    end
+    player = Player.visible(current_user).find_by_id(player_id)
     return name, video_cut_points, user_video, player, strategy
   end
 
   def set_video_product_group
-    @video_product_group = VideoProductGroup.visible(current_user).find(params[:video_product_group_id])
+    @video_product_group = VideoProductGroup.visible(current_user).find(params[:video_product_group_id] || params[:id])
   end
 
   def product_data_params
     params.require(:product_data).permit(:user_video_id, :name, :compose_strategy, :transcoding_strategy_id, :player_id)
+  end
+
+  def search_params
+    params[:search].present? ? params.require(:search).permit(:name, :from, :to, :video_list_id) : {}
   end
 end

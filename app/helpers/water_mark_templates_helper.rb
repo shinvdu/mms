@@ -1,0 +1,2 @@
+module WaterMarkTemplatesHelper
+end

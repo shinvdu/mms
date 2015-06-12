@@ -1,52 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="keywords" content="<%= @meta_keywords %>" />
-  <meta name="description" content="<%= @meta_description %>" />
-  <meta charset='utf-8' />
+  <meta name="keywords" content="<%= @meta_keywords %>"/>
+  <meta name="description" content="<%= @meta_description %>"/>
+  <meta charset='utf-8'/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= favicon_link_tag 'favicon.ico' %>
   <%= render_page_title %>
   <!-- video.js must be in the <head> for older IEs to work. -->
-  <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
-  <%= stylesheet_link_tag    'style', params[:controller], media: 'all', 'data-turbolinks-track' => true %>
-   <%= javascript_include_tag 'site',  params[:controller], 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'style', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'site', 'data-turbolinks-track' => true %>
+  <% filename = params[:controller] %>
+  <%= stylesheet_link_tag filename, media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag filename, media: 'all', 'data-turbolinks-track' => true %>
   <!-- page -->
   <%= yield(:head_js) %>
   <%= yield(:head_css) %>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  
+
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="site">
-    <%= render 'common/header' %>
+<div class="site">
+  <%= render 'common/header' %>
 
-    <div class="content">
-      <div class="container">
-        <%= render 'common/nav' %>
-        <div>
-          <div id="message">
-            <%= notice_message %>
-          </div>
+  <div class="content">
+    <div class="container">
+      <%= render 'common/nav' %>
+      <div>
+        <div id="message">
+          <%= notice_message %>
         </div>
-
-        <%= yield %>
-
       </div>
+
+      <%= yield %>
+
     </div>
-    <%= render 'common/footer' %>
-</div> 
-  <!-- 
-    <script src="/mms/js/bootstrap.min.js"></script>
--->
-    <script src="/mms/dist/assets/js/sly.min.js"></script>
-    <script src="/mms/js/production.js"></script>
-  </body>
+  </div>
+  <%= render 'common/footer' %>
+</div>
+</body>
 </html>

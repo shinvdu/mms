@@ -1,60 +1,59 @@
 <%=  render 'advertise/nav' %>
 
-<div class="tab-panel current" id="advertisement-solution">
-  <div class="panel-header clearfix">
-    <form class="pull-right" role="search">
-            <div class="form-group right-inner-addon">
-              <input class="form-control" placeholder="广告方案名称" type="search">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      <div id="advertisement-solution" class="tab-panel current">
+        <div class="panel-header clearfix">
+          <form class="clearfix">
+            <div class="right-inner-addon">
+              <input type="search" placeholder="广告方案名称"><i class="fa fa-search"></i>
             </div>
-    </form>
-    <a type="button" class="btn btn-green" href="<%=  new_advertise_strategy_path %>">添加广告方案</a>
-  </div>
-  <table class="table table-hover panel-table">
-    <thead>
-      <tr>
-        <th>名称</th>
-        <th>片头广告</th>
-        <th>片尾广告</th>
-        <th>暂停广告</th>
-        <th>悬浮广告</th>
-        <th>滚动字幕</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
+          </form>
+          <button  class="btn-green"><%= link_to '添加广告方案', new_advertise_strategy_path, 'style' => 'color:white', 'data-no-turbolink' => true %>
+          </div>
+        <table>
+          <thead>
+            <tr>
+              <th>编号</th>
+              <th>广告资源</th>
+              <th>片头广告</th>
+              <th>片尾广告</th>
+              <th>暂停广告</th>
+              <th>悬浮广告</th>
+              <th>滚动字幕</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
       <% @advertise_strategies.each do | strategy| %>
-      <tr>
-        <td><%=  strategy.name %></td>
-        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.front_ad) )  && advertise_resource_path(resource) %>">
-          <%=  resource  && resource.name %>
-        </a>
-        </td>
-        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.end_ad) )  && advertise_resource_path(resource) %>">
-          <%=  resource  && resource.name %>
-        </a>
-        </td>
-        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.pause_ad) )  && advertise_resource_path(resource) %>">
-          <%=  resource  && resource.name %>
-        </a>
+            <tr>
+              <td><%= strategy.id && strategy.id.to_s(36) %></td>
+              <td><%=  strategy.name %></td>
+              <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.front_ad) )  && advertise_resource_path(resource) %>">
+                <%=  resource  && resource.name %>
+              </a>
+            </td>
+            <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.end_ad) )  && advertise_resource_path(resource) %>">
+              <%=  resource  && resource.name %>
+            </a>
+          </td>
+          <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.pause_ad) )  && advertise_resource_path(resource) %>">
+            <%=  resource  && resource.name %>
+          </a>
         </td>
         <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.float_ad) )  && advertise_resource_path(resource) %>">
           <%=  resource  && resource.name %>
         </a>
-        </td>
-        <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.scroll_ad) )  && advertise_resource_path(resource) %>">
-          <%=  resource  && resource.name %>
-        </a>
-        </td>
-        <td>
+      </td>
+      <td> <a href="<%= ( resource = Advertise::Resource.find_by_id(strategy.scroll_ad) )  && advertise_resource_path(resource) %>">
+        <%=  resource  && resource.name %>
+      </a>
+    </td>
+
+    <td>
     <a href="<%=  edit_advertise_strategy_path(strategy) %>">修改</a>
     <%= link_to '删除', strategy, method: :delete, data: { confirm: '你确定要删除?' } %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <div class="panel-footer">
-    <%=  paginate @advertise_strategies %>
-  </div>
+  </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>

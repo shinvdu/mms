@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   get 'video/:id', to: 'video#show'
   get 'video/iframe/:id', to: 'video#iframe'
   get 'video_path', to: 'video#video_path'
-
   get 'home/index'
   root 'home#index'
   devise_for :accounts, controllers: {registrations: "user/registrations", sessions: 'user/sessions', passwords: 'user/passwords', omniauth_callbacks: "user/omniauth_callbacks"}
@@ -18,6 +17,12 @@ Rails.application.routes.draw do
   resources :tags
   resources :transcoding_strategies
   resources :transcodings
+  resources :water_mark_templates do
+    member do
+      patch :enable
+      patch :stop
+    end
+  end
   namespace :advertise do
     resources :strategies
   end
@@ -54,16 +59,22 @@ Rails.application.routes.draw do
     member do
       get 'download'
       patch 'clip'
+      get 'last'
     end
     resource :user_video, :only => [] do
       get 'clip_existed'
     end
   end
   resources :video_product_group_check_statuses
-  resources :user_videos do
+  resources :user_videos, :except => [:create] do
     member do
       post 'republish'
       get 'clip'
+    end
+    collection do
+      post :preupload, :controller => :uploader
+      post :upload, :controller => :uploader
+      post 'uploads'
     end
   end
   resources :video_lists

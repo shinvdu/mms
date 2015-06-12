@@ -19,6 +19,7 @@ class Ability
     can :manage, VideoList        if                                        user.company_owner? || user.company_admin?
 
 
+    can :manage, WaterMarkTemplate   unless                                                                              user.company_member?
     can :manage, Transcoding         unless                                                                              user.company_member?
     can :manage, TranscodingStrategy unless                                                                              user.company_member?
     can :manage, Advertise           unless                                                                              user.company_member?
@@ -28,11 +29,11 @@ class Ability
     Settings.video_privilege.keys.each do |pri|
       instance_eval <<-METHOD, __FILE__, __LINE__ + 1
         can :#{pri}, UserVideo do |user_video|
-          return true if user_video.creator == user || user_video.owner == user || user.company_admin?
+          user_video.creator == user || user_video.owner == user || (user.company_admin? && user.owner == user_video.owner) ? true :
           user_video.video_list && user_video.video_list.video_list_privileges.where(:user => user, :can_#{pri} => true).present?
         end
         can :#{pri}, VideoProductGroup do |group|
-          return true if group.creator == user || group.owner == user || user.company_admin?
+          group.creator == user || group.owner == user || (user.company_admin? && user.owner == group.owner) ? true :
           group.video_list && group.video_list.video_list_privileges.where(:user => user, :can_#{pri} => true).present?
         end
       METHOD

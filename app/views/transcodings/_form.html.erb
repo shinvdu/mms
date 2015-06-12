@@ -1,222 +1,175 @@
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        ['#transcoding_video_fps', '#video_main_frame_time'].forEach(function(e) {
-            $(e).on('change  paste keyup', function() {
-                var video_main_frame_time = parseInt($(this).val());
-                var fps = parseInt($("#transcoding_video_fps").val());
-                var gop = video_main_frame_time * fps;
-                $("#transcoding_video_gop").val(gop ? gop : 250);
-            });
-        });
-        $('#scanmode').change(
-                function() {
-                    if ($(this).is(':checked')) {
-                        $("#transcoding_video_scanmode").val('interlaced');
-                    } else {
-                        $("#transcoding_video_scanmode").val('progressive');
-                    }
-                });
-
-        $('#width_and').on('change', function(e) {
-            var optionSelected = $("option:selected", this);
-            var valueSelected = this.value;
-            var size = valueSelected.split('|');
-            var width = parseInt(size[0]);
-            $("#transcoding_width").val(width);
-            $("#transcoding_height").val('');
-
-        });
-
-        $('#and_height').on('change', function(e) {
-            var optionSelected = $("option:selected", this);
-            var valueSelected = this.value;
-            var size = valueSelected.split('|');
-            var height = parseInt(size[1]);
-            $("#transcoding_width").val('');
-            $("#transcoding_height").val(height);
-        });
-
-        $('#width_and_height').on('change', function(e) {
-            var optionSelected = $("option:selected", this);
-            var valueSelected = this.value;
-            switch (valueSelected) {
-                case 'keep':
-                    $('#item_and_height').hide();
-                    $('#item_width_and').hide();
-                    $("#transcoding_width").val('');
-                    $("#transcoding_height").val('');
-                    break;
-                case 'width':
-                    $('#item_and_height').hide();
-                    $('#item_width_and').show();
-                    $("#transcoding_height").val('');
-                    $('#width_and').change();
-                    break;
-                case 'height':
-                    $('#item_width_and').hide();
-                    $('#item_and_height').show();
-                    $("#transcoding_width").val('');
-                    $('#and_height').change();
-                    break;
-                default:
-                // n 与 case 1 和 case 2 不同时执行的代码
-            }
-        });
-    });
-
-</script>
-<div class="panel-content">
-  <div class="row">
-    <div class="col-md-9">
+<% javascript 'transcoding_edit' %>
       <%= form_for(@transcoding, html: {class: 'form-horizontal'}) do |f| %>
-          <% if @transcoding.errors.any? %>
-              <div id="error_explanation">
-                <h2> 发生了<%= pluralize(@transcoding.errors.count, "") %>个错误</h2>
+  <div class="panel-content">
+    <div class="panel-form">
+      <div class="form-group">
+        <div class="form-label form-title">
+          <label><%= t controller.action_name %>转码模板</label>
+        </div>
+      </div>
+      <% if @transcoding.errors.any? %>
+      <div id="error_explanation">
+        <h2> 发生了<%= pluralize(@transcoding.errors.count, "") %>个错误</h2>
 
-                <ul>
-                  <% @transcoding.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                  <% end %>
-                </ul>
-              </div>
+        <ul>
+          <% @transcoding.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
           <% end %>
-          <div class="form-group">
-            <%= f.label :模板名称, :class => "col-md-3 control-label" %>
-            <div class="col-sm-6">
-              <%= f.text_field :name, class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :输出格式, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <p class="form-control-static">mp4</p>
-              <%= f.hidden_field :container %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :转码速度, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <%= f.select :video_preset, Settings.transcoding.video_preset, {}, {:class => 'form-control'} %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :视频编码, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <%= f.text_field :video_codec, :value => Settings.transcoding.video_codec, :readonly => true, class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :音频编码, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <%= f.select :audio_codec, Settings.transcoding.audio_codec, {}, class: 'form-control' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :视频码流, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <div class="input-group">
-                <%= f.number_field :video_bitrate, class: 'form-control' %>
-                <span class="input-group-addon">Kbps</span>
-              </div>
-            </div>
-            <div class="col-md-3 input-horizontal-helper-text">(必填，范围10-50000)</div>
-          </div>
-          <div class="form-group">
-            <%= f.label :音频码流, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <div class="input-group">
-                <%= f.number_field :audio_bitrate, class: 'form-control' %>
-                <span class="input-group-addon">Kbps</span>
-              </div>
-            </div>
-            <div class="col-md-3 input-horizontal-helper-text">(必填，范围8-1000)</div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :视频帧率, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <div class="input-group">
-                <%= f.number_field :video_fps, class: 'form-control' %>
-                <span class="input-group-addon">帧/每秒</span>
-              </div>
-            </div>
-            <div class="col-md-3 input-horizontal-helper-text">(必填，默认值25帧/秒，范围1-60)</div>
-          </div>
-          <div class="form-group">
-            <%= f.label :关键帧间隔, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <div class="input-group">
-                <%= text_field_tag :video_main_frame_time, (@transcoding.video_fps && @transcoding.video_gop && (@transcoding.video_gop.to_i / @transcoding.video_fps.to_i)), class: 'form-control' %>
-                <span class="input-group-addon">秒</span>
-              </div>
-            </div>
-            <div class="col-md-3 input-horizontal-helper-text">(必填，默认值10秒，范围8-50)</div>
-          </div>
-          <div class="form-group">
-            <%= f.label :视频隔行扫描, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <%= check_box_tag(:scanmode, '1', checked = @transcoding.video_scanmode == 'interlaced') %>
-              <%= label_tag :scanmode, '是' %>
-
-              <!--     interlaced
-                  progressive
-               -->
-            </div>
-          </div>
-          <div class="form-group">
-            <%= f.label :视频缓冲, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <div class="input-group">
-                <%= f.number_field :video_bufsize, class: 'form-control' %>
-                <span class="input-group-addon">kb</span>
-              </div>
-            </div>
-            <div class="col-md-3 input-horizontal-helper-text">(必填，默认值6000，范围[1000,128000])</div>
-          </div>
-          <div class="form-group">
-            <%= f.label :视频长宽, :class => "col-md-3 control-label" %>
-            <div class="col-md-6">
-              <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group" style="width:4px">
-                  <%
-                     width_and_height = 'keep' if not (@transcoding.width || @transcoding.height)
-                     width_and_height = 'width' if @transcoding.width
-                     width_and_height = 'height' if @transcoding.height
-                  %>
-                  <%= select_tag(:width_and_height, options_for_select([['保持原视频长宽', 'keep'], ['指定宽度，按比例缩放', 'height'], ['指定高度，按比例缩放', 'width']], width_and_height), {:class => 'form-control player_size'}) %>
-                </div>
-                <div class="btn-group" role="group" id="item_width_and" style="display: <%= 'none' if not @transcoding.width  %> ">
-                  <%= select_tag(:width_and, options_for_select(Settings.transcoding.width_and_height.invert.to_a.map { |key, value| [key.split('x').first, value] }, "#{@transcoding.width}|#{@transcoding.height}"), {:class => 'form-control player_size'}) %>
-                </div>
-                <div class="btn-group" role="group" id="item_and_height" style="display: <%= 'none' if not @transcoding.height  %> ">
-                  <%= select_tag(:and_height, options_for_select(Settings.transcoding.width_and_height.invert.to_a.map { |key, value| [key.split('x').last << 'P', value] }, "#{@transcoding.width}|#{@transcoding.height}"), {:class => 'form-control player_size'}) %>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <%= f.hidden_field :video_gop %>
-          <%= f.hidden_field :video_scanmode %>
-          <%= f.hidden_field :width %>
-          <%= f.hidden_field :height %>
-
-          <%= f.hidden_field :audio_samplerate, :value => 44100 %>
-          <%= f.hidden_field :audio_channels, :value => 2 %>
-          <%= f.hidden_field :video_profile, :value => Settings.transcoding.video_profile %>
-
-          <div class="form-group">
-            <div class="col-md-offset-3 col-md-6">
-              <%= f.submit '保存', :class => 'btn btn-green' %>
-              <%= link_to '取消', transcodings_path, :class => 'btn btn-gray' %>
-            </div>
-          </div>
+        </ul>
+      </div>
       <% end %>
+
+      <div class="form-group">
+        <div class="form-label">
+          <label for="template-name">模版名称:</label>
+        </div>
+        <div class="form-field">       
+              <%= f.text_field :name  %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label>输出格式:</label>
+        </div>
+        <div class="form-field">
+          <%= @transcoding.container %>
+          <%= f.hidden_field :container %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="transcoding-level">转码速度:</label>
+        </div>
+        <div class="form-field">
+          <div>
+              <%= f.select :video_preset, Settings.transcoding.video_preset, {}, {:id => 'transcoding-level'} %>
+          </div>
+          <!-- <div class="form-description">备注: 推荐使用 high</div> -->
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label>视频编码:</label>
+        </div>
+        <div class="form-field">
+          <%= @transcoding.video_codec %>
+          <%= f.hidden_field :video_codec, :value => Settings.transcoding.video_codec %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-coding">音频编码:</label>
+        </div>
+        <div class="form-field">
+          <div>
+              <%= f.select :audio_codec, Settings.transcoding.audio_codec, {}, id: 'audio-coding' %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-coding">视频码流:</label>
+        </div>
+        <div class="form-field">
+          <div>
+                <%= f.number_field :video_bitrate %>
+          </div>
+          <div class="form-description">单位: Kbps</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-coding">音频码流:</label>
+        </div>
+        <div class="form-field">
+          <div>
+                <%= f.number_field :audio_bitrate %>
+          </div>
+          <div class="form-description">单位: Kbps</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-coding">视频帧率:</label>
+        </div>
+        <div class="form-field">
+          <div>
+                <%= f.number_field :video_fps %>
+          </div>
+          <div class="form-description">单位: 帧/每秒</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-coding">关键帧间隔:</label>
+        </div>
+        <div class="form-field">
+          <div>
+                <%= text_field_tag :video_main_frame_time, (@transcoding.video_fps && @transcoding.video_gop && (@transcoding.video_gop.to_i / @transcoding.video_fps.to_i)), class: 'form-control' %>
+          </div>
+          <div class="form-description">单位: 秒</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">
+          <label>视频隔行扫描:</label>
+        </div>
+        <div class="form-field">
+          <label>
+              <%= check_box_tag(:scanmode, '1', checked = @transcoding.video_scanmode == 'interlaced') %>是
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="audio-coding">视频缓冲:</label>
+        </div>
+        <div class="form-field">
+          <div>
+                <%= f.number_field :video_bufsize, class: 'form-control' %>
+          </div>
+          <div class="form-description">单位: kb</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-label">
+          <label for="video-aspect-ratio">视频长宽比:</label>
+        </div>
+        <div class="form-field">
+          <div>
+            <%
+            width_and_height = 'keep' if not (@transcoding.width || @transcoding.height)
+            width_and_height = 'width' if @transcoding.width
+            width_and_height = 'height' if @transcoding.height
+            %>
+            <%= select_tag(:width_and_height, options_for_select([['保持原视频长宽', 'keep'], ['指定宽度，按比例缩放', 'height'], ['指定高度，按比例缩放', 'width']], width_and_height), {:class => 'form-control player_size'}) %>
+          </div>
+          <div class="form-inline">
+            <!-- <label>说明:</label> -->
+            <div style="display: <%= 'none' if not @transcoding.width  %>" id="item_width_and" >
+              <%= select_tag(:width_and, options_for_select(Settings.transcoding.width_and_height.invert.to_a.map { |key, value| [key.split('x').first, value] }, "#{@transcoding.width}|#{@transcoding.height}"), {:class => ' '}) %>
+            </div>
+            <div style="display: <%= 'none' if not @transcoding.height  %>"  id="item_and_height" >
+              <%= select_tag(:and_height, options_for_select(Settings.transcoding.width_and_height.invert.to_a.map { |key, value| [key.split('x').last << 'P', value] }, "#{@transcoding.width}|#{@transcoding.height}"), {:class => ''}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%= f.hidden_field :video_gop %>
+      <%= f.hidden_field :video_scanmode %>
+      <%= f.hidden_field :width %>
+      <%= f.hidden_field :height %>
+
+      <%= f.hidden_field :audio_samplerate, :value => 44100 %>
+      <%= f.hidden_field :audio_channels, :value => 2 %>
+      <%= f.hidden_field :video_profile, :value => Settings.transcoding.video_profile %>
+      <div class="form-group">
+        <div class="form-field form-submit">
+              <%= f.submit '保存', :class => 'btn-green' %>
+              <%= link_to '取消', transcodings_path, :class => 'btn btn-gray' %>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
+  <% end %>

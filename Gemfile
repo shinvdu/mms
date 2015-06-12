@@ -49,6 +49,7 @@ gem 'rest-client'
 gem 'carrierwave-aliyun'
 gem 'uuidtools'
 gem 'mini_magick', '~> 3.8.1'
+gem 'rmagick', '~> 2.15.2'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'kaminari'
@@ -70,7 +71,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  # gem 'spring'
   gem 'annotate_models'
   gem 'annotate'
 

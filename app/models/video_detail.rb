@@ -2,8 +2,8 @@ class VideoDetail < ActiveRecord::Base
   belongs_to :user_video
   belongs_to :transcoding
   has_many :snapshots
-  mount_uploader :public_video, PublicVideoUploader if not Rails.env.test? 
-  mount_uploader :private_video, PrivateVideoUploader  if not Rails.env.test? 
+  mount_uploader :public_video, PublicVideoUploader if not Rails.env.test?
+  mount_uploader :private_video, PrivateVideoUploader if not Rails.env.test?
   scope :transcoded, -> { where(['fragment=false and transcoding_id > 1']) }
 
   require 'fileutils'
@@ -29,8 +29,7 @@ class VideoDetail < ActiveRecord::Base
   end
 
   def store_dir
-    return File.dirname(self.uri) if self.transcoding.nil? || self.fragment || self.transcoding.mini_transcoding? || self.user_video_id.present?
-    "product_#{self.id}"
+    return File.dirname(self.uri)
   end
 
   def public_remote_file_name
@@ -51,7 +50,6 @@ class VideoDetail < ActiveRecord::Base
     self.uri = File.join(Settings.aliyun.oss.user_video_dir, self.uuid, "#{self.uuid}#{user_video.ext_name}")
     self.status = STATUS::ONLY_LOCAL
 
-    # TODO save file to file server
     temp_path = Rails.root.join(Settings.file_server.dir, self.uri)
     dir = File.dirname(temp_path)
     FileUtils.makedirs(dir) if !File.directory?(dir)
@@ -130,6 +128,9 @@ class VideoDetail < ActiveRecord::Base
     if self.user_video.ext_name == '.mkv' && input_path == output_path
       return self
     end
+    output_dir = File.dirname output_path
+    FileUtils.mkpath output_dir if !File.exist? output_dir
+    logger.info "ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}"
     `ffmpeg  -i #{input_path}  -y -vcodec copy -acodec copy #{output_path}`
     mkv_video = VideoDetail.new.set_attributes_by_hash(self.copy_attributes)
     mkv_video.uri = self.uri.split('.')[0..-2].append('mkv').join('.')
@@ -222,6 +223,7 @@ class VideoDetail < ActiveRecord::Base
         user_video.duration = self.duration
         user_video.width = self.width
         user_video.height = self.height
+        user_video.save!
       end
     end
   end
@@ -280,9 +282,10 @@ class VideoDetail < ActiveRecord::Base
     file_path = self.get_full_path
     if File.exist? file_path
       self.status = self.REMOTE? ? STATUS::BOTH : STATUS::ONLY_LOCAL
-      save! if changed?
+      save!
       return
     end
+    FileUtils.mkdir_p File.dirname(file_path) unless File.exist? File.dirname(file_path)
     logger.info "download file[id: %s]: %s" % [self.id, self.get_full_path]
     cache_path = self.full_cache_path!
     logger.debug "cp #{cache_path} #{file_path}"
@@ -298,7 +301,7 @@ class VideoDetail < ActiveRecord::Base
     # create n snapshots from 10% to 90%
     iters = n > 0 ? (0..n).to_a.map { |i| self.duration*0.8/n*i+self.duration*0.1 } : [self.duration * 0.1]
     iters.each_with_index do |time, idx|
-      uri = File.join(File.dirname(self.uri), [self.id, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
+      uri = File.join(File.dirname(self.uri), [self.id, n, idx, Settings.aliyun.mts.snapshot_ext].join('.'))
       snapshot = Snapshot.create(:time => time,
                                  :uri => uri,
                                  :video_detail => self,
@@ -342,6 +345,23 @@ class VideoDetail < ActiveRecord::Base
     self.status == STATUS::NONE
   end
 
+  ######################################################
+  # remove
+  ######################################################
+  include OSS
+
+  def clear
+    self.remove_public_video
+    self.remove_private_video
+    self.snapshots.each { |snapshot| snapshot.destroy if snapshot.video_product_group.nil? }
+    self.status = STATUS::NONE
+    self.save
+  end
+
+  def destroy
+    self.clear
+    super
+  end
 end
 
 #------------------------------------------------------------------------------

@@ -132,6 +132,7 @@ module MTSUtils
       output_bucket = args[:output_bucket]
       output_location = args[:output_location]
       user_data = args[:user_data]
+      water_mark = p[:water_mark]
       params = {'Action' => 'SubmitJobs',
                 'Input' => {
                     'Bucket' => bucket,
@@ -143,13 +144,12 @@ module MTSUtils
                 'Outputs' => [{
                                   'OutputObject' => output_object,
                                   'TemplateId' => template_id,
-                                  'WaterMarks' => [],
-                                  # "WaterMarks" => [{
-                                  #                      "InputFile" => {
-                                  #                          "Bucket" => "example-bucket",
-                                  #                          "Location" => "oss-cn-hangzhou",
-                                  #                          "Object" => "example-logo.png"},
-                                  #                      "WaterMarkTemplateId" => "88c6ca184c0e47098a5b665e2a126797"}],
+                                  'WaterMarks' => water_mark.blank? ? [] : [{
+                                                       'InputFile' => {
+                                                           'Bucket' => water_mark[:bucket],
+                                                           'Location' => water_mark[:location] || location,
+                                                           'Object' => water_mark[:object]},
+                                                       'WaterMarkTemplateId' => water_mark[:water_mark_template_id]}],
                                   'UserData' => user_data
                               }].to_json,
                 'PipelineId' => pipeline_id
@@ -263,7 +263,7 @@ module MTSUtils
                      video_maxrate,
                      video_bitrate_bnd_max,
                      video_bitrate_bnd_min,
-                     state)
+                     state = 'Normal')
       params = {
           'Action' => 'AddTemplate',
           'Name' => name,
@@ -400,7 +400,7 @@ module MTSUtils
     def delete_water_mark_template(water_mark_template_id)
       params = {
           'Action' => 'DeleteWaterMarkTemplate',
-          'TemplateId' => water_mark_template_id,
+          'WaterMarkTemplateId' => water_mark_template_id,
       }.select { |k, v| v.present? }
       url = generate_url(params)
       res = JSON.parse execute(url)
@@ -523,7 +523,7 @@ module MTSUtils
     end
   end
   class AliyunWaterMarkTemplate
-    attr_accessor :input_file, :water_mark_template_id
+    attr_accessor :id, :name, :width, :height, :dx, :dy, :refer_pos, :type, :state
 
     def initialize(var)
       if var.is_a? Hash
