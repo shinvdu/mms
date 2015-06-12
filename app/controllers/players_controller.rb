@@ -1,7 +1,8 @@
 class PlayersController < ApplicationController
   before_action :authenticate_account!, except: [:show] # 匿名用户也可以加载播放器设置
   before_action :set_user_id, only: [:create, :update]
-  before_action :set_player, only: [:show, :edit, :update, :destroy]
+  before_action :set_player, only: [:edit, :update, :destroy]
+  before_action :set_public_player, only: [:show]
 
   def index
     @players = Player.visible(current_user).page(params[:page])
@@ -113,7 +114,14 @@ class PlayersController < ApplicationController
     else
       @player = Player.visible(current_user).find(params[:id])
     end
-    @player.logo = Logo.find(6)
+  end
+
+  def set_public_player
+    if params[:id] == '0'
+      @player = Player.new(Settings.default_player.to_h)
+    else
+      @player = Player.find(params[:id])
+    end
   end
 
   def player_params

@@ -10,36 +10,43 @@ function cal_signature(video_id) {
     var session_id = $.cookie('wgcloud_id');
     var video_salt = $.cookie('video_salt');
     var cal_string = session_id + '#' + video_id + '#' + video_salt;
-    // console.log(cal_string)
     return hex_sha1(cal_string)
 }
 
 jQuery(document).ready(function($) {
+    var videojsid = "wgcloud_video_1";
+    var $video = $("#wgcloud_video_1");
     function player_id() {
         return $("#player_id").attr('player')
     }
 
     function player_init(json) {
         var data_setup = json.init;
+        $.extend(data_setup, {
+            plugins: {
+                resolutions: true
+            }
+        });
         var logo = json.logo;
-        var video = videojs("wgcloud_video_1", data_setup);
+        load_video();
+        var video = videojs(videojsid, data_setup);
         if (logo !== undefined) {
             video.watermark(logo);
         }
-        load_video(video);
     }
 
-    function load_video(video) {
+    function load_video() {
         var base_string = $("#source").attr('source');
         var sources = JSON.parse(Base64.decode(base_string));
         var video_id = $("#video_id").attr('videoid');
         var signature = cal_signature(video_id);
-        sources.map(function(n) {
-            n.src = n.src + '&signature=' + signature
+        sources.map(function(srouce) {
+            srouce.src = srouce.src + '&signature=' + signature
         });
-        // console.log(sources)
-        video.src(sources)
-
+        $.each(sources, function(_, source) {
+            var $source = $("<source>").attr("src", source.src).attr("type", source.type).attr("data-res", source["data-res"]);
+            $video.children("p").before($source);
+        });
     }
 
     $.ajax({
