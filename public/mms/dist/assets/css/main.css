@@ -652,6 +652,8 @@ ul {
 }
 input[type='text'],
 input[type='search'],
+input[type='email'],
+input[type='password'],
 select {
   height: 2em;
   padding-left: 0.8em;
@@ -1042,6 +1044,8 @@ body {
   margin-right: 3em;
 }
 .panel-content > form input[type='text'],
+.panel-content > form input[type='email'],
+.panel-content > form input[type='password'],
 .panel-content > form textarea,
 .panel-content > form select {
   width: 100%;

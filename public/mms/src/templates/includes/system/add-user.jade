@@ -7,27 +7,27 @@ include ../mixins
     form
       .row
         .cols.large-10
-          .row
-            .cols.large-12
+          .row.form-title
+            .cols.large-2.l-text-right
               | 增加用户
           .row
-            .cols.large-2
+            .cols.large-2.l-text-right
               label(for='subuser-name') 名称:
-            .cols.large-6
+            .cols.large-4
               input#subuser-name(type='text')
           .row
-            .cols.large-2
+            .cols.large-2.l-text-right
               label(for='subuser-email') 邮箱:
-            .cols.large-6
+            .cols.large-4
               input#subuser-email(type='email')
           .row
-            .cols.large-2
+            .cols.large-2.l-text-right
               label(for='subuser-password') 密码:
-            .cols.large-6
+            .cols.large-4
               input#subuser-password(type='password')
           .row
             .cols.large-10.offset-by-2
-              table
+              table.table(summary='分类权限列表')
                 thead
                   tr
                     th 视频分类名称
@@ -67,7 +67,7 @@ include ../mixins
                       input(type='checkbox')
                     td
                       input(type='checkbox')
-          .row
+          .row.form-submit
             .cols.large-10.offset-by-2
-              button(type='submit') 保存
-              button.btn-show-panel(data-panel='manage-user') 取消
+              button.btn-success(type='submit') 保存
+              a.link-button-cancel.btn-show-panel(data-panel='manage-user' href='#') 取消

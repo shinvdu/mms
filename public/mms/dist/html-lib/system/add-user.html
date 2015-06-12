@@ -5,36 +5,36 @@
     <form>
       <div class="row">
         <div class="cols large-10">
-          <div class="row">
-            <div class="cols large-12">增加用户</div>
+          <div class="row form-title">
+            <div class="cols large-2 l-text-right">增加用户</div>
           </div>
           <div class="row">
-            <div class="cols large-2">
+            <div class="cols large-2 l-text-right">
               <label for="subuser-name">名称:</label>
             </div>
-            <div class="cols large-6">
+            <div class="cols large-4">
               <input id="subuser-name" type="text"/>
             </div>
           </div>
           <div class="row">
-            <div class="cols large-2">
+            <div class="cols large-2 l-text-right">
               <label for="subuser-email">邮箱:</label>
             </div>
-            <div class="cols large-6">
+            <div class="cols large-4">
               <input id="subuser-email" type="email"/>
             </div>
           </div>
           <div class="row">
-            <div class="cols large-2">
+            <div class="cols large-2 l-text-right">
               <label for="subuser-password">密码:</label>
             </div>
-            <div class="cols large-6">
+            <div class="cols large-4">
               <input id="subuser-password" type="password"/>
             </div>
           </div>
           <div class="row">
             <div class="cols large-10 offset-by-2">
-              <table>
+              <table summary="分类权限列表" class="table">
                 <thead>
                   <tr>
                     <th>视频分类名称</th>
@@ -96,10 +96,9 @@
               </table>
             </div>
           </div>
-          <div class="row">
+          <div class="row form-submit">
             <div class="cols large-10 offset-by-2">
-              <button type="submit">保存</button>
-              <button data-panel="manage-user" class="btn-show-panel">取消</button>
+              <button type="submit" class="btn-success">保存</button><a data-panel="manage-user" href="#" class="link-button-cancel btn-show-panel">取消</a>
             </div>
           </div>
         </div>
