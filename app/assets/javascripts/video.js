@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
     function player_init(json) {
         var data_setup = json.init;
         var logo = json.logo;
-        video = videojs("wgcloud_video_1", data_setup);
+        var video = videojs("wgcloud_video_1", data_setup);
         if (logo !== undefined) {
             video.watermark(logo);
         }
@@ -49,4 +49,4 @@ jQuery(document).ready(function($) {
             player_init(json)
         },
     });
-})
+});

@@ -10,39 +10,39 @@ class PlayersController < ApplicationController
   def show
     if @player.logo
       case @player.logo_position
-      when 'left_top'
-        xpos = 0
-        ypos = 0
-      when 'bottom_right'
-        xpos = 100
-        ypos = 100
-      when 'bottom_left'
-        xpos =  0
-        ypos = 100
-      when 'top_right'
-       xpos = 100
-       ypos = 0
-     end
-     hash_water = {
-      # file: @player.logo.uri_url(:normal) ,
-      xpos: xpos,
-      ypos: ypos,
-      xrepeat: 0,
-      opacity: 0.5
-    }
-    hash_water[:file] = @player.logo.uri_url(:normal) if not Rails.env.test?
-  end
+        when 'top_left'
+          xpos = 0
+          ypos = 0
+        when 'bottom_right'
+          xpos = 100
+          ypos = 100
+        when 'bottom_left'
+          xpos = 0
+          ypos = 100
+        when 'top_right'
+          xpos = 100
+          ypos = 0
+      end
+      hash_water = {
+          # file: @player.logo.uri_url(:normal) ,
+          xpos: xpos,
+          ypos: ypos,
+          xrepeat: 0,
+          opacity: 0.5
+      }
+      hash_water[:file] = @player.logo.uri_url(:normal) if not Rails.env.test?
+    end
 
     respond_to do |format|
       format.html
       format.json {
         json_data = {
-          init: {
-            controls: true,
-            preload: 'meta',
-            autoplay: @player.autoplay ? @player.autoplay : false,
-            width: @player.width ? @player.width : 852,
-            height: @player.height ? @player.height : 480,
+            init: {
+                controls: true,
+                preload: 'meta',
+                autoplay: @player.autoplay ? @player.autoplay : false,
+                width: @player.width ? @player.width : 852,
+                height: @player.height ? @player.height : 480,
             },
             # logo: hash_water
         }
@@ -113,6 +113,7 @@ class PlayersController < ApplicationController
     else
       @player = Player.visible(current_user).find(params[:id])
     end
+    @player.logo = Logo.find(6)
   end
 
   def player_params
