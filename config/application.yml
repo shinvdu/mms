@@ -124,13 +124,15 @@ defaults: &defaults
   video_salt: 1a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
   default_player:
     id:  0
-    autoplay:  false
+    autoplay:  true
     width:  852
     height:  480
+#    logo: 6
+    logo_position: top_right
 
 production:
   <<: *defaults
-  host_url: http://www.wgcloud.com
+  video_host_url: http://www.wgcloud.com
   default_url_options:
     host:  wgcloud.com
     port:  80
@@ -182,7 +184,7 @@ development:
   <<: *defaults
   to_str:
   to_ary:
-  host_url: http://localhost:3000
+  video_host_url: http://localhost:3000
   omniauth:
     tqq:
       key: 101217165
@@ -229,7 +231,7 @@ development:
 
 test:
   <<: *defaults
-  host_url: http://localhost:3000
+  video_host_url: http://localhost:3000
   omniauth:
     tqq:
       key: 1111111111
