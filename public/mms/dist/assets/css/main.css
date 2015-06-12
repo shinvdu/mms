@@ -984,10 +984,16 @@ body {
   display: block;
 }
 .panel button + button,
+.panel input + button,
 .panel a + button,
 .panel button + a,
+.panel input + a,
 .panel a + a {
   margin-left: 0.7em;
+}
+.panel-padded {
+  padding-right: 1.5em;
+  padding-left: 1.5em;
 }
 .panel-header {
   width: 100%;
@@ -1084,6 +1090,9 @@ body {
   border-spacing: 0;
   text-align: center;
 }
+.table:nth-child(n+2) {
+  margin-top: 0.8em;
+}
 .table > thead {
   font-size: 15px;
   color: #a7b2c4;
@@ -1093,6 +1102,18 @@ body {
   border-bottom: 1px solid #efedee;
   background-color: #f2f0f1;
   line-height: 2.5em;
+}
+.table > thead a {
+  margin-left: 0.3em;
+}
+.table > thead a:link,
+.table > thead a:visited {
+  color: #4fbf91;
+}
+.table > thead a:hover,
+.table > thead a:active,
+.table > thead a:focus {
+  color: #39a478;
 }
 .table > tbody {
   font-size: 14px;
@@ -1119,6 +1140,7 @@ body {
   margin-left: 0.4em;
 }
 .btn,
+.btn-common,
 .btn-primary,
 .btn-success,
 .btn-cancle,
@@ -1127,6 +1149,18 @@ body {
   padding: 0.3em 1.5em;
   border: none;
   border-radius: 4px;
+}
+.btn-common {
+  background-color: #fff;
+  border: 1px solid #efedee;
+  color: #3f4754;
+}
+.btn-common:hover {
+  background-color: #f2f0f1;
+}
+.btn-common.is-selected {
+  background-color: #4fbf91;
+  color: #fff;
 }
 .btn-primary {
   background-color: #8d9ddd;

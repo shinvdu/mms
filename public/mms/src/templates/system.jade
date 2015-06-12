@@ -10,6 +10,10 @@ append content
           i.fa.fa-fw.fa-square
           | 用户管理
       li
+        a(href='?panel=manage-category')
+          i.fa.fa-fw.fa-square
+          | 分类管理
+      li
         a(href='?panel=manage-permission')
           i.fa.fa-fw.fa-square
           | 权限管理
@@ -24,6 +28,7 @@ append content
 
   include includes/system/manage-user
   include includes/system/add-user
+  include includes/system/manage-category
   include includes/system/manage-user-admin
   include includes/system/manage-permission
   include includes/system/add-permission-management

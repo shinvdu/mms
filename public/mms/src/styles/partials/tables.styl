@@ -4,6 +4,9 @@
   border-spacing 0
   text-align center
 
+  &:nth-child(n+2)
+    margin-top 0.8em
+
   > thead
     font-size 15px
     color color-text-light
@@ -13,6 +16,18 @@
       border-bottom 1px solid color-border
       background-color color-background
       line-height 2.5em
+
+    a
+      margin-left 0.3em
+
+      &:link,
+      &:visited
+        color color-success
+
+      &:hover,
+      &:active,
+      &:focus
+        color color-success-hover
 
   > tbody
     font-size 14px
