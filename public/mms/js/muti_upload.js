@@ -39,7 +39,7 @@ $(function () {
 
     fileLimit = function(file){
        var uploadErrors = [];
-       var acceptFileTypes = /^video\/(mp4|jpe?g)$/i;
+       var acceptFileTypes = /^video\/(3gp|avi|m3u8|mpg|asf|wmv|mov|ts|webm|mp4|mkv|mpeg4|mpeg|mpe|x-flv)$/i;
        if(file['type'].length && !acceptFileTypes.test(file['type'])) {
             uploadErrors.push('Not an accepted file type');
         }

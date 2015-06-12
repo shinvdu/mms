@@ -39,6 +39,30 @@
 	width: 150px;
 }
 
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+}
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
+}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+  .fileinput-button input {
+    filter: alpha(opacity=0);
+    font-size: 100%;
+    height: 100%;
+  }
+}
 </style>
 
 <div id="video-upload" class="tab-panel current">
@@ -58,8 +82,10 @@
         </tbody>
     </table>
     <div class="panel-footer">
-        <button class="btn-purple">选择文件</button>
-          <label for="file">File to Upload</label> <%= file_field_tag "files[]", 'multiple' => true %>
+        <button class="btn-purple fileinput-button">
+        	<span>选择文件</span>
+        	<%= file_field_tag "files[]", 'multiple' => true %>
+        </button>
         <button class="btn-green" id="up_btn">上传文件</button>
     </div>
 </div>
