@@ -8,6 +8,10 @@ class UserVideosController < ApplicationController
     @user_videos = UserVideo.visible(current_user).not_deleted.order('id desc').page(params[:page])
   end
 
+  def muti_uploads
+
+  end
+
   def uploads
     first = params[:files].first if params[:files]
     # debugger

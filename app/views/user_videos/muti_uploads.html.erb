@@ -1,0 +1,96 @@
+<% javascript 'lib/tmpl.min' %>
+<% javascript 'lib/jquery/jquery.ui.widget' %>
+<% javascript 'lib/jquery/jquery.iframe-transport' %>
+<% javascript 'lib/jquery/jquery.fileupload' %>
+<% javascript '/mms/js/muti_upload.js' %>
+<%= render 'user_videos/nav' %>
+<%= form_tag '/user_videos/uploads',  :multipart => true, :id => "fileupload"   do %>			
+<style type="text/css">
+.file_name{
+	width: 175px;
+	overflow: hidden;
+}
+.file_categary{
+	width: 127px;
+}
+.file_strategy{
+	width: 127px;
+}
+.start, .cancel, .remove{
+	color: #8c9ddd;
+}
+
+.bar  .process_bar{
+    height: 10px;
+    background: green;
+}
+.bar  {
+    height: 10px;
+    background: black;
+}
+
+.file_time{
+	width: 160px;
+}
+.file_size{
+	width: 100px;
+}
+.status{
+	width: 150px;
+}
+
+</style>
+
+<div id="video-upload" class="tab-panel current">
+    <table>
+        <thead>
+            <tr>
+                <th>视频名称</th>
+                <th>视频分类</th>
+                <th>转码方案</th>
+                <th>文件大小</th>
+                <th>上传时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="upload_files">
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <button class="btn-purple">选择文件</button>
+          <label for="file">File to Upload</label> <%= file_field_tag "files[]", 'multiple' => true %>
+        <button class="btn-green" id="up_btn">上传文件</button>
+    </div>
+</div>
+<% end %>
+
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+        <tr>
+            <td class="file_name">{%= formatFilename(file.name) %}</td>
+            <td class="file_categary">
+               <%= select_tag('file_categary', options_for_select([['xie1', 1], ['xie2', 2], ['xie3', 3]], 3), id: '') %>
+            </td>
+            <td class="file_strategy">
+               <%= select_tag('file_categary', options_for_select([['方1', 1], ['方2', 2], ['方3', 3]], 3), id: '') %>
+            </td>
+            <td class="file_size">{%= formatFileSize(file.size) %}</td>
+            <td class="file_time">2015/04/26 17:31</td>
+            <td class="status">
+	            <div class="upload_status" >
+	            		等待上传
+	            </div>
+	            <div class="bar" style="height: 4px; display:none">
+		            <div class="process_bar" style="width:0%;"></div>
+	            </div>
+	            <div class="bitrate" style="height: 15px; display:none"></div>
+            </td>
+            <td class="operation">
+	            <a herf="javascript:void();" class="start">上传</a>
+	            <a herf="javascript:void();" class="cancel">取消</a>
+	            <a herf="javascript:void();" class="remove" style="display: none">移除</a>
+            </td>
+            </tr>
+{% } %}
+</script>
