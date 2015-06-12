@@ -295,11 +295,78 @@
   background-color #f4f4f4
   border-top 2px solid color-border
 
-  > .btn-link
-    color color-primary
+  > a
+    &:link,
+    &:visited
+      color color-primary
 
-    &:hover
+    &:hover,
+    &:active,
+    &:focus
       color color-primary-hover
 
     &:first-child
       margin-left 0.36em
+
+.category-permission-list
+  @extend .clearfix
+  display inline-block
+  list-style none
+
+  > li
+    position relative
+    float left
+    margin-top 0.25em
+    margin-left 0.5em
+    padding-right 0.5em
+    padding-left 0.5em
+    background-color color-primary
+    border-top 1px solid transparent
+    border-right 1px solid transparent
+    border-left 1px solid transparent
+    border-radius 4px
+    color #fff
+
+    &:hover
+      background-color #fff
+      border-top 1px solid color-border
+      border-right 1px solid color-border
+      border-left 1px solid color-border
+      border-radius 4px 4px 0 0
+      color color-text-dark
+      
+      > .category-permission-details
+        display block
+
+.category-permission-details
+  position absolute
+  top 100%
+  left 0
+  z-index 1000
+  display none
+  margin-left -1px
+  list-style none
+  background-color #fff
+  border-left 1px solid color-border
+  border-radius 0 4px 4px 4px
+  box-shadow 3px 3px 3px rgba(0, 0, 0, 0.21)
+  white-space nowrap
+
+  > li
+    padding-right 0.5em
+    padding-left 0.5em
+    color color-text-light
+
+    &:first-child
+      border-radius 0 4px 0 0
+
+    &:last-child
+      border-radius 0 0 4px 4px
+
+    &.is-selected
+      background-color color-success
+      color #fff
+
+      &:before
+        content "\2713"
+        margin-right 0.5em

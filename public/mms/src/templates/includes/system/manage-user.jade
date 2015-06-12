@@ -18,15 +18,19 @@ include ../mixins
           td
             | xiao2
           td
-            ul
+            ul.category-permission-list
               li 电影
-                ul
-                  li 权限1
-                  li 权限2
+                ul.category-permission-details
+                  li.is-selected 权限1
+                  li 权限2权限2权限2
                   li 权限3
               li 动画
+                ul.category-permission-details
+                  li.is-selected 权限1
+                  li 权限2
+                  li.is-selected 权限3
               li 综艺
           td
-            button.btn-link 预览
-            button.btn-link 修改
-            button.btn-link 删除
+            a(href='#') 预览
+            a(href='#') 修改
+            a(href='#') 删除
