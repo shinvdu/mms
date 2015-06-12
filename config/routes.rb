@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     collection do
       post :preupload, :controller => :uploader
       post :upload, :controller => :uploader
+      post 'uploads'
     end
   end
   resources :video_lists

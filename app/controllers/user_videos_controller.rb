@@ -1,10 +1,36 @@
 class UserVideosController < ApplicationController
-  before_action :authenticate_account!, :check_login
+  # before_action :authenticate_account!, :check_login
   before_action :generate_publish_strategy, :only => [:index, :new, :show]
   before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
+  skip_before_filter :verify_authenticity_token, :only => [:uploads]
 
   def index
     @user_videos = UserVideo.visible(current_user).not_deleted.order('id desc').page(params[:page])
+  end
+
+  def uploads
+    first = params[:files].first if params[:files]
+    # debugger
+    # first.path  # save file
+    # first.original_filename # filename
+    # first.content_type
+    # first.size
+
+    json_data = { 
+      files:
+      [
+        {
+          name: first.original_filename,
+          url: "http://url.to/file/or/page",
+          thumbnail_url: "http://url.to/thumnail.jpg ",
+          type: first.content_type,
+          size: first.content_type,
+          delete_url: "http://url.to/delete /file/",
+          delete_type: "DELETE"
+        }
+      ]
+    }        
+    render json: json_data
   end
 
   def new
