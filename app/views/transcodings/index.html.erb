@@ -22,7 +22,6 @@
   <table>
     <thead>
       <tr>
-        <th>ID</th>
         <th>模版名称</th>
         <th>模版类型</th>
         <th>创建用户</th>
@@ -34,7 +33,6 @@
     <tbody>
     <% @transcodings.each do |transcoding| %>
       <tr>
-        <td><%= transcoding.id && transcoding.id.to_s(36) %></td>
         <td><%= transcoding.name %></td>
         <td>
           <select>
