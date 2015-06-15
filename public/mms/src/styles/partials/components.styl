@@ -172,6 +172,29 @@
     dd
       padding-left 0.3em
 
+.video-source-item
+  padding 1em 1.5em 1.8em
+  border-bottom 1px solid color-cutting-line
+  
+  img
+    width 90%
+    height 10.34em
+    border-radius 4px
+
+  > .row:first-child
+    margin-bottom 0.5em
+    font-size 16px
+
+  dl
+    @extend .clearfix
+
+    dt,
+    dd
+      float left
+
+    dd
+      padding-left 0.3em
+
 .clip-list
   padding 0 1em 1em 1.7em
   border-bottom 1px solid color-border
@@ -179,7 +202,11 @@
   & + .clip-list
     margin-top 1em
 
-.clip-list-header
+div.clip-list-header
+  margin-top 0.5em
+  font-size 16px
+    
+ul.clip-list-header
   @extend .clearfix
 
   > dt,

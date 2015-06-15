@@ -710,14 +710,16 @@ dd {
 .clearfix:before,
 .row:before,
 .video-list-item dl:before,
-.clip-list-header:before,
+.video-source-item dl:before,
+ul.clip-list-header:before,
 .clip-list-content:before,
 .clip-id:before,
 .category-permission-list:before,
 .clearfix:after,
 .row:after,
 .video-list-item dl:after,
-.clip-list-header:after,
+.video-source-item dl:after,
+ul.clip-list-header:after,
 .clip-list-content:after,
 .clip-id:after,
 .category-permission-list:after {
@@ -727,7 +729,8 @@ dd {
 .clearfix:after,
 .row:after,
 .video-list-item dl:after,
-.clip-list-header:after,
+.video-source-item dl:after,
+ul.clip-list-header:after,
 .clip-list-content:after,
 .clip-id:after,
 .category-permission-list:after {
@@ -1457,6 +1460,26 @@ body {
 .video-list-item dl dd {
   padding-left: 0.3em;
 }
+.video-source-item {
+  padding: 1em 1.5em 1.8em;
+  border-bottom: 1px solid #e7e7e9;
+}
+.video-source-item img {
+  width: 90%;
+  height: 10.34em;
+  border-radius: 4px;
+}
+.video-source-item > .row:first-child {
+  margin-bottom: 0.5em;
+  font-size: 16px;
+}
+.video-source-item dl dt,
+.video-source-item dl dd {
+  float: left;
+}
+.video-source-item dl dd {
+  padding-left: 0.3em;
+}
 .clip-list {
   padding: 0 1em 1em 1.7em;
   border-bottom: 1px solid #efedee;
@@ -1464,11 +1487,15 @@ body {
 .clip-list + .clip-list {
   margin-top: 1em;
 }
-.clip-list-header > dt,
-.clip-list-header > dd {
+div.clip-list-header {
+  margin-top: 0.5em;
+  font-size: 16px;
+}
+ul.clip-list-header > dt,
+ul.clip-list-header > dd {
   float: left;
 }
-.clip-list-header > dd {
+ul.clip-list-header > dd {
   padding-left: 0.3em;
 }
 .clip-list-content {
