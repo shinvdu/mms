@@ -26,11 +26,26 @@
   font-size 15px
   color color-text-intermediate
 
-  > button
+  > button,
+    a
     margin-left 7px
+
+  > a
+    &:link,
+    &:visited
+      color color-text-intermediate
+
+    &:hover,
+    &:active,
+    &:focus
+      color color-text-light
 
   > .btn-icon-text
     position relative
+
+    &:hover,
+    &:focus    
+      color color-text-light
 
   .dropdown
     position absolute
@@ -398,3 +413,15 @@ ul.clip-list-header
       &:before
         content "\2713"
         margin-right 0.5em
+
+.message-group
+  > .row
+    padding-top 0.5em
+    padding-bottom 0.5em
+    border-bottom 1px solid color-cutting-line
+
+    &.is-unreaded
+      font-weight bold
+
+    &:hover
+      background-color color-background

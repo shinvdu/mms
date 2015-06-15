@@ -1218,7 +1218,6 @@ body {
 .btn-delete:hover {
   background-color: #778087;
 }
-.btn-icon,
 .btn-icon-text {
   padding: 0 4px;
   background: none;
@@ -1338,11 +1337,25 @@ body {
   font-size: 15px;
   color: #80899a;
 }
-.admin-bar > button {
+.admin-bar > button,
+.admin-bar a {
   margin-left: 7px;
+}
+.admin-bar > a:link,
+.admin-bar > a:visited {
+  color: #80899a;
+}
+.admin-bar > a:hover,
+.admin-bar > a:active,
+.admin-bar > a:focus {
+  color: #a7b2c4;
 }
 .admin-bar > .btn-icon-text {
   position: relative;
+}
+.admin-bar > .btn-icon-text:hover,
+.admin-bar > .btn-icon-text:focus {
+  color: #a7b2c4;
 }
 .admin-bar .dropdown {
   position: absolute;
@@ -1694,6 +1707,17 @@ ul.clip-list-header > dd {
 .category-permission-details > li.is-selected:before {
   content: "\2713";
   margin-right: 0.5em;
+}
+.message-group > .row {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #e7e7e9;
+}
+.message-group > .row.is-unreaded {
+  font-weight: bold;
+}
+.message-group > .row:hover {
+  background-color: #f2f0f1;
 }
 /*
 input[type='text'],
