@@ -45,5 +45,8 @@ module ApplicationHelper
 		content_for(:head_css) { stylesheet_link_tag(*css_files) }
 	end
 
+	def upload_server
+		Settings.server.upload_server.to_a.sample(1).first.second['address'] + uploads_user_videos_path
+	end
 
 end
