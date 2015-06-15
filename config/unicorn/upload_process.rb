@@ -1,6 +1,6 @@
 processes = ENV['PROCESSES'] || 15
 worker_processes processes.to_i
-# debugger
+
 app_root = File.expand_path("../../..", __FILE__)
 working_directory app_root
 users = ENV['USER'] || 'www-data'
