@@ -7,7 +7,7 @@
 
 <%= render 'user_videos/nav' %>
 <%= form_tag  "#{upload_server}",  :multipart => true, :id => "fileupload"   do %>			
-<%= hidden_field_tag 'token' %>
+<div id="token_url" style="display:none"><%= "/user_videos/get_token" %></div>
 <div id="video-upload" class="tab-panel current">
     <table>
         <thead>
