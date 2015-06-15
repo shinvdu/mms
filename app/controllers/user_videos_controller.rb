@@ -1,5 +1,6 @@
 class UserVideosController < ApplicationController
-  # before_action :authenticate_account!, :check_login
+  before_action :authenticate_account!, :check_login, :except => [:uploads]
+  after_action :cors_set_access_control_headers, :only => [:uploads]
   before_action :generate_publish_strategy, :only => [:index, :new, :show]
   before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
   skip_before_filter :verify_authenticity_token, :only => [:uploads]
@@ -12,14 +13,23 @@ class UserVideosController < ApplicationController
 
   end
 
+  def get_token
+    render html: 'aaaaaaaaaaaaaaaaa'
+  end
+
   def uploads
+    # 保存上传文件
     first = params[:files].first if params[:files]
-    # debugger
     # first.path  # save file
     # first.original_filename # filename
     # first.content_type
     # first.size
-
+    # 分类
+    videolist = params[:categary]
+    # 转码方案
+    strategy_id = params[:strategy_id]
+    # token验证
+    token = params[:token]
     json_data = { 
       files:
       [
