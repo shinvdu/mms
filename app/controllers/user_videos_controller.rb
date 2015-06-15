@@ -19,14 +19,19 @@ class UserVideosController < ApplicationController
   end
 
   def uploads
+    # 保存上传文件
     first = params[:files].first if params[:files]
-    # debugger
     # first.path  # save file
     # first.original_filename # filename
     # first.content_type
     # first.size
-
-    json_data = {
+    # 分类
+    videolist = params[:categary]
+    # 转码方案
+    strategy_id = params[:strategy_id]
+    # token验证
+    token = params[:token]
+    json_data = { 
       files:
       [
         {

@@ -93,7 +93,9 @@ defaults: &defaults
       滚动广告: ad_scroll
   water_mark:
     font: Arial
+    font_size: 20
     color: '#bfbfbf'
+    transparency: 30
   job_queue:
     fast: fast
     slow: slow
@@ -132,7 +134,6 @@ defaults: &defaults
 
 production:
   <<: *defaults
-  video_host_url: http://www.wgcloud.com
   default_url_options:
     host:  wgcloud.com
     port:  80
@@ -184,7 +185,6 @@ development:
   <<: *defaults
   to_str:
   to_ary:
-  video_host_url: http://localhost:3000
   omniauth:
     tqq:
       key: 101217165
@@ -231,7 +231,6 @@ development:
 
 test:
   <<: *defaults
-  video_host_url: http://localhost:3000
   omniauth:
     tqq:
       key: 1111111111

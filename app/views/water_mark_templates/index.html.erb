@@ -1,35 +1,34 @@
 <%= render 'user_videos/nav' %>
 
-<table>
-  <thead>
-  <tr>
-    <th>水印名称</th>
-    <th>位置</th>
-    <th>预览</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
+<div class="tab-panel current">
+  <div class="panel-header">
+    <button class="btn-green"><%= link_to '添加水印', new_water_mark_template_path, :style => 'color:white' %></button>
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th>水印名称</th>
+      <th>位置</th>
+      <th>预览</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @water_mark_templates.each do |water_mark_template| %>
+        <tr>
+          <td><%= water_mark_template.name %></td>
+          <td><%= @refer_poses.invert[water_mark_template.refer_pos] %></td>
+          <td><%= image_tag water_mark_template.img.to_s, :alt => '制作中' %></td>
+          <td><%= link_to '删除', water_mark_template, method: :delete, data: {confirm: '删除操作不能撤销，确定删除？'} %>
+            <% if water_mark_template == @enabled_water_mark_template %>
+                <%= link_to '停用', stop_water_mark_template_path(water_mark_template), :method => :patch %>
+            <% else %>
+                <%= link_to '启用', enable_water_mark_template_path(water_mark_template), :method => :patch %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
 
-  <tbody>
-  <% @water_mark_templates.each do |water_mark_template| %>
-      <tr>
-        <td><%= water_mark_template.name %></td>
-        <td><%= @refer_poses.invert[water_mark_template.refer_pos] %></td>
-        <td><%= image_tag water_mark_template.img.to_s, :alt => '制作中' %></td>
-        <td><%= link_to '删除', water_mark_template, method: :delete, data: {confirm: '删除操作不能撤销，确定删除？'} %></td>
-        <td>
-          <% if water_mark_template == @enabled_water_mark_template %>
-              <%= link_to '停用', stop_water_mark_template_path(water_mark_template), :method => :patch %>
-          <% else %>
-              <%= link_to '启用', enable_water_mark_template_path(water_mark_template), :method => :patch %>
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Water mark template', new_water_mark_template_path %>
