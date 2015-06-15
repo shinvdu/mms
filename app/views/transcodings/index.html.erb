@@ -23,7 +23,6 @@
     <thead>
     <tr>
       <th>模版名称</th>
-      <th>模版类型</th>
       <th>创建用户</th>
       <th>创建时间</th>
       <th>最后修改时间</th>
@@ -34,16 +33,6 @@
     <% @transcodings.each do |transcoding| %>
         <tr>
           <td><%= transcoding.name %></td>
-          <td>
-            <select>
-              <option>转码模版1
-              </option>
-              <option>转码模版2
-              </option>
-              <option>转码模版3
-              </option>
-            </select>
-          </td>
           <td><%= transcoding.owner && transcoding.owner.nickname %></td>
           <td><%= transcoding.created_at && transcoding.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
           <td><%= transcoding.updated_at && transcoding.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>

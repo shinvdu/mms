@@ -67,6 +67,8 @@ class WaterMarkTemplatesController < ApplicationController
   def water_mark_template_params
     params[:water_mark_template][:owner_id] = current_user.owner.id
     params[:water_mark_template][:creator_id] = current_user.id
+    params[:water_mark_template][:font_size] = 20
+    params[:water_mark_template][:transparency] = 30
     params.require(:water_mark_template).permit(:owner_id, :creator_id, :name, :refer_pos, :text, :font_size, :transparency, :enabled)
   end
 end
