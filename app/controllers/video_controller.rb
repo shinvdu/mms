@@ -5,12 +5,11 @@ class VideoController < ApplicationController
     @video_group = VideoProductGroup.where(show_id: params[:id]).first
     if @video_group.FINISHED? && @video_group.ACCEPTED?
       @video_products = @video_group.video_products
-      host_url = Settings.video_host_url
       @src = []
       @video_products.each do |product|
         @src << {
             :type => "video/#{product.transcoding.container}",
-            :src => [host_url, '/video_path?', "video_id=#{@video_group.show_id}", "&video_product_id=#{product.id}"].join(''),
+            :src => ['/video_path?', "video_id=#{@video_group.show_id}", "&video_product_id=#{product.id}"].join(''),
             'data-res' => "#{product.check_quanity}",
         }
       end
