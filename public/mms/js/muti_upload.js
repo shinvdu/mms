@@ -84,6 +84,8 @@ $(function () {
    }
 
    var token_url = $('#token_url').text();
+   var authenticity_token = $("input[name=authenticity_token]").val();
+   var utf8 = $("input[name=utf8]").val();
     var filelists = []
     var uploadedlists = []
     $('#fileupload').fileupload({
@@ -161,7 +163,7 @@ $(function () {
                     return false;
                   };
 
-              data.formData = {categary: file_categary, strategy_id: file_strategy, token: token};
+              data.formData = {categary: file_categary, strategy_id: file_strategy, token: token, utf8: utf8, authenticity_token: authenticity_token};
                if (!data.formData.categary) {
                   alert('请为: ' + file.name + '选择视频分类');
                   // data.context.find('button').prop('disabled', false);

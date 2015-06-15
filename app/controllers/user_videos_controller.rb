@@ -18,6 +18,9 @@ class UserVideosController < ApplicationController
   end
 
   def uploads
+    # 保存上传文件
+    # 分类
+    # 转码方案
     first = params[:files].first if params[:files]
     # debugger
     # first.path  # save file
