@@ -79,22 +79,12 @@ class VideoProduct < ActiveRecord::Base
   end
 
   def check_quanity()
-    transcoding = self.transcoding
-    if transcoding.height
-      quanity_desc = [transcoding.height, 'P'].join('')
-    elsif transcoding.height.nil?
-      video_detail = self.video_detail
-      quanity_desc = [video_detail.height, 'P'].join('')
+    products = self.video_product_group.video_products.sort_by { |p| p.video_detail.rate }
+    if products.size == 2
+      %w(速度优先 画质优先)[products.index self]
+    elsif products.size == 3
+      %w(速度优先 平衡 画质优先)[products.index self]
     end
-    # if transcoding.width.nil? && transcoding.height.nil?
-    #   video_detail = self.video_detail
-    #   quanity_desc = [video_detail.height, 'P'].join('')
-    # elsif transcoding.width && transcoding.height.nil?
-    #   quanity_desc = ['H' , transcoding.width].join('')
-    # elsif transcoding.width.nil? && transcoding.height
-    #   quanity_desc = [transcoding.height, 'P'].join('')
-    # end
-    return quanity_desc
   end
 
   ######################################################

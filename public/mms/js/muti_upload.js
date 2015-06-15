@@ -1,79 +1,8 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="utf-8">
-<title>jQuery File Upload Example By Silas Xie</title>
-<style type="text/css">
-.bar , .process_bar{
-    height: 18px;
-    background: green;
-}
-</style>
-</head>
-<body>
-    <form id= 'fileupload' action="/user_videos/uploads">
-        <input type="hidden" name="example1" value="test">
-        <input id="" type="file" name="files[]"  multiple>
-        <table class="table table-striped files">
-        </table>
-    </form>
-<div id="progress">
-    <div class="bar" style="width: 0%;"></div>
-</div>
-<button id ='up_btn'>all upload</button>
-<script src="http://localhost:3000/jquery/jquery.min.js"></script>
-<script src="js/tmpl.min.js"></script>
-<script src="js/vendor/jquery.ui.widget.js"></script>
-<script src="js/jquery.iframe-transport.js"></script>
-<script src="js/jquery.fileupload.js"></script>
-<!-- <script src="js/jquery.fileupload-ui.js"></script> -->
-<script id="template-upload" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td>
-            <span class="preview"></span>
-        </td>
-        <td>
-            <p class="name">{%=file.name%}</p>
-            <strong class="error text-danger"></strong>
-        </td>
-        <td>
-            <p class="name">{%= formatFileSize(file.size) %}</p>
-        </td>
-        <td class="title"><label>Title: <input name="title" required></label></td>
-        <td>
-            <div class="progress progress-success progress-striped active" style="width: 200px">
-                <div class="process_bar" style="width:0%;"></div>
-            </div>
-        </td>
-        <td>
-            <p class="bitrate"></p>
-        </td>
-        <td class='status'>
-        等待上传
-        </td>
-        <td class="operation">
-            <button class="btn btn-warning start">
-            <i class="glyphicon glyphicon-ban-circle"></i>
-            <span>Start</span>
-            </button>
-            <button class="btn  cancel">
-            <i class="glyphicon glyphicon-ban-circle"></i>
-            <span>Cancel</span>
-            </button>
-            <button class="btn  remove" style="display: none">
-            <i class="glyphicon glyphicon-ban-circle"></i>
-            <span>Remove</span>
-            </button>
-        </td>
-
-    </tr>
-{% } %}
-</script>
-
-<script>
 $(function () {
-    formatFileSize = function (bytes) {
+ $("#up_btn").on('click', function (e) {
+   e.preventDefault();
+ });
+ formatFileSize = function (bytes) {
         if (typeof bytes !== 'number') {
             return '';
         }
@@ -102,9 +31,35 @@ $(function () {
         return bits.toFixed(2) + ' bit/s';
     }
 
+    formatFilename =  function (name) {
+      if (name.length > 18 ) {
+        return '....' + String(name).slice(-18);
+      }else{
+        return name;
+       } 
+    }
+    formatDay = function(){
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1; //January is 0!
+      var yyyy = today.getFullYear();
+      var hour = today.getHours();
+      var minute = today.getMinutes();
+      if(dd<10) {
+        dd='0'+dd;
+      } 
+
+      if(mm<10) {
+        mm='0'+mm;
+      } 
+
+      return   yyyy + '/' + mm+'/'+dd+' '+ hour + ':' + minute;
+    }
+
+
     fileLimit = function(file){
        var uploadErrors = [];
-       var acceptFileTypes = /^video\/(mp4|jpe?g)$/i;
+       var acceptFileTypes = /^video\/(3gp|avi|m3u8|mpg|asf|wmv|mov|ts|webm|mp4|mkv|mpeg4|mpeg|mpe|x-flv)$/i;
        if(file['type'].length && !acceptFileTypes.test(file['type'])) {
             uploadErrors.push('Not an accepted file type');
         }
@@ -119,9 +74,8 @@ $(function () {
         }
 }
 
-     var filelists = []
-     var uploadedlists = []
-
+    var filelists = []
+    var uploadedlists = []
     $('#fileupload').fileupload({
         dataType: 'json',
         // maxChunkSize: 10000SublimeLinter000, // 10MB chunksize
@@ -139,16 +93,18 @@ $(function () {
                var id = filelists.indexOf(file.name);
             // $.each(data.result.files, function (index, file) {
                // var id = filelists.indexOf(file.name);
-                      // alert(filelists);
-               $('#row_upload_' + id).find('td.status').text('completd')
-               $('#row_upload_' + id).find('button.start').hide();
-               $('#row_upload_' + id).find('button.cancel').hide();
-               $('#row_upload_' + id).find('button.remove').show().click(function(e){
+               // $('#row_upload_' + id).find('td.status').text('completd')
+               $('#row_upload_' + id).find('.upload_status').show().text('上传完成');
+               $('#row_upload_' + id).find('.bar').hide();
+               $('#row_upload_' + id).find('.bitrate').hide();
+
+               $('#row_upload_' + id).find('.start').hide();
+               $('#row_upload_' + id).find('.cancel').hide();
+               $('#row_upload_' + id).find('.remove').show().click(function(e){
                     e.preventDefault();
                     $('#row_upload_' + id).remove();
                     delete  filelists[filelists.indexOf(file.name)];
                     delete  uploadedlists[uploadedlists.indexOf(file.name)];
-
                });
                // uploadedlists.push(file.name);
                if(! (uploadedlists.indexOf(file.name) != -1)) {
@@ -166,32 +122,39 @@ $(function () {
             for(var i = 0, l = data.files.length; i < l; i++) {
                file = data.files[i];
                var id = filelists.indexOf(file.name);
-               $('#row_upload_' + id).find('td.status').text('failed, ' + data.errorThrown)
-           }
+               $('#row_upload_' + id).find('.upload_status').show().text('failed, ' + data.errorThrown);
+               $('#row_upload_' + id).find('.bar').hide();
+               $('#row_upload_' + id).find('.bitrate').hide();
+             }
         },
-        progressall: function (e, data) {
-        	var progress = parseInt(data.loaded / data.total * 100, 10);
-        	$('#progress .bar').css(
-        		'width',
-        		progress + '%'
-        		);
-        },
+        // progressall: function (e, data) {
+        // 	var progress = parseInt(data.loaded / data.total * 100, 10);
+        // 	$('#progress .bar').css(
+        // 		'width',
+        // 		progress + '%'
+        // 		);
+        // },
         submit: function (e, data) {
             // xie = data;
             for(var i = 0, l = data.files.length; i < l; i++) {
                file = data.files[i];
                var id = filelists.indexOf(file.name);
-               var form_value = $('#row_upload_' + id).find('.title input').val();
+               var file_categary = $('#row_upload_' + id).find('.file_strategy select').val();
+               var file_strategy = $('#row_upload_' + id).find('.file_strategy select').val();
+               // var form_value = $('#row_upload_' + id).find('.title input').val();
                // 是否文件己经上传
                if(uploadedlists.indexOf(file.name) != -1) {
                     return false;
                  }
-
-               data.formData = {example: form_value};
-               if (!data.formData.example) {
-                  alert('please input title, for: ' + file.name);
+               data.formData = {categary: file_categary, strategy_id: file_strategy};
+               if (!data.formData.categary) {
+                  alert('请为: ' + file.name + '选择视频分类');
                   // data.context.find('button').prop('disabled', false);
                   // input.focus();
+                  return false;
+              }        
+               if (!data.formData.strategy_id) {
+                  alert('请为: ' + file.name + '转码方案');
                   return false;
               }        
             }
@@ -215,7 +178,9 @@ $(function () {
         for(var i = 0, l = data.files.length; i < l; i++) {
            file = data.files[i];
            var id = filelists.indexOf(file.name);
-           $('#row_upload_' + id).find('td.status').text('uploading')
+           $('#row_upload_' + id).find('.upload_status').hide();
+           $('#row_upload_' + id).find('.bar').show();
+           $('#row_upload_' + id).find('.bitrate').show();
            }
         },
 
@@ -225,26 +190,26 @@ $(function () {
                file = data.files[i];
                 // 不能重复载入文件
                 if(filelists.indexOf(file.name) != -1) {
-                    alert('you have already load the file:' + file.name);
+                    alert('您己经增加了:' + file.name);
                    continue;
                }
                if (fileLimit(file)) {
                   continue;
                };
 
-               $("#up_btn").on('click', function () {
+               $("#up_btn").on('click', function (e) {
+                     e.preventDefault();
                      data.submit();
-                    e.preventDefault();
                 });
 
                filelists.push(file.name);
                 var id = 'row_upload_' + filelists.indexOf(file.name);
-                data.context = $(html).attr('id', id).appendTo($('table.files'));
-                data.context.find('button.start').click(function (e) {
+                data.context = $(html).attr('id', id).appendTo($('#upload_files'));
+                data.context.find('.start').click(function (e) {
                     data.submit();
                     e.preventDefault();
                 });
-                $('#' + id).find('button.cancel').click(function(){
+                $('#' + id).find('.cancel').click(function(){
                     $('#' + id).remove();
                     delete  filelists[filelists.indexOf(file.name)]
                     delete  uploadedlists[uploadedlists.indexOf(file.name)]
@@ -254,7 +219,3 @@ $(function () {
         },
         });
     });
-</script>
-
-</body> 
-</html>
