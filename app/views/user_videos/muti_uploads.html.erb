@@ -7,7 +7,7 @@
 
 <%= render 'user_videos/nav' %>
 <%= form_tag  "#{upload_server}",  :multipart => true, :id => "fileupload"   do %>			
-<%= hidden_field_tag 'token' %>
+<div id="token_url" style="display:none"><%= "/user_videos/get_token" %></div>
 <div id="video-upload" class="tab-panel current">
     <table>
         <thead>
@@ -39,10 +39,10 @@
         <tr>
             <td class="file_name">{%= formatFilename(file.name) %}</td>
             <td class="file_categary">
-               <%= select_tag('file_categary', options_for_select([['xie1', 1], ['xie2', 2], ['xie3', 3]], 3), id: '') %>
+               <%= select_tag('file_categary', options_for_select(VideoList.uploadable(current_user).collect{|f| [f.name, f.id]}), id: '') %>
             </td>
             <td class="file_strategy">
-               <%= select_tag('file_categary', options_for_select([['方1', 1], ['方2', 2], ['方3', 3]], 3), id: '') %>
+               <%= select_tag('file_categary', options_for_select(TranscodingStrategy.visible(current_user).collect{|f| [f.name, f.id]}), id: '') %>
             </td>
             <td class="file_size">{%= formatFileSize(file.size) %}</td>
             <td class="file_time">{%=  formatDay() %}</td>

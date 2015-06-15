@@ -75,6 +75,7 @@ Rails.application.routes.draw do
       post :preupload, :controller => :uploader
       post :upload, :controller => :uploader
       get 'muti_uploads'
+      get 'get_token'
       post 'uploads'
     end
   end

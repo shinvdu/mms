@@ -1,6 +1,7 @@
 # coding: utf-8
 class UserVideosController < ApplicationController
-  # before_action :authenticate_account!, :check_login
+  before_action :authenticate_account!, :check_login, :except => [:uploads]
+  after_action :cors_set_access_control_headers, :only => [:uploads]
   before_action :generate_publish_strategy, :only => [:index, :new, :show]
   before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
   skip_before_filter :verify_authenticity_token, :only => [:uploads]
@@ -12,7 +13,11 @@ class UserVideosController < ApplicationController
   def muti_uploads
 
   end
-  
+
+  def get_token
+    render html: 'aaaaaaaaaaaaaaaaa'
+  end
+
   def uploads
     first = params[:files].first if params[:files]
     # debugger
@@ -21,7 +26,7 @@ class UserVideosController < ApplicationController
     # first.content_type
     # first.size
 
-    json_data = { 
+    json_data = {
       files:
       [
         {
@@ -34,7 +39,7 @@ class UserVideosController < ApplicationController
           delete_type: "DELETE"
         }
       ]
-    }        
+    }
     render json: json_data
   end
 

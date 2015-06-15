@@ -72,8 +72,18 @@ $(function () {
         }else{
             return false;
         }
-}
+    }
+    function fileToken(){
+     var jqXHR = $.ajax({
+      url: token_url,
+      type: 'GET',
+      dataType: 'html',
+      async: false
+    });
+     return jqXHR.responseText;
+   }
 
+   var token_url = $('#token_url').text();
     var filelists = []
     var uploadedlists = []
     $('#fileupload').fileupload({
@@ -146,7 +156,12 @@ $(function () {
                if(uploadedlists.indexOf(file.name) != -1) {
                     return false;
                  }
-               data.formData = {categary: file_categary, strategy_id: file_strategy};
+              var token = fileToken();
+              if (!token) {
+                    return false;
+                  };
+
+              data.formData = {categary: file_categary, strategy_id: file_strategy, token: token};
                if (!data.formData.categary) {
                   alert('请为: ' + file.name + '选择视频分类');
                   // data.context.find('button').prop('disabled', false);
