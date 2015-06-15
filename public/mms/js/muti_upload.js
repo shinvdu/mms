@@ -122,7 +122,7 @@ $(function () {
             for(var i = 0, l = data.files.length; i < l; i++) {
                file = data.files[i];
                var id = filelists.indexOf(file.name);
-               $('#row_upload_' + id).find('.upload_status').show().text('failed, ' + data.errorThrown);
+               $('#row_upload_' + id).find('.upload_status').show().text('failed ' + data.errorThrown);
                $('#row_upload_' + id).find('.bar').hide();
                $('#row_upload_' + id).find('.bitrate').hide();
              }

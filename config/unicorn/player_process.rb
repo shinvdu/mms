@@ -1,6 +1,6 @@
 processes = ENV['PROCESSES'] || 15
 worker_processes processes.to_i
-# debugger
+
 app_root = File.expand_path("../../..", __FILE__)
 working_directory app_root
 users = ENV['USER'] || 'www-data'
@@ -10,6 +10,7 @@ user "#{users}", "#{users}"
 # listen "/tmp/upload_unicorn.sock", :backlog => 64
 port = ENV['PORT'] || 4096
 listen port.to_i #, :tcp_nopush => false
+
 
 # Nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
