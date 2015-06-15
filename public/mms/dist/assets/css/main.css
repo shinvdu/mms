@@ -1158,6 +1158,7 @@ body {
 .btn-success,
 .btn-cancle,
 .btn-info,
+.btn-danger,
 .btn-delete {
   padding: 0.3em 1.5em;
   border: none;
@@ -1203,6 +1204,13 @@ body {
 .btn-info:hover {
   background-color: #2d3e52;
 }
+.btn-danger {
+  background-color: #e54c3c;
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: #bf3a2b;
+}
 .btn-delete {
   background-color: #89949a;
   color: #fff;
@@ -1219,6 +1227,17 @@ body {
 .btn-icon-text > i,
 .btn-icon-text > div > i {
   margin-right: 3px;
+}
+.btn-link {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  color: #8d9ddd;
+}
+.btn-link:hover,
+.btn-link:focus {
+  color: #7989c4;
 }
 .btn-group-inline {
   margin-top: 1.2em;
@@ -1296,10 +1315,11 @@ body {
   width: 150px;
 }
 .brand > img {
+  width: 30px;
   margin-right: 10px;
 }
 .brand > div {
-  margin-top: 4px;
+  margin-top: 2px;
   line-height: 1;
 }
 .brand-link:link,

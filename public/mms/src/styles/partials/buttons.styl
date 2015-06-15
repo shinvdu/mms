@@ -48,6 +48,14 @@
   &:hover
     background-color color-info-hover
 
+.btn-danger
+  @extend .btn
+  background-color color-danger
+  color #fff
+
+  &:hover
+    background-color color-danger-hover
+
 .btn-delete
   @extend .btn
   background-color color-delete
@@ -67,6 +75,17 @@
   > i,
   > div > i
     margin-right 3px
+
+.btn-link
+  padding 0
+  background-color transparent
+  border none
+  border-radius 0
+  color color-primary
+
+  &:hover,
+  &:focus
+    color color-primary-hover
 
 .btn-group-inline
   margin-top 1.2em
