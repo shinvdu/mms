@@ -16,43 +16,32 @@
         </select>
       </div>
     </form>
-    <button  class="btn-green"><%= link_to '添加转码模版', new_transcoding_path, 'style' => 'color:white', 'data-no-turbolink' => true %>
-</button>
-      </div>
+    <button class="btn-green"><%= link_to '添加转码模版', new_transcoding_path, 'style' => 'color:white', 'data-no-turbolink' => true %>
+    </button>
+  </div>
   <table>
     <thead>
-      <tr>
-        <th>模版名称</th>
-        <th>模版类型</th>
-        <th>创建用户</th>
-        <th>创建时间</th>
-        <th>最后修改时间</th>
-        <th>操作</th>
-      </tr>
+    <tr>
+      <th>模版名称</th>
+      <th>创建用户</th>
+      <th>创建时间</th>
+      <th>最后修改时间</th>
+      <th>操作</th>
+    </tr>
     </thead>
     <tbody>
     <% @transcodings.each do |transcoding| %>
-      <tr>
-        <td><%= transcoding.name %></td>
-        <td>
-          <select>
-            <option>转码模版1
-            </option>
-            <option>转码模版2
-            </option>
-            <option>转码模版3
-            </option>
-          </select>
-        </td>
-        <td><%= transcoding.owner && transcoding.owner.nickname %></td>
-        <td><%= transcoding.created_at && transcoding.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-        <td><%= transcoding.updated_at && transcoding.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
-        <td>
-          <%= link_to '修改', edit_transcoding_path(transcoding), 'data-no-turbolink' => true %>
-          <%= link_to '删除', transcoding, method: :delete, data: {confirm: '你确定要删除?'} %>
-        </td>
-      </tr>
-      <% end %>
+        <tr>
+          <td><%= transcoding.name %></td>
+          <td><%= transcoding.owner && transcoding.owner.nickname %></td>
+          <td><%= transcoding.created_at && transcoding.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td><%= transcoding.updated_at && transcoding.updated_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td>
+            <%= link_to '修改', edit_transcoding_path(transcoding), 'data-no-turbolink' => true %>
+            <%= link_to '删除', transcoding, method: :delete, data: {confirm: '你确定要删除?'} %>
+          </td>
+        </tr>
+    <% end %>
     </tbody>
   </table>
   <div class="panel-footer">
