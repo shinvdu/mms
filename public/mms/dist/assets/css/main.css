@@ -641,9 +641,14 @@ footer {
   background-size: cover;
 }
 a:link,
-a:visited,
+a:visited {
+  color: #a7b2c4;
+  text-decoration: none;
+}
 a:hover,
-a:active {
+a:active,
+a:focus {
+  color: #8d9ddd;
   text-decoration: none;
 }
 ul {
@@ -728,6 +733,9 @@ dd {
 .category-permission-list:after {
   clear: both;
 }
+.l-fw {
+  width: 100%;
+}
 .l-left {
   float: left;
 }
@@ -752,6 +760,9 @@ body {
 }
 .row .row {
   min-width: 0;
+}
+.row.buttons-bar {
+  margin-top: 2.5em;
 }
 .cols {
   position: relative;
@@ -1218,48 +1229,44 @@ body {
   padding: 0.3em 1.5em;
   border-radius: 4px;
 }
-.link-button-success {
-  color: #fff;
-}
 .link-button-success:link,
 .link-button-success:visited {
+  color: #fff;
   background-color: #4fbf91;
 }
 .link-button-success:hover,
 .link-button-success:active {
-  background-color: #39a478;
-}
-.link-button-info {
   color: #fff;
+  background-color: #39a478;
 }
 .link-button-info:link,
 .link-button-info:visited {
+  color: #fff;
   background-color: #344860;
 }
 .link-button-info:hover,
 .link-button-info:active {
-  background-color: #2d3e52;
-}
-.link-button-delete {
   color: #fff;
+  background-color: #2d3e52;
 }
 .link-button-delete:link,
 .link-button-delete:visited {
+  color: #fff;
   background-color: #89949a;
 }
 .link-button-delete:hover,
 .link-button-delete:active {
-  background-color: #778087;
-}
-.link-button-cancel {
   color: #fff;
+  background-color: #778087;
 }
 .link-button-cancel:link,
 .link-button-cancel:visited {
+  color: #fff;
   background-color: #bec3c7;
 }
 .link-button-cancel:hover,
 .link-button-cancel:active {
+  color: #fff;
   background-color: #89949a;
 }
 .form-input-addon {
