@@ -3,11 +3,11 @@ production:
     web_server:
       main:
         hostname: main-server
-        address: wgcloud.com
+        address: www.weiguyun.com
     upload_server:
       ups1:
         hostname: ups1
-        address: upload.wgcloud.com
+        address: video.weiguyun.com
 
 development:
   server:
