@@ -1,13 +1,15 @@
-worker_processes 15
-
+processes = ENV['PROCESSES'] || 15
+worker_processes processes.to_i
+# debugger
 app_root = File.expand_path("../../..", __FILE__)
 working_directory app_root
-# run as nginx user
-user "www-data", "www-data"
+users = ENV['USER'] || 'www-data'
+user "#{users}", "#{users}"
 
 # Listen on fs socket for better performance
 # listen "/tmp/upload_unicorn.sock", :backlog => 64
-listen 4096 #, :tcp_nopush => false
+port = ENV['PORT'] || 4096
+listen port.to_i #, :tcp_nopush => false
 
 # Nuke workers after 360 seconds instead of 60 seconds (the default)
 timeout 360
