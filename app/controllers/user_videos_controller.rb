@@ -1,5 +1,5 @@
 class UserVideosController < ApplicationController
-  # before_action :authenticate_account!, :check_login
+  before_action :authenticate_account!, :check_login, :except => [:uploads]
   after_action :cors_set_access_control_headers, :only => [:uploads]
   before_action :generate_publish_strategy, :only => [:index, :new, :show]
   before_action :set_user_video, only: [:show, :edit, :clip, :republish, :update, :destroy, :update_video_list, :remove_video_list]
