@@ -185,10 +185,12 @@ var main = function() {
     })
 
     $('.select2-multiple').select2({
+	maximumSelectionLength: 3,
 	minimumResultsForSearch: 10
     })
 
     $('.select2-multiple-fw').select2({
+	maximumSelectionLength: 3,
 	width: '100%',
 	minimumResultsForSearch: 10
     })
