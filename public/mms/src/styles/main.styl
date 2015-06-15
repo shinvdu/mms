@@ -1,68 +1,22 @@
-primary-color = #8c9ddd
-primary-color-hover = #7989c4
-success-color = #4fbf91
-success-color-hover = #39a478
-info-color = #34495f
-info-color-hover = #2c3e51
-delete-color = #ecf0f1
-delete-color-hover = #d1d5d8
-content-bg-color = #f7f7f7
-border-line-color = #efeeee
-cutting-line-color = #e7e7e8
-font-color-1 = #3f4754
-font-color-2 = #7f8999
-font-color-3 = #a7b3c4
+@import 'partials/variables'
 
-vendor(prop, args)
-  -webkit-{prop} args
-  -moz-{prop} args
-  {prop} args
+@import 'vendor/select2.css'
 
-box-sizing()
-  vendor('box-sizing', arguments)
+@import 'partials/normalize'
+@import 'partials/base'
+@import 'partials/layout'
+@import 'partials/typography'
+@import 'partials/grid'
+@import 'partials/navbars'
+@import 'partials/panels'
+@import 'partials/tables'
+@import 'partials/buttons'
+@import 'partials/links'
+@import 'partials/forms'
+@import 'partials/figures'
+@import 'partials/components'
 
-*,
-*:before,
-*:after
-  box-sizing border-box
-
-input[type="search"]
-  box-sizing border-box
-
-html, 
-body
-  min-height 100%
-  padding 0
-  margin 0
-
-body
-  font-family Tahoma, Helvetica, Arial, 'Microsoft Yahei', '微软雅黑', STXihei, '华文细黑', sans-serif
-  font-size 16px
-  line-height 1.5em
-
-.clearfix
-  &:before,
-  &:after
-    display table
-    content ' '
-  &:after
-    clear both
-
-a
-  &:link,
-  &:visited,
-  &:hover,
-  &:active
-    text-decoration none
-
-ul
-  list-style none
-  padding 0
-  margin 0
-
-i
-  margin-right 5px
-
+/*
 input[type='text'],
 input[type='password'],
 input[type='email'],
@@ -93,48 +47,5 @@ textarea
   line-height 32px
   color font-color-3
 
-input[type='checkbox']
-  margin-right 5px
 
-.right-inner-addon
-  position relative
-  
-  >input
-    padding-right 30px
-    
-  >i
-    position absolute
-    top 6px
-    right 8px
-    color font-color-3
-
-
-.site
-  position absolute
-  top 0
-  right 0
-  bottom 0
-  left 0
-  
-  padding-top 75px
-  padding-bottom 225px
-
-.content
-  padding-top 30px
-  padding-bottom 60px
-  min-height 100%
-  background-color content-bg-color
-
-.container
-  position relative
-  width 1000px
-  padding-right 15px
-  padding-left 15px
-  margin-right auto
-  margin-left auto
-
-@import 'button'
-@import 'header'
-@import 'navbar'
-@import 'tab-panel'
-@import 'footer'
+*/

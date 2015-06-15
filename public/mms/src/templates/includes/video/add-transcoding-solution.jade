@@ -1,27 +1,29 @@
-.tab-panel#add-transcoding-solution
-  .panel-header
-    a(href='?panel=video-transcoding-solution') &lt;&lt; 返回方案列表
+include ../mixins
+
+.panel#add-transcoding-solution
+  .panel-header.clearfix
+    a.l-right(href='?panel=video-transcoding-solution') &lt;&lt; 返回方案列表
   .panel-content
-    .panel-form
-      .form-group
-        .form-label.form-title
-          label 添加转码方案
-      .form-group
-        .form-label
+    form
+      .row.form-title
+        .cols.large-2.l-text-right
+          | 添加转码方案
+      .row
+        .cols.large-2.l-text-right
           label(for='solution-name') 方案名称:
-        .form-field
+        .cols.large-6
           input#solution-name(type='text')
-      .form-group
-        .form-label
+      .row
+        .cols.large-2.l-text-right
           label(for='template-select') 模版选择:
-        .form-field
-          +select('high')#template-select
-      .form-group
-        .form-field.form-offset
+        .cols.large-6
+          +select()#template-select.select2-multiple-fw(multiple='multiple')
+      .row
+        .cols.large-6.offset-by-2
           dl
             dt 说明:
             dd qweqweqweqweqweqweqweqweqwe
-      .form-group
-        .form-field.form-submit
-          button.btn-green(type='submit') 保存
-          button.btn-gray.btn-show-panel(data-panel='video-transcoding-solution') 取消
+      .row.form-submit
+        .cols.large-6.offset-by-2
+          button.btn-success(type='submit') 保存
+          a.link-button-cancel.btn-show-panel(data-panel='video-transcoding-solution' href='#') 取消

@@ -1,0 +1,427 @@
+.brand
+  width 150px
+
+  > img
+    width 30px
+    margin-right 10px
+
+  > div
+    margin-top 2px
+    line-height 1
+
+.brand-link
+  &:link,
+  &:visited
+    color #fff
+
+  &:hover,
+  &:active
+    color color-primary
+
+  span:last-child
+    font-size 13px
+
+.admin-bar
+  margin-top 10px
+  font-size 15px
+  color color-text-intermediate
+
+  > button,
+    a
+    margin-left 7px
+
+  > a
+    &:link,
+    &:visited
+      color color-text-intermediate
+
+    &:hover,
+    &:active,
+    &:focus
+      color color-text-light
+
+  > .btn-icon-text
+    position relative
+
+    &:hover,
+    &:focus    
+      color color-text-light
+
+  .dropdown
+    position absolute
+    display none
+    z-index 1000
+    top 100%
+    right 0
+    margin-top 5px
+
+    a
+      &:link,
+      &:visited,
+      &:hover
+        color color-text-dark
+
+        > i
+          color color-primary
+      &:hover
+        background-color color-background
+
+      &:active
+        background-color color-primary
+        color #fff
+
+        > i
+          color #fff
+
+.footer-links
+  > .list-links
+    margin 0
+    font-size 14px
+
+    & + .list-links
+      margin-left 50px
+
+    > li:first-child
+      margin-bottom 25px
+      font-size 16px
+
+.footer-info
+  margin-top 58px
+
+.dropdown
+  padding-top 10px
+  padding-bottom 10px
+  background-color #fff
+  box-shadow 3px 3px 3px rgba(0, 0, 0, 0.21)
+  border 1px solid color-border
+  border-radius 4px
+  text-align left
+  list-style none
+  cursor initial
+
+  a
+    display block
+    height 30px
+    padding-right 50px
+    padding-left 15px
+    line-height 2
+    white-space nowrap
+
+    > i
+      margin-right 5px
+
+.list-links
+  list-style none
+
+  a
+    &:link,
+    &:visited
+      color color-text-intermediate
+
+    &:hover,
+    &:active
+      color #fff
+
+.info-bar
+  text-align right
+  font-size 15px
+  color color-text-intermediate
+
+  > a
+    &:link,
+    &:visited
+      color color-text-intermediate
+
+    &:hover,
+    &:active
+      color #fff
+
+  &:before
+    display block
+    content ''
+    width 20px
+    height 2px
+    margin-bottom 5px
+    margin-left auto
+    background-color color-success
+
+  & + .info-bar
+    margin-top 25px
+
+.datepicker-duration
+  > .datepicker-start,
+  > .datepicker-end
+    height 2em
+    padding-left 0.8em
+    background-color #fff
+    border 1px solid color-text-light
+    line-height 2em
+    color color-text-light
+
+  > .datepicker-start
+    margin-right 0.3em
+    border-radius 4px 0 0 4px
+
+  > .datepicker-end
+    margin-left 0.3em
+    border-radius 0 4px 4px 0
+
+.video-list-item
+  padding 1em 1.5em 1.8em
+  border-bottom 1px solid color-cutting-line
+
+  &:hover
+    background-color color-background
+
+  img
+    width 90%
+    height 12em
+    border-radius 4px
+
+  dl
+    @extend .clearfix
+
+    dt,
+    dd
+      float left
+
+    dd
+      padding-left 0.3em
+
+.video-source-item
+  padding 1em 1.5em 1.8em
+  border-bottom 1px solid color-cutting-line
+
+  img
+    width 90%
+    height 10.34em
+    border-radius 4px
+
+  > .row:first-child
+    margin-bottom 0.5em
+    font-size 16px
+
+  dl
+    @extend .clearfix
+
+    dt,
+    dd
+      float left
+
+    dd
+      padding-left 0.3em
+
+.clip-list
+  padding 0 1em 1em 1.7em
+  border-bottom 1px solid color-border
+
+  & + .clip-list
+    margin-top 1em
+
+div.clip-list-header
+  margin-top 0.5em
+  font-size 16px
+
+ul.clip-list-header
+  @extend .clearfix
+
+  > dt,
+  > dd
+    float left
+
+  > dd
+    padding-left 0.3em
+
+.clip-list-content
+  @extend .clearfix
+  margin-left -1em
+
+.clip-item
+  position relative
+  float left
+  width 5.71em
+  height 5em
+  margin-top 1em
+  margin-left 1em
+  background-image url('../img/footer-bg.jpg')
+  background-size cover
+  background-postion center
+  border-radius 4px
+  cursor pointer
+
+  &:hover
+    > .clip-detail
+      display block
+
+.clip-duration
+  position absolute
+  right 0
+  bottom 0
+  display inline-block
+  padding 0.2em
+  color #fff
+
+.clip-detail
+  position absolute
+  top 100%
+  z-index 1000
+  display none
+  width 14.29em
+  margin-top 0.71em
+  margin-left -0.71em
+  background-color #fff
+  border 2px solid color-border
+  border-radius 4px
+  box-shadow 3px 3px 3px rgba(0, 0, 0, 0.21)
+  cursor auto
+
+  &:before
+    content ''
+    position absolute
+    background transparent
+    width 100%
+    height 0.86em
+    margin-top -0.86em
+
+  > div
+    position relative
+    padding-top 0.1em
+    padding-bottom 2em
+
+    &:before
+      content ''
+      position absolute
+      bottom 100%
+      margin-left 1.43em
+      border-right 0.86em solid transparent
+      border-bottom 0.86em solid color-border
+      border-left 0.86em solid transparent
+
+.clip-name
+  padding-left 0.36em
+  margin 0.86em auto 0
+
+  &:before
+    content ''
+    position absolute
+    bottom 100%
+    z-index 1000
+    margin-left 1.27em
+    border-right 0.71em solid transparent
+    border-bottom 0.71em solid #fff
+    border-left 0.71em solid transparent
+
+.clip-tags
+  padding 0.36em
+  margin 0.71em auto 0
+  border-bottom 2px solid color-border
+
+  > span + span
+    margin-left 0.21em
+
+.clip-id
+  @extend .clearfix
+  margin-right auto
+  margin-left auto
+
+  > dt,
+  > dd
+    float left
+    padding 0.36em
+
+.clip-actions
+  position absolute
+  bottom 0
+  width 100%
+  height 2.14em
+  line-height 2.14em
+  background-color #f4f4f4
+  border-top 2px solid color-border
+
+  > a
+    &:link,
+    &:visited
+      color color-primary
+
+    &:hover,
+    &:active,
+    &:focus
+      color color-primary-hover
+
+    &:first-child
+      margin-left 0.36em
+
+.category-permission-list
+  @extend .clearfix
+  display inline-block
+  list-style none
+
+  > li
+    position relative
+    float left
+    margin-top 0.25em
+    margin-left 0.5em
+    padding-right 0.5em
+    padding-left 0.5em
+    background-color color-primary
+    border-top 1px solid transparent
+    border-right 1px solid transparent
+    border-left 1px solid transparent
+    border-radius 4px
+    color #fff
+
+    &:hover
+      background-color #fff
+      border-top 1px solid color-border
+      border-right 1px solid color-border
+      border-left 1px solid color-border
+      border-radius 4px 4px 0 0
+      color color-text-dark
+
+      > .category-permission-details
+        display block
+
+.category-permission-details
+  position absolute
+  top 100%
+  left 0
+  z-index 1000
+  display none
+  margin-left -1px
+  list-style none
+  background-color #fff
+  border-left 1px solid color-border
+  border-radius 0 4px 4px 4px
+  box-shadow 3px 3px 3px rgba(0, 0, 0, 0.21)
+  white-space nowrap
+
+  > li
+    padding-right 0.5em
+    padding-left 0.5em
+    color color-text-light
+
+    &:first-child
+      border-radius 0 4px 0 0
+
+    &:last-child
+      border-radius 0 0 4px 4px
+
+    &.is-selected
+      background-color color-success
+      color #fff
+
+      &:before
+        content "\2713"
+        margin-right 0.5em
+
+.message-group
+  > .row
+    padding-top 0.5em
+    padding-bottom 0.5em
+    border-bottom 1px solid color-cutting-line
+
+    &.is-unreaded
+      font-weight bold
+
+    &:hover
+      background-color color-background

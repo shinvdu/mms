@@ -1,0 +1,74 @@
+*,
+*:before,
+*:after
+  box-sizing border-box
+
+html,
+body
+  min-height 100%
+  padding 0
+  margin 0
+
+body
+  background-color color-background
+
+header
+  height 75px
+  padding 20px 0
+  margin-top -75px
+  background url('../img/header-bg.jpg') no-repeat
+  background-size cover
+
+footer
+  height 225px
+  padding-top 40px
+  padding-bottom 15px
+  margin-bottom -225px
+  background url('../img/footer-bg.jpg') no-repeat
+  background-size cover
+
+a
+  &:link,
+  &:visited
+    color color-text-light
+    text-decoration none
+
+  &:hover,
+  &:active,
+  &:focus
+    color color-primary
+    text-decoration none
+
+ul
+  margin 0
+  padding 0
+
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+select
+  height 2em
+  padding-left 0.8em
+  background-color #fff
+  border 1px solid color-text-light
+  border-radius 4px
+  line-height 2em
+  color color-text-light
+
+textarea
+  padding-left 0.8em
+  padding-right 0.8em
+  background-color #fff
+  border 1px solid color-text-light
+  border-radius 4px
+  color color-text-light
+  resize none
+
+dl
+  margin 0
+  padding 0
+
+dt,
+dd
+  margin 0

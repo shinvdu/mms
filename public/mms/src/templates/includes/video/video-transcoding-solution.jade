@@ -1,39 +1,41 @@
-.tab-panel#video-transcoding-solution
+include ../mixins
+
+.panel#video-transcoding-solution
   .panel-header.clearfix
-    form.clearfix
-      .right-inner-addon
+    form.l-right.clearfix
+      .form-input-addon
         input(type='search' placeholder='模版名称/用户名')
         i.fa.fa-search
-      div
-        +select('转码模版')
-    button.btn-green.btn-show-panel(data-panel='add-transcoding-solution') 添加转码方案
-  table
-    thead
-      tr
-        th ID
-        th 模版方案
-        th 转码模版
-        th 创建用户
-        th 创建时间
-        th 最后修改时间
-        th 操作
-        th 备注
-    tbody
-      tr
-        td 
-          | 1234567
-        td
-          | 平行教室转码方案
-        td
-          | 转码模版1，转码模版2
-        td
-          | xiao2
-        td
-          | 2015/04/26 17:31
-        td
-          | 2015/04/26 17:31
-        td
-          a(href='#') 修改
-          a(href='#') 删除
-        td
-          | 1 231456
+      +select().select2-single
+    a.link-button-success.btn-show-panel(data-panel='add-transcoding-solution' href='#') 添加转码方案
+  .panel-content
+    table.table(summary='转码方案列表')
+      thead
+        tr
+          th ID
+          th 模版方案
+          th 转码模版
+          th 创建用户
+          th 创建时间
+          th 最后修改时间
+          th 操作
+          th 备注
+      tbody
+        tr
+          td
+            | 1234567
+          td
+            | 平行教室转码方案
+          td
+            | 转码模版1，转码模版2
+          td
+            | xiao2
+          td
+            | 2015/04/26 17:31
+          td
+            | 2015/04/26 17:31
+          td
+            a(href='#') 修改
+            a(href='#') 删除
+          td
+            | 1 231456

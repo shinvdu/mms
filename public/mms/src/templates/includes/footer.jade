@@ -1,46 +1,27 @@
-.footer
+footer
   .container.clearfix
-    +u-a-list([
-      {
-        href: 'index.html',
-        text: '未谷技术'
-      },
-      {
-        href: 'video.html',
-        text: '视频管理'
-      },
-      {
-        href: 'player.html',
-        text: '点播播放器'
-      },
-      {
-        href: 'advertisement.html',
-        text: '广告管理'
-      },
-      {
-        href: 'system.html',
-        text: '系统管理'
-      },
-      {
-        href: '#',
-        text: '用户协议'
-      }
-    ])
-    +u-a-list([
-      {
-        href: '#',
-        text: '帮助中心'
-      },
-      {
-        href: '#',
-        text: '平台'
-      }
-    ])
-    .company-info
-      div
-        .short-line
+    .footer-links.clearfix.l-left
+      ul.list-links.l-left
+        li
+          a(href='index.html') 未谷技术
+        li
+          a(href='video.html') 视频管理
+        li
+          a(href='player.html') 点播播放器
+        li
+          a(href='advertisement.html') 广告管理
+        li
+          a(href='system.html') 系统管理
+        li
+          a(href='#.html') 用户协议
+      ul.list-links.l-left
+        li
+          a(href='#.html') 帮助中心
+        li
+          a(href='#.html') 平台
+    .footer-info.l-right
+      .info-bar
         a(href='#') 关于我们
-      div
-        .short-line
+      .info-bar
         | copyright &copy; 2015上海未谷信息技术有限公司<br>
         | 沪ICP 备案 xxxxxxx

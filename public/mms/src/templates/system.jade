@@ -3,32 +3,33 @@ extends includes/master-page
 append content
   +navbar(4)
 
-  +u-a-i-list([
-    {
-      current: 'current',
-      href: '?panel=manage-user',
-      icon: 'square',
-      text: '用户管理'
-    },
-    {
-      href: '?panel=manage-permission',
-      icon: 'square',
-      text: '权限管理'
-    },
-    {
-      href: '?panel=manage-api',
-      icon: 'square',
-      text: 'API管理'
-    },
-    {
-      href: '?panel=manage-log',
-      icon: 'square',
-      text: '操作日志'
-    }
-  ]).nav-panel.clearfix
-  
+  nav.nav-secondary
+    ul.clearfix
+      li.is-current
+        a(href='?panel=manage-user')
+          i.fa.fa-fw.fa-square
+          | 用户管理
+      li
+        a(href='?panel=manage-category')
+          i.fa.fa-fw.fa-square
+          | 分类管理
+      li
+        a(href='?panel=manage-permission')
+          i.fa.fa-fw.fa-square
+          | 权限管理
+      li
+        a(href='?panel=manage-api')
+          i.fa.fa-fw.fa-square
+          | API管理
+      li
+        a(href='?panel=manage-log')
+          i.fa.fa-fw.fa-square
+          | 操作日志
+
   include includes/system/manage-user
   include includes/system/add-user
+  include includes/system/manage-category
+  include includes/system/manage-user-admin
   include includes/system/manage-permission
   include includes/system/add-permission-management
   include includes/system/manage-api

@@ -5,149 +5,125 @@ mixin u-a-i-list(items)
         a(href=item.href)
           i(class='fa fa-fw fa-' + item.icon)
           = item.text
-          
+
 mixin u-a-list(items)
   ul&attributes(attributes)
     each item in items
       li
         a(href=item.href)
           = item.text
-          
-mixin select(item)
+
+mixin select
   - var count = 1
   select&attributes(attributes)
-    while count < 4
+    while count < 6
       option
-        = item + (count++)
-        
+        = '选项' + (count++)
+
 mixin navbar(index)
-  nav.navbar.clearfix
-    form
-      .right-inner-addon
+  nav.nav-primary.clearfix
+    form.l-right
+      .form-input-addon
         input(type='search' placeholder='视频搜索')
         i.fa.fa-search
     ul.clearfix
-      li(class= index === 0 ? 'current' : undefined)
+      li.no-dropdown(class= index === 0 ? 'is-current' : undefined)
         a(href='index.html')
           i.fa.fa-home
           | 首页
-      li(class= index === 1 ? 'current' : undefined)
+      li(class= index === 1 ? 'is-current' : undefined)
         a(href='video.html')
           i.fa.fa-video-camera
           | 视频管理
-        .down-triangle
-        +u-a-i-list([
-          {
-            href: 'video.html?panel=video-upload',
-            icon: 'circle',
-            text: '上传视频'
-          },
-          {
-            href: 'video.html?panel=video-list',
-            icon: 'circle',
-            text: '视频列表'
-          },
-          {
-            href: 'video.html?panel=video-transcoding-template',
-            icon: 'circle',
-            text: '转码模版'
-          },
-          {
-            href: 'video.html?panel=video-transcoding-solution',
-            icon: 'circle',
-            text: '转码方案'
-          },
-          {
-            href: 'video.html?panel=clip-management',
-            icon: 'circle',
-            text: '素材管理'
-          }
-        ])
-      li(class= index === 2 ? 'current' : undefined)
-        a(href='advertisement.html' role='tab')
+        ul.dropdown
+          li
+            a(href='video.html?panel=video-upload')
+              i.fa.fa-fw.fa-circle
+              | 上传视频
+          li
+            a(href='video.html?panel=video-list')
+              i.fa.fa-fw.fa-circle
+              | 视频列表
+          li
+            a(href='video.html?panel=video-transcoding-template')
+              i.fa.fa-fw.fa-circle
+              | 转码模版
+          li
+            a(href='video.html?panel=video-transcoding-solution')
+              i.fa.fa-fw.fa-circle
+              | 转码方案
+          li
+            a(href='video.html?panel=clip-management')
+              i.fa.fa-fw.fa-circle
+              | 素材管理
+      li(class= index === 2 ? 'is-current' : undefined)
+        a(href='advertisement.html')
           i.fa.fa-cog
           | 广告管理
-        .down-triangle
-        +u-a-i-list([
-          {
-            href: 'advertisement.html?panel=advertisement-solution',
-            icon: 'circle',
-            text: '广告方案'
-          },
-          {
-            href: 'advertisement.html?panel=advertisement-resource',
-            icon: 'circle',
-            text: '广告资源'
-          }
-        ])
-      li(class= index === 3 ? 'current' : undefined)
-        a(href='player.html' role='tab')
+        ul.dropdown
+          li
+            a(href='advertisement.html?panel=advertisement-solution')
+              i.fa.fa-fw.fa-circle
+              | 广告方案
+          li
+            a(href='advertisement.html?panel=advertisement-resource')
+              i.fa.fa-fw.fa-circle
+              | 广告资源
+      li(class= index === 3 ? 'is-current' : undefined)
+        a(href='player.html')
           i.fa.fa-play-circle-o
           | 点播播放器
-        .down-triangle
-        +u-a-i-list([
-          {
-            href: 'player.html?panel=add-player',
-            icon: 'circle',
-            text: '新增播放器'
-          },
-          {
-            href: 'player.html?panel=manage-player',
-            icon: 'circle',
-            text: '播放器管理'
-          },
-          {
-            href: 'player.html?panel=logo-list',
-            icon: 'circle',
-            text: 'LOGO'
-          },
-          {
-            href: 'player.html?panel=upload-logo',
-            icon: 'circle',
-            text: '上传LOGO'
-          }
-        ])
-      li(class= index === 4 ? 'current' : undefined)
-        a(href='system.html' role='tab')
+        ul.dropdown
+          li
+            a(href='player.html?panel=add-player')
+              i.fa.fa-fw.fa-circle
+              | 新增播放器
+          li
+            a(href='player.html?panel=manage-player')
+              i.fa.fa-fw.fa-circle
+              | 播放器管理
+          li
+            a(href='player.html?panel=logo-list')
+              i.fa.fa-fw.fa-circle
+              | LOGO
+          li
+            a(href='player.html?panel=upload-logo')
+              i.fa.fa-fw.fa-circle
+              | 上传LOGO
+      li(class= index === 4 ? 'is-current' : undefined)
+        a(href='system.html')
           i.fa.fa-desktop
           | 系统管理
-        .down-triangle
-        +u-a-i-list([
-          {
-            href: 'system.html?panel=manage-user',
-            icon: 'circle',
-            text: '用户管理'
-          },
-          {
-            href: 'system.html?panel=manage-permission',
-            icon: 'circle',
-            text: '权限管理'
-          },
-          {
-            href: 'system.html?panel=manage-api',
-            icon: 'circle',
-            text: 'API管理'
-          },
-          {
-            href: 'system.html?panel=manage-log',
-            icon: 'circle',
-            text: '操作日志'
-          }
-        ])
-        
+        ul.dropdown
+          li
+            a(href='system.html?panel=manage-user')
+              i.fa.fa-fw.fa-circle
+              | 用户管理
+          li
+            a(href='system.html?panel=manage-permission')
+              i.fa.fa-fw.fa-circle
+              | 权限管理
+          li
+            a(href='system.html?panel=manage-api')
+              i.fa.fa-fw.fa-circle
+              | API管理
+          li
+            a(href='system.html?panel=manage-log')
+              i.fa.fa-fw.fa-circle
+              | 操作日志
+
 mixin clip-detail(name, tags, id)
   .clip-detail
     div
-      .up-triangle
-      .clip-name 
+      .clip-name
         = name
       .clip-tags
         each tag in tags
-          span 
+          span
             = tag
       dl.clip-id
         dt ID:
-        dd 
+        dd
           = id
       .clip-actions
         a(href='#') 编辑

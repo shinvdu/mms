@@ -1,0 +1,93 @@
+include ../mixins
+
+.tab-panel#add-user-admin
+  .panel-header
+    a(href='?panel=manage-user-admin') &lt;&lt; 返回用户管理
+  .panel-content
+    .panel-form
+      .form-group
+        .form-label.form-title
+          label 添加用户
+      .form-group
+        .form-label
+          label(for='user-name') 用户名:
+        .form-field
+          div
+            input#user-name(type='text' placeholder='英文字母/数字/下划线')
+          div.form-description
+            | (5-20个字符)
+      .form-group
+        .form-label
+          label(for='user-nickname') 昵称:
+        .form-field
+          div
+            input#user-nickname(type='text')
+          div.form-description
+            | (16个字符)
+      .form-group
+        .form-label
+          label(for='user-email') 邮箱:
+        .form-field
+          div
+            input#user-email(type='email')
+      .form-group
+        .form-label
+          label(for='user-tel') 联系电话:
+        .form-field
+          div
+            input#user-tel(type='tel')
+      .form-group
+        .form-label
+          label(for='user-password') 密码:
+        .form-field
+          div
+            input#user-password(type='password')
+          div.form-description
+            | (6-20个字符)
+      .form-group
+        .form-label
+          label(for='user-password-confirm') 确认密码:
+        .form-field
+          div
+            input#user-password-confirm(type='password')
+          div.form-description
+            | (6-20个字符)
+      .checkbox-group
+        .form-label
+          label 分配角色:
+        .form-field
+          label
+            input(type='checkbox')
+            | 角色
+          label
+            input(type='checkbox')
+            | 角色
+          label
+            input(type='checkbox')
+            | 角色
+          label
+            input(type='checkbox')
+            | 角色
+          label
+            input(type='checkbox')
+            | 角色
+          label
+            input(type='checkbox')
+            | 角色
+      .checkbox-group
+        .form-label
+          label API权限:
+        .form-field
+          label
+            input(type='checkbox')
+            | 角色
+          label
+            input(type='checkbox')
+            | 角色
+          label
+            input(type='checkbox')
+            | 角色
+      .form-group
+        .form-field.form-submit
+          button.btn-green(type='submit') 保存
+          button.btn-gray.btn-show-panel(data-panel='manage-user') 取消

@@ -1,3 +1,4 @@
+# coding: utf-8
 class UserVideosController < ApplicationController
   before_action :authenticate_account!, :check_login, :except => [:uploads]
   after_action :cors_set_access_control_headers, :only => [:uploads]
@@ -43,7 +44,7 @@ class UserVideosController < ApplicationController
           delete_type: "DELETE"
         }
       ]
-    }        
+    }
     render json: json_data
   end
 

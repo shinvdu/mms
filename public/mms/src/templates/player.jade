@@ -3,30 +3,26 @@ extends includes/master-page
 append content
   +navbar(3)
 
-  +u-a-i-list([
-    {
-      current: 'current',
-      href: '?panel=add-player',
-      icon: 'square',
-      text: '新增播放器'
-    },
-    {
-      href: '?panel=manage-player',
-      icon: 'square',
-      text: '播放器管理'
-    },
-    {
-      href: '?panel=logo-list',
-      icon: 'square',
-      text: 'LOGO'
-    },
-    {
-      href: '?panel=upload-logo',
-      icon: 'square',
-      text: '上传LOGO'
-    }
-  ]).nav-panel.clearfix
+  nav.nav-secondary
+    ul.clearfix
+      li.is-current
+        a(href='?panel=add-player')
+          i.fa.fa-fw.fa-square
+          | 新增播放器
+      li
+        a(href='?panel=manage-player')
+          i.fa.fa-fw.fa-square
+          | 播放器管理
+      li
+        a(href='?panel=logo-list')
+          i.fa.fa-fw.fa-square
+          | LOGO
+      li
+        a(href='?panel=upload-logo')
+          i.fa.fa-fw.fa-square
+          | 上传LOGO
 
   include includes/player/add-player
   include includes/player/manage-player
   include includes/player/logo-list
+  include includes/player/upload-logo
