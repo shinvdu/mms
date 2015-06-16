@@ -1,10 +1,11 @@
       <header>
         <div class="container clearfix">
           <div class="brand l-left clearfix"><img src="<%= asset_path('brand.png') %>" alt="brand" class="l-left">
-            <div><a href="index.html" class="brand-link"><span><%= Settings.title %></span><br><span><%= Settings.mms.domain %></span></a></div>
+            <div><a href="/" class="brand-link"><span><%= Settings.title %></span><br><span><%= Settings.mms.domain %></span></a></div>
           </div>
+          <div class="admin-bar l-right">
           <% if current_user %>
-          <div class="admin-bar l-right"><a href="message.html"><i class="fa fa-bell-o"></i></a>
+            <a href="<%=  notifications_path %>"><i class="fa fa-bell-o"></i></a>
             <button class="btn-icon-text">
               <div id="user-name"><i class="fa fa-user"></i><%=  @current_user && @current_user.nickname %></div>
               <ul id="user-dropdown" class="dropdown">
@@ -13,10 +14,11 @@
               </ul>
             </button>
             <%= raw link_to('<i class="fa fa-power-off"></i>'.html_safe, destroy_account_session_path, :method => :delete) %> 
+            <% else %>
+            <%= link_to('註冊', new_registration_path(:account)) %> 
+            <%= link_to('登入', new_session_path(:account)) %>
+            <% end %>
           </div>
-          <% else %>
-          <%= link_to('註冊', new_registration_path(:account)) %> 
-          <%= link_to('登入', new_session_path(:account)) %>
-          <% end %>
+
         </div>
       </header>
