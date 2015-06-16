@@ -63,11 +63,15 @@
 
   &:hover
     background-color color-delete-hover
-
-.btn-icon-text
-  padding 0 4px
+    
+.btn-icon
+  padding 0
   background none
   border none
+  cursor pointer
+
+.btn-icon-text
+  @extend .btn-icon
 
   > i,
   > div > i
