@@ -6,7 +6,7 @@ defaults: &defaults
     password: 123123123
   mms:
     name:  未谷云视频
-    domain:  www.wgcloud.com
+    domain:  weiguyun.com
   title: 未谷云视频
   cool: mms
   logo: 
