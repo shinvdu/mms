@@ -1727,44 +1727,55 @@ ul.clip-list-header > dd {
 .message-group > .row:hover {
   background-color: #f2f0f1;
 }
-.system-info,
-.system-info-success,
-.system-info-info,
-.system-info-danger {
+.alert,
+.alert-success,
+.alert-info,
+.alert-warning,
+.alert-danger {
   margin-top: 0.5em;
   padding: 0.5em 1.5em;
   border-radius: 4px;
   box-shadow: 3px 3px 3px rgba(0,0,0,0.21);
   font-size: 14px;
 }
-.system-info-success {
+.alert-success {
   background-color: #4fbf91;
   color: #fff;
 }
-.system-info-success:hover {
+.alert-success:hover {
   background-color: #39a478;
 }
-.system-info-success > .btn-icon:hover {
+.alert-success > .btn-icon:hover {
   color: #a7b2c4;
 }
-.system-info-info {
+.alert-info {
   background-color: #344860;
   color: #fff;
 }
-.system-info-info:hover {
+.alert-info:hover {
   background-color: #2d3e52;
 }
-.system-info-info > .btn-icon:hover {
+.alert-info > .btn-icon:hover {
   color: #a7b2c4;
 }
-.system-info-danger {
+.alert-warning {
+  background-color: #f7b520;
+  color: #fff;
+}
+.alert-warning:hover {
+  background-color: #f49b01;
+}
+.alert-warning > .btn-icon:hover {
+  color: #a7b2c4;
+}
+.alert-danger {
   background-color: #e54c3c;
   color: #fff;
 }
-.system-info-danger:hover {
+.alert-danger:hover {
   background-color: #bf3a2b;
 }
-.system-info-danger > .btn-icon:hover {
+.alert-danger > .btn-icon:hover {
   color: #a7b2c4;
 }
 /*
