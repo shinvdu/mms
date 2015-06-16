@@ -9,7 +9,7 @@ module ApplicationHelper
 		flash_messages = []
 		right_close = '<div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>'
 		flash.each do |type, message|
-			type = :info if type.to_sym == :notice
+			type = :success if type.to_sym == :notice
 			text = content_tag(:div,    :class => "alert alert-#{type} clearfix") do |i|
 				 [message, content_tag(:div, :class => 'btn-icon l-right') do |i|
 					content_tag(:i, :class => 'fa fa-times-circle-o') do |i|

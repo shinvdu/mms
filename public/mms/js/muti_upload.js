@@ -1,7 +1,9 @@
 $(function () {
  $("#up_btn").on('click', function (e) {
    e.preventDefault();
- });
+  $("#up_select").on('click', function (e) {
+   e.preventDefault();
+ });});
  formatFileSize = function (bytes) {
         if (typeof bytes !== 'number') {
             return '';

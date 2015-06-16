@@ -1,6 +1,6 @@
 <nav class="nav-secondary">
   <ul class="clearfix">
-      <li class=""><a href="<%= new_user_video_path %>"  data-no-turbolink='true'><i class="fa fa-fw fa-square"></i>上传视频</a></li>
+      <li class=""><a href="<%= muti_uploads_user_videos_path %>"  data-no-turbolink='true'><i class="fa fa-fw fa-square"></i>上传视频</a></li>
       <li><a href="<%= video_product_groups_path %>"><i class="fa fa-fw fa-square"></i>视频列表</a></li>
     <% if can? :manage, Transcoding %>
         <li><a href="<%= transcodings_path %>"><i class="fa fa-fw fa-square"></i>转码模版</a></li>
