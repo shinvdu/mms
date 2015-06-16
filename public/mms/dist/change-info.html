@@ -36,61 +36,70 @@
       </header>
       <div class="content">
         <div class="container">
-          <nav class="nav-primary clearfix">
-            <form class="l-right">
-              <div class="form-input-addon">
-                <input type="search" placeholder="视频搜索"/><i class="fa fa-search"></i>
-              </div>
-            </form>
-            <ul class="clearfix">
-              <li class="no-dropdown is-current"><a href="index.html"><i class="fa fa-home"></i>首页</a></li>
-              <li><a href="video.html"><i class="fa fa-video-camera"></i>视频管理</a>
-                <ul class="dropdown">
-                  <li><a href="video.html?panel=video-upload"><i class="fa fa-fw fa-circle"></i>上传视频</a></li>
-                  <li><a href="video.html?panel=video-list"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
-                  <li><a href="video.html?panel=video-transcoding-template"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
-                  <li><a href="video.html?panel=video-transcoding-solution"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
-                  <li><a href="video.html?panel=clip-management"><i class="fa fa-fw fa-circle"></i>素材管理</a></li>
-                </ul>
-              </li>
-              <li><a href="advertisement.html"><i class="fa fa-cog"></i>广告管理</a>
-                <ul class="dropdown">
-                  <li><a href="advertisement.html?panel=advertisement-solution"><i class="fa fa-fw fa-circle"></i>广告方案</a></li>
-                  <li><a href="advertisement.html?panel=advertisement-resource"><i class="fa fa-fw fa-circle"></i>广告资源</a></li>
-                </ul>
-              </li>
-              <li><a href="player.html"><i class="fa fa-play-circle-o"></i>点播播放器</a>
-                <ul class="dropdown">
-                  <li><a href="player.html?panel=add-player"><i class="fa fa-fw fa-circle"></i>新增播放器</a></li>
-                  <li><a href="player.html?panel=manage-player"><i class="fa fa-fw fa-circle"></i>播放器管理</a></li>
-                  <li><a href="player.html?panel=logo-list"><i class="fa fa-fw fa-circle"></i>LOGO</a></li>
-                  <li><a href="player.html?panel=upload-logo"><i class="fa fa-fw fa-circle"></i>上传LOGO</a></li>
-                </ul>
-              </li>
-              <li><a href="system.html"><i class="fa fa-desktop"></i>系统管理</a>
-                <ul class="dropdown">
-                  <li><a href="system.html?panel=manage-user"><i class="fa fa-fw fa-circle"></i>用户管理</a></li>
-                  <li><a href="system.html?panel=manage-permission"><i class="fa fa-fw fa-circle"></i>权限管理</a></li>
-                  <li><a href="system.html?panel=manage-api"><i class="fa fa-fw fa-circle"></i>API管理</a></li>
-                  <li><a href="system.html?panel=manage-log"><i class="fa fa-fw fa-circle"></i>操作日志</a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-          <div class="system-info-success clearfix">
-             
-            登录成功!
-            <div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>
-          </div>
-          <div class="system-info-info clearfix">
-             
-            系统信息
-            <div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>
-          </div>
-          <div class="system-info-danger clearfix">
-             
-            警告信息
-            <div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>
+          <div class="panel is-current">
+            <div class="panel-header clearfix">
+              <div class="l-right"><a href="index.html" class="link-button-success">返回首页</a></div>
+            </div>
+            <div class="panel-content">
+              <form>
+                <div class="row form-title">
+                  <div class="cols large-2 l-text-right">修改用户信息</div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="user-name">用户名:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="text" id="user-name">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="old-password">原密码:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="password" id="old-password">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="new-password">新密码:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="password" id="new-password">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="new-password-confirm">再次输入密码:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="password" id="new-password-confirm">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="user-email">邮箱地址:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="email" id="user-email">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="user-remark">备注:</label>
+                  </div>
+                  <div class="cols large-6">
+                    <textarea id="user-remark"></textarea>
+                  </div>
+                </div>
+                <div class="row form-submit">
+                  <div class="cols large-10 offset-by-2">
+                    <button type="submit" class="btn-success">保存</button><a href="index.html" class="link-button-cancel">取消</a>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
