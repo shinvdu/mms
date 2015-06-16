@@ -15,6 +15,9 @@ append content
                 label(for='user-email') 邮箱:
               .cols.large-8
                 input(type='email')#user-email
+            .row.form-error
+              .cols.large-8.offset-by-4
+                | 错误信息错误信息
             .row
               .cols.large-4.l-text-right
                 label(for='user-password') 密码:
@@ -27,7 +30,7 @@ append content
                 input(type='password')#user-password-confirm
             .row
               .cols.large-4.l-text-right
-                label(for='user-nickname') 昵称:
+                label(for='user-nickname') 用户名:
               .cols.large-8
                 input(type='text')#user-nickname
             .row.form-submit
