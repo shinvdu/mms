@@ -1074,6 +1074,9 @@ body {
 .panel-content > form .row + .row {
   margin-top: 0.7em;
 }
+.panel-content > form .row + .row.form-error {
+  margin-top: 0.2em;
+}
 .panel-content > form .row.form-title {
   color: #a7b2c4;
 }
@@ -1304,6 +1307,9 @@ body {
 }
 .form-description {
   color: #a7b2c4;
+}
+.form-error {
+  color: #e54c3c;
 }
 .img-preview {
   width: 300px;
@@ -1718,6 +1724,14 @@ ul.clip-list-header > dd {
 }
 .message-group > .row:hover {
   background-color: #f2f0f1;
+}
+.system-info {
+  margin-top: 0.5em;
+  padding: 0.5em 1.5em;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.21);
+  font-size: 14px;
 }
 /*
 input[type='text'],
