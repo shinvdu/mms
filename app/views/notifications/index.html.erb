@@ -1,35 +1,35 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Notifications</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Is read</th>
-      <th>Title</th>
-      <th>Target</th>
-      <th>Target type</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @notifications.each do |notification| %>
-      <tr>
-        <td><%= notification.user_id %></td>
-        <td><%= notification.is_read %></td>
-        <td><%= notification.title %></td>
-        <td><%= notification.target_id %></td>
-        <td><%= notification.target_type %></td>
-        <td><%= link_to 'Show', notification %></td>
-        <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
-        <td><%= link_to 'Destroy', notification, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Notification', new_notification_path %>
+<div class="panel is-current">
+    <div class="panel-header clearfix">
+        <div class="l-right">
+            <button class="btn-link">全部消息</button>
+            <button class="btn-link">系统消息</button>
+            <button class="btn-link">账户消息</button>
+            <a class="btn-link" href="/">返回首页</a>
+        </div>
+        <button class="btn-info">全选</button>
+        <button class="btn-success">标记为已读</button>
+        <button class="btn-danger">删除</button>
+    </div>
+    <div class="panel-content">
+      <% @notifications_sort.each do |date, n| %>
+        <div class="message-group">
+            <div class="row">
+                <div class="cols large-1 l-text-center">
+                    <input type="checkbox">
+                </div>
+                <div class="cols large-11"><%= date  %></div>
+            </div>
+            <% n  && n.each do |row| %>
+            <div class="row <%= 'is-unreaded' if not row.is_read %> ">
+                <div class="cols large-1 l-text-center">
+                    <input type="checkbox">
+                </div>
+                <div class="cols large-2">系统消息</div>
+                <div class="cols large-7"><%= row.title %></div>
+                <div class="cols large-2 l-text-center"><%= row.created_at && row.created_at.strftime('%H:%M') %></div>
+            </div>
+            <% end %>
+        </div>
+        <% end %>
+    </div>
+</div>
