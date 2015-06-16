@@ -9,7 +9,9 @@
             <button class="btn-icon-text">
               <div id="user-name"><i class="fa fa-user"></i><%=  @current_user && @current_user.nickname %></div>
               <ul id="user-dropdown" class="dropdown">
-                <li><a href="<%= edit_user_path(current_user) %>"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
+                <li>
+                  <a href="<%= edit_account_registration_path(:account) %>"> <i class="fa fa-fw fa-pencil"></i>用户设置</a>
+                </li>
                 <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
               </ul>
             </button>
