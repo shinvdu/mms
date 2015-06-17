@@ -15,7 +15,7 @@ class UserVideosController < ApplicationController
   end
 
   def get_token
-    render html: 'aaaaaaaaaaaaaaaaa'
+    render html: OneTimeToken.create_token.token
   end
 
   def uploads

@@ -10,8 +10,23 @@ class OneTimeToken < ActiveRecord::Base
     )
   end
 
+  def self.create_token
+    ret = self.create(
+      :token => UUIDTools::UUID.random_create.to_s,
+      :used => false,
+      :expire_time => Settings.file_server.token_expire_seconds.seconds.from_now
+      )
+  end
+
+
   def self.validate(token)
-    arel = OneTimeToken.arel_table
-    OneTimeToken.where(:token => t.token, :used => false).where(arel[:expire_time].gteq(Time.now)).update_all(:used => true)
+    records = OneTimeToken.where(:token => token, :used => false).where("expire_time >= ?",Time.now)    
+    if records.count > 0
+       the_one = records.first
+       the_one.used = true
+       the_one.save
+    else
+       return false
+    end
   end
 end
