@@ -8,13 +8,13 @@
 <%= render 'user_videos/nav' %>
 <%= form_tag  "#{upload_server}",  :multipart => true, :id => "fileupload"   do %>			
 <div id="token_url" style="display:none"><%= "/user_videos/get_token" %></div>
-<div id="video-upload" class="tab-panel current">
-    <table>
-        <thead>
+<div id="video-upload" class="panel is-current">
+    <div class="panel-content">
+        <table summary="视频上传列表" class="table">        <thead>
             <tr>
                 <th>视频名称</th>
                 <th>视频分类</th>
-                <th>转码方案</th>
+                <th>视频处理</th>
                 <th>文件大小</th>
                 <th>上传时间</th>
                 <th>状态</th>
@@ -23,13 +23,14 @@
         </thead>
         <tbody id="upload_files">
         </tbody>
-    </table>
+        </table>
+    </div>
     <div class="panel-footer">
-        <button class="btn-purple fileinput-button">
+        <button class="btn-primary fileinput-button" id="up_select">
         	<span>选择文件</span>
         	<%= file_field_tag "files[]", 'multiple' => true %>
         </button>
-        <button class="btn-green" id="up_btn">上传文件</button>
+        <button class="btn-success" id="up_btn">上传文件</button>
     </div>
 </div>
 <% end %>
@@ -39,10 +40,14 @@
         <tr>
             <td class="file_name">{%= formatFilename(file.name) %}</td>
             <td class="file_categary">
-               <%= select_tag('file_categary', options_for_select(VideoList.uploadable(current_user).collect{|f| [f.name, f.id]}), id: '') %>
+               <%= select_tag('categary', options_for_select(VideoList.uploadable(current_user).collect{|f| [f.name, f.id]}), :include_blank => true, id: '', style: "min-width: 100px") %>
             </td>
             <td class="file_strategy">
-               <%= select_tag('file_categary', options_for_select(TranscodingStrategy.visible(current_user).collect{|f| [f.name, f.id]}), id: '') %>
+            <% 
+            options = TranscodingStrategy.visible(current_user).collect{|f| ['方案:' << f.name, f.id]} 
+            options << ['发布为MP4', 'mp4']
+            %>
+               <%= select_tag('strategy_id', options_for_select(options, 'mp4'), id: '', style: "min-width: 100px") %>
             </td>
             <td class="file_size">{%= formatFileSize(file.size) %}</td>
             <td class="file_time">{%=  formatDay() %}</td>

@@ -9,6 +9,15 @@ class NotificationsController < ApplicationController
   # GET /notifications.json
   def index
     @notifications = Notification.where(user_id: current_user.uid).page(params[:page]).order(created_at: :desc)
+    # @notifications = Notification.all
+    @notifications_sort = {}
+    @notifications.each do |n|
+      date = n.created_at.strftime('%Y-%m-%d')
+      if @notifications_sort[date].nil?
+      @notifications_sort[date] = []
+      end
+      @notifications_sort[date]  << n
+    end
   end
 
   # GET /notifications/unread

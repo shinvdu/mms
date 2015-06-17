@@ -38,52 +38,64 @@
         <div class="container">
           <div class="panel is-current">
             <div class="panel-header clearfix">
-              <div class="l-right">已有账号？<a href="sign-in.html" class="link-button-success">直接登录</a></div>
+              <div class="l-right"><a href="index.html" class="link-button-success">返回首页</a></div>
             </div>
             <div class="panel-content">
               <form>
+                <div class="row form-title">
+                  <div class="cols large-2 l-text-right">修改用户信息</div>
+                </div>
                 <div class="row">
-                  <div class="cols large-6 offset-by-2">
-                    <div class="row">
-                      <div class="cols large-4 l-text-right">
-                        <label for="user-email">邮箱:</label>
-                      </div>
-                      <div class="cols large-8">
-                        <input type="email" id="user-email">
-                      </div>
-                    </div>
-                    <div class="row form-error">
-                      <div class="cols large-8 offset-by-4">错误信息错误信息</div>
-                    </div>
-                    <div class="row">
-                      <div class="cols large-4 l-text-right">
-                        <label for="user-password">密码:</label>
-                      </div>
-                      <div class="cols large-8">
-                        <input type="password" id="user-password">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="cols large-4 l-text-right">
-                        <label for="user-password-confirm">再次输入密码:</label>
-                      </div>
-                      <div class="cols large-8">
-                        <input type="password" id="user-password-confirm">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="cols large-4 l-text-right">
-                        <label for="user-nickname">用户名:</label>
-                      </div>
-                      <div class="cols large-8">
-                        <input type="text" id="user-nickname">
-                      </div>
-                    </div>
-                    <div class="row form-submit">
-                      <div class="cols large-8 offset-by-4">
-                        <button type="submit" class="btn-success">注册</button><a href="index.html" class="link-button-cancel">取消</a>
-                      </div>
-                    </div>
+                  <div class="cols large-2 l-text-right">
+                    <label for="user-name">用户名:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="text" id="user-name">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="old-password">原密码:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="password" id="old-password">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="new-password">新密码:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="password" id="new-password">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="new-password-confirm">再次输入密码:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="password" id="new-password-confirm">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="user-email">邮箱地址:</label>
+                  </div>
+                  <div class="cols large-4">
+                    <input type="email" id="user-email">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="user-remark">备注:</label>
+                  </div>
+                  <div class="cols large-6">
+                    <textarea id="user-remark"></textarea>
+                  </div>
+                </div>
+                <div class="row form-submit">
+                  <div class="cols large-10 offset-by-2">
+                    <button type="submit" class="btn-success">保存</button><a href="index.html" class="link-button-cancel">取消</a>
                   </div>
                 </div>
               </form>

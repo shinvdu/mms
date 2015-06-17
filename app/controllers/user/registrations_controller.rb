@@ -5,7 +5,7 @@ class User::RegistrationsController < Devise::RegistrationsController
 # GET /resource/sign_up
   def new
     super
-    logger.info 'informational message'
+    # logger.info 'informational message'
   end
 
   # POST /resource
@@ -27,6 +27,10 @@ class User::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     super
+    user = current_user
+    user.signature = params[:signature]
+    user.nickname = current_account.username
+    user.save
   end
 
   # DELETE /resource

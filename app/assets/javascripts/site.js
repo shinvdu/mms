@@ -11,9 +11,9 @@
 // about supported directives.
 //
 //= require lib/jquery/jquery.min
-//= require lib/jquery/jquery-ui.min
 //= require jquery_ujs
 //= require turbolinks
 //= require lib/sly.min
 //= require lib/URI.min
+//= require lib/select2.min
 //= require app.min

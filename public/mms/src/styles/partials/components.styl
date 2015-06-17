@@ -44,7 +44,7 @@
     position relative
 
     &:hover,
-    &:focus    
+    &:focus
       color color-text-light
 
   .dropdown
@@ -425,3 +425,58 @@ ul.clip-list-header
 
     &:hover
       background-color color-background
+
+.alert
+  margin-top 0.5em
+  padding 0.5em 1.5em
+  border-radius 4px
+  box-shadow 3px 3px 3px rgba(0, 0, 0, 0.21)
+  font-size 14px
+
+.alert-success
+  @extend .alert
+  background-color color-success
+  color #fff
+
+  &:hover
+    background-color color-success-hover
+
+  > .btn-icon
+    &:hover
+      color color-text-light
+
+.alert-info
+  @extend .alert
+  background-color color-info
+  color #fff
+
+  &:hover
+    background-color color-info-hover
+
+  > .btn-icon
+    &:hover
+      color color-text-light
+
+.alert-warning
+  @extend .alert
+  background-color color-warning
+  color #fff
+
+  &:hover
+    background-color color-warning-hover
+
+  > .btn-icon
+    &:hover
+      color color-text-light
+
+.alert-danger
+  @extend .alert
+  background-color color-danger
+  color #fff
+
+  &:hover
+    background-color color-danger-hover
+
+  > .btn-icon
+    &:hover
+      color color-text-light
