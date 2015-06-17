@@ -1,8 +1,9 @@
-<% javascript '/cropper/dist/cropper.js' %>
-<% javascript '/cropper/dist/canvas-to-blob.min.js' %>
-<% javascript '/mms/js/mlogo.js' %>
-<% style '/cropper/dist/cropper.css' %>
-<% style '/mms/css/mlogo.css' %>
+<% javascript 'lib/cropper/cropper.min' %>
+<% javascript 'lib/cropper/canvas-to-blob.min' %>
+<% javascript 'mlogo' %>
+<% style 'lib/cropper/cropper.min' %>
+<% style 'mlogo' %>
+
 <script type="text/javascript">
     $(function() {
         document.querySelector("#logo_form").addEventListener("submit", function(event) {
