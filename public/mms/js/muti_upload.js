@@ -153,7 +153,7 @@ $(function () {
             for(var i = 0, l = data.files.length; i < l; i++) {
                file = data.files[i];
                var id = filelists.indexOf(file.name);
-               var file_categary = $('#row_upload_' + id).find('.file_strategy select').val();
+               var file_categary = $('#row_upload_' + id).find('.file_categary select').val();
                var file_strategy = $('#row_upload_' + id).find('.file_strategy select').val();
                // var form_value = $('#row_upload_' + id).find('.title input').val();
                // 是否文件己经上传
@@ -166,12 +166,12 @@ $(function () {
                   };
 
               data.formData = {categary: file_categary, strategy_id: file_strategy, token: token, utf8: utf8, authenticity_token: authenticity_token};
-               if (!data.formData.categary) {
-                  alert('请为: ' + file.name + '选择视频分类');
-                  // data.context.find('button').prop('disabled', false);
-                  // input.focus();
-                  return false;
-              }        
+              //  if (!data.formData.categary) {
+              //     alert('请为: ' + file.name + '选择视频分类');
+              //     // data.context.find('button').prop('disabled', false);
+              //     // input.focus();
+              //     return false;
+              // }        
                if (!data.formData.strategy_id) {
                   alert('请为: ' + file.name + '转码方案');
                   return false;
