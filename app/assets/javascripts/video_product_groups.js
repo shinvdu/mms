@@ -26,15 +26,15 @@ $(function() {
         height: 140,
         modal: true,
         buttons: {
-            删除原片: function() {
+            delte_origin: function() {
                 $(this).dialog("close");
                 removeProductGroup(true);
             },
-            保留原片: function() {
+            keep_origin: function() {
                 $(this).dialog("close");
                 removeProductGroup(false);
             },
-            取消操作: function() {
+            abort_operation: function() {
                 $(this).dialog("close");
             }
         }
@@ -46,11 +46,11 @@ $(function() {
         height: 140,
         modal: true,
         buttons: {
-            确认删除: function() {
+            conform_delete: function() {
                 $(this).dialog("close");
                 removeProductGroup(false);
             },
-            取消: function() {
+            cancel: function() {
                 $(this).dialog("close");
             }
         }
