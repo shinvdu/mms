@@ -1,7 +1,7 @@
-<% style '/player1/video-js.css' %>
-<% style '/player1/videojs.watermark.css' %>
-<% javascript '/player1/video.js' %>
-<% javascript '/player1/videojs.watermark.js' %>
+<% style 'lib/videojs/video-js' %>
+<% style 'lib/videojs/videojs.watermark' %>
+<% javascript 'lib/videojs/video.min' %>
+<% javascript 'lib/videojs/videojs.watermark' %>
 <script>
     videojs.options.flash.swf = "/player1/video-js.swf";
 </script>
@@ -110,7 +110,7 @@
 <% end %>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
-        video = videojs("wgcloud_video_1", {width: 500px});
+         videojs("wgcloud_video_1",  {width: '500px'})
     })
 </script>
 <div class="col-md-6">
