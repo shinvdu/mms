@@ -5,7 +5,7 @@ log4r_config:
       outputters :
       - rollingfile
     - name      : development
-      trace     : 'true'
+      trace     : 'false'
       outputters :
       - rollingfile
       - std
