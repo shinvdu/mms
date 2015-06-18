@@ -13,6 +13,7 @@
  *= require_self
  *= require normalize
  *= require font-awesome.min
+ *= require lib/jquery.modal
  *= require main.min
  *= require main.add-on
  *= require lib/jquery-ui

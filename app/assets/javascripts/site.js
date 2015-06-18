@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require lib/jquery/jquery.min
+//= require lib/jquery/jquery.modal.min
 //= require jquery_ujs
 //= require turbolinks
 //= require lib/sly.min

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'video/:id', to: 'video#show', as: :video
   get 'video/iframe/:id', to: 'video#iframe'
+  get 'video/code/:id', to: 'video#code'
   get 'video_paths', to: 'video#path' 
   get 'home/index'
   root 'home#index'

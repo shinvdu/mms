@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="cols large-3">
-                          <a href="<%= video_path(g.show_id) %>">
+                          <a href="/video/code/<%= g.show_id %>" rel="modal:open">
                             <% if g.CREATED? %>
                             <%= image_tag '', :class => 'img-rounded', :alt => '等待剪辑' %>
                             <% elsif g.snapshots.present? %>
@@ -48,7 +48,7 @@
                                 <div class="cols large-12">
                                   <dl>
                                     <dt>名称:</dt>
-                                    <dd><%= g.name %></dd>
+                                    <dd><a href="<%= video_path(g.show_id) %>"><%= g.name %></a></dd>
                                   </dl>
                                 </div>
                             </div>
