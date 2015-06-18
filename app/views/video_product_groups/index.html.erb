@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="cols large-3">
-                          <a href="/video/code/<%= g.show_id %>" rel="modal:open">
+                          <a href="/video/preview/<%= g.show_id %>" rel="modal:open">
                             <% if g.CREATED? %>
                             <%= image_tag '', :class => 'img-rounded', :alt => '等待剪辑' %>
                             <% elsif g.snapshots.present? %>
@@ -116,7 +116,7 @@
                                       <% end %>
                                   <% else %>
                                  <%= link_to '编辑', edit_video_product_group_path(g), :class => 'link-button-info', 'data-no-turbolink' => 'true' %>
-                                 <%= link_to '代码', '#', :class => 'link-button-info' %>
+                                 <%= link_to '代码', "/video/code/#{g.show_id}", :class => 'link-button-info' ,  :rel => "modal:open"%>
                                   <% end %>
                                   <%= link_to '删除', video_product_group_path(g),  :class => 'link-button-info', method: :delete, data: { confirm: '你确定要删除?' } %>
 

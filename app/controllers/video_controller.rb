@@ -63,7 +63,7 @@ class VideoController < ApplicationController
 
   end
 
-  def code
+  def preview
        id = params[:id]
        @width = Settings.default_player.width
        @height = Settings.default_player.height
@@ -71,9 +71,22 @@ class VideoController < ApplicationController
        if not @video_product_group
           render html: '没有这个视频'
        else
-          render 'common/_player_code', :layout => false
+          render :layout => false
        end
   end
+
+    def code
+       id = params[:id]
+       @width = Settings.default_player.width
+       @height = Settings.default_player.height
+       @video_product_group = VideoProductGroup.where(show_id: id).first
+       if not @video_product_group
+          render html: '没有这个视频'
+       else
+          render  :layout => false
+       end
+  end
+
 
   protected
 
