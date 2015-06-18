@@ -11,7 +11,7 @@ function element_lists() {
 	return container;
 }
 
-var main = function() {
+$(document).ready(function() {
     var url = new URI(location.href),
 	currentPanel = url.search(true).panel,
 	options = {
@@ -194,7 +194,7 @@ var main = function() {
 	width: '100%',
 	minimumResultsForSearch: 10
     })
-    
+
     $frame.sly(slyOptions);
 
     if(mplayer) {
@@ -228,6 +228,4 @@ var main = function() {
 	$('.panel').hide();
 	$('#' + targetPanel).show();
     });
-};
-
-$(document).ready(main);
+});

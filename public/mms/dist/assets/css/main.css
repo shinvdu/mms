@@ -1321,7 +1321,7 @@ body {
   border-radius: 4px;
 }
 .brand {
-  width: 150px;
+  white-space: nowrap;
 }
 .brand > img {
   width: 30px;
