@@ -1053,6 +1053,7 @@ body {
 }
 .panel-content {
   font-size: 14px;
+  overflow-x: scroll;
 }
 .panel-content > form {
   margin-left: 3em;
@@ -1105,6 +1106,7 @@ body {
   border-collapse: collapse;
   border-spacing: 0;
   text-align: center;
+  white-space: nowrap;
 }
 .table:nth-child(n+2) {
   margin-top: 0.8em;
