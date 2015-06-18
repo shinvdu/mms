@@ -8,7 +8,7 @@ class VideoController < ApplicationController
       @src = []
       @video_products.each do |product|
         @src << {
-            :type => "video/#{product.transcoding.container}",
+            :type => "video/#{(product.transcoding && product.transcoding.container) ?  product.transcoding.container : 'mp4'}",
             :src => ['/video_path?', "video_id=#{@video_group.show_id}", "&video_product_id=#{product.id}"].join(''),
             'data-res' => "#{product.check_quanity}",
         }

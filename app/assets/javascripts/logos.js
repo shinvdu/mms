@@ -1,9 +1,4 @@
 /*
-* //= require lib/cropper/cropper.min.js
-* //= require lib/cropper/canvas-to-blob.min.js
-* //= require lib/cropper/mlogo.js
-*/
-/*
 $(function() {
     document.querySelector("#logo_form").addEventListener("submit", function(event) {
         event.preventDefault();
