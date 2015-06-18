@@ -54,5 +54,8 @@ module ApplicationHelper
 	def upload_server
 		Settings.server.upload_server.to_a.sample(1).first.second['address'] + uploads_user_videos_path
 	end
+	def video_server
+		Settings.server.video_server.to_a.sample(1).first.second['address']  
+	end
 
 end

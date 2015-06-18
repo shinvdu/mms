@@ -8,6 +8,11 @@ production:
       ups1:
         hostname: ups1
         address: video.weiguyun.com
+    video_server:
+      video1:
+        hostname: video
+        address: http://video.wgcloud.com
+
 
 development:
   server:
@@ -19,5 +24,21 @@ development:
       upload:
         hostname: upload
         address: http://wg-upload.com:3000
+    video_server:
+      video1:
+        hostname: video
+        address: http://wg-upload.com:3000
 
-test:
+test:  server:
+    web_server:
+      main:
+        hostname: main
+        address: http://localhost:3000
+    upload_server:
+      upload:
+        hostname: upload
+        address: http://wg-upload.com:3000
+    video_server:
+      video1:
+        hostname: video
+        address: http://wg-upload.com:3000

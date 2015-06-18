@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="cols large-3">
-                          <a href="<%= video_product_group_path(g) %>">
+                          <a href="<%= video_path(g.show_id) %>">
                             <% if g.CREATED? %>
                             <%= image_tag '', :class => 'img-rounded', :alt => '等待剪辑' %>
                             <% elsif g.snapshots.present? %>

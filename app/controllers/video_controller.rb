@@ -9,7 +9,7 @@ class VideoController < ApplicationController
       @video_products.each do |product|
         @src << {
             :type => "video/#{(product.transcoding && product.transcoding.container) ?  product.transcoding.container : 'mp4'}",
-            :src => ['/video_path?', "video_id=#{@video_group.show_id}", "&video_product_id=#{product.id}"].join(''),
+            :src => ['/video_paths?', "video_id=#{@video_group.show_id}", "&video_product_id=#{product.id}"].join(''),
             'data-res' => "#{product.check_quanity}",
         }
       end
@@ -21,10 +21,26 @@ class VideoController < ApplicationController
   end
 
   def iframe
-
+     headers['X-Frame-Options'] = 'GOFORIT'
+    @video_group = VideoProductGroup.where(show_id: params[:id]).first
+    if @video_group.FINISHED? && @video_group.ACCEPTED?
+      @video_products = @video_group.video_products
+      @src = []
+      @video_products.each do |product|
+        @src << {
+          :type => "video/#{(product.transcoding && product.transcoding.container) ?  product.transcoding.container : 'mp4'}",
+          :src => ['/video_paths?', "video_id=#{@video_group.show_id}", "&video_product_id=#{product.id}"].join(''),
+          'data-res' => "#{product.check_quanity}",
+        }
+      end
+    else
+      render html: '没有这个视频'
+      return
+    end
+    render layout: 'player'
   end
 
-  def video_path
+  def path
     # params: video_id, signture, video_product_id
     video_group_id = params[:video_id]
     signature = params[:signature]
