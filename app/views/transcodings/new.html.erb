@@ -1,8 +1,8 @@
 <%= render 'user_videos/nav' %>
 
-<div id="add-transcoding-template" class="tab-panel" style="display: block;">
+<div id="add-transcoding-template" class="panel" style="display: block;">
   <div class="panel-header">
-    <%= link_to '&lt;&lt; 返回模板列表'.html_safe, transcodings_path %>
+    <%= link_to '&lt;&lt; 返回模板列表'.html_safe, transcodings_path, :class => "l-right" %>
   </div>
   <%= render 'form' %>
 </div>
