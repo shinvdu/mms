@@ -15,10 +15,6 @@
           <%= f.text_field :to, :value => @to, :type => 'date', :placeholder => '2015/05/01',  :class => "datepicker-start" %>
             </div>
             <%= f.collection_select :video_list_id, VideoList.visible(current_user), :id, :name, {:include_blank => '全部列表', :selected => @video_list_id}, :class => 'select2-single select2-hidden-accessible' %>
-
-            </select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 126px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-cwzt-container"><span class="select2-selection__rendered" id="select2-cwzt-container" title="选项1
-                            ">选项1
-            </span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
     <% end %>
         <a href="<%= new_user_video_path %>" class="link-button-success"  data-no-turbolink='true'>上传文件</a>
     </div>
