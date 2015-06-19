@@ -1,0 +1,10 @@
+.panel#video-edit
+  .panel-header.clearfix
+    a.l-right(href='?panel=video-list') &lt;&lt; 返回视频列表
+  .panel-content
+    video.video-js.vjs-default-skin#video-test(data-setup='{"controls": true, "preload": "metadata", "width": 640, "height": 480, "poster": "http://video-js.zencoder.com/oceans-clip.png"}')
+      source(src='http://vjs.zencdn.net/v/oceans.mp4' type='video/mp4')
+      source(src='http://vjs.zencdn.net/v/oceans.webm' type='video/webm')
+      p.vjs-no-js
+       | To view this video please enable JavaScript, and consider upgrading to a web browser that
+       a(href='http://videojs.com/html5-video-support/' target='_blank') supports HTML5 video
