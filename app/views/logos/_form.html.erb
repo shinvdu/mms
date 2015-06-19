@@ -28,10 +28,7 @@
                 contentType: false,
                 type: 'POST',
                 success: function(data) {
-                    location.href = '<%= logos_path %>/'
-//                    var success = '<div class="alert alert-success">上传成功, <a href="/logos/' + data.id + '">查看</a> </div>'
-//                    $('#message').html(success)
-//                    window.scrollTo(0, 0);
+                    location.href = '/logos'
                 },
                 error: function(xhr, error) {
                     var failed = '<div class="alert alert-danger">上传失败 </div>'
