@@ -1,14 +1,9 @@
 <%=  render 'players/nav' %>
-<div class="tab-panel current" id="video-transcoding-template">
-	<div class="panel-links">
-		<%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'btn-return-link' %> |
-		<%= link_to '查看', @player,   'data-no-turbolink' => true   %>
-	</div>
 
-	<div class="clearfix">
-		<label class="col-md-5 control-label text-center">编辑播放器</label>
-	</div>
-
-<%= render 'form' %>
+<div id="add-player" class="panel is-current">
+            <div class="panel-header clearfix">
+            <%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'l-right' %> 
+            </div>
+            <%= render 'form' %>
 
 </div>

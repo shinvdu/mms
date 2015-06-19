@@ -1,15 +1,9 @@
 <%=  render 'players/nav' %>
 
-<div class="tab-panel current" id="add-player">
-
-	<div class="panel-links">
-		<%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'btn-return-link' %> 
-	</div>
-
-	<div class="form-group clearfix">
-		<label class="col-md-5 control-label text-center">添加播放器</label>
-	</div>
-
-<%= render 'form' %>
+<div id="add-player" class="panel is-current">
+            <div class="panel-header clearfix">
+            <%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'l-right' %> 
+            </div>
+            <%= render 'form' %>
 
 </div>
