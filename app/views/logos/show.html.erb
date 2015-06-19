@@ -1,0 +1,27 @@
+<%=  render 'players/nav' %>
+<div class="tab-panel current" id="add-player">
+  <div class="panel-links"><%= link_to '返回LOGO列表', logos_path %> |  <%= link_to '编辑', edit_logo_path(@logo) ,  'data-no-turbolink' => true %></div>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>logo名称:</strong>
+  <%= @logo.name %>
+</p>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>100 * 100 </th>
+          <th>80 * 80</th>
+          <th>50 * 50</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= image_tag(@logo.uri) if @logo.uri? %></td>
+          <td><%= image_tag(@logo.uri_url(:normal)) if @logo.uri? %></td>
+          <th><%= image_tag(@logo.uri_url(:thumb)) if @logo.uri? %></th>
+        </tr>
+      </tbody>
+    </table>
+</div>

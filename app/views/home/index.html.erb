@@ -1,0 +1,7 @@
+<h1>Welcome to <%= Settings.mms.name %></h1>
+
+<p>Find me in app/views/home/index.html.erb</p>
+<% if current_user %>
+ <a href="<%= edit_account_registration_path(:account) %>"> my account</a>
+<% end %>
+

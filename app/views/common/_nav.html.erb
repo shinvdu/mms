@@ -1,0 +1,53 @@
+<% if current_user.present? %>
+<nav class="nav-primary clearfix">
+  <form class="l-right">
+    <div class="form-input-addon">
+      <input type="search" placeholder="视频搜索"/><i class="fa fa-search"></i>
+    </div>
+  </form>
+  <ul class="clearfix">
+    <li  class=" no-dropdown  <%= 'is-current' if top_menu_active :home %>"><a href="/"><i class="fa fa-home"></i>首页</a></li>
+    <li  class="<%= 'is-current' if top_menu_active :video %>"><a href="<%= video_product_groups_path %>"><i class="fa fa-video-camera"></i>视频管理</a>
+      <ul class="dropdown">
+        <li><a href="<%= muti_uploads_user_videos_path %>"  data-no-turbolink='true'><i class="fa fa-fw fa-circle"></i>上传视频</a></li>
+        <li><a href="<%= video_product_groups_path %>"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
+        <% if can? :manage, Transcoding %>
+        <li><a href="<%= transcodings_path %>"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
+        <% end %>
+        <% if can? :manage, TranscodingStrategy %>
+        <li><a href="<%= transcoding_strategies_path %>"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
+        <% end %>
+        <li><a href="<%= user_videos_path %>"><i class="fa fa-fw fa-circle"></i>原片管理</a></li>
+      </ul>
+    </li>
+    <% if can? :manage, Advertise %>
+    <li  class="<%= 'is-current' if top_menu_active :ad %>"><a href="<%= advertise_strategies_path %>" role="tab"><i class="fa fa-cog"></i>广告管理</a>
+      <ul class="dropdown">
+        <li><a href="<%= advertise_strategies_path %>"><i class="fa fa-fw fa-circle"></i>广告方案</a></li>
+        <li><a href="<%= advertise_resources_path %>"><i class="fa fa-fw fa-circle"></i>广告资源</a></li>
+      </ul>
+    </li>
+    <% end %>
+    <% if can? :manage, Player %>
+    <li  class="<%= 'is-current' if top_menu_active :player %>" ><a href="<%= players_path %>" role="tab"><i class="fa fa-play-circle-o"></i>点播播放器</a>
+      <ul class="dropdown">
+        <li><a href="<%= new_player_path %>" data-no-turbolink="true"><i class="fa fa-fw fa-circle"></i>新增播放器</a></li>
+        <li><a href="<%= players_path %>"><i class="fa fa-fw fa-circle"></i>播放器管理</a></li>
+        <li><a href="<%= logos_path %>"><i class="fa fa-fw fa-circle"></i>LOGO</a></li>
+        <li><a href="<%= new_logo_path %>"  data-no-turbolink="true"><i class="fa fa-fw fa-circle"></i>上传LOGO</a></li>
+      </ul>
+    </li>
+    <% end %>
+    <% if can? :access, :admin_page %>
+    <li class="<%= 'is-current' if top_menu_active :admin %>"><a href="<%= admin_path %>" role="tab"><i class="fa fa-desktop"></i>系统管理</a>
+      <ul class="dropdown">
+        <li><a href="<%= admin_users_path %>"><i class="fa fa-fw fa-circle"></i>用户管理</a></li>
+        <li><a href="system.html?panel=manage-permission"><i class="fa fa-fw fa-circle"></i>权限管理</a></li>
+        <li><a href="system.html?panel=manage-api"><i class="fa fa-fw fa-circle"></i>API管理</a></li>
+        <li><a href="system.html?panel=manage-log"><i class="fa fa-fw fa-circle"></i>操作日志</a></li>
+      </ul>
+    </li>
+    <% end %>
+  </ul>
+</nav>
+<% end %>

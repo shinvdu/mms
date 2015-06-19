@@ -1,0 +1,96 @@
+<%= render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-transcoding-solution">
+
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回视频列表'.html_safe, video_product_groups_path, :class => 'btn-return-link' %> |
+  </div>
+
+  <div class="panel-content-display">
+    <div class="row">
+      <div class="row">
+        <div class="col-md-12">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <% if @video_product_group.snapshots.present? %>
+              <%= image_tag @video_product_group.snapshots.first.get_full_url, :class => 'img-rounded', :alt => '截图制作中' %>
+          <% else %>
+              <%= image_tag '', :class => 'img-rounded', :alt => '截图制作中' %>
+          <% end %>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-3">
+              名称: <%= @video_product_group.name %>
+            </div>
+            <div class="col-md-9">
+              创建时间: <%= @video_product_group.created_at.strftime("%Y-%m-%d %H:%M") %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              时长: <%= @video_product_group.duration_str %>
+            </div>
+            <div class="col-md-9">
+              播放次数: 1234次
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              拥有者: <%= @video_product_group.owner.nickname %>
+            </div>
+            <div class="col-md-9">
+              ID: <%= @video_product_group.uuid %>
+            </div>
+          </div>
+          <div class="row" style="display:none;">
+            <div class="col-md-12">
+              TAG: TAG1 TAG1 TAG1 TAG1 TAG1 TAG1 TAG1
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <!--
+              <button class="btn btn-blue">编辑</button>
+              <button class="btn btn-blue">代码</button>
+              <button class="btn btn-blue" id="btn-video-clip" style="display:none">剪辑</button>
+              <button class="btn btn-gray">删除</button>
+              -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped" style="width:300px">
+    <tr>
+      <th scope="row">模板</th>
+      <th scope="row">文件大小</th>
+      <th scope="row">预览</th>
+    </tr>
+    <% @video_product_group.video_products.each do |product| %>
+        <tr>
+          <td scope="row">
+            <%= product.transcoding.present? ? link_to(product.transcoding.name, transcoding_path(product.transcoding)) : '---' %>
+          </td>
+          <% if product.video_detail.present? %>
+              <td scope="row">
+                <%= format_file_size(product.video_detail.size) %>
+              </td>
+              <td scope="row">
+                <%= link_to '预览', video_product_path(product) %>
+              </td>
+          <% else %>
+              <td scope="row">
+                转码失败
+              </td>
+              <td scope="row">
+                ---
+              </td>
+          <% end %>
+        </tr>
+    <% end %>
+  </table>
+</div>

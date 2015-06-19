@@ -1,0 +1,9 @@
+<%=  render 'players/nav' %>
+
+<div id="add-player" class="panel is-current">
+            <div class="panel-header clearfix">
+            <%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'l-right' %> 
+            </div>
+            <%= render 'form' %>
+
+</div>

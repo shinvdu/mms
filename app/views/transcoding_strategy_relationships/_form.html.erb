@@ -1,0 +1,25 @@
+<%= form_for(@transcoding_strategy_relationship) do |f| %>
+  <% if @transcoding_strategy_relationship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transcoding_strategy_relationship.errors.count, "error") %> prohibited this transcoding_strategy_relationship from being saved:</h2>
+
+      <ul>
+      <% @transcoding_strategy_relationship.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :transcoding_id %><br>
+    <%= f.number_field :transcoding_id %>
+  </div>
+  <div class="field">
+    <%= f.label :transcoding_strategy_id %><br>
+    <%= f.number_field :transcoding_strategy_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

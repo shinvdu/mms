@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transcoding_id: 1
+  transcoding_strategy_id: 1
+  user_id: 
+
+two:
+  transcoding_id: 1
+  transcoding_strategy_id: 1
+  user_id: 

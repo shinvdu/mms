@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
+    <title>MMS</title>
+    <link href="assets/css/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!--link(href='http://vjs.zencdn.net/4.2/video-js.css' rel='stylesheet')-->
+    <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+    <link href="assets/css/lib/rangeslider.css" rel="stylesheet">
+    <link href="assets/css/main.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="site">
+      <header>
+        <div class="container clearfix">
+          <div class="brand l-left clearfix"><img src="assets/img/brand.png" alt="brand" class="l-left">
+            <div><a href="index.html" class="brand-link"><span>未谷云视频</span><br><span>WGcloud.com</span></a></div>
+          </div>
+          <div class="admin-bar l-right"><a href="message.html"><i class="fa fa-bell-o"></i></a>
+            <button class="btn-icon-text">
+              <div id="user-name"><i class="fa fa-user"></i>MMS</div>
+              <ul id="user-dropdown" class="dropdown">
+                <li><a href="user-config.html"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
+              </ul>
+            </button><a href="#"><i class="fa fa-power-off"></i></a><a href="sign-in.html">登录</a><a href="sign-up.html">注册</a>
+          </div>
+        </div>
+      </header>
+      <div class="content">
+        <div class="container">
+          <nav class="nav-primary clearfix">
+            <form class="l-right">
+              <div class="form-input-addon">
+                <input type="search" placeholder="视频搜索"/><i class="fa fa-search"></i>
+              </div>
+            </form>
+            <ul class="clearfix">
+              <li class="no-dropdown is-current"><a href="index.html"><i class="fa fa-home"></i>首页</a></li>
+              <li><a href="video.html"><i class="fa fa-video-camera"></i>视频管理</a>
+                <ul class="dropdown">
+                  <li><a href="video.html?panel=video-upload"><i class="fa fa-fw fa-circle"></i>上传视频</a></li>
+                  <li><a href="video.html?panel=video-list"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
+                  <li><a href="video.html?panel=video-transcoding-template"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
+                  <li><a href="video.html?panel=video-transcoding-solution"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
+                  <li><a href="video.html?panel=clip-management"><i class="fa fa-fw fa-circle"></i>素材管理</a></li>
+                </ul>
+              </li>
+              <li><a href="advertisement.html"><i class="fa fa-cog"></i>广告管理</a>
+                <ul class="dropdown">
+                  <li><a href="advertisement.html?panel=advertisement-solution"><i class="fa fa-fw fa-circle"></i>广告方案</a></li>
+                  <li><a href="advertisement.html?panel=advertisement-resource"><i class="fa fa-fw fa-circle"></i>广告资源</a></li>
+                </ul>
+              </li>
+              <li><a href="player.html"><i class="fa fa-play-circle-o"></i>点播播放器</a>
+                <ul class="dropdown">
+                  <li><a href="player.html?panel=add-player"><i class="fa fa-fw fa-circle"></i>新增播放器</a></li>
+                  <li><a href="player.html?panel=manage-player"><i class="fa fa-fw fa-circle"></i>播放器管理</a></li>
+                  <li><a href="player.html?panel=logo-list"><i class="fa fa-fw fa-circle"></i>LOGO</a></li>
+                  <li><a href="player.html?panel=upload-logo"><i class="fa fa-fw fa-circle"></i>上传LOGO</a></li>
+                </ul>
+              </li>
+              <li><a href="system.html"><i class="fa fa-desktop"></i>系统管理</a>
+                <ul class="dropdown">
+                  <li><a href="system.html?panel=manage-user"><i class="fa fa-fw fa-circle"></i>用户管理</a></li>
+                  <li><a href="system.html?panel=manage-permission"><i class="fa fa-fw fa-circle"></i>权限管理</a></li>
+                  <li><a href="system.html?panel=manage-api"><i class="fa fa-fw fa-circle"></i>API管理</a></li>
+                  <li><a href="system.html?panel=manage-log"><i class="fa fa-fw fa-circle"></i>操作日志</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <div class="alert-success clearfix">成功信息
+            <div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>
+          </div>
+          <div class="alert-info clearfix">系统信息
+            <div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>
+          </div>
+          <div class="alert-warning clearfix">警告信息
+            <div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>
+          </div>
+          <div class="alert-danger clearfix">错误信息
+            <div class="btn-icon l-right"><i class="fa fa-times-circle-o"></i></div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="container clearfix">
+          <div class="footer-links clearfix l-left">
+            <ul class="list-links l-left">
+              <li><a href="index.html">未谷技术</a></li>
+              <li><a href="video.html">视频管理</a></li>
+              <li><a href="player.html">点播播放器</a></li>
+              <li><a href="advertisement.html">广告管理</a></li>
+              <li><a href="system.html">系统管理</a></li>
+              <li><a href="#.html">用户协议</a></li>
+            </ul>
+            <ul class="list-links l-left">
+              <li><a href="#.html">帮助中心</a></li>
+              <li><a href="#.html">平台</a></li>
+            </ul>
+          </div>
+          <div class="footer-info l-right">
+            <div class="info-bar"><a href="#">关于我们</a></div>
+            <div class="info-bar">
+              copyright &copy; 2015上海未谷信息技术有限公司<br>
+              沪ICP 备案 xxxxxxx
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
+  <script src="assets/js/select2.min.js"></script>
+  <script src="assets/js/URI.min.js"></script>
+  <script src="assets/js/sly.min.js"></script>
+  <script src="http://vjs.zencdn.net/4.12/video.js"></script>
+  <script src="assets/js/app.min.js"></script>
+</html>

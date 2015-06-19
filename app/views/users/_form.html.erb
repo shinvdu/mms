@@ -1,0 +1,34 @@
+<%= simple_form_for(@user, wrapper: :horizontal_form) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.input :nickname %>
+  <%= f.input :really_name, wrapper: :horizontal_file_input %>
+  <%= f.input :birthday, as: :date, start_year: Date.today.year - 30, end_year: Date.today.year - 12, discard_day: true, order: [:year, :month] %>
+  <%= f.input :sex %>
+  <%= f.input :role %>
+  <%= f.input :signature %>
+  <p><img src="<%= @user.avatar && (@user.avatar.image_url) %>"></p>
+  <p><a href="<%= new_avatar_path %>">更新头像 </a></p>
+  <%= f.label  :更新头像 %>
+  <%= f.input :location %>
+  <%= f.input :self_introduction %>
+  <%= f.input :mobile %>
+  <%= f.input :wechat %>
+  <%= f.input :qq %>
+  <%= f.input :weibo %>
+  <%= f.input :twitter_id %>
+  <%= f.input :facebook %>
+  <%= f.input :website %>
+  <%= f.input :note %>
+  <%= f.button :submit, class: 'btn btn-default btn-primary' %>
+<% end %>
+

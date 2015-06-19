@@ -1,0 +1,71 @@
+.panel#add-user
+  .panel-header.clearfix
+    a.l-right(href='?panel=manage-user') &lt;&lt; 返回
+  .panel-content
+    form
+      .row
+        .cols.large-10
+          .row.form-title
+            .cols.large-2.l-text-right
+              | 增加用户
+          .row
+            .cols.large-2.l-text-right
+              label(for='subuser-name') 名称:
+            .cols.large-4
+              input#subuser-name(type='text')
+          .row
+            .cols.large-2.l-text-right
+              label(for='subuser-email') 邮箱:
+            .cols.large-4
+              input#subuser-email(type='email')
+          .row
+            .cols.large-2.l-text-right
+              label(for='subuser-password') 密码:
+            .cols.large-4
+              input#subuser-password(type='password')
+          .row
+            .cols.large-10.offset-by-2
+              table.table(summary='分类权限列表')
+                thead
+                  tr
+                    th 视频分类名称
+                    th 权限1
+                    th 权限2
+                    th 权限3
+                tbody
+                  tr
+                    td 电影
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                  tr
+                    td 动画
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                  tr
+                    td 综艺
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                  tr
+                    td 音乐
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+                    td
+                      input(type='checkbox')
+          .row.form-submit
+            .cols.large-10.offset-by-2
+              button.btn-success(type='submit') 保存
+              a.link-button-cancel.btn-show-panel(data-panel='manage-user' href='#') 取消

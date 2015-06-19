@@ -1,0 +1,29 @@
+
+<%= link_to 'all', user_space_stat_path(@user, :days => -1), 'data-no-turbolink' => true %>
+<%= link_to 'last 5 days', user_space_stat_path(@user, :days => 5), 'data-no-turbolink' => true %>
+<%= link_to 'last 30 days', user_space_stat_path(@user, :days => 30), 'data-no-turbolink' => true %>
+<table>
+  <tr>
+    <th>date</th>
+    <th>user video</th>
+    <th>mkv video</th>
+    <th>product</th>
+  </tr>
+  <% @stats.each do |stat| %>
+      <tr>
+        <td><%= stat.date %></td>
+        <td><%= stat.user_video_amount.to_size %></td>
+        <td><%= stat.mkv_video_amount.to_size %></td>
+        <td><%= stat.product_amount.to_size %></td>
+      </tr>
+  <% end %>
+</table>
+<%= hidden_field_tag 'stats_json', @stats_json %>
+
+<div id="user_video_chart" style="height:400px;width:400px;"></div>
+
+
+<!--[if lt IE 9]>
+<%= javascript_include_tag 'lib/excanvas.min' %>
+<![endif]-->
+

@@ -1,0 +1,14 @@
+<%= render 'admin/nav' %>
+<div class="tab-panel current" id="manage-user">
+  <div class="panel-header clearfix">
+    <form class="pull-right" role="search">
+      <div class="form-group right-inner-addon">
+        <input class="form-control" placeholder="模版名称/用户名" type="search">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </div>
+    </form>
+    <a type="button" class="btn btn-green" href="<%= new_company_path %>">添加</a>
+  </div>
+
+  <%= render 'owners_form' %>
+</div>

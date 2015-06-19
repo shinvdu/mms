@@ -1,0 +1,276 @@
+defaults: &defaults
+  default_admin:
+    id: 1
+    username: admin
+    email: admin@wgcloud.com
+    password: 123123123
+  mms:
+    name:  未谷云视频
+    domain:  weiguyun.com
+  title: 未谷云视频
+  cool: mms
+  logo: 
+    origin:  
+      width: 100 
+      height:  100
+    normal:  
+      width:  80
+      height:  80
+    small:  
+      width:  50
+      height:  50
+  avar: 
+    origin:  
+      width: 200 
+      height:  200
+    normal:  
+      width:  100
+      height:  100
+    small:  
+      width:  50
+      height:  50
+  role:
+    root: root
+    system_admin: system_admin
+    helper: helper
+    user: user
+    company_owner: company_owner
+    company_admin: company_admin
+    company_member: company_member
+  role_name:
+    root: 超级管理员
+    system_admin: 系统管理员
+    helper: 客服
+    user: 普通用户
+    company: 企业用户
+    company_admin: 企业管理员
+    company_member: 企业成员
+  video_privilege:
+    edit: 编辑
+    clip: 剪辑
+    publish: 发布
+    upload: 上传
+    delete: 删除
+  default_per_page: 15
+  player:
+    sizes:
+      853|480: 853x480
+      1280|720: 1280x720
+  transcoding:
+    video_codec:  H.264
+    container:
+      mp4: mp4
+      flv: flv
+      m3u8: m3u8
+      ts: ts
+    video_profile:  high
+    video_bitrate:  1000
+    video_preset:
+      slow: slow
+      slower: slower
+      veryslow: veryslow
+      veryfast: veryfast
+      fast: fast
+      medium: medium
+    audio_codec:
+      aac: aac
+      mp3: mp3
+    width_and_height:
+      640|360: 640x360
+      854|480: 854x480
+      1280|720: 1280x720
+      1920|1080: 1920x1080
+  advertise_resource:
+    file_type:
+      视频: video
+      图像: image
+    ad_type:
+      全部可用: all
+      片头广告: ad_front
+      片尾广告: ad_end
+      暂停广告: ad_pause
+      悬浮广告: ad_float
+      滚动广告: ad_scroll
+  water_mark:
+    font: Arial
+    font_size: 20
+    color: '#bfbfbf'
+    transparency: 30
+  job_queue:
+    fast: fast
+    slow: slow
+  aliyun: &defaults-aliyun
+    area: cn-hangzhou
+    oss: &defaults-aliyun-oss
+      download_proxy: http://
+      proxy: http://
+      host: oss-cn-hangzhou.aliyuncs.com
+      user_video_dir: video
+      advertise_dir: advertise
+      video_product_dir: video_product
+      private_video_signed_duration: 6
+    mts: &defaults-aliyun-mts
+      host: mts.aliyuncs.com
+      scheduled_queue: mts_query_scheduled
+      snapshot_ext: png
+      snapshot_number: 5
+      accepted_containers: [3gp, avi, flv, mp4, m3u8, mpg, asf, wmv, mkv, mov, ts, webm]
+      accepted_video_codec: [h.264, h264, avc, h263, h263+, h.263, h.263+, mpeg1, mpeg2, mpeg4, mpeg-1, mpeg-2, mpeg-4, mjpeg, vp8, vp9, quicktime, realvideo, windows media video]
+      accepted_audio_codec: [aac, ac3, ac-3, adpcm, amr, dsd, mp1, mp2, mp3, pcm, realaudio, windows media audio]
+  file_server:
+    dir: public/uploads
+    fragment_dir: public/uploads/fragments
+    mini_suffix: mini
+    video_cut_scheduled_queue: fs_video_cut_scheduled
+    token_expire_seconds: 60
+  video_salt: 1a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+  default_player:
+    id:  0
+    autoplay:  false
+    width:  852
+    height:  480
+#    logo: 6
+    logo_position: top_right
+
+production:
+  <<: *defaults
+  default_url_options:
+    host:  wgcloud.com
+    port:  80
+  omniauth:
+    tqq:
+      key: 1111111111
+      secret: 111111111111111111
+    douban:
+      key: 1111111111
+      secret: 111111111111111111
+    weibo:
+      key: 1111111111
+      secret: 111111111111111111
+  email:
+    address:  smtp.wgcloud.com
+    port:  465
+    domain:  wgcloud.com
+    user:  info@wgcloud.com
+    password:  "info_wgcloud"
+  default_url_options:
+    host:  www.wgcloud.com
+    port:  3000
+  neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
+  aliyun:
+    <<: *defaults-aliyun
+    access_id: 1cnDtYk8fMS0lyoM
+    access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
+    oss:
+      <<: *defaults-aliyun-oss
+      private_bucket: wgc-private
+      public_bucket: wgc-public
+    mts:
+      <<: *defaults-aliyun-mts
+      mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
+      pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
+      pipeline_id: ff91fad66cff4bb894511d98575c2078
+  devise:
+    secret_key:  8ef300b541b0272c8a7f1746c738fb92c362dddbdc581a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+    pepper:  5baebdfs3bded1b2e84442d1605csdfsded592004b8c70ef670abb2c33465ea9a6e48066f75cf97bfc740eb6bdca02a805e10e4de7997b576f75ee6909f8db8e6
+    encryptor:  sha1
+  session:
+    secret_key_base:  0e9ad25a9b8e26c5292f1a333e860cf3d0b8502396a557693c714e63804f1eb340a792e48fe8985a05edafe5d11102d674fa001a545565f3c863420d59b71xied
+
+
+development:
+  <<: *defaults
+  to_str:
+  to_ary:
+  omniauth:
+    tqq:
+      key: 101217165
+      secret: 2a283a2097bd915b580fe7ed82f50143
+    douban:
+      key: 00120441df105c3700360cc59d3114a5
+      secret: 19442bedf0c0b58d
+    weibo:
+      key: 3386201982
+      secret: 5c17a672c422e04d672258f6759c5b4b
+  email:
+    address:  smtp.163.com
+    port:  25
+    domain:  wgcloud.com
+    user:  18217401108@163.com
+    password:  "xie&my_163163"
+  default_url_options:
+    host:  localhost
+    port:  3000
+  neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
+  aliyun:
+    <<: *defaults-aliyun
+    access_id: 1cnDtYk8fMS0lyoM
+    access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
+    oss:
+      <<: *defaults-aliyun-oss
+      private_bucket: wgc-private
+      public_bucket: wgc-public
+    mts:
+      <<: *defaults-aliyun-mts
+      mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
+      pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
+      pipeline_id: ff91fad66cff4bb894511d98575c2078
+  devise:
+    encryptor:  sha512
+    secret_key:  8ef300b541b0272c8a7f1746c738fb92c362dddbdc581a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+    pepper:  5baebdfs3bded1b2e84442d1605csdfsded592004b8c70ef670abb2c33465ea9a6e48066f75cf97bfc740eb6bdca02a805e10e4de7997b576f75ee6909f8db8e6
+  session:
+    secret_key_base:  0e9ad25a9b8e26c5292f1a333e860cf3d0b8502396a557693c714e63804f1eb340a792e48fe8985a05edafe5d11102d674fa001a545565f3c863420d59b7171d
+
+
+test:
+  <<: *defaults
+  omniauth:
+    tqq:
+      key: 1111111111
+      secret: 111111111111111111
+    douban:
+      key: 1111111111
+      secret: 111111111111111111
+    weibo:
+      key: 1111111111
+      secret: 111111111111111111
+  email:
+    address:  smtp.163.com
+    port:  25
+    domain:  wgcloud.com
+    user:  18217401108@163.com
+    password:  "xie&my_163163"
+  default_url_options:
+    host:  localhost
+    port:  3000
+  neat_setting: 800
+  sms:
+    apikey: 67b38689db4c81a0a95ac1763e244212
+  aliyun:
+    <<: *defaults-aliyun
+    access_id: 1cnDtYk8fMS0lyoM
+    access_key: PR6H6WIq4gqun4BJ5bwWQQt5BUO5su
+    oss:
+      <<: *defaults-aliyun-oss
+      private_bucket: wgc-private
+      public_bucket: wgc-public
+    mts:
+      <<: *defaults-aliyun-mts
+      mini_template_id: a6df4df993d7c9189e80a960d1b5f3be
+      pre_mkv_middle_template_id: 99caa65f559b782acbdbd3623fdd2c31
+      ad_template_id: b299bc2d3597879801e76ddcc7cca372
+      pipeline_id: ff91fad66cff4bb894511d98575c2078
+  devise:
+    encryptor:  sha512
+    secret_key:  8ef300b541b0272c8a7f1746c738fb92c362dddbdc581a7c95670f6e9136a24cd9202ef807a5a2b3bbab5e5f1f417836560a3d4f388dc5dc7dadcbb4317758aa
+    pepper:  5baebdfs3bded1b2e84442d1605csdfsded592004b8c70ef670abb2c33465ea9a6e48066f75cf97bfc740eb6bdca02a805e10e4de7997b576f75ee6909f8db8e6
+  session:
+    secret_key_base:  0e9ad25a9b8e26c5292f1a333e860cf3d0b8502396a557693c714e63804f1eb340a792e48fe8985a05edafe5d11102d674fa001a545565f3c863420d59b7171d
+

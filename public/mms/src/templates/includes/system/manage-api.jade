@@ -1,0 +1,27 @@
+include ../mixins
+
+.panel#manage-api
+  .panel-header.clearfix
+    form.l-right
+      .form-input-addon
+        input(type='search' placeholder='模版名称/用户名')
+        i.fa.fa-search
+  .panel-content
+    table.table(summary='API列表')
+      thead
+        tr
+          th 名称
+          th 象征
+          th 用户
+          th 操作
+      tbody
+        tr
+          td
+            | token
+          td
+            | xiao2系统管理/播放器管理/管理
+          td
+            | 管理者
+          td
+            a(href='#') 启用
+            a(href='#') 禁用

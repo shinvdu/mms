@@ -1,0 +1,51 @@
+include ../mixins
+
+.panel#add-advertisement-resource
+  .panel-header.clearfix
+    a.l-right(href='?panel=advertisement-resource') &lt;&lt; 返回广告资源列表
+  .panel-content
+    form
+      .row
+        .cols.large-6
+          .row.form-title
+            .cols.large-4.l-text-right
+              | 添加广告资源
+          .row
+            .cols.large-8.offset-by-4
+              button.btn-info 上传文件
+          .row
+            .cols.large-4.l-text-right
+              label(for='ad-resource-name') 广告资源名称:
+            .cols.large-8
+              input#ad-resource-name(type='text')
+          .row
+            .cols.large-4.l-text-right
+              label(for='ad-release-company') 广告投放公司:
+            .cols.large-8
+              input#ad-release-company(type='text')
+          .row
+            .cols.large-4.l-text-right
+              label(for='ad-link') 广告链接:
+            .cols.large-8
+              input#ad-link(type='text')
+          .row
+            .cols.large-4.l-text-right
+              label(for='ad-position') 广告位置:
+            .cols.large-8
+              +select()#ad-position.select2-single-fw
+          .row
+            .cols.large-4.l-text-right
+              label(for='ad-release-time') 广告投放时间:
+            .cols.large-8
+              +select()#ad-release-time.select2-single-fw
+          .row
+            .cols.large-4.l-text-right
+              label(for='ad-type') 广告类型:
+            .cols.large-8
+              +select()#ad-type.select2-single-fw
+          .row.form-submit
+            .cols.large-8.offset-by-4
+              button.btn-success(type='submit') 保存
+              a.link-button-cancel.btn-show-panel(data-panel='advertisement-resource' href='#') 取消
+        .cols.large-6
+          img.img-preview(src='../assets/img/footer-bg.jpg')

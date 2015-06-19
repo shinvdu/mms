@@ -1,0 +1,13 @@
+<table>
+  <tr>
+    <th>视频名称</th>
+    <th>操作</th>
+  </tr>
+  <% @video_list.user_videos.each do |uv| %>
+      <tr>
+        <td><%= link_to uv.video_name, user_video_path(uv) %></td>
+        <td><%= link_to '移除', video_list_user_video_path(@video_list, uv), :method => :delete %></td>
+      </tr>
+  <% end %>
+</table>
+

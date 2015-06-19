@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  startTime: 1
+  stopTime: 1
+  userCreated: false
+  user_video_id: 1
+
+two:
+  startTime: 1
+  stopTime: 1
+  userCreated: false
+  user_video_id: 1

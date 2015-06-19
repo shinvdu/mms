@@ -1,0 +1,115 @@
+.panel
+  position relative
+  display none
+  min-height 500px
+  padding-bottom 50px
+  margin-top 20px
+  background-color #fff
+  border 1px solid color-border
+  border-radius 4px
+  box-shadow 0 0 5px rgba(0, 0, 0, 0.1)
+
+  &.is-current
+    display block
+
+  button,
+  input,
+  a
+    & + button,
+    & + a
+      margin-left 0.7em
+
+.panel-padded
+  padding-right 1.5em
+  padding-left 1.5em
+
+.panel-header
+  width 100%
+  height 4em
+  padding 0.7em 1.8em
+  font-size 14px
+
+  input[type='search']
+    width 12em
+
+  select
+    width 9em
+
+  > form
+    margin-top 0.3em
+
+    > div,
+    > select,
+    > span
+      float left
+
+      & + div,
+      & + select,
+      & + span
+        margin-left 0.5em
+
+  > a.l-right
+    margin-top 0.3em
+    margin-right 1.1em
+
+    &:link,
+    &:visited
+      color color-primary
+
+    &:hover,
+    &:active,
+    &:focus
+      color color-primary-hover
+      text-decoration underline
+
+.panel-content
+  font-size 14px
+  overflow-x scroll
+
+  > form
+    margin-left 3em
+    margin-right 3em
+
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    textarea,
+    select
+      width 100%
+
+    input[type='checkbox']
+      margin-right 0.3em
+
+    .row
+      line-height 2em
+
+      & + .row
+        margin-top 0.7em
+
+      & + .row.form-error
+        margin-top 0.2em
+
+      &.form-title
+        color color-text-light
+
+      &.form-submit
+        margin-top 2.5em
+
+    label
+      & + label
+        margin-left 0.6em
+
+  .large-6
+    > .img-preview
+      margin-top 5em
+      margin-left 3em
+
+.panel-footer
+  position absolute
+  bottom 0
+  width 100%
+  height 4em
+  padding-top 0.9em
+  padding-left 1.5em
+  border-top 1px solid color-border
+  font-size 14px

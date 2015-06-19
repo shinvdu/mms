@@ -1,0 +1,24 @@
+<div class="panel is-current">
+            <div class="panel-header"></div>
+            <div class="panel-content">
+              <div class="row">
+                <div class="cols large-6 offset-by-2">
+	<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+	  <%= devise_error_messages! %>
+                  <div class="row">
+                    <div class="cols large-4 l-text-right">
+                      <label for="user-email">输入登录邮箱:</label>
+                    </div>
+                    <div class="cols large-8">
+		    <%= f.email_field :email, autofocus: true, :class => 'l-fw' %>
+                    </div>
+                  </div>
+                  <div class="row buttons-bar">
+                    <div class="cols large-8 offset-by-4"><a href="#" class="link-button-success">发送解锁邮件</a></div>
+                  </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+

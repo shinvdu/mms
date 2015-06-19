@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
+    <title>MMS</title>
+    <link href="assets/css/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!--link(href='http://vjs.zencdn.net/4.2/video-js.css' rel='stylesheet')-->
+    <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+    <link href="assets/css/lib/rangeslider.css" rel="stylesheet">
+    <link href="assets/css/main.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file://--><!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="site">
+      <header>
+        <div class="container clearfix">
+          <div class="brand l-left clearfix"><img src="assets/img/brand.png" alt="brand" class="l-left">
+            <div><a href="index.html" class="brand-link"><span>未谷云视频</span><br><span>WGcloud.com</span></a></div>
+          </div>
+          <div class="admin-bar l-right"><a href="message.html"><i class="fa fa-bell-o"></i></a>
+            <button class="btn-icon-text">
+              <div id="user-name"><i class="fa fa-user"></i>MMS</div>
+              <ul id="user-dropdown" class="dropdown">
+                <li><a href="user-config.html"><i class="fa fa-fw fa-pencil"></i>用户设置</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-exclamation-circle"></i>账单信息</a></li>
+              </ul>
+            </button><a href="#"><i class="fa fa-power-off"></i></a><a href="sign-in.html">登录</a><a href="sign-up.html">注册</a>
+          </div>
+        </div>
+      </header>
+      <div class="content">
+        <div class="container">
+          <nav class="nav-primary clearfix">
+            <form class="l-right">
+              <div class="form-input-addon">
+                <input type="search" placeholder="视频搜索"/><i class="fa fa-search"></i>
+              </div>
+            </form>
+            <ul class="clearfix">
+              <li class="no-dropdown"><a href="index.html"><i class="fa fa-home"></i>首页</a></li>
+              <li><a href="video.html"><i class="fa fa-video-camera"></i>视频管理</a>
+                <ul class="dropdown">
+                  <li><a href="video.html?panel=video-upload"><i class="fa fa-fw fa-circle"></i>上传视频</a></li>
+                  <li><a href="video.html?panel=video-list"><i class="fa fa-fw fa-circle"></i>视频列表</a></li>
+                  <li><a href="video.html?panel=video-transcoding-template"><i class="fa fa-fw fa-circle"></i>转码模版</a></li>
+                  <li><a href="video.html?panel=video-transcoding-solution"><i class="fa fa-fw fa-circle"></i>转码方案</a></li>
+                  <li><a href="video.html?panel=clip-management"><i class="fa fa-fw fa-circle"></i>素材管理</a></li>
+                </ul>
+              </li>
+              <li><a href="advertisement.html"><i class="fa fa-cog"></i>广告管理</a>
+                <ul class="dropdown">
+                  <li><a href="advertisement.html?panel=advertisement-solution"><i class="fa fa-fw fa-circle"></i>广告方案</a></li>
+                  <li><a href="advertisement.html?panel=advertisement-resource"><i class="fa fa-fw fa-circle"></i>广告资源</a></li>
+                </ul>
+              </li>
+              <li><a href="player.html"><i class="fa fa-play-circle-o"></i>点播播放器</a>
+                <ul class="dropdown">
+                  <li><a href="player.html?panel=add-player"><i class="fa fa-fw fa-circle"></i>新增播放器</a></li>
+                  <li><a href="player.html?panel=manage-player"><i class="fa fa-fw fa-circle"></i>播放器管理</a></li>
+                  <li><a href="player.html?panel=logo-list"><i class="fa fa-fw fa-circle"></i>LOGO</a></li>
+                  <li><a href="player.html?panel=upload-logo"><i class="fa fa-fw fa-circle"></i>上传LOGO</a></li>
+                </ul>
+              </li>
+              <li class="is-current"><a href="system.html"><i class="fa fa-desktop"></i>系统管理</a>
+                <ul class="dropdown">
+                  <li><a href="system.html?panel=manage-user"><i class="fa fa-fw fa-circle"></i>用户管理</a></li>
+                  <li><a href="system.html?panel=manage-permission"><i class="fa fa-fw fa-circle"></i>权限管理</a></li>
+                  <li><a href="system.html?panel=manage-api"><i class="fa fa-fw fa-circle"></i>API管理</a></li>
+                  <li><a href="system.html?panel=manage-log"><i class="fa fa-fw fa-circle"></i>操作日志</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <nav class="nav-secondary">
+            <ul class="clearfix">
+              <li class="is-current"><a href="?panel=manage-user"><i class="fa fa-fw fa-square"></i>用户管理</a></li>
+              <li><a href="?panel=manage-category"><i class="fa fa-fw fa-square"></i>分类管理</a></li>
+              <li><a href="?panel=manage-permission"><i class="fa fa-fw fa-square"></i>权限管理</a></li>
+              <li><a href="?panel=manage-api"><i class="fa fa-fw fa-square"></i>API管理</a></li>
+              <li><a href="?panel=manage-log"><i class="fa fa-fw fa-square"></i>操作日志</a></li>
+            </ul>
+          </nav>
+          <div id="manage-user" class="panel is-current">
+            <div class="panel-header"><a data-panel="add-user" href="#" class="link-button-success btn-show-panel">添加用户</a></div>
+            <div class="panel-content">
+              <table summary="用户列表" class="table">
+                <thead>
+                  <tr>
+                    <th>用户</th>
+                    <th>名字</th>
+                    <th>分类权限</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1234561234412</td>
+                    <td>xiao2</td>
+                    <td>
+                      <ul class="category-permission-list">
+                        <li>电影
+                          <ul class="category-permission-details">
+                            <li class="is-selected">权限1</li>
+                            <li>权限2权限2权限2</li>
+                            <li>权限3</li>
+                          </ul>
+                        </li>
+                        <li>动画
+                          <ul class="category-permission-details">
+                            <li class="is-selected">权限1</li>
+                            <li>权限2</li>
+                            <li class="is-selected">权限3</li>
+                          </ul>
+                        </li>
+                        <li>综艺</li>
+                      </ul>
+                    </td>
+                    <td><a href="#">预览</a><a href="#">修改</a><a href="#">删除</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="add-user" class="panel">
+            <div class="panel-header clearfix"><a href="?panel=manage-user" class="l-right">&lt;&lt; 返回</a></div>
+            <div class="panel-content">
+              <form>
+                <div class="row">
+                  <div class="cols large-10">
+                    <div class="row form-title">
+                      <div class="cols large-2 l-text-right">增加用户</div>
+                    </div>
+                    <div class="row">
+                      <div class="cols large-2 l-text-right">
+                        <label for="subuser-name">名称:</label>
+                      </div>
+                      <div class="cols large-4">
+                        <input id="subuser-name" type="text">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="cols large-2 l-text-right">
+                        <label for="subuser-email">邮箱:</label>
+                      </div>
+                      <div class="cols large-4">
+                        <input id="subuser-email" type="email">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="cols large-2 l-text-right">
+                        <label for="subuser-password">密码:</label>
+                      </div>
+                      <div class="cols large-4">
+                        <input id="subuser-password" type="password">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="cols large-10 offset-by-2">
+                        <table summary="分类权限列表" class="table">
+                          <thead>
+                            <tr>
+                              <th>视频分类名称</th>
+                              <th>权限1</th>
+                              <th>权限2</th>
+                              <th>权限3</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>电影</td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>动画</td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>综艺</td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>音乐</td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                              <td>
+                                <input type="checkbox">
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="row form-submit">
+                      <div class="cols large-10 offset-by-2">
+                        <button type="submit" class="btn-success">保存</button><a data-panel="manage-user" href="#" class="link-button-cancel btn-show-panel">取消</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="manage-category" class="panel">
+            <div class="panel-header">
+              <input type="text" placeholder="请输入视频类型">
+              <button class="btn-success">添加</button>
+            </div>
+            <div class="panel-content panel-padded">
+              <div>已有分类:</div>
+              <div class="category-list">
+                <button class="btn-common is-selected">电影</button>
+                <button class="btn-common">动画</button>
+              </div>
+              <table summary="电影类权限列表" class="table">
+                <thead>
+                  <tr>
+                    <th>
+                       
+                      用户<a href="?panel=add-user"><i class="fa fa-plus-circle"></i></a>
+                    </th>
+                    <th>权限1</th>
+                    <th>权限2</th>
+                    <th>权限3</th>
+                    <th>权限4</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>123123123</td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>123123123</td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>123123123</td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>123123123</td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="manage-user-admin" class="panel">
+            <div class="panel-header clearfix">
+              <form class="l-right">
+                <div>
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+              </form>
+              <button data-panel="add-user-admin" class="btn-show-panel">添加</button>
+              <button>编辑</button>
+              <button>删除</button>
+            </div>
+            <div class="panel-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>编号</th>
+                    <th>用户名称</th>
+                    <th>登录IP</th>
+                    <th>最后登录时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>123456</td>
+                    <td>xiao2</td>
+                    <td>211.211.212.121</td>
+                    <td>2015/05/12 15:23</td>
+                    <td>
+                      <button>修改</button>
+                      <button>删除</button>
+                      <button>冻结</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="manage-permission" class="panel">
+            <div class="panel-header clearfix">
+              <form class="l-right">
+                <div class="form-input-addon">
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+              </form><a data-panel="add-permission-management" href="#" class="link-button-success btn-show-panel">添加</a>
+              <button class="btn-info">编辑</button>
+              <button class="btn-delete">删除</button>
+            </div>
+            <div class="panel-content">
+              <table summary="权限列表" class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>编号</th>
+                    <th>角色名称</th>
+                    <th>描述</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input type="checkbox">
+                    </td>
+                    <td>123456</td>
+                    <td>xiao2</td>
+                    <td>系统管理/播放器管理</td>
+                    <td>2015/05/12 15:23</td>
+                    <td><a href="#">修改</a><a href="#">删除</a><a href="#">冻结</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="add-permission-management" class="panel">
+            <div class="panel-header clearfix"><a href="?panel=manage-permission" class="l-right">&lt;&lt; 返回权限管理</a></div>
+            <div class="panel-content">
+              <form>
+                <div class="row form-title">
+                  <div class="cols large-2 l-text-right">添加角色</div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="role-name">角色名称:</label>
+                  </div>
+                  <div class="cols large-6">
+                    <div class="row">
+                      <div class="cols large-6">
+                        <input id="role-name" type="text" placeholder="管理员">
+                      </div>
+                      <div class="cols large-6 form-description">(20个字符)</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label>系统管理:</label>
+                  </div>
+                  <div class="cols large-6">
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label>播放器管理:</label>
+                  </div>
+                  <div class="cols large-6">
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label>播放器管理:</label>
+                  </div>
+                  <div class="cols large-6">
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                    <label>
+                      <input type="checkbox">权限
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="cols large-2 l-text-right">
+                    <label for="permission-description">说明:</label>
+                  </div>
+                  <div class="cols large-6">
+                    <textarea rows="5" placeholder="100个字符"></textarea>
+                  </div>
+                </div>
+                <div class="row form-submit">
+                  <div class="cols large-6 offset-by-2">
+                    <button type="submit" class="btn-success">保存</button><a data-panel="manage-permission" href="#" class="link-button-cancel btn-show-panel">取消</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div id="manage-api" class="panel">
+            <div class="panel-header clearfix">
+              <form class="l-right">
+                <div class="form-input-addon">
+                  <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+                </div>
+              </form>
+            </div>
+            <div class="panel-content">
+              <table summary="API列表" class="table">
+                <thead>
+                  <tr>
+                    <th>名称</th>
+                    <th>象征</th>
+                    <th>用户</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>token</td>
+                    <td>xiao2系统管理/播放器管理/管理</td>
+                    <td>管理者</td>
+                    <td><a href="#">启用</a><a href="#">禁用</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="manage-log" class="panel">
+            <div class="panel-header clearfix">
+              <form class="l-right clearfix">
+                <div class="form-input-addon">
+                  <input type="search" placeholder="用户名"><i class="fa fa-search"></i>
+                </div>
+                <div class="datepicker-duration">
+                  <input type="date" placeholder="2015/05/01" class="datepicker-start">至
+                  <input type="date" placeholder="2015/05/01" class="datepicker-end">
+                </div>
+              </form>
+            </div>
+            <div class="panel-content">
+              <table summary="操作日志列表" class="table">
+                <thead>
+                  <tr>
+                    <th>登陆时间</th>
+                    <th>登录名</th>
+                    <th>登录IP</th>
+                    <th>详情</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2015/04/03 12:32</td>
+                    <td>管理者</td>
+                    <td>211.211.211.211</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div class="container clearfix">
+          <div class="footer-links clearfix l-left">
+            <ul class="list-links l-left">
+              <li><a href="index.html">未谷技术</a></li>
+              <li><a href="video.html">视频管理</a></li>
+              <li><a href="player.html">点播播放器</a></li>
+              <li><a href="advertisement.html">广告管理</a></li>
+              <li><a href="system.html">系统管理</a></li>
+              <li><a href="#.html">用户协议</a></li>
+            </ul>
+            <ul class="list-links l-left">
+              <li><a href="#.html">帮助中心</a></li>
+              <li><a href="#.html">平台</a></li>
+            </ul>
+          </div>
+          <div class="footer-info l-right">
+            <div class="info-bar"><a href="#">关于我们</a></div>
+            <div class="info-bar">
+              copyright &copy; 2015上海未谷信息技术有限公司<br>
+              沪ICP 备案 xxxxxxx
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/jquery-ui.min.js"></script>
+  <script src="assets/js/select2.min.js"></script>
+  <script src="assets/js/URI.min.js"></script>
+  <script src="assets/js/sly.min.js"></script>
+  <script src="http://vjs.zencdn.net/4.12/video.js"></script>
+  <script src="assets/js/app.min.js"></script>
+</html>

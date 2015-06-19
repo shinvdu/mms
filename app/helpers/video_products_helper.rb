@@ -1,0 +1,2 @@
+module VideoProductsHelper
+end

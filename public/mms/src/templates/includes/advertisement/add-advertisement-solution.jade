@@ -1,0 +1,48 @@
+include ../mixins
+
+.panel#add-advertisement-solution
+  .panel-header.clearfix
+    a.l-right(href='?panel=advertisement-solution') &lt;&lt; 返回广告方案列表
+  .panel-content
+    form
+      .row.form-title
+        .cols.large-2.l-text-right
+          | 添加广告方案
+      .row
+        .cols.large-2.l-text-right
+          label(for='ad-solution-name') 广告方案名称:
+        .cols.large-6
+          .row
+            .cols.large-6
+              input#ad-solution-name(type='text')
+            .cols.large-6.form-description
+              | (5-20字符)
+      .row
+        .cols.large-2.l-text-right
+          label(for='ad-op-select') 片头广告选择:
+        .cols.large-3
+          +select()#ad-op-select.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label(for='ad-ed-select') 片尾广告选择:
+        .cols.large-3
+          +select()#ad-ed-select.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label(for='ad-pause-select') 暂停广告选择:
+        .cols.large-3
+          +select()#ad-pause-select.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label(for='ad-suspension-select') 悬浮广告选择:
+        .cols.large-3
+          +select()#ad-suspension-select.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label(for='ad-scroll-select') 滚动广告选择:
+        .cols.large-3
+          +select()#ad-scroll-select.select2-single-fw
+      .row.form-submit
+        .cols.large-6.offset-by-2
+          button.btn-success(type='submit') 保存
+          a.link-button-cancel.btn-show-panel(data-panel='advertisement-solution' href='#') 取消

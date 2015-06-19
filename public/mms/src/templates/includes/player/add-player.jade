@@ -1,0 +1,65 @@
+include ../mixins
+
+.panel.is-current#add-player
+  .panel-header.clearfix
+    a.l-right(href='?panel=manage-player') &lt;&lt; 返回播放器管理
+  .panel-content
+    form
+      .row
+        .cols.large-6
+          .row.form-title
+            .cols.large-4.l-text-right
+              | 添加播放器
+          .row
+            .cols.large-4.l-text-right
+              label(for='player-name') 播放器名称:
+            .cols.large-8
+              input#player-name(type='text')
+          .row
+            .cols.large-4.l-text-right
+              label 播放器颜色:
+            .cols.large-8
+              label
+                input(type='checkbox' name='player-color')
+                | 黑色
+              label
+                input(type='checkbox' name='player-color')
+                | 经典
+              label
+                input(type='checkbox' name='player-color')
+                | 其他颜色
+          .row
+            .cols.large-4.l-text-right
+              label(for='player-auto-play') 自动播放:
+            .cols.large-8
+              +select()#player-auto-play.select2-single-fw
+          .row
+            .cols.large-4.l-text-right
+              label(for='player-logo') LOGO:
+            .cols.large-8
+              +select()#player-logo.select2-single-fw
+          .row
+            .cols.large-4.l-text-right
+              label(for='player-logo-position') LOGO的位置:
+            .cols.large-8
+              +select()#player-logo-position.select2-single-fw
+          .row
+            .cols.large-4.l-text-right
+              label(for='player-share') 分享功能:
+            .cols.large-8
+              +select()#player-share.select2-single-fw
+          .row
+            .cols.large-4.l-text-right
+              label(for='player-full-screen') 全屏功能:
+            .cols.large-8
+              +select()#player-full-screen.select2-single-fw
+          .row
+            .cols.large-4.l-text-right
+              label(for='player-aspect') 长宽:
+            .cols.large-8
+              +select()#player-aspect.select2-single-fw
+          .row.form-submit
+            .cols.large-8.offset-by-4
+              button.btn-success(type='submit') 保存
+              a.link-button-cancel.btn-show-panel(data-panel='manage-player' href='#') 取消
+        .cols.large-6

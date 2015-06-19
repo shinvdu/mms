@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>MMS</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
+    <link href="css/rangeslider.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+  </head>
+  <body>
+    <div class="site">
+      <div class="header" id="header"></div>
+
+      <div class="content">
+        <div class="container">
+	  <div class="tab-panel current" id="add-transcoding-template">
+	    <div class="panel-links">
+	      <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	    </div>
+	    <div class="panel-content">
+	      <div class="row">
+		<div class="col-md-8">
+		  <form class="form-horizontal">
+		    <div class="form-group">
+		      <label class="col-md-3 control-label">修改用户信息</label>
+		    </div>
+		    <div class="form-group">
+		      <label class="col-md-3 control-label" for="user-config-name">用户名:</label>
+		      <div class="col-md-6">
+			<input class="form-control" id="user-config-name" type="text">
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <label class="col-md-3 control-label" for="old-password">原密码:</label>
+		      <div class="col-md-6">
+			<input class="form-control" id="old-password" type="password">
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <label class="col-md-3 control-label" for="new-password">新密码:</label>
+		      <div class="col-md-6">
+			<input class="form-control" id="new-password" type="password">
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <label class="col-md-3 control-label" for="password-confirm">再次输入密码:</label>
+		      <div class="col-md-6">
+			<input class="form-control" id="password-confirm" type="password">
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <div class="col-md-offset-3 col-md-6">
+			<div class="progress">
+			  <div class="progress-bar progress-bar-success" style="width: 33%">
+			    <span class="sr-only">35% Complete (success)</span>
+			  </div>
+			  <div class="progress-bar progress-bar-warning" style="width: 33%">
+			    <span class="sr-only">20% Complete (warning)</span>
+			  </div>
+			  <div class="progress-bar progress-bar-danger" style="width: 34%">
+			    <span class="sr-only">10% Complete (danger)</span>
+			  </div>
+			</div>
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <label class="col-md-3 control-label" for="email-address">邮箱地址:</label>
+		      <div class="col-md-6">
+			<input class="form-control" id="email-address" type="email">
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <label class="col-md-3 control-label" for="remark">备注:</label>
+		      <div class="col-md-6">
+			<textarea class="form-control" rows="3">
+			</textarea>
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <div class="col-md-offset-3 col-md-6">
+			<button class="btn btn-green" type="button">保存</button>
+			<button class="btn btn-gray" type="button">取消</button>
+		      </div>
+		    </div>
+		  </form>
+		</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      
+      <div class="footer" id="footer"></div>
+    </div>
+
+    <script src="js/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sly.min.js"></script>
+    <script src="js/video.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/rangeslider.js"></script>
+    <script src="js/dev.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

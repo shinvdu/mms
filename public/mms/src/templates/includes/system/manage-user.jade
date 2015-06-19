@@ -1,0 +1,36 @@
+include ../mixins
+
+.panel.is-current#manage-user
+  .panel-header
+    a.link-button-success.btn-show-panel(data-panel='add-user' href='#') 添加用户
+  .panel-content
+    table.table(summary='用户列表')
+      thead
+        tr
+          th 用户
+          th 名字
+          th 分类权限
+          th 操作
+      tbody
+        tr
+          td
+            | 1234561234412
+          td
+            | xiao2
+          td
+            ul.category-permission-list
+              li 电影
+                ul.category-permission-details
+                  li.is-selected 权限1
+                  li 权限2权限2权限2
+                  li 权限3
+              li 动画
+                ul.category-permission-details
+                  li.is-selected 权限1
+                  li 权限2
+                  li.is-selected 权限3
+              li 综艺
+          td
+            a(href='#') 预览
+            a(href='#') 修改
+            a(href='#') 删除

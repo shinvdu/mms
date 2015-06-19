@@ -1,0 +1,14 @@
+zh-CN:
+
+  helpers:
+    select:
+      # Default value for :prompt => true in FormOptionsHelper
+      prompt: "请选择"
+
+    # Default translation keys for submit and button FormHelper
+    submit:
+      create: "新增%{model}"
+      update: "更新%{model}"
+      submit: "储存%{model}"
+
+

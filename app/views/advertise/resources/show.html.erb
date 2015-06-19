@@ -1,0 +1,66 @@
+<%= render 'advertise/nav' %>
+<div class="tab-panel current" id="add-player">
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回广告资源列表'.html_safe, advertise_resources_path, :class => 'btn-return-link' %> |
+    <%= link_to '编辑', edit_advertise_resource_path(@advertise_resource), 'data-no-turbolink' => true %>
+  </div>
+
+  <div class="form-group clearfix">
+    <label class="col-md-5 control-label text-center">广告资源</label>
+  </div>
+  <table class="table">
+    <tbody>
+    <tr>
+      <td scope="row">名称</td>
+      <td><%= @advertise_resource.name %></td>
+    </tr>
+    <tr>
+      <td scope="row">文件类型</td>
+      <%
+         file_type = '视频' if @advertise_resource.file_type == 'video'
+         file_type = '图像' if @advertise_resource.file_type == 'image'
+      %>
+      <td><%= file_type %></td>
+    </tr>
+    <tr>
+      <td scope="row">广告类型</td>
+      <%
+         ad_types = Settings.advertise_resource.ad_type.invert
+      %>
+      <td><%= ad_types[@advertise_resource.ad_type] %></td>
+    </tr>
+    <tr>
+      <td scope="row">资源</td>
+      <td>
+        <%= image_tag(@advertise_resource.uri_url, :alt => '资源上传中，请刷新重试') if @advertise_resource.uri? && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
+
+        <% if @advertise_resource.file_type == 'video' %>
+            <% if @advertise_resource.transcoded_video.present? && @advertise_resource.transcoded_video.REMOTE? %>
+                <% style '/player1/video-js.css' %>
+                <% style '/player1/videojs.watermark.css' %>
+                <% javascript '/player1/video.js' %>
+                <% javascript '/player1/videojs.watermark.js' %>
+                <script>
+                    videojs.options.flash.swf = "/player1/video-js.swf";
+                </script>
+                <p>
+                  <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"
+                         data-setup="{}">
+                    <source src="<%= @advertise_resource.transcoded_video.get_full_url %>" type='video/mp4'/>
+                    <!--
+                    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web
+                      browser that
+                      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+                      -->
+                  </video>
+                </p>
+            <% else %>
+                <p>视频资源处理中</p>
+            <% end %>
+        <% end %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

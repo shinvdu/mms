@@ -1,0 +1,58 @@
+<%= form_for @water_mark_template do |f| %>
+    <div class="panel-content">
+      <div class="panel-form">
+        <div class="form-group">
+          <div class="form-label form-title">
+            <label><%= t controller.action_name %>水印</label>
+          </div>
+        </div>
+        <% if @water_mark_template.errors.any? %>
+            <div id="error_explanation">
+              <ul>
+                <% @water_mark_template.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="form-group">
+          <div class="form-label">
+            <%= f.label :name %>
+          </div>
+          <div class="form-field">
+            <%= f.text_field :name %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">
+            <%= f.label :refer_pos %>
+          </div>
+          <div class="form-field">
+            <%= f.select :refer_pos, @refer_poses, {}, :class => 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">
+            <%= f.label :text %>
+          </div>
+          <div class="form-field">
+            <%= f.text_field :text %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">
+            <%= f.label '立即启用' %>
+          </div>
+          <div class="form-field">
+            <%= f.check_box :enabled %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-field form-submit">
+            <%= f.button :submit, :class => 'btn-green' %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>

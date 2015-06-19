@@ -1,0 +1,2 @@
+module Advertise::StrategiesHelper
+end

@@ -1,0 +1,25 @@
+<%= form_for(@tags_relationship) do |f| %>
+  <% if @tags_relationship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tags_relationship.errors.count, "error") %> prohibited this tags_relationship from being saved:</h2>
+
+      <ul>
+      <% @tags_relationship.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :tag_id %><br>
+    <%= f.number_field :tag_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_video_id %><br>
+    <%= f.number_field :user_video_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

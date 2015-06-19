@@ -1,0 +1,76 @@
+log4r_config:
+  loggers:
+    - name      : production
+      trace     : 'false'
+      outputters :
+      - rollingfile
+    - name      : development
+      trace     : 'false'
+      outputters :
+      - rollingfile
+      - std
+    - name      : test
+      trace     : 'true'
+      outputters :
+      - rollingfile
+      - std
+    - name      : delayed_job
+      trace     : 'true'
+      outputters :
+      - djlog
+    - name      : delayed_job_query
+      trace     : 'true'
+      outputters :
+      - djquerylog
+    - name      : statistics
+      trace     : 'true'
+      outputters :
+      - statisticslog
+
+  outputters:
+  - type: RollingFileOutputter
+    name: rollingfile
+    level: DEBUG
+    filename: "log/15class/15class.log"
+    maxsize: 20,000,000
+    formatter:
+      type        : PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: StdoutOutputter
+    name: std
+    level: INFO
+    formatter:
+      type: PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: RollingFileOutputter
+    name: djlog
+    level: DEBUG
+    filename: "log/dj/dj.log"
+    maxsize: 20,000,000
+    formatter:
+      type        : PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: RollingFileOutputter
+    name: djquerylog
+    level: DEBUG
+    filename: "log/dj_query/dj_query.log"
+    maxsize: 20,000,000
+    formatter:
+      type        : PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+  - type: DateFileOutputter
+    name: statisticslog
+    level: DEBUG
+    dirname: "log/statistics"
+    filename: "statistics.log"
+    maxsize: 20,000,000
+    formatter:
+      type        : PatternFormatter
+      date_pattern: '%Y-%m-%d %H:%M:%S'
+      pattern     : "%d [%5l] [%T]: %M"
+
+

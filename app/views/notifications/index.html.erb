@@ -1,0 +1,51 @@
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#all_select').bind('click', function(e){
+        e.preventDefault();
+    })
+    $('#mark_as_read').bind('click', function(e){
+        e.preventDefault();
+        $("input:checkbox[name=notifications]:checked").each(function(){
+            alert($(this.val()));
+        });
+    })
+    $('#delete_mark').bind('click', function(e){
+        e.preventDefault();
+    })
+});
+</script>
+<div class="panel is-current">
+    <div class="panel-header clearfix">
+        <div class="l-right">
+            <button class="btn-link" id="all_message">全部消息</button>
+            <button class="btn-link">系统消息</button>
+            <button class="btn-link">账户消息</button>
+            <a class="btn-link" href="/">返回首页</a>
+        </div>
+        <button class="btn-info" id="all_select">全选</button>
+        <button class="btn-success" id="mark_as_read">标记为已读</button>
+        <button class="btn-danger" id="delete_mark">删除</button>
+    </div>
+    <div class="panel-content">
+      <% @notifications_sort.each do |date, n| %>
+        <div class="message-group">
+            <div class="row">
+                <div class="cols large-1 l-text-center">
+                    <input type="checkbox">
+                </div>
+                <div class="cols large-11"><%= date  %></div>
+            </div>
+            <% n  && n.each do |row| %>
+            <div class="row <%= 'is-unreaded' if not row.is_read %> ">
+                <div class="cols large-1 l-text-center">
+                    <%= check_box_tag('notifications[]', row.id) %>
+                </div>
+                <div class="cols large-2">系统消息</div>
+                <div class="cols large-7"><%= row.title %></div>
+                <div class="cols large-2 l-text-center"><%= row.created_at && row.created_at.strftime('%H:%M') %></div>
+            </div>
+            <% end %>
+        </div>
+        <% end %>
+    </div>
+</div>

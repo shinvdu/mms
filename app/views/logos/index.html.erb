@@ -1,0 +1,34 @@
+<%=  render 'players/nav' %>
+<div id="logo-list" class="panel is-current">
+    <div class="panel-header">
+        <a href="<%= new_logo_path %>" class="link-button-success">添加logo</a>
+    </div>
+    <div class="panel-content">
+        <table summary="logo列表" class="table">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>LOGO</th>
+                    <th>创建人</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @logos.each do |logo|  %>
+                <tr>
+                    <td><%= logo.name %></td>
+                    <td><%= image_tag(logo.uri_url(:normal)) if logo.uri? %></td>
+                    <td><%= logo.creator &&  logo.creator.nickname %></td>
+                    <td><%=  logo.created_at && logo.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+                    <td>
+                        <%= link_to '预览', logo_path(logo) %>
+                        <%= link_to '修改', edit_logo_path(logo),  'data-no-turbolink' => true  %>
+                        <%= link_to '删除', logo, method: :delete, data: { confirm: '你确定要删除?' } %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

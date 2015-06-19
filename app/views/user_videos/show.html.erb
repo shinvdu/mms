@@ -1,0 +1,34 @@
+<%= render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-transcoding-solution">
+
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回视频列表'.html_safe, video_product_groups_path, :class => 'btn-return-link' %> |
+  </div>
+
+  <h1><%= @user_video.video_name %></h1>
+  <div>
+    <% if @user_video.GOT_LOW_RATE? %>
+
+        <% javascript '/mms/dist/assets/js/video.min.js' %>
+        <% style '/player1/video-js.css' %>
+        <% style '/mms/dist/assets/css/lib/rangeslider.css' %>
+        <% javascript '/mms/dist/assets/js/jquery-ui.min.js' %>
+        <% javascript '/mms/dist/assets/js/rangeslider.min.js' %>
+
+        <script>
+            videojs.options.flash.swf = "/player1/video-js.swf";
+        </script>
+
+        <video id="example_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled" controls preload="none" width="426" height="240"
+               data-setup="{}">
+          <source src="<%= @user_video.mini_video.get_full_url %>" type='video/mp4'/>
+          <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+    <% end %>
+  </div>
+
+</div>
+
+
+

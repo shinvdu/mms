@@ -1,0 +1,75 @@
+include ../mixins
+
+.panel#add-transcoding-template
+  .panel-header.clearfix
+    a.l-right(href='?panel=video-transcoding-template') &lt;&lt; 返回模板列表
+  .panel-content
+    form
+      .row.form-title
+        .cols.large-2.l-text-right
+          | 添加转码模板
+      .row
+        .cols.large-2.l-text-right
+          label(for='template-name') 模版名称:
+        .cols.large-6
+          input#template-name(type='text')
+      .row
+        .cols.large-2.l-text-right
+          label 输出格式:
+        .cols.large-6
+          | mp4
+      .row
+        .cols.large-2.l-text-right
+          label(for='transcoding-level') 编码级别:
+        .cols.large-6
+          .row
+            .cols.large-6
+              +select()#transcoding-level.select2-single-fw
+            .cols.large-6.form-description
+              | 备注: 推荐使用 high
+      .row
+        .cols.large-2.l-text-right
+          label(for='compress-parameter') 视频压缩参数:
+        .cols.large-3
+          +select()#compress-parameter.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label(for='audio-coding') 音频编码:
+        .cols.large-3
+          +select()#audio-coding.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label(for='audio-sample-rate') 音频采样率:
+        .cols.large-3
+          +select()#audio-sample-rate.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label(for='audio-code-rate') 音频码率:
+        .cols.large-3
+          +select()#audio-code-rate.select2-single-fw
+      .row
+        .cols.large-2.l-text-right
+          label 视频隔行扫描:
+        .cols.large-3
+          label
+            input(type='checkbox' value='yes')
+            | 是
+      .row
+        .cols.large-2.l-text-right
+          label(for='video-aspect-ratio') 视频长宽比:
+        .cols.large-6
+          .row
+            .cols.large-6
+              +select('固定长宽高，画面拉伸')#video-aspect-ratio.select2-single-fw
+            .cols.large-5
+              .row
+                .cols.large-3.l-text-center
+                  | 说明:
+                .cols.large-4
+                  input(type='text' placeholder='长/px')
+                .cols.large-4.offset-by-1
+                  input(type='text' placeholder='宽/px')
+      .row.form-submit
+        .cols.large-6.offset-by-2
+          button.btn-success(type='submit') 保存
+          a.link-button-cancel.btn-show-panel(data-panel='video-transcoding-template' href='#') 取消

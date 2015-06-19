@@ -1,0 +1,54 @@
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+        $.ajax( {
+          dataType: 'json',
+          url: '/players/<%= @player.id  %>.json',
+          success: function ( json ) {
+            video = videojs("wgcloud_video_1", json);
+            <% if @player.logo &&  @player.logo.uri? %>
+            switch("<%=  @player.logo_position %>")
+            {
+              case 'left_top':
+                 var xpos = 0
+                 var ypos = 0
+              break;
+              case 'bottom_right':
+                 var xpos = 100
+                 var ypos = 100
+              break;
+              case 'bottom_left':
+                 var xpos =  0
+                 var ypos = 100
+              break;
+              default:
+                 var xpos = 100
+                 var ypos = 0
+            }            
+
+            var hash_water = {
+              file: '<%=  @player.logo.uri_url(:normal) %>',
+              xpos: xpos,
+              ypos: ypos,
+              xrepeat: 0,
+              opacity: 0.5,
+            }
+            video.watermark(hash_water);
+            <% end %>
+          },
+        } );
+})
+</script>
+  <video id="wgcloud_video_1" class="video-js vjs-default-skin vjs-paused vjs-controls-enabled"  >
+    <% if @videos %>
+      <% @videos.each do |containner, video| %>
+            <source src="<%= video %>" type='video/<%= containner %>' />
+      <% end %>
+    <% else %>
+    <source src="http://static.smartisanos.cn/common/video/t1-ui.mp4" type='video/mp4' />
+    <% end %>
+
+
+   <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+  </video>
+    <div class="vjs-big-play-button" role="button" aria-live="polite" tabindex="0" aria-label="play video"><span aria-hidden="true"></span></div>
+

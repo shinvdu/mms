@@ -1,0 +1,45 @@
+<%= render 'user_videos/nav' %>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @water_mark_template.owner_id %>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @water_mark_template.creator_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @water_mark_template.name %>
+</p>
+
+<p>
+  <strong>Width:</strong>
+  <%= @water_mark_template.width %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @water_mark_template.height %>
+</p>
+
+<p>
+  <strong>Refer pos:</strong>
+  <%= @water_mark_template.refer_pos %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @water_mark_template.text %>
+</p>
+
+<p>
+  <strong>Img:</strong>
+  <%= @water_mark_template.img %>
+</p>
+
+<%= link_to 'Edit', edit_water_mark_template_path(@water_mark_template) %> |
+<%= link_to 'Back', water_mark_templates_path %>

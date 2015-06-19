@@ -1,0 +1,35 @@
+<%= render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-transcoding-template">
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回转码方案'.html_safe, transcoding_strategies_path, :class => 'btn-return-link' %> |
+    <%= link_to '编辑', edit_transcoding_strategy_path(@transcoding_strategy) %>
+  </div>
+  <h4 class="col-sm-offset-2 col-sm-6">转码方案 <%= @transcoding_strategy.name %> </h4>
+
+  <div class="col-md-6 col-sm-offset-1">
+    <div class="row">
+
+      <table class="table table-striped">
+        <tr>
+          <th scope="row">名称</th>
+          <td><%= @transcoding_strategy.name %></td>
+        </tr>
+        <tr>
+          <th scope="row">转码模板</th>
+          <td>
+            <ul>
+              <% Transcoding.visible(current_user).each do |transcoding| %>
+                  <li><a href="<%= transcoding_path(transcoding) %>"><%= transcoding.name %></a></li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">备注</th>
+          <td><%= @transcoding_strategy.note %></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>

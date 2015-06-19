@@ -1,0 +1,60 @@
+<%= render 'user_videos/nav' %>
+<div id="video-transcoding-template" class="panel is-current">
+    <div class="panel-header clearfix">
+        <form class="l-right clearfix">
+            <div class="form-input-addon">
+                <input type="search" placeholder="模版名称/用户名"><i class="fa fa-search"></i>
+            </div>
+            <select class="select2-single select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                <option>选项1
+                </option>
+                <option>选项2
+                </option>
+                <option>选项3
+                </option>
+                <option>选项4
+                </option>
+                <option>选项5
+                </option>
+            </select>
+        </form>
+        <%= link_to '添加转码方案', new_transcoding_strategy_path, 'class' => 'link-button-success btn-show-panel', 'data-no-turbolink' => true %>
+    </div>
+    <div class="panel-content">
+        <table summary="转码模版列表" class="table">
+            <thead>
+                <tr>
+                    <th>模版名称</th>
+                    <th>模版类型</th>
+                    <th>创建用户</th>
+                    <th>创建时间</th>
+                    <th>最后修改时间</th>
+                    <th>操作</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @transcoding_strategies.each do |transcoding_strategy| %>
+                <tr>
+                    <td><%= transcoding_strategy.name %></td>
+                    <td style="max-width:150px; ">
+                        <% transcoding_strategy.transcodings.each do |transcoding | %>
+                            <a href="<%=  transcoding_path(transcoding) %>">
+                                <%= transcoding && transcoding.name %> 
+                            </a>
+                            <%= '<br>'.html_safe if transcoding_strategy.transcodings.last.name != transcoding.name %>
+                        <% end %>
+                    </td>
+                    <td><%=  transcoding_strategy.owner &&  transcoding_strategy.owner.nickname %></td>
+                    <td><%=  transcoding_strategy.created_at && transcoding_strategy.created_at.strftime("%Y/%m/%d %H:%M")   %></td>
+                    <td><%=  transcoding_strategy.updated_at && transcoding_strategy.updated_at.strftime("%Y/%m/%d %H:%M")   %></td>
+                    <td>
+                        <a href="<%= edit_transcoding_strategy_path(transcoding_strategy)  %>" data-no-turbolink="true">修改</a>
+                        <%= link_to '删除', transcoding_strategy, method: :delete, data: { confirm: '你确定要删除?' } %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

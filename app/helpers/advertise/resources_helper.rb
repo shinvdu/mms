@@ -1,0 +1,2 @@
+module Advertise::ResourcesHelper
+end

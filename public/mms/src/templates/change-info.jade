@@ -1,0 +1,46 @@
+extends includes/master-page
+
+append content
+  .panel.is-current
+    .panel-header.clearfix
+      .l-right
+        a.link-button-success(href='index.html') 返回首页
+    .panel-content
+      form
+        .row.form-title
+          .cols.large-2.l-text-right
+            | 修改用户信息
+        .row
+          .cols.large-2.l-text-right
+            label(for='user-name') 用户名:
+          .cols.large-4
+            input(type='text')#user-name
+        .row
+          .cols.large-2.l-text-right
+            label(for='old-password') 原密码:
+          .cols.large-4
+            input(type='password')#old-password
+        .row
+          .cols.large-2.l-text-right
+            label(for='new-password') 新密码:
+          .cols.large-4
+            input(type='password')#new-password
+        .row
+          .cols.large-2.l-text-right
+            label(for='new-password-confirm') 再次输入密码:
+          .cols.large-4
+            input(type='password')#new-password-confirm
+        .row
+          .cols.large-2.l-text-right
+            label(for='user-email') 邮箱地址:
+          .cols.large-4
+            input(type='email')#user-email
+        .row
+          .cols.large-2.l-text-right
+            label(for='user-remark') 备注:
+          .cols.large-6
+            textarea#user-remark
+        .row.form-submit
+          .cols.large-10.offset-by-2
+            button.btn-success(type='submit') 保存
+            a.link-button-cancel(href='index.html') 取消

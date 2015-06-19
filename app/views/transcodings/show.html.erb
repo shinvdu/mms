@@ -1,0 +1,65 @@
+<%= render 'user_videos/nav' %>
+<div class="tab-panel current" id="video-transcoding-solution">
+    <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回模板列表'.html_safe, transcodings_path, :class => 'btn-return-link' %> |
+<%= link_to '编辑', edit_transcoding_path(@transcoding), 'data-no-turbolink' => 'true' %>
+  </div>
+
+<h1>转码模板 <%= @transcoding.name %></h1>
+<table class="table table-striped">
+        <tr>
+          <th scope="row">名称</th>
+          <td><%= @transcoding.name %></td>
+        </tr>
+        <tr>
+          <th scope="row">转码速度</th>
+          <td><%= @transcoding.video_preset  %></td>
+        </tr>
+        <tr>
+          <th scope="row">输出格式</th>
+          <td><%= @transcoding.container  %></td>
+        </tr>
+        <tr>
+          <th scope="row">视频编码</th>
+          <td><%= @transcoding.video_codec  %></td>
+        </tr>
+        <tr>
+          <th scope="row">音频编码</th>
+          <td><%= @transcoding.audio_codec  %></td>
+        </tr>
+        <tr>
+          <th scope="row">视频码流</th>
+          <td><%= @transcoding.video_bitrate  %> Kbps</td>
+        </tr>
+        <tr>
+          <th scope="row">音频码率</th>
+          <td><%= @transcoding.audio_bitrate  %> Kbps</td>
+        </tr>
+        <tr>
+          <th scope="row">视频帧率</th>
+          <td><%= @transcoding.video_fps  %> 帧/每秒</td>
+        </tr>
+        <tr>
+          <th scope="row">关键帧间隔</th>
+          <td><%= @transcoding.video_gop /  @transcoding.video_fps if @transcoding.video_gop &&  @transcoding.video_fps  %> 秒</td>
+        </tr>
+        <tr>
+          <th scope="row">视频隔行扫描</th>
+          <td><%= @transcoding.video_scanmode  == 'interlaced' ? '是' : '否' %></td>
+        </tr>
+        <tr>
+          <th scope="row">缓冲区大小</th>
+          <td><%= @transcoding.video_bufsize  %> Kb</td>
+        </tr>
+        <tr>
+          <% 
+          size_desc = '保持原视频长宽' if not (@transcoding.width || @transcoding.height)
+          size_desc = "指定宽度，按比例缩放, 宽度为 #{@transcoding.height}" if @transcoding.height
+          size_desc = "指定长度，按比例缩放, 长度为#{@transcoding.width}" if @transcoding.width
+           %>
+          <th scope="row">视频长宽</th>
+          <td><%= size_desc  %></td>
+        </tr>
+    </table>
+
+</div>

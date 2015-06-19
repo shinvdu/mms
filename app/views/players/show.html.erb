@@ -1,0 +1,19 @@
+<% style '/player1/video-js.css' %>
+<% style '/player1/videojs.watermark.css' %>
+<% javascript '/player1/video.js' %>
+<% javascript '/player1/videojs.watermark.js' %>
+  <script>
+    videojs.options.flash.swf = "/player1/video-js.swf";
+  </script>
+
+<%=  render 'players/nav' %>
+<div class="tab-panel current" id="add-player">
+  <div class="panel-links">
+    <%= link_to '&lt;&lt; 返回播放器列表'.html_safe, players_path, :class => 'btn-return-link' %> |
+<%= link_to '编辑', edit_player_path(@player),  'data-no-turbolink' => true  %> 
+
+  </div>
+  <h3>播放器 <%= @player.name %> 预览</h3>
+<%= render 'common/player'  %>    
+
+</div>

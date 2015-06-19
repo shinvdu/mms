@@ -1,0 +1,27 @@
+.panel#manage-log
+  .panel-header.clearfix
+    form.l-right.clearfix
+      .form-input-addon
+        input(type='search' placeholder='用户名')
+        i.fa.fa-search
+      .datepicker-duration
+        input.datepicker-start(type='date' placeholder='2015/05/01')
+        | 至
+        input.datepicker-end(type='date' placeholder='2015/05/01')
+  .panel-content
+    table.table(summary='操作日志列表')
+      thead
+        tr
+          th 登陆时间
+          th 登录名
+          th 登录IP
+          th 详情
+      tbody
+        tr
+          td
+            | 2015/04/03 12:32
+          td
+            | 管理者
+          td
+            | 211.211.211.211
+          td

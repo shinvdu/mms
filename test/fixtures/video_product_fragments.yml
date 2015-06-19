@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  video_product_id: 1
+  video_fragment_id: 1
+  video_detail_id: 1
+  order: 1
+  status: 1
+
+two:
+  video_product_id: 1
+  video_fragment_id: 1
+  video_detail_id: 1
+  order: 1
+  status: 1

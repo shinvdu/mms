@@ -1,0 +1,20 @@
+<nav class="nav-secondary">
+  <ul class="clearfix">
+      <li class=""><a href="<%= muti_uploads_user_videos_path %>"  data-no-turbolink='true'><i class="fa fa-fw fa-square"></i>上传视频</a></li>
+      <li><a href="<%= video_product_groups_path %>"><i class="fa fa-fw fa-square"></i>视频列表</a></li>
+    <% if can? :manage, Transcoding %>
+        <li><a href="<%= transcodings_path %>"><i class="fa fa-fw fa-square"></i>转码模版</a></li>
+    <% end %>
+    <% if can? :manage, TranscodingStrategy %>
+        <li><a href="<%= transcoding_strategies_path %>"><i class="fa fa-fw fa-square"></i>转码方案</a></li>
+    <% end %>
+    <% if can? :manage, WaterMarkTemplate %>
+        <li><a href="<%= water_mark_templates_path %>"><i class="fa fa-fw fa-square"></i>水印管理</a></li>
+    <% end %>
+    <li><a href="<%= user_videos_path %>"><i class="fa fa-fw fa-square"></i>原片管理</a></li>
+    <% if can? :manage, VideoList %>
+        <li><a href="<%= video_lists_path %>"><i class="fa fa-fw fa-square"></i>分类管理</a></li>
+    <% end %>
+</ul>
+
+</nav>

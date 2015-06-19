@@ -1,0 +1,76 @@
+include ../mixins
+
+.panel#video-list
+  .panel-header.clearfix
+    form.l-right.clearfix
+      .form-input-addon
+        input(type='search' placeholder='视频名称')
+        i.fa.fa-search
+      .datepicker-duration
+        input.datepicker-start(type='date' placeholder='2015/05/01')
+        | 至
+        input.datepicker-end(type='date' placeholder='2015/05/01')
+      +select('全部状态').select2-single
+    a.link-button-success(href='#') 上传文件
+  .panel-content
+    .video-list
+      .video-list-item
+        label
+          .clearfix
+            input.l-right(type='checkbox')
+          .row
+            .cols.large-3
+              img(src='assets/img/header-bg.jpg')
+            .cols.large-9
+              .row
+                .cols.large-12
+                  dl
+                    dt 名称:
+                    dd sjasdsd.mov
+              .row
+                .cols.large-4
+                  dl
+                    dt 状态:
+                    dd 完成
+                .cols.large-8
+                  dl
+                    dt TAG:
+                    dd TAG1
+              .row
+                .cols.large-4
+                  dl
+                    dt 视频大小:
+                    dd 100M
+                .cols.large-8
+                  dl
+                    dt 播放次数:
+                    dd 123次
+              .row
+                .cols.large-4
+                  dl
+                    dt 拥有者:
+                    dd xiao2
+                .cols.large-8
+                  dl
+                    dt ID:
+                    dd 12341234QWER
+              .row
+                .cols.large-4
+                  dl
+                    dt 播放器方案:
+                    dd 12345
+                .cols.large-4
+                  dl
+                    dt 广告方案:
+                    dd 12345123
+                .cols.large-4
+                  dl
+                    dt 视频文件:
+                    dd iroha
+              .row
+                .cols.large-12.btn-group-inline
+                  a.link-button-info(href='#') 编辑
+                  a.link-button-info(href='#') 代码
+                  a.link-button-info.btn-show-panel(data-panel='video-edit' href='#') 剪辑
+                  a.link-button-info.btn-show-panel(data-panel='video-source-management' href='#') 原视频管理
+                  a.link-button-delete(href='#')  删除

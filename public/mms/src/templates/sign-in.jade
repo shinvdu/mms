@@ -1,0 +1,35 @@
+extends includes/master-page
+
+append content
+  .panel.is-current
+    .panel-header.clearfix
+      .l-right
+        | 还没有账号？
+        a.link-button-success(href='sign-up.html') 注册
+    .panel-content
+      form
+        .row
+          .cols.large-6.offset-by-2
+            .row
+              .cols.large-4.l-text-right
+                | 使用其他账号登录:
+              .cols.large-8
+                a(href='#') 微博登录
+                a(href='#') QQ登录
+            .row
+              .cols.large-4.l-text-right
+                label(for='user-email') 邮箱:
+              .cols.large-8
+                input(type='email')#user-email
+            .row
+              .cols.large-4.l-text-right
+                label(for='user-password') 密码:
+              .cols.large-8
+                input(type='password')#user-password
+            .row
+              .cols.large-8.offset-by-4
+                a(href='forgot-password.html') 忘记密码？
+            .row.form-submit
+              .cols.large-8.offset-by-4
+                button.btn-success(type='submit') 登录
+                a.link-button-cancel(href='index.html') 取消

@@ -1,0 +1,16 @@
+include mixins
+
+doctype html
+html(lang='zh-cmn-Hans')
+  include head
+  body
+    .site
+      include header
+      
+      .content
+        .container
+          block content
+          
+      include footer
+      
+  include foot

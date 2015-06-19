@@ -1,0 +1,20 @@
+<h3>往分类中添加</h3>
+<span>未分类的视频</span>
+<%= form_for @video_list do |f| %>
+    <table>
+      <tr>
+        <th>视频名称</th>
+        <th>操作</th>
+      </tr>
+      <% @nolist_user_videos.each do |uv| %>
+          <tr>
+            <td><%= link_to uv.video_name, user_video_path(uv) %></td>
+            <td><% 
+            # link_to '添加', video_list_user_video_path(@video_list, uv), :method => :put 
+            %></td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>
+
+

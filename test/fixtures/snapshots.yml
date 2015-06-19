@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uri: MyString
+  status: 1
+  video_detail_id: 1
+
+two:
+  uri: MyString
+  status: 1
+  video_detail_id: 1

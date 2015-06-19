@@ -1,0 +1,29 @@
+include ../mixins
+
+.panel#add-transcoding-solution
+  .panel-header.clearfix
+    a.l-right(href='?panel=video-transcoding-solution') &lt;&lt; 返回方案列表
+  .panel-content
+    form
+      .row.form-title
+        .cols.large-2.l-text-right
+          | 添加转码方案
+      .row
+        .cols.large-2.l-text-right
+          label(for='solution-name') 方案名称:
+        .cols.large-6
+          input#solution-name(type='text')
+      .row
+        .cols.large-2.l-text-right
+          label(for='template-select') 模版选择:
+        .cols.large-6
+          +select()#template-select.select2-multiple-fw(multiple='multiple')
+      .row
+        .cols.large-6.offset-by-2
+          dl
+            dt 说明:
+            dd qweqweqweqweqweqweqweqweqwe
+      .row.form-submit
+        .cols.large-6.offset-by-2
+          button.btn-success(type='submit') 保存
+          a.link-button-cancel.btn-show-panel(data-panel='video-transcoding-solution' href='#') 取消

@@ -1,0 +1,20 @@
+extends includes/master-page
+
+append content
+  +navbar(2)
+
+  nav.nav-secondary
+    ul.clearfix
+      li.is-current
+        a(href='?panel=advertisement-solution')
+          i.fa.fa-fw.fa-square
+          | 广告方案
+      li
+        a(href='?panel=advertisement-resource')
+          i.fa.fa-fw.fa-square
+          | 广告资源
+
+  include includes/advertisement/advertisement-solution
+  include includes/advertisement/add-advertisement-solution
+  include includes/advertisement/advertisement-resource
+  include includes/advertisement/add-advertisement-resource
