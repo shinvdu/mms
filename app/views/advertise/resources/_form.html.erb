@@ -1,101 +1,3 @@
-<%= form_for(@advertise_resource , html:{class: 'form-horizontal'}) do |f| %>
-<!--   <div class="panel-content">
-    <div class="panel-form">
-      <div class="form-group">
-        <div class="form-label form-title">
-          <label>添加广告资源</label>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-field form-offset">
-          <button class="btn-blue">上传文件</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="ad-resource-name">广告资源名称:</label>
-        </div>
-        <div class="form-field">
-          <div>
-            <%= f.text_field :name %>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="ad-release-company">广告投放公司:</label>
-        </div>
-        <div class="form-field">
-          <div>
-            <input id="ad-release-company" type="text">
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="ad-link">广告链接:</label>
-        </div>
-        <div class="form-field">
-          <div>
-            <input id="ad-link" type="text">
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="ad-position">广告位置:</label>
-        </div>
-        <div class="form-field">
-          <div>
-            <select id="ad-position">
-              <option>全部1
-              </option>
-              <option>全部2
-              </option>
-              <option>全部3
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="ad-release-time">广告投放时间:</label>
-        </div>
-        <div class="form-field">
-          <div>
-            <select id="ad-release-time">
-              <option>时间1
-              </option>
-              <option>时间2
-              </option>
-              <option>时间3
-              </option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-label">
-          <label for="ad-type">广告类型:</label>
-        </div>
-        <div class="form-field">
-          <div>
-            <%= f.select :ad_type, Settings.advertise_resource.ad_type , {}, {} %>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-field form-submit">
-          <button type="submit" class="btn-green">保存</button>
-          <button data-panel="advertisement-resource" class="btn-gray btn-show-panel">取消</button>
-        </div>
-      </div><img src="../assets/img/footer-bg.jpg" class="preview-image">
-    </div>
-  </div> -->
-
-<% end %>
-
 <script type="text/javascript">
   jQuery(document).ready(function($) {
     $("#advertise_resource_resource").hide();
@@ -120,10 +22,10 @@
   });
 
 </script>
-  <div class="row">
-<div class="col-md-10">
-
+            <div class="panel-content">
 <%= form_for(@advertise_resource , html:{class: 'form-horizontal'}) do |f| %>
+<div class="row">
+
   <% if @advertise_resource.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@advertise_resource.errors.count, "error") %> prohibited this advertise_resource from being saved:</h2>
@@ -135,49 +37,58 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= f.label :名称,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-8">
-      <%= f.text_field :name ,  class: 'form-control' %>
+  <div class="cols large-6">
+    <div class="row form-title">
+      <div class="cols large-4 l-text-right"><%= t controller.action_name %>广告资源</div>
     </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :资源类型,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
-      <%= f.select :file_type, Settings.advertise_resource.file_type , {}, {:class => 'form-control'} %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :广告类型,  :class => "col-md-3 control-label"  %>
-    <div class="col-md-8">
+    <div class="row">
+      <div class="cols large-4 l-text-right">
+        <label for="ad-resource-name">广告资源名称:</label>
+      </div>
+      <div class="cols large-8">
+        <%= f.text_field :name ,  class: 'trol' %>                      </div>
+      </div>
+    <div class="row">
+      <div class="cols large-4 l-text-right">
+        <label for="ad-resource-name">资源类型:</label>
+      </div>
+      <div class="cols large-8">
+        <%= f.select :file_type, Settings.advertise_resource.file_type , {}, {:class => 'form-control'} %>
+      </div>
+      </div>
+    <div class="row">
+      <div class="cols large-4 l-text-right">
+        <label for="ad-resource-name">广告类型:</label>
+      </div>
+      <div class="cols large-8">
       <%= f.select :ad_type, Settings.advertise_resource.ad_type , {}, {:class => 'form-control'} %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :广告资源,  :class => "col-md-3 control-label" %>
-    <div class="col-sm-8">
+      </div>
+      </div>
+    <div class="row">
+      <div class="cols large-4 l-text-right">
+        <label for="ad-resource-name">广告资源:</label>
+      </div>
+      <div class="cols large-8">
       <%= image_tag(@advertise_resource.uri_url) if @advertise_resource.uri?  && @advertise_resource.file_type && @advertise_resource.file_type == 'image' %>
       <%= video_tag(@advertise_resource.uri_url, :controls => true) if @advertise_resource.uri?  && @advertise_resource.file_type &&  @advertise_resource.file_type == 'video' %>
       <%= f.file_field :resource %>
       <%= f.file_field :uri %>
       <%= f.hidden_field :uri_cache %>
-    </div>
-  </div>
+      </div>
+      </div>
   <div class="form-group" style="display:none">
     <%= f.label :广告词,  :class => "col-md-3 control-label" %>
     <div class="col-sm-8">
       <%= f.text_area :ad_word ,  class: 'form-control' %>
     </div>
   </div>
-  <div class="form-group">
-    <div class="col-md-offset-3 col-md-6">
-        <%= f.submit '保存', :class => 'btn btn-green' %>
-      <a class="btn btn-gray" href="<%= advertise_resources_path %>">取消</a>
+  <div class="row form-submit">
+    <div class="cols large-8 offset-by-4">
+      <button type="submit" class="btn-success">保存</button><a data-panel="advertisement-resource" href="<%= advertise_resources_path %>" class="link-button-cancel btn-show-panel">取消</a>
     </div>
   </div>
-
+    </div>
+    </div>
   <% end %>
-</div>
-</div>
+
+  </div>
