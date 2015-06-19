@@ -1,114 +1,114 @@
 <div class="panel-content">
-<% javascript 'lib/cropper/cropper.min' %>
-<% javascript 'lib/cropper/canvas-to-blob.min' %>
-<% javascript 'mlogo' %>
-<% style 'lib/cropper/cropper.min' %>
-<% style 'mlogo' %>
+    <% javascript 'lib/cropper/cropper.min' %>
+    <% javascript 'lib/cropper/canvas-to-blob.min' %>
+    <% javascript 'mlogo' %>
+    <% style 'lib/cropper/cropper.min' %>
+    <% style 'mlogo' %>
 
-<script type="text/javascript">
-    $(function() {
+    <script type="text/javascript">
+$(function() {
         document.querySelector("#logo_form").addEventListener("submit", function(event) {
             event.preventDefault();
             var formData = new FormData(this);
             var canvas = $('.img-container > img').cropper('getCroppedCanvas')
 
             if (typeof canvas.toBlob !== "undefined") {
-                canvas.toBlob(function(blob) {
-                    formData.append("logo[uri]", blob, $('#logo_file_name').text());
+            canvas.toBlob(function(blob) {
+                formData.append("logo[uri]", blob, $('#logo_file_name').text());
                 }, "image/png", 0.75);
             } else if (typeof canvas.msToBlob !== "undefined") {
-                var blob = canvas.msToBlob()
-                formData.append("logo[uri]", blob, $('#logo_file_name').text());
+            var blob = canvas.msToBlob()
+            formData.append("logo[uri]", blob, $('#logo_file_name').text());
             }
 
             $.ajax({
-                url: '/logos<%= "/#{@logo.id}" if controller.action_name == 'edit' %>.json',
-                data: formData,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                success: function(data) {
-                    location.href = '/logos'
-                },
-                error: function(xhr, error) {
-                    var failed = '<div class="alert alert-danger">上传失败 </div>'
-                    $('#message').html(failed)
-                    window.scrollTo(0, 0);
-                },
-            });
-        }, false);
+url: '/logos<%= "/#{@logo.id}" if controller.action_name == 'edit' %>.json',
+data: formData,
+processData: false,
+contentType: false,
+type: 'POST',
+success: function(data) {
+location.href = '/logos'
+},
+error: function(xhr, error) {
+var failed = '<div class="alert alert-danger">上传失败 </div>'
+$('#message').html(failed)
+window.scrollTo(0, 0);
+},
+});
+}, false);
 
-    });
-</script>
-<%= form_for(@logo, html: {class: "form-horizontal", id: 'logo_form'}) do |f| %>
-<div class="row form-title">
-  <div class="cols large-12">添加LOGO图片</div>
-</div>
-
-    <% if @logo.errors.any? %>
-        <div id="error_explanation">
-          <h2> 发生了<%= pluralize(@logo.errors.count, "") %>个错误</h2>
-          <ul>
-            <% @logo.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-            <% end %>
-          </ul>
+});
+    </script>
+    <%= form_for(@logo, html: {class: "form-horizontal", id: 'logo_form'}) do |f| %>
+        <div class="row form-title">
+            <div class="cols large-12">添加LOGO图片</div>
         </div>
+
+        <% if @logo.errors.any? %>
+            <div id="error_explanation">
+                <h2> 发生了<%= pluralize(@logo.errors.count, "") %>个错误</h2>
+                <ul>
+                    <% @logo.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+        <% end %>
+        <button class="btn-primary fileinput-button" id="up_select">
+            <span>选择文件</span>
+            <!-- <input type="file" name="files[]" id="files_" multiple="multiple"> -->
+            <%= f.file_field :uri, :accept => "image/gif, image/png, image/jpg, image/jpeg", :onchange => 'readURL(this); show_images()' %>
+        </button>
+        <div style="padding: 10px 0;"></div>
+        <div class="logo_images" style="display: <%= controller.action_name == 'new' ? 'none' : 'show' %>">
+            <div class="row">
+                <div class="cols large-2 l-text-right">
+                    <label for="player-name">播放器名称:</label>
+                </div>
+                <div class="cols large-4">
+                    <%= f.text_field :name, class: 'ntrol' %>
+                    <span id="logo_file_name" style="display:none"><%= @logo.uri %></span>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="cols large-6">
+
+                    <div class="img-container">
+                        <%= image_tag(@logo.uri()) if @logo.uri? %>
+                        <% if not @logo.uri? %>
+                            <img src="/cropper/assets/img/picture.jpg" alt="Picture">
+                        <% end %>
+                    </div>
+                </div>
+                <div class="cols large-6">
+                    <div class="docs-preview clearfix">
+                        <div class="clearfix">
+                            <div class="img-preview preview-lg clearfix"></div>
+                            <span style="display:block; margin-top:80px">100x100</span>
+                        </div>
+                        <div class="clearfix">
+                            <div class="img-preview preview-md"></div>
+                            <span style="display:block; margin-top:60px">80x80</span>
+                        </div>
+                        <div class="clearfix">
+                            <div class="img-preview preview-sm"></div>
+                            <span style="display:block; margin-top:30px">50x50</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-submit">
+                <div class="cols large-6 offset-by-2">
+                    <button type="submit" class="btn-success">保存</button>
+                    <a data-panel="manage-player" href="<%= logos_path %>" class="link-button-cancel btn-show-panel">取消</a>
+                </div>
+            </div>
+
+        </div>
+        <%= f.hidden_field :uri_cache %>
     <% end %>
-    <button class="btn-primary fileinput-button" id="up_select">
-      <span>选择文件</span>
-      <!-- <input type="file" name="files[]" id="files_" multiple="multiple"> -->
-      <%= f.file_field :uri, :accept => "image/gif, image/png, image/jpg, image/jpeg", :onchange => 'readURL(this); show_images()' %>
-    </button>
-    <div style="padding: 10px 0;"></div>
-    <div class="logo_images" style="display: <%= controller.action_name == 'new' ? 'none' : 'show' %>">
-      <div class="row">
-        <div class="cols large-2 l-text-right">
-          <label for="player-name">播放器名称:</label>
-        </div>
-        <div class="cols large-4">
-          <%= f.text_field :name, class: 'ntrol' %>
-          <span id="logo_file_name" style="display:none"><%= @logo.uri %></span>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="cols large-6">
-
-            <div class="img-container">
-              <%= image_tag(@logo.uri()) if @logo.uri? %>
-              <% if not @logo.uri? %>
-                  <img src="/cropper/assets/img/picture.jpg" alt="Picture">
-              <% end %>
-            </div>
-        </div>
-        <div class="cols large-6">
-          <div class="docs-preview clearfix">
-            <div class="clearfix">
-              <div class="img-preview preview-lg clearfix"></div>
-              <span style="display:block; margin-top:80px">100x100</span>
-            </div>
-            <div class="clearfix">
-              <div class="img-preview preview-md"></div>
-              <span style="display:block; margin-top:60px">80x80</span>
-            </div>
-            <div class="clearfix">
-              <div class="img-preview preview-sm"></div>
-              <span style="display:block; margin-top:30px">50x50</span>
-            </div>
-        </div>
-      </div>
-      </div>
-      <div class="row form-submit">
-        <div class="cols large-6 offset-by-2">
-          <button type="submit" class="btn-success">保存</button>
-          <a data-panel="manage-player" href="<%= logos_path %>" class="link-button-cancel btn-show-panel">取消</a>
-        </div>
-      </div>
-
-    </div>
-    <%= f.hidden_field :uri_cache %>
-<% end %>
-<div class="panel-content">
+</div>
 
 
