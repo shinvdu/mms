@@ -1,35 +1,33 @@
 <%=  render 'players/nav' %>
-<div id="manage-player" class="tab-panel current">
-  <div class="panel-header clearfix">
-    <button class="btn-green-link">
-      <a  href="<%= new_player_path  %> ">添加播放器</a>
-    </button>
-  </div>
-  <table>
-    <thead>
-      <tr>
-        <th>播放器ID</th>
-        <th>播放器名称</th>
-        <th>创建人</th>
-        <th>创建时间</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @players.each do |player|  %>
-      <tr>
-        <td><%= player.id && player.id.to_s(36) %></td>
-        <td><%= player.name %></td>
-        <td><%= player.creator && player.creator.nickname %></td>
-        <td><%= player.created_at && player.created_at.strftime("%Y/%m/%d %H:%M") %></td>
-        <td>
-          <%= link_to '预览', player, 'data-no-turbolink' => true %>
-          <%= link_to '修改', edit_player_path(player),  'data-no-turbolink' => true %>
-          <%= link_to '删除', player, method: :delete, data: { confirm: '你确定要删除?' } %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-    <%=  paginate @players %>
+
+<div id="manage-player" class="panel is-current">
+    <div class="panel-header">
+        <a href="<%= new_player_path %>" class="link-button-success" data-no-turbolink="true">添加播放器</a>
+    </div>
+    <div class="panel-content">
+        <table summary="播放器列表" class="table">
+            <thead>
+                <tr>
+                    <th>播放器名称</th>
+                    <th>创建人</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @players.each do |player|  %>
+                <tr>
+                    <td><%= player.name %></td>
+                    <td><%= player.creator && player.creator.nickname %></td>
+                    <td><%= player.created_at && player.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+                    <td>
+                        <%= link_to '预览', player, 'data-no-turbolink' => true %>
+                        <%= link_to '修改', edit_player_path(player),  'data-no-turbolink' => true %>
+                        <%= link_to '删除', player, method: :delete, data: { confirm: '你确定要删除?' } %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
 </div>

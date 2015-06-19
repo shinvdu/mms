@@ -1,52 +1,52 @@
 <%=  render 'advertise/nav' %>
-
-<div id="advertisement-resource" class="tab-panel current">
-  <div class="panel-header clearfix">
-    <form class="clearfix">
-      <div class="right-inner-addon">
-        <input type="search" placeholder="资源名称/创建人"><i class="fa fa-search"></i>
-      </div>
-      <div>
-        <select>
-          <option>全部类型1
-          </option>
-          <option>全部类型2
-          </option>
-          <option>全部类型3
-          </option>
-        </select>
-      </div>
-    </form>
-    <button  class="btn-green"><%= link_to '添加广告资源', new_advertise_resource_path, 'style' => 'color:white', 'data-no-turbolink' => true %>
-  </div>
-  <table>
-    <thead>
-      <tr>
-        <th>编号</th>
-        <th>广告资源</th>
-        <th>资源类型</th>
-        <th>广告类型</th>
-        <th>创建时间</th>
-        <th>创建人</th>
-        <th>操作</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @advertise_resources.each do |advertise_resource|  %>
-      <tr>
-        <td><%= advertise_resource.id && advertise_resource.id.to_s(36) %></td>
-        <td><%= advertise_resource.name %></td>
-        <td><%= Settings.advertise_resource.file_type.invert[advertise_resource.file_type] if advertise_resource.file_type %></td>
-        <td><%= Settings.advertise_resource.ad_type.invert[advertise_resource.ad_type] if advertise_resource.ad_type %></td>
-        <td><%=  advertise_resource.created_at.strftime("%Y-%m-%d") %></td>
-        <td><%=  advertise_resource.user &&  advertise_resource.user.nickname%></td>
-        <td>
-          <%= link_to '修改', edit_advertise_resource_path(advertise_resource),  'data-no-turbolink' => true  %>
-          <%= link_to '删除', advertise_resource, method: :delete, data: { confirm: '你确定要删除?' } %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div id="advertisement-resource" class="panel is-current">
+    <div class="panel-header clearfix">
+        <form class="l-right clearfix">
+            <div class="form-input-addon">
+                <input type="search" placeholder="资源名称/创建人"><i class="fa fa-search"></i>
+            </div>
+            <select class="select2-single select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                <option>选项1
+                </option>
+                <option>选项2
+                </option>
+                <option>选项3
+                </option>
+                <option>选项4
+                </option>
+                <option>选项5
+                </option>
+            </select>
+        </form>
+        <%= link_to '添加广告资源', new_advertise_resource_path, 'class' => 'link-button-success btn-show-panel', 'data-no-turbolink' => true %>
+    </div>
+    <div class="panel-content">
+        <table summary="广告资源列表" class="table">
+            <thead>
+                <tr>
+                    <th>广告资源</th>
+                    <th>资源类型</th>
+                    <th>广告类型</th>
+                    <th>投放时间</th>
+                    <th>投放公司</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% @advertise_resources.each do |advertise_resource|  %>
+                <tr>
+                    <td><%= advertise_resource.name %></td>
+                    <td><%= Settings.advertise_resource.file_type.invert[advertise_resource.file_type] if advertise_resource.file_type %></td>
+                    <td><%= Settings.advertise_resource.ad_type.invert[advertise_resource.ad_type] if advertise_resource.ad_type %></td>
+                    <td><%=  advertise_resource.created_at.strftime("%Y-%m-%d") %></td>
+                    <td><%=  advertise_resource.user &&  advertise_resource.user.nickname%></td>
+                    <td>
+                        <%= link_to '修改', edit_advertise_resource_path(advertise_resource),  'data-no-turbolink' => true  %>
+                        <%= link_to '删除', advertise_resource, method: :delete, data: { confirm: '你确定要删除?' } %>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+    </div>
 </div>
-
