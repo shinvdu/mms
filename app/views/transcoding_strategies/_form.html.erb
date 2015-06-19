@@ -1,42 +1,38 @@
-<%= form_for(@transcoding_strategy, html:{class: 'form-horizontal'}) do |f| %>
 <div class="panel-content">
-  <div class="panel-form">
-    <div class="form-group">
-      <div class="form-label form-title">
-        <label><%= t controller.action_name %>转码方案</label>
-      </div>
+<%= form_for(@transcoding_strategy, html:{class: 'form-horizontal'}) do |f| %>
+<div class="row form-title">
+      <div class="cols large-2 l-text-right"><%= t controller.action_name %>转码方案</div>
     </div>
-    <div class="form-group">
-      <div class="form-label">
+    <div class="row">
+      <div class="cols large-2 l-text-right">
         <label for="solution-name">方案名称:</label>
       </div>
-      <div class="form-field">
+      <div class="cols large-6">
         <%= f.text_field :name  %>
       </div>
     </div>
-    <div class="form-group">
-      <div class="form-label">
+    <div class="row">
+      <div class="cols large-2 l-text-right">
         <label for="template-select">模版选择:</label>
       </div>
-      <div class="form-field">
-     <%= f.select :transcodings,  options_for_select(Transcoding.visible(current_user).collect {|p| [ p.name, p.id ] }, @existing_transcodings.collect {|p| p.id  }), {}, {:multiple => true,  style: 'min-height: 100px',  class: "input-lg"} %>
+      <div class="cols large-6">
+     <%= f.select :transcodings,  options_for_select(Transcoding.visible(current_user).collect {|p| [ p.name, p.id ] }, @existing_transcodings.collect {|p| p.id  }), {}, {:multiple => true,  style: 'min-height: 100px',  class: "select2-multiple-fw select2-hidden-accessible"} %>
 
       </div>
     </div>
-    <div class="form-group">
-      <div class="form-field form-offset">
+    <div class="row">
+      <div class="cols large-6 offset-by-2">
         <dl>
           <dt>说明:</dt>
-          <dd>qweqweqweqweqweqweqweqweqwe</dd>
+          <dd>可以多选</dd>
         </dl>
       </div>
     </div>
-    <div class="form-group">
-      <div class="form-field form-submit">
-        <%= f.submit '保存', :class => 'btn btn-green' %>
-        <a class="btn btn-gray" href="<%= transcoding_strategies_path %>">取消</a>
+    <div class="row form-submit">
+      <div class="cols large-6 offset-by-2">
+        <button type="submit" class="btn-success">保存</button>
+        <a data-panel="video-transcoding-solution" href="<%= transcoding_strategies_path %>" class="link-button-cancel btn-show-panel">取消</a>
       </div>
     </div>
-  </div>
-</div>
 <% end %>
+</div>
