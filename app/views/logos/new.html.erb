@@ -1,16 +1,9 @@
 <%=  render 'players/nav' %>
+<div id="upload-logo" class="panel is-current">
+	<div class="panel-header clearfix">
+		<%= link_to '返回LOGO列表', logos_path, :class => 'l-right' %> 
+	</div>
 
-<div class="tab-panel current" id="upload-logo">
-	<div class="panel-links"><%= link_to '返回LOGO列表', logos_path %> </div>
-	    <div class="panel-content">
-	      <p>添加LOGO图片</p>
-	      <div class="panel-notice">
-	        <p>说明</p>
-	        <ul>
-		  <li>图片使用透明背景，JPG文件会导致白色背景，</li>
-	        </ul>
-	      </div>
 
-<%= render 'form' %>
-</div>
+	<%= render 'form' %>
 </div>

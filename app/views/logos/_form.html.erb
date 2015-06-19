@@ -1,3 +1,4 @@
+<div class="panel-content">
 <% javascript 'lib/cropper/cropper.min' %>
 <% javascript 'lib/cropper/canvas-to-blob.min' %>
 <% javascript 'mlogo' %>
@@ -27,7 +28,7 @@
                 contentType: false,
                 type: 'POST',
                 success: function(data) {
-                    location.href = '<%= logos_path %>/' + data.id;
+                    location.href = '<%= logos_path %>/'
 //                    var success = '<div class="alert alert-success">上传成功, <a href="/logos/' + data.id + '">查看</a> </div>'
 //                    $('#message').html(success)
 //                    window.scrollTo(0, 0);
@@ -43,6 +44,10 @@
     });
 </script>
 <%= form_for(@logo, html: {class: "form-horizontal", id: 'logo_form'}) do |f| %>
+<div class="row form-title">
+  <div class="cols large-12">添加LOGO图片</div>
+</div>
+
     <% if @logo.errors.any? %>
         <div id="error_explanation">
           <h2> 发生了<%= pluralize(@logo.errors.count, "") %>个错误</h2>
@@ -53,52 +58,60 @@
           </ul>
         </div>
     <% end %>
+    <button class="btn-primary fileinput-button" id="up_select">
+      <span>选择文件</span>
+      <!-- <input type="file" name="files[]" id="files_" multiple="multiple"> -->
+      <%= f.file_field :uri, :accept => "image/gif, image/png, image/jpg, image/jpeg", :onchange => 'readURL(this); show_images()' %>
+    </button>
+    <div style="padding: 10px 0;"></div>
     <div class="logo_images" style="display: <%= controller.action_name == 'new' ? 'none' : 'show' %>">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <!-- <h3 class="page-header">Demo:</h3> -->
+      <div class="row">
+        <div class="cols large-2 l-text-right">
+          <label for="player-name">播放器名称:</label>
+        </div>
+        <div class="cols large-4">
+          <%= f.text_field :name, class: 'ntrol' %>
+          <span id="logo_file_name" style="display:none"><%= @logo.uri %></span>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="cols large-6">
+
             <div class="img-container">
               <%= image_tag(@logo.uri()) if @logo.uri? %>
               <% if not @logo.uri? %>
                   <img src="/cropper/assets/img/picture.jpg" alt="Picture">
               <% end %>
             </div>
-          </div>
-          <div class="col-md-3">
-            <!-- <h3 class="page-header">Preview:</h3> -->
-            <div class="docs-preview clearfix">
-              <div class="clearfix">
-                <div class="img-preview preview-lg clearfix"></div>
-                <span style="display:block; margin-top:80px">100* 100</span>
-              </div>
-              <div class="clearfix">
-                <div class="img-preview preview-md"></div>
-                <span style="display:block; margin-top:60px">80* 80</span>
-              </div>
-              <div class="clearfix">
-                <div class="img-preview preview-sm"></div>
-                <span style="display:block; margin-top:30px">50* 50</span>
-              </div>
-              <div id="xie"></div>
-
+        </div>
+        <div class="cols large-6">
+          <div class="docs-preview clearfix">
+            <div class="clearfix">
+              <div class="img-preview preview-lg clearfix"></div>
+              <span style="display:block; margin-top:80px">100x100</span>
             </div>
-          </div>
+            <div class="clearfix">
+              <div class="img-preview preview-md"></div>
+              <span style="display:block; margin-top:60px">80x80</span>
+            </div>
+            <div class="clearfix">
+              <div class="img-preview preview-sm"></div>
+              <span style="display:block; margin-top:30px">50x50</span>
+            </div>
         </div>
       </div>
-      <div class="form-group">
-        <%= f.label :LOGO名称, :class => "col-sm-2 control-label" %>
-        <div class="col-sm-6">
-          <%= f.text_field :name, class: 'form-control' %>
-          <span id="logo_file_name" class="hidden"><%= @logo.uri %></span>
+      </div>
+      <div class="row form-submit">
+        <div class="cols large-6 offset-by-2">
+          <button type="submit" class="btn-success">保存</button>
+          <a data-panel="manage-player" href="<%= logos_path %>" class="link-button-cancel btn-show-panel">取消</a>
         </div>
       </div>
+
     </div>
-    <%= f.file_field :uri, :class => 'btn ', :accept => "image/gif, image/png, image/jpg, image/jpeg", :onchange => 'readURL(this); show_images()' %>
     <%= f.hidden_field :uri_cache %>
-    <hr>
-    <%= f.submit '保存', :class => 'btn btn-green' %>
-    <a class="btn btn-gray" href="<%= logos_path %>">取消</a>
 <% end %>
+<div class="panel-content">
 
 

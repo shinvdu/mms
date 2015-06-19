@@ -1,12 +1,9 @@
 <%=  render 'players/nav' %>
-
-<div class="tab-panel current" id="upload-logo">
-  <div class="panel-links">
-  	<%= link_to '返回LOGO列表', logos_path %> |  
-  	<%= link_to '查看', @logo %></div>
-	<div class="form-group clearfix">
-		<label class="col-md-5 control-label text-center">编辑LOGO</label>
+<div id="upload-logo" class="panel is-current">
+	<div class="panel-header clearfix">
+		<%= link_to '返回LOGO列表', logos_path, :class => 'l-right' %> 
 	</div>
 
-<%= render 'form' %>
+
+	<%= render 'form' %>
 </div>
