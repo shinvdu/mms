@@ -17,7 +17,7 @@
             </button>
             <%= raw link_to('<i class="fa fa-power-off"></i>'.html_safe, destroy_account_session_path, :method => :delete) %> 
             <% else %>
-            <%= link_to('註冊', new_registration_path(:account)) %> 
+            <%= link_to('注册', new_registration_path(:account)) %> 
             <%= link_to('登入', new_session_path(:account)) %>
             <% end %>
           </div>
