@@ -3,7 +3,11 @@ class VideoController < ApplicationController
 
   def show
     @video_group = VideoProductGroup.where(show_id: params[:id]).first
-    if @video_group.FINISHED? && @video_group.ACCEPTED?
+    if not @video_group.ACCEPTED?
+      render html: '视频还没通过审核'
+      return
+    end
+    if @video_group.FINISHED? && 
       @video_products = @video_group.video_products
       @src = []
       @video_products.each do |product|
@@ -23,7 +27,11 @@ class VideoController < ApplicationController
   def iframe
      headers['X-Frame-Options'] = 'GOFORIT'
     @video_group = VideoProductGroup.where(show_id: params[:id]).first
-    if @video_group.FINISHED? && @video_group.ACCEPTED?
+     if not @video_group.ACCEPTED?
+      render html: '视频还没通过审核'
+      return
+    end
+    if @video_group.FINISHED?
       @video_products = @video_group.video_products
       @src = []
       @video_products.each do |product|

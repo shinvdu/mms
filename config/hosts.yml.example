@@ -29,7 +29,8 @@ development:
         hostname: video
         address: http://wg-upload.com:3000
 
-test:  server:
+test:  
+  server:
     web_server:
       main:
         hostname: main
