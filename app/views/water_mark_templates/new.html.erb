@@ -1,8 +1,9 @@
 <%= render 'user_videos/nav' %>
 
-<div class="tab-panel" style="display: block;">
-  <div class="panel-header">
-    <%= link_to '&lt;&lt; 返回水印列表'.html_safe, water_mark_templates_path %>
-  </div>
-  <%= render 'form' %>
+<div id="upload-logo" class="panel is-current">
+	<div class="panel-header clearfix">
+		<%= link_to '&lt;&lt; 返回水印列表'.html_safe, water_mark_templates_path , :class => 'l-right' %> 	
+	</div>
+
+	<%= render 'form' %>
 </div>
