@@ -1,58 +1,58 @@
-<%= form_for @water_mark_template do |f| %>
-    <div class="panel-content">
-      <div class="panel-form">
-        <div class="form-group">
-          <div class="form-label form-title">
-            <label><%= t controller.action_name %>水印</label>
-          </div>
-        </div>
-        <% if @water_mark_template.errors.any? %>
-            <div id="error_explanation">
-              <ul>
-                <% @water_mark_template.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-        <% end %>
+<div class="panel-content">
+  <%= form_for @water_mark_template do |f| %>
 
-        <div class="form-group">
-          <div class="form-label">
-            <%= f.label :name %>
-          </div>
-          <div class="form-field">
-            <%= f.text_field :name %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-label">
-            <%= f.label :refer_pos %>
-          </div>
-          <div class="form-field">
-            <%= f.select :refer_pos, @refer_poses, {}, :class => 'form-control' %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-label">
-            <%= f.label :text %>
-          </div>
-          <div class="form-field">
-            <%= f.text_field :text %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-label">
-            <%= f.label '立即启用' %>
-          </div>
-          <div class="form-field">
-            <%= f.check_box :enabled %>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-field form-submit">
-            <%= f.button :submit, :class => 'btn-green' %>
-          </div>
-        </div>
-      </div>
+  <div class="row form-title">
+    <div class="cols large-5 offset-by-2"><%= t controller.action_name %>水印</div>
+  </div>
+
+  <% if @water_mark_template.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @water_mark_template.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div class="row">
+    <div class="cols large-2 l-text-right">
+      <%= f.label :name %>
     </div>
-<% end %>
+    <div class="cols large-4">
+      <%= f.text_field :name %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="cols large-2 l-text-right">
+      <%= f.label :refer_pos %>
+    </div>
+    <div class="cols large-4">
+      <%= f.select :refer_pos, @refer_poses, {}, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="cols large-2 l-text-right">
+      <%= f.label :text %>
+    </div>
+    <div class="cols large-4">
+      <%= f.text_field :text %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="cols large-2 l-text-right">
+      <%= f.label '立即启用' %>
+    </div>
+    <div class="cols large-4">
+      <%= f.check_box :enabled %>
+    </div>
+  </div>
+  <div class="row form-submit">
+    <div class="cols large-6 offset-by-2">
+      <button type="submit" class="btn-success">保存</button>
+      <a data-panel="manage-player" href="<%= water_mark_templates_path %>" class="link-button-cancel btn-show-panel">取消</a>
+    </div>
+  </div>
+  <% end %>
+</div>
+

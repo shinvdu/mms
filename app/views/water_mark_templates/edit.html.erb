@@ -1,7 +1,8 @@
 <%= render 'user_videos/nav' %>
-<h1>Editing Water Mark Template</h1>
+<div id="upload-logo" class="panel is-current">
+	<div class="panel-header clearfix">
+		<%= link_to '&lt;&lt; 返回水印列表'.html_safe, water_mark_templates_path , :class => 'l-right' %> 	
+	</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @water_mark_template %> |
-<%= link_to 'Back', water_mark_templates_path %>
+	<%= render 'form' %>
+</div>

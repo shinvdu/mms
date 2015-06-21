@@ -47,7 +47,7 @@ class TranscodingsController < ApplicationController
         format.html { redirect_to @transcoding, notice: 'Transcoding was successfully created.' }
         format.json { render :show, status: :created, location: @transcoding }
       else
-        notice_error 'Create transcoding failed.'
+        notice_error '创建转码模板失败.'
         format.html { render :new }
         format.json { render json: @transcoding.errors, status: :unprocessable_entity }
       end
